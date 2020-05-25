@@ -1,4 +1,5 @@
-##Brique central de triple performance : 
+# insights
+A laravel item that holds the user logic
 
 Pour jouer les tests unitaires, ces tests vérifient que le métier est correctement
  implémenté en simulant l'ensemble des services de l'infrastructure : 
