@@ -23,10 +23,10 @@ class CreateOrganization
     {
         $rules = [
             'name' => 'string|required|min:2|max:255',
-            'city' => 'required|min:2|max:100',
-            'pc' => 'required|min:2|max:6',
-            'address1' => 'required|min:2|max:255',
-            'address2' => 'min:2|max:255',
+            'city' => 'string|required|min:2|max:100',
+            'pc' => 'string|required|min:2|max:6',
+            'address1' => 'string|required|min:2|max:255',
+            'address2' => 'min:2|max:255|nullable',
         ];
         $data = array_merge(['name' => $name], $address);
         $validator = Validator::make($data, $rules, [], ['name' => 'Nom']);
