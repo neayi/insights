@@ -28,12 +28,13 @@ class Organization
 
     public function create(string $ext = 'jpg')
     {
-        app(OrganizationRepository::class)->add($this);
-
         if($this->pathPicture !== "") {
             $picture = new Picture($this->pathPicture);
             $picture->resize('app/public/organizations/' . $this->id . '.' . $ext);
+            $this->pathPicture = 'app/public/organizations/' . $this->id . '.' . $ext;
         }
+
+        app(OrganizationRepository::class)->add($this);
     }
 
     public function toArray()
@@ -42,6 +43,7 @@ class Organization
             'uuid' => $this->id,
             'name' => $this->name,
             'path_picture' => $this->pathPicture,
+            'url_picture' => asset('storage/'.str_replace('app/public/', '', $this->pathPicture)),
         ], $this->address->toArray());
     }
 }

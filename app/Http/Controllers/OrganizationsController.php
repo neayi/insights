@@ -53,7 +53,7 @@ class OrganizationsController extends Controller
             $org = $organization->toArray();
             $list[] = [
                 $org['name'],
-                $org['name'],
+                $org['url_picture'],
                 ''
             ];
         }

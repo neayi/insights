@@ -60,6 +60,10 @@
                 {"name": "Logo"},
                 {"name": "Action"},
             ],
+            fnRowCallback: function(row, data) {
+                var picture = '<img src="'+data[1]+'" style="width:150px;"/>';
+                $('td', row).eq(1).html(picture);
+            }
         });
     </script>
 @stop
