@@ -23,7 +23,12 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
         }
-        if(config('app.env') === 'testing-ti' || config('app.env') === 'local'){
+        if(config('app.env') === 'testing-ti'){
+            $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
+            $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
+        }
+
+        if(config('app.env') === 'local'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
         }

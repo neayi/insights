@@ -33,7 +33,7 @@ class ListOrganizationsTest extends TestCase
     public function testShouldBeEmptyList()
     {
         $organizations = app(ListOrganizations::class)->list($page = 1, $perPage = 2);
-        self::assertEmpty($organizations);
+        self::assertEmpty($organizations['list']);
     }
 
     public function testShouldListOrganization()
@@ -42,8 +42,8 @@ class ListOrganizationsTest extends TestCase
         $this->organizationRepository->add($o);
 
         $organizations = app(ListOrganizations::class)->list($page = 1, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(Organization::class, $organizations);
-        self::assertCount(1, $organizations);
+        self::assertContainsOnlyInstancesOf(Organization::class, $organizations['list']);
+        self::assertCount(1, $organizations['list']);
     }
 
     public function testShouldPageOfOrganization()
@@ -56,11 +56,11 @@ class ListOrganizationsTest extends TestCase
         $this->organizationRepository->add($o);
 
         $organizations = app(ListOrganizations::class)->list($page = 1, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(Organization::class, $organizations);
-        self::assertCount(2, $organizations);
+        self::assertContainsOnlyInstancesOf(Organization::class, $organizations['list']);
+        self::assertCount(2, $organizations['list']);
 
         $organizations = app(ListOrganizations::class)->list($page = 2, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(Organization::class, $organizations);
-        self::assertCount(1, $organizations);
+        self::assertContainsOnlyInstancesOf(Organization::class, $organizations['list']);
+        self::assertCount(1, $organizations['list']);
     }
 }
