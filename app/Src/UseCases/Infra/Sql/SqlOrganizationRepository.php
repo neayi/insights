@@ -32,6 +32,10 @@ class SqlOrganizationRepository implements OrganizationRepository
     public function search(int $page, int $perPage = 10): array
     {
         $records = DB::table('organizations')
+            ->select();
+        $count = $records->count();
+
+        $records = DB::table('organizations')
             ->select()
             ->offset(($page-1)*$perPage)
             ->limit($perPage)
@@ -44,7 +48,10 @@ class SqlOrganizationRepository implements OrganizationRepository
             $address = new Address($record->city, $record->address1, $record->address2, $record->postal_code);
             $organizations[] = new Organization($record->uuid, $record->name, $record->path_picture, $address);
         }
-        return $organizations;
+        return [
+            'list' => $organizations,
+            'total' => $count
+        ];
     }
 
 

@@ -20,13 +20,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($organizations as $organization)
-                                <tr>
-                                    <td>{{ $organization['name'] }}</td>
-                                    <td>{{ $organization['name'] }}</td>
-                                    <td>{{ $organization['name'] }}</td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -43,6 +36,30 @@
 @section('js')
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
-        $('.data-table').DataTable();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var routeOrg = '{{route('organization.list.datatable')}}';
+        $('.data-table').DataTable({
+            processing: true,
+            responsive: true,
+            serverSide: true,
+            searching: false,
+            ordering:  false,
+            ajax: {
+                url: routeOrg,
+                type: 'POST'
+            },
+            iDisplayLength: 10,
+            lengthChange: false,
+            columns: [
+                {"searchable": false,"name": "Name"},
+                {"name": "Logo"},
+                {"name": "Action"},
+            ],
+        });
     </script>
 @stop

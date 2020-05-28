@@ -26,12 +26,14 @@ class Organization
         return $this->id;
     }
 
-    public function create()
+    public function create(string $ext = 'jpg')
     {
         app(OrganizationRepository::class)->add($this);
 
-        $picture = new Picture($this->pathPicture);
-        $picture->resize('app/organizations/'.$this->id.'.jpg');
+        if($this->pathPicture !== "") {
+            $picture = new Picture($this->pathPicture);
+            $picture->resize('app/public/organizations/' . $this->id . '.' . $ext);
+        }
     }
 
     public function toArray()

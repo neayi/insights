@@ -27,19 +27,42 @@ class OrganizationsController extends Controller
             'pc' => $pc,
             'city' => $city,
         ];
-        $id = $createOrganization->create($name, '', $address);
-        dd($id);
+        $picture = [];
+        if($request->has('logo')){
+            $picture['path_picture'] = $request->file('logo')->path();
+            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
+            $picture['mine_type'] = $request->file('logo')->getMimeType();
+        }
+
+        $createOrganization->create($name, $picture, $address);
+        return redirect()->route('organization.list');
     }
 
-    public function list(ListOrganizations $listOrganizations)
+    public function list()
     {
-        $organizations = $listOrganizations->list(1, 10);
+        return view('organizations/list');
+    }
+
+    public function listOrganizations(Request $request, ListOrganizations $listOrganizations)
+    {
+        $page = $request->input('start')/10 + 1;
+        $organizations = $listOrganizations->list($page, 10);
+        $total = isset($organizations['total']) ? $organizations['total'] : 0;
         $list = [];
-        foreach ($organizations as $organization){
-            $list[] = $organization->toArray();
+        foreach ($organizations['list'] as $organization){
+            $org = $organization->toArray();
+            $list[] = [
+                $org['name'],
+                $org['name'],
+                ''
+            ];
         }
-        return view('organizations/list', [
-            'organizations' => $list
-        ]);
+
+        return [
+            'draw' => $request->get('draw'),
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total,
+            'data' => $list,
+        ];
     }
 }
