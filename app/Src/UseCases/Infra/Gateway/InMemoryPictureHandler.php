@@ -14,14 +14,14 @@ class InMemoryPictureHandler implements PictureHandler
         $this->pictures[$path]['height'] = $height;
     }
 
-    public function widthen(string $path, float $width)
+    public function widen(string $source, string $dest, float $width)
     {
-        $this->pictures[$path]['width'] = $width;
+        $this->pictures[$dest]['width'] = $width;
     }
 
-    public function heighten(string $path, float $height)
+    public function heighten(string $source, string $dest, float $height)
     {
-        $this->pictures[$path]['height'] = $height;
+        $this->pictures[$dest]['height'] = $height;
     }
 
     public function width(string $path)

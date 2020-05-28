@@ -6,4 +6,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');
+Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
+Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
 Route::post('/organization/add', 'OrganizationsController@processAdd')->name('organization.add');

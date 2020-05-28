@@ -25,4 +25,14 @@ class InMemoryOrganizationRepository implements OrganizationRepository
     {
         $this->organizations[] = $o;
     }
+
+    public function search(int $page, int $perPage = 10): array
+    {
+        $chunks = array_chunk($this->organizations, $perPage);
+        $list = isset($chunks[$page-1]) ? $chunks[$page-1] : [];
+        return [
+            'list' => $list,
+            'total' => count($this->organizations)
+        ];
+    }
 }

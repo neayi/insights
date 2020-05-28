@@ -26,7 +26,35 @@ class SqlOrganizationRepository implements OrganizationRepository
 
     public function add(Organization $o)
     {
-        DB::table('organizations')->insert($o->toArray());
+        $data = $o->toArray();
+        unset($data['url_picture']);
+        DB::table('organizations')->insert($data);
     }
+
+    public function search(int $page, int $perPage = 10): array
+    {
+        $records = DB::table('organizations')
+            ->select();
+        $count = $records->count();
+
+        $records = DB::table('organizations')
+            ->select()
+            ->offset(($page-1)*$perPage)
+            ->limit($perPage)
+            ->get();
+        if(empty($records)){
+            return [];
+        }
+        $organizations = [];
+        foreach($records as $record){
+            $address = new Address($record->city, $record->address1, $record->address2, $record->postal_code);
+            $organizations[] = new Organization($record->uuid, $record->name, $record->path_picture, $address);
+        }
+        return [
+            'list' => $organizations,
+            'total' => $count
+        ];
+    }
+
 
 }
