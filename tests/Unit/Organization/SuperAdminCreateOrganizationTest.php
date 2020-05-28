@@ -72,7 +72,7 @@ class SuperAdminCreateOrganizationTest extends TestCase
 
         $organization = $this->organizationRepository->get($organizationId);
         $address = new Address($city, $address1, $address2, $pc);
-        $organizationExpected = new Organization($organizationId, $name, $pathPicture, $address);
+        $organizationExpected = new Organization($organizationId, $name, 'app/public/organizations/'.$organizationId.'.jpg', $address);
         self::assertEquals($organizationExpected, $organization);
 
         $finalPath = storage_path().'/app/public/organizations/'.$organizationId.'.jpg';
