@@ -9,3 +9,4 @@ Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->nam
 Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
 Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
 Route::post('/organization/add', 'OrganizationsController@processAdd')->name('organization.add');
+Route::post('/organization/users/invite', 'OrganizationsController@prepareInvitation')->name('organization.users.invite');

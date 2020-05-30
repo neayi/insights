@@ -3,11 +3,14 @@
 namespace App\Providers;
 
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Gateway\InMemoryPictureHandler;
 use App\Src\UseCases\Infra\Gateway\PictureHandler;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
+use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
+use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,15 +25,19 @@ class AppServiceProvider extends ServiceProvider
         if(config('app.env') === 'testing'){
             $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
+            $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
         }
         if(config('app.env') === 'testing-ti'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
+            $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
         }
 
         if(config('app.env') === 'local'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
+            $this->app->singleton(UserRepository::class, UserRepositorySql::class);
+
         }
     }
 
