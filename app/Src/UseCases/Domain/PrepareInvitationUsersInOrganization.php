@@ -20,6 +20,7 @@ class PrepareInvitationUsersInOrganization
     {
         $usersToProcess = [];
         if(!empty($users)){
+            $users = array_unique($users);
             foreach($users as $key => $user){
                 $users[$key] = ['email' => trim($user)];
             }

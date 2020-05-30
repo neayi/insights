@@ -51,4 +51,15 @@ class PrepareInvitationUsersInOrganizationTest extends TestCase
         $userExpectedToProcess = [['email' => 'anotheremail@gmail.com']];
         self::assertEquals($usersToProcess, $userExpectedToProcess);
     }
+
+    public function  testShouldNotInviteUserTwice()
+    {
+        $organizationId = Uuid::uuid4();
+        $emails = [$email = 'anotheremail@gmail.com', 'anotheremail@gmail.com'];
+
+        $usersToProcess = app(PrepareInvitationUsersInOrganization::class)->prepare($organizationId, $emails);
+
+        $userExpectedToProcess = [['email' => 'anotheremail@gmail.com']];
+        self::assertEquals($usersToProcess, $userExpectedToProcess);
+    }
 }

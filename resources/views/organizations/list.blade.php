@@ -30,7 +30,7 @@
 
     <div id="modalInvitation" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <form role="form" action="{{route('organization.users.invite')}}" method="post" enctype="multipart/form-data">
+            <form role="form" action="{{route('organization.users.prepare-invite')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
