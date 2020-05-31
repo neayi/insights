@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain;
 
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Infra\Gateway\FileStorage;
 use Illuminate\Support\Facades\Validator;
 
 class PrepareInvitationUsersInOrganization
@@ -16,14 +17,16 @@ class PrepareInvitationUsersInOrganization
         $this->userRepository = $userRepository;
     }
 
-    public function prepare(string $organizationId, array $users)
+    public function prepare(string $organizationId, array $users, string $filePathUsers = null)
     {
         $usersToProcess = [];
-        if(!empty($users)){
+        if(!empty($users) && $filePathUsers === null){
             $users = array_unique($users);
             foreach($users as $key => $user){
                 $users[$key] = ['email' => trim($user)];
             }
+        }else {
+            $users = app(FileStorage::class)->content($filePathUsers);
         }
         foreach($users as $userToInvite){
             $rules = [

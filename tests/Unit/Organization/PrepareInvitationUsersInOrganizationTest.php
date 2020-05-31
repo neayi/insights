@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Infra\Gateway\FileStorage;
 use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -60,6 +61,37 @@ class PrepareInvitationUsersInOrganizationTest extends TestCase
         $usersToProcess = app(PrepareInvitationUsersInOrganization::class)->prepare($organizationId, $emails);
 
         $userExpectedToProcess = [['email' => 'anotheremail@gmail.com']];
+        self::assertEquals($usersToProcess, $userExpectedToProcess);
+    }
+
+    public function  testShouldInviteUser_WithFileInput()
+    {
+        $organizationId = Uuid::uuid4();
+        $emails = [
+            [
+                'email' => 'anotheremail@gmail.com',
+                'firstname' => 'prenom',
+                'lastname' => 'nom'
+            ],
+            [
+                'email' => 'anotheremail2@gmail.com'
+            ]
+        ];
+
+        $path = 'pathfile.csv';
+        app(FileStorage::class)->setContent($path, $emails);
+        $usersToProcess = app(PrepareInvitationUsersInOrganization::class)->prepare($organizationId, [], $path);
+
+        $userExpectedToProcess = [
+            [
+                'email' => 'anotheremail@gmail.com',
+                'firstname' => 'prenom',
+                'lastname' => 'nom'
+            ],
+            [
+                'email' => 'anotheremail2@gmail.com'
+            ]
+        ];
         self::assertEquals($usersToProcess, $userExpectedToProcess);
     }
 }

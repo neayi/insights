@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Infra\Gateway\FileStorage;
+use App\Src\UseCases\Infra\Gateway\InMemoryFileStorage;
 use App\Src\UseCases\Infra\Gateway\InMemoryPictureHandler;
 use App\Src\UseCases\Infra\Gateway\PictureHandler;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
             $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
+            $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
         }
         if(config('app.env') === 'testing-ti'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
