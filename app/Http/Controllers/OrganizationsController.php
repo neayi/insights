@@ -4,7 +4,9 @@
 namespace App\Http\Controllers;
 
 use App\Src\UseCases\Domain\CreateOrganization;
+use App\Src\UseCases\Domain\InviteUsersInOrganization;
 use App\Src\UseCases\Domain\ListOrganizations;
+use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
 use Illuminate\Http\Request;
 
 class OrganizationsController extends Controller
@@ -54,7 +56,8 @@ class OrganizationsController extends Controller
             $list[] = [
                 $org['name'],
                 $org['url_picture'],
-                ''
+                '',
+                $org['uuid'],
             ];
         }
 
@@ -64,5 +67,34 @@ class OrganizationsController extends Controller
             'recordsFiltered' => $total,
             'data' => $list,
         ];
+    }
+
+    public function prepareInvitation(Request $request,  PrepareInvitationUsersInOrganization $prepareInvitationUsersInOrganization)
+    {
+        $users = $request->input('users');
+        $users = explode(PHP_EOL, $users);
+        $organizationId = $request->input('organization_id');
+
+        $usersToProcess = $prepareInvitationUsersInOrganization->prepare($organizationId, $users);
+
+        return view('organizations.prepare-invitation', [
+            'organization_id' => $organizationId,
+            'usersToProcess' => $usersToProcess
+        ]);
+    }
+
+    public function sendInvitations(Request $request, InviteUsersInOrganization $inviteUsersInOrganization)
+    {
+        $users = json_decode($request->input('users'), true);
+        $organizationId = $request->input('organization_id');
+
+        $inviteUsersInOrganization->invite($organizationId, $users);
+        $request->session()->flash('notif_msg', 'Les utilisateurs ont été invité à rejoindre l\'organisation.');
+        return redirect()->route('organization.list');
+    }
+
+    public function acceptInvite(Request $request)
+    {
+        dd($request);
     }
 }
