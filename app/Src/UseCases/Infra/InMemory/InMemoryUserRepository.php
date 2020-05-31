@@ -25,4 +25,14 @@ class InMemoryUserRepository implements UserRepository
         }
         return null;
     }
+
+    public function getById(string $id):?User
+    {
+        foreach ($this->users as $user){
+            if($user->id() === $id){
+                return $user;
+            }
+        }
+        return null;
+    }
 }

@@ -22,6 +22,11 @@ class User
         return $this->email;
     }
 
+    public function id():string
+    {
+        return $this->id;
+    }
+
     public function organizationId():?string
     {
         return $this->organizationId;
