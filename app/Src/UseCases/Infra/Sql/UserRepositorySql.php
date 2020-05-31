@@ -18,6 +18,16 @@ class UserRepositorySql implements UserRepository
         return new User($record->uuid, $record->email, $record->organization_id);
     }
 
+    public function getById(string $id): ?User
+    {
+        $record = \App\User::where('uuid', $id)->first();
+        if(!isset($record)){
+            return null;
+        }
+        return new User($record->uuid, $record->email, $record->organization_id);
+    }
+
+
     public function add(User $u)
     {
         $userModel = new \App\User();
