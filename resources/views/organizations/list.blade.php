@@ -37,14 +37,22 @@
                         <h4 class="modal-title">Inviter des utilisateurs dans l'organisation</h4>
                     </div>
                     <div class="modal-body">
-                            <input type="hidden" value="" id="i-organization-id" name="organization_id">
-                            <div class="form-group">
-                                <label for="list-users">Ajouter des utilisateurs : un email par ligne</label>
-                                <textarea name="users" id="list-users" class="form-control" rows="5"></textarea>
+                        <input type="hidden" value="" id="i-organization-id" name="organization_id">
+                        <div class="form-group">
+                            <label for="list-users">Ajouter des utilisateurs : un email par ligne</label>
+                            <textarea name="users" id="list-users" class="form-control" rows="5"></textarea>
+                        </div>
+                        <hr>
+                        <p>Ou importer un fichier</p>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input name="users" type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Seulement CSV</label>
                             </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="Inviter">
+                        <input type="submit" disabled class="btn btn-primary" id="button-form-invite-user" value="Inviter">
                     </div>
                 </div>
             </form>
@@ -89,9 +97,11 @@
                 {"name": "id", 'visible':false},
             ],
             fnRowCallback: function(row, data) {
-                var picture = '<img src="'+data[1]+'" style="width:150px;"/>';
-                $('td', row).eq(1).html(picture);
-                var action = '<span class="open-invite-modal" data-organization_id="'+data[3]+'" style="cursor:pointer;" "><i class="far fa-plus-square"></i> Inviter des utilisateurs</span>'
+                if(data[1] != null) {
+                    var picture = '<img src="' + data[1] + '" style="width:150px;"/>';
+                    $('td', row).eq(1).html(picture);
+                }
+                var action = '<button type="button" class="open-invite-modal btn btn-block btn-outline-primary btn-xs" data-organization_id="'+data[3]+'" style="cursor:pointer;" "><i class="far fa-plus-square"></i> Inviter des utilisateurs</button>'
                 $('td', row).eq(2).html(action);
             }
         });
@@ -100,11 +110,19 @@
         $('#modalInvitation').modal({show:false});
 
         $('.data-table').on('click', '.open-invite-modal',function () {
+            $('#button-form-invite-user').prop('disabled', true);
             $('#i-organization-id').val($(this).data('organization_id'));
             $('#list-users').val('');
             $('#modalInvitation').modal('show');
         });
 
+        $('#list-users').keyup(function () {
+            if($(this).val() != "") {
+                $('#button-form-invite-user').prop('disabled', false);
+            }else{
+                $('#button-form-invite-user').prop('disabled', true);
+            }
         });
+    });
     </script>
 @stop

@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Mail;
 
 class InviteUsersInOrganization
 {
-    public function invite(string $organizationId, array $emails)
+    public function invite(string $organizationId, array $users)
     {
-        foreach($emails as $email){
-            $token = base64_encode($organizationId.'*'.$email);
-            Mail::to($email)->send(new InvitationLinkToOrganization());
+        foreach($users as $user){
+            $email = $user['email'];
+            $firstname = isset($user['firstname']) ? $user['firstname'] : '';
+            $lastname = isset($user['lastname']) ? $user['lastname'] : '';
+            $token = base64_encode($organizationId.'|*|'.$email.'|*|'.$firstname.'|*|'.$lastname);
+            Mail::to($email)->send(new InvitationLinkToOrganization($token, $email, $firstname, $lastname));
         }
     }
 }

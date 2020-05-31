@@ -30,7 +30,7 @@ class InviteUsersInOrganizationTest extends TestCase
     public function test_ShouldInvite()
     {
         $organizationId = Uuid::uuid4();
-        $emails = ['anemail@gmail.com', 'anotheremail@gmail.com'];
+        $emails = [['email' => 'anemail@gmail.com'], ['email' => 'anotheremail@gmail.com']];
 
         app(InviteUsersInOrganization::class)->invite($organizationId, $emails);
 

@@ -39,11 +39,12 @@ class Organization
 
     public function toArray()
     {
+        $urlPicture = $this->pathPicture != "" ? asset('storage/'.str_replace('app/public/', '', $this->pathPicture)) : null;
         return array_merge([
             'uuid' => $this->id,
             'name' => $this->name,
             'path_picture' => $this->pathPicture,
-            'url_picture' => asset('storage/'.str_replace('app/public/', '', $this->pathPicture)),
+            'url_picture' => $urlPicture,
         ], $this->address->toArray());
     }
 }

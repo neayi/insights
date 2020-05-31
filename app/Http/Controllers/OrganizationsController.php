@@ -89,12 +89,12 @@ class OrganizationsController extends Controller
         $organizationId = $request->input('organization_id');
 
         $inviteUsersInOrganization->invite($organizationId, $users);
-        $request->session()->flash('notif', ['state' => 'success', 'msg' => 'Les utilisateurs ont été invité à rejoindre l\'organisation.']);
-        return view('organizations/list');
+        $request->session()->flash('notif_msg', 'Les utilisateurs ont été invité à rejoindre l\'organisation.');
+        return redirect()->route('organization.list');
     }
 
-    public function acceptInvite()
+    public function acceptInvite(Request $request)
     {
-
+        dd($request);
     }
 }
