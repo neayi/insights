@@ -26,6 +26,11 @@ class Organization
         return $this->id;
     }
 
+    public function name():string
+    {
+        return $this->name;
+    }
+
     public function create(string $ext = 'jpg')
     {
         if($this->pathPicture !== "") {

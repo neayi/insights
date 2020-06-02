@@ -15,20 +15,24 @@ class InvitationLinkToOrganization extends Mailable
     private $email;
     private $firstname;
     private $lastname;
+    private $organization;
 
-    public function __construct(string $token, string $email, string $firstname = null, string $lastname = null)
+    public function __construct(string $token, string $email, string $organization, string $firstname = null, string $lastname = null)
     {
         $this->token = $token;
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
+        $this->organization = $organization;
     }
 
     public function build()
     {
         $link = route('organization.invite.show').'?token='.$this->token;
         return $this->view('mails.invitationLinkToOrganization', [
-            'link' => $link
+            'link' => $link,
+            'firstname' => $this->firstname,
+            'organization' => $this->organization
         ]);
     }
 }
