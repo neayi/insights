@@ -5,7 +5,9 @@ namespace Tests\Unit\Organization;
 
 
 use App\Mail\InvitationLinkToOrganization;
+use App\Src\UseCases\Domain\Address;
 use App\Src\UseCases\Domain\InviteUsersInOrganization;
+use App\Src\UseCases\Domain\Organization;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
@@ -31,6 +33,9 @@ class InviteUsersInOrganizationTest extends TestCase
     {
         $organizationId = Uuid::uuid4();
         $emails = [['email' => 'anemail@gmail.com'], ['email' => 'anotheremail@gmail.com']];
+
+        $organization = new Organization($organizationId, 'org name', '', $this->createMock(Address::class));
+        $this->organizationRepository->add($organization);
 
         app(InviteUsersInOrganization::class)->invite($organizationId, $emails);
 
