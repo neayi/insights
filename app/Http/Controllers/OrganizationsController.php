@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Src\UseCases\Domain\CreateOrganization;
+use App\Src\UseCases\Domain\Invitation\RespondInvitationToAnOrganization;
 use App\Src\UseCases\Domain\InviteUsersInOrganization;
 use App\Src\UseCases\Domain\ListOrganizations;
 use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
@@ -93,8 +94,13 @@ class OrganizationsController extends Controller
         return redirect()->route('organization.list');
     }
 
-    public function acceptInvite(Request $request)
+    public function acceptInvite(Request $request, RespondInvitationToAnOrganization $respondInvitationToAnOrganization)
     {
-        dd($request);
+        $action = $respondInvitationToAnOrganization->respond($request->input('token'));
+        if($action['action'] == 'register'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_id']);
+            $request->session()->flash('user_to_register', $action['user']);
+            return redirect()->route('register');
+        }
     }
 }

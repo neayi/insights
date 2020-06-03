@@ -44,7 +44,7 @@ class PrepareInvitationUsersInOrganizationTest extends TestCase
     {
         $organizationId = Uuid::uuid4();
         $emails = [$email = 'auseralreadyinOrga@gmail.com', 'anotheremail@gmail.com'];
-        $user = new User(Uuid::uuid4()->toString(), $email, $organizationId);
+        $user = new User(Uuid::uuid4()->toString(), $email, '', '', $organizationId);
         $this->userRepository->add($user);
 
         $usersToProcess = app(PrepareInvitationUsersInOrganization::class)->prepare($organizationId, $emails);

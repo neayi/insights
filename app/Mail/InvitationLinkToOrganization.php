@@ -28,7 +28,7 @@ class InvitationLinkToOrganization extends Mailable
 
     public function build()
     {
-        $link = route('organization.invite.show').'?token='.$this->token;
+        $link = route('organization.invite.show').'?&token='.$this->token;
         return $this->view('mails.invitationLinkToOrganization', [
             'link' => $link,
             'firstname' => $this->firstname,
