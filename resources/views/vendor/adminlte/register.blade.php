@@ -113,9 +113,9 @@
                         {{ __('adminlte::adminlte.i_already_have_a_membership') }}
                     </a>
                 </p>
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div><!-- /.register-box -->
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('adminlte_js')

@@ -59,11 +59,45 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $user = new User($userId, $email, 'firstname', 'lastname');
         $this->userRepository->add($user);
 
+        $address = new Address('la garde', '1', '2', '83130');
+        $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
+        $this->organizationRepository->add($organizationToJoin);
+
         $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
         $action = app(RespondInvitationToAnOrganization::class)->respond($token);
 
         $actionExpected = [
-            'action' => 'accept_or_decline'
+            'action' => 'accept_or_decline',
+            'old_organisation' => null,
+            'organization_to_join' => $organizationToJoin
+        ];
+        self::assertEquals($actionExpected, $action);
+    }
+
+    public function testShouldAskUserToAcceptOrDeclineInvitation_WhenHeIsAlreadyInOrganization()
+    {
+        $organizationId = Uuid::uuid4();
+        $email = 'user@gmail.com';
+
+        $userId = Uuid::uuid4();
+        $user = new User($userId, $email, 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
+        $this->userRepository->add($user);
+
+        $address = new Address('la garde', '1', '2', '83130');
+        $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
+        $this->organizationRepository->add($organizationToJoin);
+
+        $address = new Address('la garde', '1', '2', '83130');
+        $oldOrganization = new Organization($oldOrganizationId, 'old_org', '', $address);
+        $this->organizationRepository->add($oldOrganization);
+
+        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
+        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+
+        $actionExpected = [
+            'action' => 'accept_or_decline',
+            'old_organisation' => $oldOrganization,
+            'organization_to_join' => $organizationToJoin
         ];
         self::assertEquals($actionExpected, $action);
     }

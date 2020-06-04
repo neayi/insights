@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>@lang('pages.title_add_organization')</h1>
+    <h1>@lang('pages.title_invite_users')</h1>
 @stop
 
 @section('content')
@@ -15,6 +15,11 @@
                         <h3 class="card-title">@lang('pages.invite_users')</h3>
                     </div>
                     <div class="card-body">
+                        <div class="callout callout-info">
+                            <p>
+                                {{count($usersToProcess)}} utilisateur(s) seront invités à rejoindre l'organisme
+                            </p>
+                        </div>
                         <table class="table table-hover text-nowrap">
                             <thead>
                                 <tr>

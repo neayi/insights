@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,30 +11,30 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function adminlte_image()
+    {
+        return 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
+    }
+
+    public function adminlte_desc()
+    {
+        $desc = ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        if($this->organization_id !== null){
+            $organization = app(OrganizationRepository::class)->get($this->organization_id);
+            $desc .= ' - organisme : '.$organization->name();
+        }
+        return $desc;
+    }
 }
