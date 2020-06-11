@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', __('pages.title_list_users'))
 
 @section('content')
     <div class="container-fluid">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">@lang('pages.title_list_organization')</h3>
+                        <h3 class="card-title">@lang('pages.title_list_users')</h3>
                     </div>
                     <div class="card-body">
                         <table class="data-table">
@@ -16,6 +16,7 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Logo</th>
+                                    <th>Actions</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -77,7 +78,7 @@
             }
         });
 
-        var routeOrg = '{{route('organization.list.datatable')}}';
+        var route = '{{route('users.list.datatable', ['id' => $organization_id])}}';
         $('.data-table').DataTable({
             processing: true,
             responsive: true,
@@ -85,25 +86,25 @@
             searching: false,
             ordering:  false,
             ajax: {
-                url: routeOrg,
+                url: route,
                 type: 'POST'
             },
             iDisplayLength: 10,
             lengthChange: false,
             columns: [
                 {"searchable": false,"name": "Name"},
-                {"name": "Logo"},
+                {"name": "email"},
+                {"name": "state"},
                 {"name": "Action"},
                 {"name": "id", 'visible':false},
             ],
             fnRowCallback: function(row, data) {
-                if(data[1] != null) {
+                /*if(data[1] != null) {
                     var picture = '<img src="' + data[1] + '" style="width:150px;"/>';
                     $('td', row).eq(1).html(picture);
                 }
                 var action = '<button type="button" class="open-invite-modal btn btn-block btn-outline-primary btn-xs" data-organization_id="'+data[3]+'" style="cursor:pointer;" "><i class="far fa-plus-square"></i> Inviter des utilisateurs</button>'
-                action += '<a href="organization/'+data[3]+'/users" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;" "><i class="far fa-user"></i>Voir les utilisateurs</a>'
-                $('td', row).eq(2).html(action);
+                $('td', row).eq(2).html(action);*/
             }
         });
 
@@ -115,14 +116,6 @@
             $('#i-organization-id').val($(this).data('organization_id'));
             $('#list-users').val('');
             $('#modalInvitation').modal('show');
-        });
-
-        $('#list-users').keyup(function () {
-            if($(this).val() != "") {
-                $('#button-form-invite-user').prop('disabled', false);
-            }else{
-                $('#button-form-invite-user').prop('disabled', true);
-            }
         });
     });
     </script>

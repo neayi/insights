@@ -12,4 +12,7 @@ Route::post('/organization/add', 'OrganizationsController@processAdd')->name('or
 Route::post('/organization/users/prepare-invite', 'OrganizationsController@prepareInvitation')->name('organization.users.prepare-invite');
 Route::post('/organization/users/invite', 'OrganizationsController@sendInvitations')->name('organization.users.invite');
 
+
+Route::get('/organization/{id}/users', 'UsersController@showListUsers')->name('users.list');
+Route::post('/organization/{id}/users', 'UsersController@listUsers')->name('users.list.datatable');
 Route::get('/organization/invite/accept', 'OrganizationsController@acceptInvite')->name('organization.invite.show');
