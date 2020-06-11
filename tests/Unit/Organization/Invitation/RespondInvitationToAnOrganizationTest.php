@@ -10,6 +10,7 @@ use App\Src\UseCases\Domain\Organization;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
 use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -18,12 +19,14 @@ class RespondInvitationToAnOrganizationTest extends TestCase
 {
     private $organizationRepository;
     private $userRepository;
+    private $authGateway;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->organizationRepository = app(OrganizationRepository::class);
         $this->userRepository = app(UserRepository::class);
+        $this->authGateway = app(AuthGateway::class);
 
         if(config('app.env') === 'testing-ti'){
             Artisan::call('migrate:fresh');
@@ -58,6 +61,7 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $userId = Uuid::uuid4();
         $user = new User($userId, $email, 'firstname', 'lastname');
         $this->userRepository->add($user);
+        $this->authGateway->log($user);
 
         $address = new Address('la garde', '1', '2', '83130');
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
@@ -74,7 +78,7 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         self::assertEquals($actionExpected, $action);
     }
 
-    public function testShouldAskUserToAcceptOrDeclineInvitation_WhenHeIsAlreadyInOrganization()
+    public function testShouldAskUserToAcceptOrDeclineInvitation_WhenHeIsAlreadyInOtherOrganization()
     {
         $organizationId = Uuid::uuid4();
         $email = 'user@gmail.com';
@@ -82,6 +86,7 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $userId = Uuid::uuid4();
         $user = new User($userId, $email, 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
         $this->userRepository->add($user);
+        $this->authGateway->log($user);
 
         $address = new Address('la garde', '1', '2', '83130');
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
@@ -97,6 +102,86 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $actionExpected = [
             'action' => 'accept_or_decline',
             'old_organisation' => $oldOrganization,
+            'organization_to_join' => $organizationToJoin
+        ];
+        self::assertEquals($actionExpected, $action);
+    }
+
+    public function testShouldAskUserToLogoutThenLoginToCorrectAccount_WhenUserExists()
+    {
+        $organizationId = Uuid::uuid4();
+        $email = 'user@gmail.com';
+
+        $userId = Uuid::uuid4();
+        $user = new User($userId, $email, 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
+        $this->userRepository->add($user);
+
+        $userLoggedId = Uuid::uuid4();
+        $userLogged = new User($userLoggedId, 'anemail@gmail.com', 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
+        $this->userRepository->add($userLogged);
+        $this->authGateway->log($userLogged);
+
+        $address = new Address('la garde', '1', '2', '83130');
+        $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
+        $this->organizationRepository->add($organizationToJoin);
+
+        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
+        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+
+        $actionExpected = [
+            'action' => 'logout-login',
+            'organization_to_join' => $organizationToJoin
+        ];
+        self::assertEquals($actionExpected, $action);
+    }
+
+    public function testShouldAskUserToLogoutThenRegisterNewAccount_WhenUserDoesNotExist()
+    {
+        $organizationId = Uuid::uuid4();
+        $email = 'user@gmail.com';
+
+        $userLoggedId = Uuid::uuid4();
+        $userLogged = new User($userLoggedId, 'anemail@gmail.com', 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
+        $this->userRepository->add($userLogged);
+        $this->authGateway->log($userLogged);
+
+        $address = new Address('la garde', '1', '2', '83130');
+        $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
+        $this->organizationRepository->add($organizationToJoin);
+
+        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
+        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+
+        $actionExpected = [
+            'action' => 'logout-register',
+            'organization_to_join' => $organizationToJoin,
+            'user' => [
+                'email' => $email,
+                'firstname' => '',
+                'lastname' => '',
+            ]
+        ];
+        self::assertEquals($actionExpected, $action);
+    }
+
+    public function testShouldAskUserToLogin()
+    {
+        $organizationId = Uuid::uuid4();
+        $email = 'user@gmail.com';
+
+        $userId = Uuid::uuid4();
+        $user = new User($userId, $email, 'firstname', 'lastname', $oldOrganizationId = Uuid::uuid4()->toString());
+        $this->userRepository->add($user);
+
+        $address = new Address('la garde', '1', '2', '83130');
+        $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
+        $this->organizationRepository->add($organizationToJoin);
+
+        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
+        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+
+        $actionExpected = [
+            'action' => 'login',
             'organization_to_join' => $organizationToJoin
         ];
         self::assertEquals($actionExpected, $action);
