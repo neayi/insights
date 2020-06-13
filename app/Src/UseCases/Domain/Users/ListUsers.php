@@ -17,9 +17,10 @@ class ListUsers
 
     public function list(string $organizationId, int $page, int $perPage = 10):array
     {
+        $users = $this->userRepository->search($organizationId, $page, $perPage);
         return [
-            'list' => [],
-            'total' => 0
+            'list' => $users['list'],
+            'total' => $users['total']
         ];
     }
 }

@@ -35,4 +35,20 @@ class InMemoryUserRepository implements UserRepository
         }
         return null;
     }
+
+    public function search(string $organizationId, int $page, int $perPage = 10): array
+    {
+        $users = [];
+        foreach($this->users as $user){
+            if($user->organizationId() === $organizationId){
+                $users[] = $user;
+            }
+        }
+        $chunks = array_chunk($users, $perPage);
+        $list = isset($chunks[$page-1]) ? $chunks[$page-1] : [];
+        return [
+            'list' => $list,
+            'total' => count($users)
+        ];
+    }
 }

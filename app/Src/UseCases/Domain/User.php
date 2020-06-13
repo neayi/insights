@@ -37,7 +37,9 @@ class User
         return [
             'uuid' => $this->id,
             'email' => $this->email,
-            'organization_id' => $this->organizationId
+            'organization_id' => $this->organizationId,
+            'firstname' => '',
+            'lastname' => '',
         ];
     }
 }

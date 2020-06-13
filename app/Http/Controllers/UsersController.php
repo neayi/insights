@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\ListUsers;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class UsersController extends Controller
             $list[] = [
                 $user['firsname'].' '.$user['lastname'],
                 $user['email'],
-                $user['state'],
+                '', //$user['state'],
                 '',
                 $user['uuid'],
             ];
@@ -38,5 +39,18 @@ class UsersController extends Controller
             'recordsFiltered' => $total,
             'data' => $list,
         ];
+    }
+
+    public function editShowForm(string $userId, GetUser $getUser)
+    {
+        $user = $getUser->get($userId);
+        return view('users/edit_form', [
+            'user' => $user->toArray()
+        ]);
+    }
+
+    public function editProcess()
+    {
+
     }
 }

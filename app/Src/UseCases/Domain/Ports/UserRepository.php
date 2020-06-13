@@ -11,4 +11,5 @@ interface UserRepository
     public function getByEmail(string $email):? User;
     public function getById(string $id):?User;
     public function add(User $u);
+    public function search(string $organizationId, int $page, int $perPage = 10): array;
 }
