@@ -10,5 +10,6 @@ interface UserRepository
 {
     public function getByEmail(string $email):? User;
     public function getById(string $id):?User;
-    public function add(User $u);
+    public function add(User $u, string $password = null);
+    public function update(User $u);
 }

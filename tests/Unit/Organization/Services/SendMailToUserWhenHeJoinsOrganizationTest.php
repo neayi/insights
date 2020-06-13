@@ -35,7 +35,7 @@ class SendMailToUserWhenHeJoinsOrganizationTest extends TestCase
     public function testShouldSendMail()
     {
         $userEmail = 'anemail@gmail.com';
-        $user = new User($uid = Uuid::uuid4()->toString(), $userEmail);
+        $user = new User($uid = Uuid::uuid4()->toString(), $userEmail,  '', '');
         $this->userRepository->add($user);
 
         app(SendMailToUserWhenHeJoinsOrganization::class)->send($uid);

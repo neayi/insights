@@ -13,3 +13,4 @@ Route::post('/organization/users/prepare-invite', 'OrganizationsController@prepa
 Route::post('/organization/users/invite', 'OrganizationsController@sendInvitations')->name('organization.users.invite');
 
 Route::get('/organization/invite/accept', 'OrganizationsController@acceptInvite')->name('organization.invite.show');
+Route::get('/organization/user/join', 'OrganizationsController@joinOrganization')->name('organization.user.join');

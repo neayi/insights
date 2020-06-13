@@ -15,7 +15,7 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->organization_id);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id);
     }
 
     public function getById(string $id): ?User
@@ -24,16 +24,21 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->organization_id);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id);
     }
 
-
-    public function add(User $u)
+    public function add(User $u, string $password = null)
     {
         $userModel = new \App\User();
         $userModel->fill($u->toArray());
+        $userModel->password = $password;
         $userModel->save();
     }
 
-
+    public function update(User $u)
+    {
+        $userModel = \App\User::where('uuid', $u->id())->first();
+        $userModel->fill($u->toArray());
+        $userModel->save();
+    }
 }

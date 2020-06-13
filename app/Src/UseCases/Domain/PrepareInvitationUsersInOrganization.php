@@ -19,16 +19,11 @@ class PrepareInvitationUsersInOrganization
 
     public function prepare(string $organizationId, array $users, string $filePathUsers = null)
     {
+        $usersLoop = [];
         $usersToProcess = [];
-        if(!empty($users) && $filePathUsers === null){
-            $users = array_unique($users);
-            foreach($users as $key => $user){
-                $users[$key] = ['email' => trim($user)];
-            }
-        }else {
-            $users = app(FileStorage::class)->content($filePathUsers);
-        }
-        foreach($users as $userToInvite){
+        $usersLoop = $this->getUsersToProcess($users, $usersLoop, $filePathUsers);
+        $errors = $imported = 0;
+        foreach($usersLoop as $userToInvite){
             $rules = [
                 'email' => 'email|required|min:2|max:255',
                 'firstname' => 'string|max:100',
@@ -36,14 +31,42 @@ class PrepareInvitationUsersInOrganization
             ];
             $validator = Validator::make($userToInvite, $rules);
             if($validator->fails()){
+                $userToInvite['error'] = 'email.error.syntax';
+                $usersToProcess['users'][] = $userToInvite;
+                $errors++;
                 continue;
             }
 
             $user = $this->userRepository->getByEmail($userToInvite['email']);
-            if(!isset($user) || $user->organizationId() !== $organizationId) {
-                $usersToProcess[] = $userToInvite;
+            if(isset($user) && $user->organizationId() === $organizationId) {
+                $userToInvite["error"] = 'already_in';
+                $errors++;
+            }
+            $usersToProcess['users'][] = $userToInvite;
+
+            if(!isset($userToInvite["error"])){
+                $imported++;
             }
         }
+        $usersToProcess['total'] = count($usersToProcess['users']);
+        $usersToProcess['imported'] = $imported;
+        $usersToProcess['error'] = $errors;
         return $usersToProcess;
+    }
+
+    private function valueUnique(array $users, array $usersLoop): array
+    {
+        foreach ($users as $key => $user) {
+            $usersLoop[trim($user)] = ['email' => trim($user)];
+        }
+        return $usersLoop;
+    }
+
+    private function getUsersToProcess(array $users, array $usersLoop, string $filePathUsers = null): array
+    {
+        if (!empty($users) && $filePathUsers === null) {
+            return $this->valueUnique($users, $usersLoop);
+        }
+        return app(FileStorage::class)->content($filePathUsers);
     }
 }

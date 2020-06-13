@@ -4,10 +4,13 @@
 namespace App\Http\Controllers;
 
 use App\Src\UseCases\Domain\CreateOrganization;
+use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
+use App\Src\UseCases\Domain\Invitation\RespondInvitationToAnOrganization;
 use App\Src\UseCases\Domain\InviteUsersInOrganization;
 use App\Src\UseCases\Domain\ListOrganizations;
 use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizationsController extends Controller
 {
@@ -93,8 +96,54 @@ class OrganizationsController extends Controller
         return redirect()->route('organization.list');
     }
 
-    public function acceptInvite(Request $request)
+    public function acceptInvite(Request $request, RespondInvitationToAnOrganization $respondInvitationToAnOrganization)
     {
-        dd($request);
+        $action = $respondInvitationToAnOrganization->respond($token = $request->input('token'));
+        if($action['action'] == 'register'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_id']);
+            $request->session()->flash('user_to_register', $action['user']);
+            return redirect()->route('register');
+        }
+        if($action['action'] == 'accept_or_decline'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+            return view('organizations.accept-or-decline-invitation', [
+                'old_organisation' => isset($action['old_organisation']) ? $action['old_organisation']->toArray() : null,
+                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+            ]);
+        }
+        if($action['action'] == 'logout-login'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+            $request->session()->flash('should_attach_to_organization_token', $token);
+            $request->session()->flash('should_attach_to_organization_redirect', route('login'));
+            return view('organizations.logout-to-accept-or-decline-invitation', [
+                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+            ]);
+        }
+
+        if($action['action'] == 'login'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+            $request->session()->flash('should_attach_to_organization_token', $token);
+            $request->session()->flash('should_attach_to_organization_redirect', route('login'));
+            return redirect()->route('login');
+        }
+
+        if($action['action'] == 'logout-register'){
+            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+            $request->session()->flash('should_attach_to_organization_token', $token);
+            $request->session()->flash('should_attach_to_organization_redirect', route('register'));
+            $request->session()->flash('user_to_register', $action['user']);
+            return view('organizations.logout-to-accept-or-decline-invitation', [
+                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+            ]);
+        }
+    }
+
+    public function joinOrganization(Request $request, AttachUserToAnOrganization $attachUserToAnOrganization)
+    {
+        $userId = Auth::user()->uuid;
+        $organizationId = $request->session()->get('should_attach_to_organization');
+        $attachUserToAnOrganization->attach($userId, $organizationId);
+        $request->session()->flash('notif_msg', 'Vous avez rejoint un nouvel organisme');
+        return redirect()->route('home');
     }
 }
