@@ -65,10 +65,10 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -213,11 +213,10 @@ return [
             'search' => true,
             'topnav' => true,
         ],*/
-        /*[
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],*/
+        [
+            'text' => 'Dashboard',
+            'url'  => 'home',
+        ],
         /*[
             'text'        => 'pages',
             'url'         => 'admin/pages',

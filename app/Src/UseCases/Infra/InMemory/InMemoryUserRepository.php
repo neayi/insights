@@ -11,7 +11,7 @@ class InMemoryUserRepository implements UserRepository
 {
     private $users = [];
 
-    public function add(User $u)
+    public function add(User $u, string $password = null)
     {
         $this->users[] = $u;
     }
@@ -51,4 +51,15 @@ class InMemoryUserRepository implements UserRepository
             'total' => count($users)
         ];
     }
+
+    public function update(User $u)
+    {
+        foreach ($this->users as $key => $user){
+            if($user->id() === $u->id()){
+                $this->users[$key] = $u;
+            }
+        }
+    }
+
+
 }

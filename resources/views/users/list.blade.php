@@ -92,7 +92,7 @@
             iDisplayLength: 10,
             lengthChange: false,
             columns: [
-                {"searchable": false,"name": "Name"},
+                {"name": "Name"},
                 {"name": "email"},
                 {"name": "state"},
                 {"name": "Action"},
@@ -102,20 +102,12 @@
                 /*if(data[1] != null) {
                     var picture = '<img src="' + data[1] + '" style="width:150px;"/>';
                     $('td', row).eq(1).html(picture);
-                }
-                var action = '<button type="button" class="open-invite-modal btn btn-block btn-outline-primary btn-xs" data-organization_id="'+data[3]+'" style="cursor:pointer;" "><i class="far fa-plus-square"></i> Inviter des utilisateurs</button>'
-                $('td', row).eq(2).html(action);*/
+                }*/
+                var action = '<a href="user/'+data[4]+'/edit/form" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
+                    '<i class="far fa-plus-square"></i> ' +
+                    'Editer l\'utilisateurs</a>'
+                $('td', row).eq(3).html(action);
             }
-        });
-
-
-        $('#modalInvitation').modal({show:false});
-
-        $('.data-table').on('click', '.open-invite-modal',function () {
-            $('#button-form-invite-user').prop('disabled', true);
-            $('#i-organization-id').val($(this).data('organization_id'));
-            $('#list-users').val('');
-            $('#modalInvitation').modal('show');
         });
     });
     </script>

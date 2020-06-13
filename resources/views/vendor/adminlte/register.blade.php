@@ -33,22 +33,37 @@
                     {{ csrf_field() }}
 
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
-                               placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+                        <input type="text" name="firstname" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" value="{{ old('firstname') !== null ? old('firstname') : $firstname }}"
+                               placeholder="{{ __('adminlte::adminlte.firstname') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
 
-                        @if ($errors->has('name'))
+                        @if ($errors->has('firstname'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('name') }}</strong>
+                                <strong>{{ $errors->first('firstname') }}</strong>
                             </div>
                         @endif
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}"
+                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') !== null ? old('lastname') : $lastname }}"
+                               placeholder="{{ __('adminlte::adminlte.lastname') }}" autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('lastname'))
+                            <div class="invalid-feedback">
+                                <strong>{{ $errors->first('lastname') }}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') !== null ? old('email') : $email }}"
                                placeholder="{{ __('adminlte::adminlte.email') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -98,9 +113,9 @@
                         {{ __('adminlte::adminlte.i_already_have_a_membership') }}
                     </a>
                 </p>
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div><!-- /.register-box -->
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('adminlte_js')

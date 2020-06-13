@@ -1,100 +1,83 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', __('pages.title_edit_user'))
 
 @section('content_header')
-    <h1>@lang('pages.title_add_organization')</h1>
+    <h1>@lang('pages.title_edit_user')</h1>
 @stop
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">@lang('pages.title_add_organization')</h3>
+            <div class="col-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png" alt="User profile picture">
+                        </div>
+                        <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
+                        <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Followers</b> <a class="float-right">1,322</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Following</b> <a class="float-right">543</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Friends</b> <a class="float-right">13,287</a>
+                            </li>
+                        </ul>
                     </div>
-                    <form role="form" method="POST" action="{{route('organization.add')}}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="i-email">@lang('organizations.name') (*)</label>
-                                <input value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror" id="i-email" placeholder="@lang('organizations.name')" name="name">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
+                            <li class="nav-item"><a class="nav-link"  href="#activity" data-toggle="tab" style="">Activity</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane" id="activity">
                             </div>
-                            <div class="form-group">
-                                @error('name')
-                                    <div class="alert alert-danger">
-                                        {{ $message }}
+                            <div class="tab-pane active" id="settings">
+                                <form class="form-horizontal">
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Prénom</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputName" placeholder="Prénom" value="{{$user['firstname']}}">
+                                        </div>
                                     </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input name="logo" type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile"></label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="alert alert-info">
-                                    L'image sera redimensionné en 400 * 600
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @error('mine_type')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="address1">@lang('organizations.address1') (*)</label>
-                                <input value="{{old('address1')}}" type="text" name="address1" class="form-control @error('address1') is-invalid @enderror" id="address1" placeholder="@lang('organizations.address1')">
-                            </div>
-                            <div class="form-group">
-                                @error('address1')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="address2">@lang('organizations.address2')</label>
-                                <input value="{{old('address2')}}" type="text" name="address2" class="form-control @error('address2') is-invalid @enderror" id="address2" placeholder="@lang('organizations.address2')">
-                            </div>
-                            <div class="form-group">
-                                @error('address2')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="city">@lang('organizations.city') (*)</label>
-                                <input value="{{old('city')}}" type="text" name="city" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="@lang('organizations.city')">
-                            </div>
-                            <div class="form-group">
-                                @error('city')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="pc">@lang('organizations.pc') (*)</label>
-                                <input value="{{old('pc')}}" type="text" name="pc" class="form-control @error('pc') is-invalid @enderror" id="pc" placeholder="@lang('organizations.pc')">
-                            </div>
-                            <div class="form-group">
-                                @error('pc')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                                    <div class="form-group row">
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">Nom</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputEmail" placeholder="Nom" value="{{$user['lastname']}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName2" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputName2" placeholder="Email" value="{{$user['email']}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input name="logo" type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">Avatar de l'utilisateur</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="card-footer fa-pull-right">
-                            <button type="submit" class="btn btn-primary">@lang('common.btn_confirm')</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

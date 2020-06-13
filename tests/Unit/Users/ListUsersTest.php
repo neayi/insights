@@ -35,7 +35,7 @@ class ListUsersTest extends TestCase
     public function testShouldListUsers()
     {
         $organizationId = Uuid::uuid4();
-        $u = new User(Uuid::uuid4(), 'org@gmail.com', $organizationId);
+        $u = new User(Uuid::uuid4(), 'org@gmail.com', '', '', $organizationId);
         $this->userRepository->add($u);
 
         $users = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);
@@ -46,13 +46,13 @@ class ListUsersTest extends TestCase
     public function testShouldPageOfUsers()
     {
         $organizationId = Uuid::uuid4();
-        $u = new User(Uuid::uuid4(), 'org@gmail.com', $organizationId);
+        $u = new User(Uuid::uuid4(), 'org@gmail.com', '', '', $organizationId);
         $this->userRepository->add($u);
 
-        $u = new User(Uuid::uuid4(), 'org2@gmail.com', $organizationId);
+        $u = new User(Uuid::uuid4(), 'org2@gmail.com', '', '', $organizationId);
         $this->userRepository->add($u);
 
-        $u = new User(Uuid::uuid4(), 'org3@gmail.com', $organizationId);
+        $u = new User(Uuid::uuid4(), 'org3@gmail.com', '', '', $organizationId);
         $this->userRepository->add($u);
 
         $organizations = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);
@@ -67,11 +67,11 @@ class ListUsersTest extends TestCase
     public function testShouldListUsersInOrganizationOnly()
     {
         $organizationId = Uuid::uuid4();
-        $u = new User(Uuid::uuid4(), 'org@gmail.com', $organizationId);
+        $u = new User(Uuid::uuid4(), 'org@gmail.com', '', '', $organizationId);
         $this->userRepository->add($u);
 
         $organizationId2 = Uuid::uuid4();
-        $u = new User(Uuid::uuid4(), 'org2@gmail.com', $organizationId2);
+        $u = new User(Uuid::uuid4(), 'org2@gmail.com', '', '', $organizationId2);
         $this->userRepository->add($u);
 
         $organizations = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);

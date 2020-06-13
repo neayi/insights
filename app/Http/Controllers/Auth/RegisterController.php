@@ -4,55 +4,49 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Src\UseCases\Domain\Auth\Register;
+use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    public function showRegistrationForm(Request $request)
+    {
+        $email = $firstname = $lastname = '';
+
+        if($request->session()->has('user_to_register')){
+            $user = $request->session()->get('user_to_register');
+            $email = $user['email'];
+            $firstname = $user['firstname'];
+            $lastname = $user['lastname'];
+        }
+        session()->reflash();
+        return view('auth.register', [
+            'email' => $email,
+            'firstname' => $firstname,
+            'lastname' => $lastname
+        ]);
+    }
+
     protected function validator(array $data)
     {
+        if(session()->has('should_attach_to_organization')) {
+            session()->reflash();
+        }
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
         ]);
     }
 
@@ -64,10 +58,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $email = isset($data['email']) ? $data['email'] : '';
+        $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
+        $lastname = $data['lastname'] !== null ? $data['lastname'] : '';
+        $password = $data['password'] !== null ? $data['password'] : '';
+        $passwordConfirmation = $data['password_confirmation'] !== null ? $data['password_confirmation'] : '';
+        $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);
+        return User::where('uuid', $userId)->first();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        if($request->session()->has('should_attach_to_organization')){
+            app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
+        }
     }
 }

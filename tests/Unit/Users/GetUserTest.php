@@ -36,7 +36,7 @@ class GetUserTest extends TestCase
     public function testGetUser()
     {
         $userId = Uuid::uuid4();
-        $user = new User($userId, 'email@gmail.com');
+        $user = new User($userId, 'email@gmail.com', '', '');
         $this->userRepository->add($user);
 
         $userGet = app(GetUser::class)->get($userId);

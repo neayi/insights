@@ -16,3 +16,6 @@ Route::post('/organization/users/invite', 'OrganizationsController@sendInvitatio
 Route::get('/organization/{id}/users', 'UsersController@showListUsers')->name('users.list');
 Route::post('/organization/{id}/users', 'UsersController@listUsers')->name('users.list.datatable');
 Route::get('/organization/invite/accept', 'OrganizationsController@acceptInvite')->name('organization.invite.show');
+Route::get('/organization/user/join', 'OrganizationsController@joinOrganization')->name('organization.user.join');
+
+Route::get('/user/{id}/edit/form', 'UsersController@editShowForm')->name('user.edit.form');
