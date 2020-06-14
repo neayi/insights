@@ -20,10 +20,10 @@
                                 {{$usersToProcess['imported']}} utilisateur(s) seront invités à rejoindre l'organisme
                             </p>
                         </div>
-                        @if($usersToProcess['errors'] !== 0)
+                        @if($usersToProcess['error'] !== 0)
                             <div class="callout callout-danger">
                                 <p>
-                                    {{$usersToProcess['errors']}} lignes en erreurs
+                                    {{$usersToProcess['error']}} lignes en erreurs
                                 </p>
                             </div>
                         @endif
@@ -44,7 +44,7 @@
                                 <td>{{isset($user['lastname']) ? $user['lastname'] : ''}}</td>
                                 <td>{{isset($user['error']) ? $user['error'] : ''}}</td>
                             </tr>
-                        @endfor
+                            @endforeach
                         </table>
                     </div>
                     <div class="card-footer">

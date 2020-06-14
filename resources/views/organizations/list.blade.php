@@ -102,6 +102,7 @@
                     $('td', row).eq(1).html(picture);
                 }
                 var action = '<button type="button" class="open-invite-modal btn btn-block btn-outline-primary btn-xs" data-organization_id="'+data[3]+'" style="cursor:pointer;" "><i class="far fa-plus-square"></i> Inviter des utilisateurs</button>'
+                action += '<a href="organization/'+data[3]+'/users" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;" "><i class="far fa-user"></i>Voir les utilisateurs</a>'
                 $('td', row).eq(2).html(action);
             }
         });

@@ -15,14 +15,16 @@ class User
     private $lastname;
     private $firstname;
     private $organizationId;
+    private $pathPicture;
 
-    public function __construct(string $id, string $email, string $firstname, string $lastname, string $organizationId = null)
+    public function __construct(string $id, string $email, string $firstname, string $lastname, string $organizationId = null, string $pathPicture = null)
     {
         $this->id = $id;
         $this->email = $email;
         $this->lastname = $lastname;
         $this->firstname = $firstname;
         $this->organizationId = $organizationId;
+        $this->pathPicture = $pathPicture;
     }
 
     public function email():string
@@ -52,14 +54,30 @@ class User
         Mail::to($this->email())->send(new UserJoinsOrganizationToUser());
     }
 
+    public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')
+    {
+        $this->email = $email;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        if($pathPicture !== "") {
+            $picture = new Picture($pathPicture);
+            $picture->resize('app/public/users/' . $this->id . '.' . $ext);
+            $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
+        }
+        app(UserRepository::class)->update($this);
+    }
+
     public function toArray()
     {
+        $urlPicture = $this->pathPicture != "" ? asset('storage/'.str_replace('app/public/', '', $this->pathPicture)) : null;
         return [
             'uuid' => $this->id,
             'email' => $this->email,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
-            'organization_id' => $this->organizationId
+            'organization_id' => $this->organizationId,
+            'path_picture' => $this->pathPicture,
+            'url_picture' => $urlPicture,
         ];
     }
 }
