@@ -19,3 +19,4 @@ Route::get('/organization/invite/accept', 'OrganizationsController@acceptInvite'
 Route::get('/organization/user/join', 'OrganizationsController@joinOrganization')->name('organization.user.join');
 
 Route::get('/user/{id}/edit/form', 'UsersController@editShowForm')->name('user.edit.form');
+Route::post('/user/{id}/edit', 'UsersController@editProcess')->name('user.edit');

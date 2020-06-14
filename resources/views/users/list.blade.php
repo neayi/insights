@@ -14,8 +14,9 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Logo</th>
+                                    <th>Avatar</th>
+                                    <th>Identité</th>
+                                    <th>Email</th>
                                     <th>Actions</th>
                                     <th>Actions</th>
                                 </tr>
@@ -26,37 +27,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="modalInvitation" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <form role="form" action="{{route('organization.users.prepare-invite')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Inviter des utilisateurs dans l'organisation</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" value="" id="i-organization-id" name="organization_id">
-                        <div class="form-group">
-                            <label for="list-users">Ajouter des utilisateurs : un email par ligne</label>
-                            <textarea name="users" id="list-users" class="form-control" rows="5"></textarea>
-                        </div>
-                        <hr>
-                        <p>Ou importer un fichier</p>
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input name="users" type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Seulement CSV</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" disabled class="btn btn-primary" id="button-form-invite-user" value="Inviter">
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 @stop
@@ -92,18 +62,20 @@
             iDisplayLength: 10,
             lengthChange: false,
             columns: [
+                {"name": "logo"},
                 {"name": "Name"},
                 {"name": "email"},
                 {"name": "state"},
                 {"name": "Action"},
                 {"name": "id", 'visible':false},
+                {"name": "link", 'visible':false},
             ],
             fnRowCallback: function(row, data) {
-                /*if(data[1] != null) {
-                    var picture = '<img src="' + data[1] + '" style="width:150px;"/>';
-                    $('td', row).eq(1).html(picture);
-                }*/
-                var action = '<a href="user/'+data[4]+'/edit/form" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
+                if(data[6] != null) {
+                    var picture = '<img style="height:34px; width:34px;" class="user-image img-circle elevation-2" src="' + data[6] + '"/>';
+                    $('td', row).eq(0).html(picture);
+                }
+                var action = '<a href="'+data[7]+'" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
                     '<i class="far fa-plus-square"></i> ' +
                     'Editer l\'utilisateurs</a>'
                 $('td', row).eq(3).html(action);

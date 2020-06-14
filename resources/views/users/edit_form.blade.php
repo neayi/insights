@@ -13,7 +13,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture']}}" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
                         <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
@@ -36,31 +36,53 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
-                            <li class="nav-item"><a class="nav-link"  href="#activity" data-toggle="tab" style="">Activity</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane" id="activity">
-                            </div>
                             <div class="tab-pane active" id="settings">
-                                <form class="form-horizontal">
+                                <form role="form" class="form-horizontal" action="{{ route('user.edit', ['id' => $user['uuid']]) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group row">
                                         <label for="inputName" class="col-sm-2 col-form-label">Prénom</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Prénom" value="{{$user['firstname']}}">
+                                            <input type="text" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" name="firstname" id="inputName" placeholder="Prénom"
+                                                   value="{{old('firstname', $user['firstname'])}}">
+                                            @error('firstname')
+                                            <div class="invalid-feedback" style="display: block !important;">
+                                                <span id="exampleInputEmail1-error" class="error invalid-feedback" style="display: block !important;">
+                                                    {{ $message }}
+                                                </span>
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Nom</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputEmail" placeholder="Nom" value="{{$user['lastname']}}">
+                                            <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="inputEmail" placeholder="Nom"
+                                                   value="{{old('lastname', $user['lastname'])}}">
+                                            @error('lastname')
+                                                <div class="invalid-feedback" style="display: block !important;">
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback" style="display: block !important;">
+                                                        {{ $message }}
+                                                    </span>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputName2" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName2" placeholder="Email" value="{{$user['email']}}">
+                                            <input type="text" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="inputName2" placeholder="Email"
+                                                   value="{{old('email', $user['email'])}}">
+                                            @error('email')
+                                                <div class="invalid-feedback" style="display: block !important;">
+                                                    <span id="exampleInputEmail1-error" class="error invalid-feedback" style="display: block !important;">
+                                                        {{ $message }}
+                                                    </span>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -71,7 +93,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                <button type="submit" class="btn btn-primary">@lang('common.btn_confirm')</button>
                                         </div>
                                     </div>
                                 </form>

@@ -91,7 +91,7 @@ class OrganizationsController extends Controller
         $users = json_decode($request->input('users'), true);
         $organizationId = $request->input('organization_id');
 
-        $inviteUsersInOrganization->invite($organizationId, $users);
+        $inviteUsersInOrganization->invite($organizationId, $users['users']);
         $request->session()->flash('notif_msg', 'Les utilisateurs ont été invité à rejoindre l\'organisation.');
         return redirect()->route('organization.list');
     }

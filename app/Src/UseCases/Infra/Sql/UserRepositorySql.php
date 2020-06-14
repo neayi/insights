@@ -15,7 +15,7 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
     }
 
     public function getById(string $id): ?User
@@ -24,13 +24,15 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
     }
 
     public function add(User $u, string $password = null)
     {
         $userModel = new \App\User();
-        $userModel->fill($u->toArray());
+        $data = $u->toArray();
+        unset($data['url_picture']);
+        $userModel->fill($data);
         $userModel->password = $password;
         $userModel->save();
     }
@@ -38,7 +40,9 @@ class UserRepositorySql implements UserRepository
     public function update(User $u)
     {
         $userModel = \App\User::where('uuid', $u->id())->first();
-        $userModel->fill($u->toArray());
+        $data = $u->toArray();
+        unset($data['url_picture']);
+        $userModel->fill($data);
         $userModel->save();
     }
 
@@ -58,7 +62,7 @@ class UserRepositorySql implements UserRepository
         }
         $users = [];
         foreach($records as $record){
-            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id);
+            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
         }
         return [
             'list' => $users,

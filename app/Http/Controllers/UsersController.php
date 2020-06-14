@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\ListUsers;
 use App\Src\UseCases\Organizations\GetOrganization;
@@ -26,11 +27,14 @@ class UsersController extends Controller
         foreach ($users['list'] as $user){
             $user = $user->toArray();
             $list[] = [
-                $user['firstname'].' '.$user['lastname'],
+                '',
+                ucfirst($user['firstname']).' '.ucfirst($user['lastname']),
                 $user['email'],
                 '', //$user['state'],
                 '',
                 $user['uuid'],
+                $user['url_picture'],
+                route('user.edit.form', ['id' => $user['uuid']])
             ];
         }
 
@@ -52,8 +56,19 @@ class UsersController extends Controller
         ]);
     }
 
-    public function editProcess()
+    public function editProcess(string $userId, Request $request, EditUser $editUser)
     {
-
+        $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
+        $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
+        $email = $request->input('email') !== null ? $request->input('email') : '';
+        $picture = [];
+        if($request->has('logo')){
+            $picture['path_picture'] = $request->file('logo')->path();
+            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
+            $picture['mine_type'] = $request->file('logo')->getMimeType();
+        }
+        $editUser->edit($userId, $email, $firstname, $lastname, $picture);
+        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        return redirect()->back();
     }
 }

@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id'
+        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture"
     ];
 
     protected $hidden = [
@@ -25,7 +25,11 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
+        $urlPicture = $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
+        if($urlPicture === ""){
+            $urlPicture = 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
+        }
+        return $urlPicture;
     }
 
     public function adminlte_desc()
