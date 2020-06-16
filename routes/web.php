@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');
 Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
 Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
+Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');
 Route::post('/organization/add', 'OrganizationsController@processAdd')->name('organization.add');
+Route::get('/organization/{id}/edit/form', 'OrganizationsController@showEditForm')->name('organization.edit.form');
+Route::post('/organization/{id}/edit', 'OrganizationsController@processEdit')->name('organization.edit');
+
 Route::post('/organization/users/prepare-invite', 'OrganizationsController@prepareInvitation')->name('organization.users.prepare-invite');
 Route::post('/organization/users/invite', 'OrganizationsController@sendInvitations')->name('organization.users.invite');
 

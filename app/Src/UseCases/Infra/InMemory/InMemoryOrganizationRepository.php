@@ -35,4 +35,15 @@ class InMemoryOrganizationRepository implements OrganizationRepository
             'total' => count($this->organizations)
         ];
     }
+
+    public function update(Organization $o)
+    {
+        foreach ($this->organizations as $key => $organization){
+            if($organization->id() === $o->id()){
+                $this->organizations[$key] = $organization;
+            }
+        }
+    }
+
+
 }
