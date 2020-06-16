@@ -6,10 +6,12 @@ use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture"

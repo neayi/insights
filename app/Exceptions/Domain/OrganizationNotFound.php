@@ -4,7 +4,7 @@
 namespace App\Exceptions\Domain;
 
 
-class OrganizationNotFound extends \Exception
+class OrganizationNotFound extends DomainException
 {
 
 }

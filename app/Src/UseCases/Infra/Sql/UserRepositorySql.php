@@ -15,7 +15,8 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
+        $roles = $record->roles()->pluck('name')->toArray();
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
     }
 
     public function getById(string $id): ?User
@@ -24,7 +25,8 @@ class UserRepositorySql implements UserRepository
         if(!isset($record)){
             return null;
         }
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
+        $roles = $record->roles()->pluck('name')->toArray();
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
     }
 
     public function add(User $u, string $password = null)
@@ -41,9 +43,13 @@ class UserRepositorySql implements UserRepository
     {
         $userModel = \App\User::where('uuid', $u->id())->first();
         $data = $u->toArray();
+        $roles = $data['roles'];
         unset($data['url_picture']);
+        unset($data['roles']);
         $userModel->fill($data);
         $userModel->save();
+
+        $userModel->syncRoles($roles);
     }
 
     public function search(string $organizationId, int $page, int $perPage = 10): array
@@ -62,7 +68,8 @@ class UserRepositorySql implements UserRepository
         }
         $users = [];
         foreach($records as $record){
-            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture);
+            $roles = $record->roles()->pluck('name')->toArray();
+            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
         }
         return [
             'list' => $users,
