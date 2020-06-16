@@ -9,6 +9,8 @@ use App\Src\UseCases\Domain\Invitation\RespondInvitationToAnOrganization;
 use App\Src\UseCases\Domain\InviteUsersInOrganization;
 use App\Src\UseCases\Domain\ListOrganizations;
 use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
+use App\Src\UseCases\Organizations\EditOrganization;
+use App\Src\UseCases\Organizations\GetOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +45,39 @@ class OrganizationsController extends Controller
         return redirect()->route('organization.list');
     }
 
+    public function showEditForm(string $organisationId, GetOrganization $getOrganization)
+    {
+        $organization = $getOrganization->get($organisationId);
+        return view('organizations/edit_form', [
+            'organization' => $organization->toArray()
+        ]);
+    }
+
+    public function processEdit(string $organizationId, Request $request, EditOrganization $editOrganization)
+    {
+        $name = $request->input('name') !== null ? $request->input('name') : '';
+        $address1 = $request->input('address1') !== null ? $request->input('address1') : '';
+        $address2 = $request->input('address2') !== null ? $request->input('address2') : '';
+        $pc = $request->input('pc') !== null ? $request->input('pc') : '';
+        $city = $request->input('city') !== null ? $request->input('city') : '';
+        $address = [
+            'address1' => $address1,
+            'address2' => $address2,
+            'pc' => $pc,
+            'city' => $city,
+        ];
+        $picture = [];
+        if($request->has('logo')){
+            $picture['path_picture'] = $request->file('logo')->path();
+            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
+            $picture['mine_type'] = $request->file('logo')->getMimeType();
+        }
+
+        $editOrganization->edit($organizationId, $name, $picture, $address);
+        $request->session()->flash('notif_msg', 'L\'organisme a été mis à jour');
+        return redirect()->back();
+    }
+
     public function list()
     {
         return view('organizations/list');
@@ -61,6 +96,7 @@ class OrganizationsController extends Controller
                 $org['url_picture'],
                 '',
                 $org['uuid'],
+                route('organization.edit.form', ['id' => $org['uuid']])
             ];
         }
 

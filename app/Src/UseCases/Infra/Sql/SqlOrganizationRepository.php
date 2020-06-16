@@ -56,5 +56,12 @@ class SqlOrganizationRepository implements OrganizationRepository
         ];
     }
 
+    public function update(Organization $o)
+    {
+        $data = $o->toArray();
+        unset($data['url_picture']);
+        DB::table('organizations')->where('uuid', $o->id())->update($data);
+    }
+
 
 }
