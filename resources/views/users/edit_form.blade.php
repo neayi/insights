@@ -2,10 +2,6 @@
 
 @section('title', __('pages.title_edit_user'))
 
-@section('content_header')
-    <h1>@lang('pages.title_edit_user')</h1>
-@stop
-
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -18,9 +14,11 @@
                         <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
                         <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Followers</b> <a class="float-right">1,322</a>
-                            </li>
+                            @if(in_array('admin', $user['roles']))
+                                <li class="list-group-item">
+                                    <b>Role </b> <a class="float-right"><span class="badge btn-danger">Admin</span></a>
+                                </li>
+                            @endif
                             <li class="list-group-item">
                                 <b>Following</b> <a class="float-right">543</a>
                             </li>
@@ -36,6 +34,7 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">Droits de l'utilisateur</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -98,7 +97,32 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                            <div class="tab-pane" id="rights">
+                                @if(!in_array('admin', $user['roles']))
+                                    <form role="form" class="form-horizontal" method="post"
+                                          action="{{ route('user.grant-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
+                                          @csrf
+                                        <div class="callout callout-info">
+                                            <h5>Nommer administrateur de l'organisation</h5>
+
+                                            <p>Une fois administrateur l'utilisateur aura la possibilité de ...</p>
+                                        </div>
+                                          <input type="submit" value="Mettre admin" class="btn btn-danger"/>
+                                    </form>
+                                @endif
+                                @if(in_array('admin', $user['roles']))
+                                    <form role="form" class="form-horizontal" method="post"
+                                          action="{{ route('user.revoke-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
+                                          @csrf
+                                        <div class="callout callout-info">
+                                            <h5>Revoquer le droit administrateur</h5>
+
+                                            <p>Une fois administrateur l'utilisateur aura la possibilité de ...</p>
+                                        </div>
+                                          <input type="submit" value="Revoquer" class="btn btn-danger"/>
+                                    </form>
+                                @endif
+                            </div>
                     </div>
                 </div>
             </div>

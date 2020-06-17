@@ -16,8 +16,9 @@ class User
     private $firstname;
     private $organizationId;
     private $pathPicture;
+    private $roles;
 
-    public function __construct(string $id, string $email, string $firstname, string $lastname, string $organizationId = null, string $pathPicture = null)
+    public function __construct(string $id, string $email, string $firstname, string $lastname, string $organizationId = null, string $pathPicture = null, array $roles = [])
     {
         $this->id = $id;
         $this->email = $email;
@@ -25,6 +26,7 @@ class User
         $this->firstname = $firstname;
         $this->organizationId = $organizationId;
         $this->pathPicture = $pathPicture;
+        $this->roles = $roles;
     }
 
     public function email():string
@@ -42,6 +44,11 @@ class User
         return $this->organizationId;
     }
 
+    public function belongsTo(string $organisationId):bool
+    {
+        return $this->organizationId === $organisationId;
+    }
+
     public function create(string $passwordHashed)
     {
         app(UserRepository::class)->add($this, $passwordHashed);
@@ -52,6 +59,18 @@ class User
         $this->organizationId = $organizationId;
         app(UserRepository::class)->update($this);
         Mail::to($this->email())->send(new UserJoinsOrganizationToUser());
+    }
+
+    public function grantAsAdmin()
+    {
+        $this->roles = array_merge($this->roles, ['admin']);
+        app(UserRepository::class)->update($this);
+    }
+
+    public function revokeAsAdmin()
+    {
+        $this->roles = [];
+        app(UserRepository::class)->update($this);
     }
 
     public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')
@@ -78,6 +97,7 @@ class User
             'organization_id' => $this->organizationId,
             'path_picture' => $this->pathPicture,
             'url_picture' => $urlPicture,
+            'roles' => $this->roles
         ];
     }
 }

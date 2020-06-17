@@ -8,6 +8,8 @@ use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\ListUsers;
 use App\Src\UseCases\Organizations\GetOrganization;
+use App\Src\UseCases\Organizations\GrantUserAsAdminOrganization;
+use App\Src\UseCases\Organizations\RevokeUserAsAdminOrganization;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -68,6 +70,20 @@ class UsersController extends Controller
             $picture['mine_type'] = $request->file('logo')->getMimeType();
         }
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
+        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        return redirect()->back();
+    }
+
+    public function grantAsAdmin(string $userId, string $organizationId, Request $request, GrantUserAsAdminOrganization $grantUserAsAdminOrganization)
+    {
+        $grantUserAsAdminOrganization->grant($userId, $organizationId);
+        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        return redirect()->back();
+    }
+
+    public function revokeAsAdmin(string $userId, string $organizationId, Request $request, RevokeUserAsAdminOrganization $grantUserAsAdminOrganization)
+    {
+        $grantUserAsAdminOrganization->revoke($userId, $organizationId);
         $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
         return redirect()->back();
     }
