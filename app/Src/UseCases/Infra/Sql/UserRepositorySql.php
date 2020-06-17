@@ -68,7 +68,7 @@ class UserRepositorySql implements UserRepository
         }
         $users = [];
         foreach($records as $record){
-            $roles = $record->roles()->pluck('name')->toArray();
+            $roles = \App\User::find($record->id)->roles()->pluck('name')->toArray();
             $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
         }
         return [

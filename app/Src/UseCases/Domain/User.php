@@ -67,6 +67,12 @@ class User
         app(UserRepository::class)->update($this);
     }
 
+    public function revokeAsAdmin()
+    {
+        $this->roles = [];
+        app(UserRepository::class)->update($this);
+    }
+
     public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')
     {
         $this->email = $email;
