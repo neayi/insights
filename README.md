@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/neayi/insights.svg?branch=master)](https://travis-ci.org/github/neayi/insights)
+
 # insights
 A laravel item that holds the user logic
 
