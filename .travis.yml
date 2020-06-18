@@ -2,8 +2,10 @@ language: php
 php:
     - 7.3.15
 
-install:
+before_script:
   - composer self-update
 
 install:
   - composer update
+
+script: vendor/bin/phpunit tests/Unit
