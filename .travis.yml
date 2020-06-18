@@ -1,3 +1,9 @@
 language: php
 php:
     - 7.3.15
+
+install:
+  - composer self-update
+
+install:
+  - composer update
