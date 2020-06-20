@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose up -d
+docker-compose up -d --force-recreate --build
 
 cp ".env.example" ".env"
 
