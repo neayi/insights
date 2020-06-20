@@ -20,6 +20,7 @@ class AttachUserToAnOrganizationTest extends TestCase
 {
     private $organizationRepository;
     private $userRepository;
+    private $address;
 
     public function setUp(): void
     {
@@ -30,14 +31,14 @@ class AttachUserToAnOrganizationTest extends TestCase
         if(config('app.env') === 'testing-ti'){
             Artisan::call('migrate:fresh');
         }
-
+        $this->address = new Address('la garde', 'res', 'tutu', '83130');
         Mail::fake();
     }
 
-    public function test()
+    public function testShouldAttachToAnOrganization()
     {
         $organizationId = Uuid::uuid4();
-        $organization = new Organization($organizationId, 'name', '', $this->createMock(Address::class));
+        $organization = new Organization($organizationId, 'name', '', $this->address);
         $this->organizationRepository->add($organization);
 
         $userId = Uuid::uuid4();
