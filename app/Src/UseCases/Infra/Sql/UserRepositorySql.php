@@ -34,6 +34,7 @@ class UserRepositorySql implements UserRepository
         $userModel = new \App\User();
         $data = $u->toArray();
         unset($data['url_picture']);
+        unset($data['roles']);
         $userModel->fill($data);
         $userModel->password = $password;
         $userModel->save();
@@ -55,11 +56,14 @@ class UserRepositorySql implements UserRepository
     public function search(string $organizationId, int $page, int $perPage = 10): array
     {
         $records = DB::table('users')
-            ->select();
+            ->select()
+            ->where('organization_id', $organizationId)
+        ;
         $count = $records->count();
 
         $records = DB::table('users')
             ->select()
+            ->where('organization_id', $organizationId)
             ->offset(($page-1)*$perPage)
             ->limit($perPage)
             ->get();

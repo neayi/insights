@@ -3,6 +3,7 @@ version: '3'
 services:
 
   php_triple:
+    container_name: neayi_php
     build:
       context: .
       dockerfile: ./dockerfiles/php/Dockerfile
@@ -17,6 +18,7 @@ services:
       - back-tier
 
   mysql_triple:
+    container_name: neayi_mysql
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: cnpg
@@ -29,6 +31,7 @@ services:
       - back-tier
 
   nginx_triple:
+    container_name: neayi_nginx
     image: nginx:1.15.8
     ports:
       - 8008:80
