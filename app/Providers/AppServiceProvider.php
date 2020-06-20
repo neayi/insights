@@ -20,11 +20,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         if(config('app.env') === 'testing'){
@@ -39,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
             $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
             $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
+            $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
         }
 
         if(config('app.env') === 'local'){
@@ -46,14 +42,10 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
             $this->app->singleton(UserRepository::class, UserRepositorySql::class);
             $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
+            $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
         }
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
     }
