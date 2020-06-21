@@ -7,4 +7,6 @@ return [
   'address2' => 'Adresse 2',
   'city' => 'Ville',
   'pc' => 'Code postal',
+
+   'nav_btn_edit' => 'Editer',
 ];

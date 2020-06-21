@@ -1,10 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', __('pages.title_edit_user'))
-
-@section('content_header')
-    <h1>@lang('pages.title_edit_user')</h1>
-@stop
+@section('title', __('pages.title_edit_organization'))
 
 @section('content')
     <div class="container-fluid">
@@ -34,7 +30,7 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">@lang('organizations.nav_btn_edit')</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -43,9 +39,9 @@
                                 <form role="form" class="form-horizontal" action="{{ route('organization.edit', ['id' => $organization['uuid']]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Nom</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('organizations.name') (*)</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="inputName" placeholder="Nom"
+                                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="inputName" placeholder="@lang('organizations.name')"
                                                    value="{{old('name', $organization['name'])}}">
                                             @error('name')
                                                 <div class="invalid-feedback" style="display: block !important;">
@@ -59,13 +55,13 @@
                                     <div class="form-group">
                                         <div class="custom-file">
                                             <input name="logo" type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Logo de l'organisation</label>
+                                            <label class="custom-file-label" for="customFile">@lang('organizations.picture')</label>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Adresse</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('organizations.address1') (*)</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control {{ $errors->has('address1') ? 'is-invalid' : '' }}" name="address1" id="inputName" placeholder="Adresse"
+                                            <input type="text" class="form-control {{ $errors->has('address1') ? 'is-invalid' : '' }}" name="address1" id="inputName" placeholder="@lang('organizations.address1')"
                                                    value="{{old('address1', $organization['address1'])}}">
                                             @error('address1')
                                             <div class="invalid-feedback" style="display: block !important;">
@@ -77,9 +73,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Adresse 2</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('organizations.address2') </label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control {{ $errors->has('address2') ? 'is-invalid' : '' }}" name="address2" id="inputName" placeholder="Adresse 2"
+                                            <input type="text" class="form-control {{ $errors->has('address2') ? 'is-invalid' : '' }}" name="address2" id="inputName" placeholder="@lang('organizations.address2')"
                                                    value="{{old('address2', $organization['address2'])}}">
                                             @error('address2')
                                             <div class="invalid-feedback" style="display: block !important;">
@@ -91,9 +87,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Ville</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('organizations.city') (*)</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" name="city" id="inputName" placeholder="Ville"
+                                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" name="city" id="inputName" placeholder="@lang('organizations.city')"
                                                    value="{{old('city', $organization['city'])}}">
                                             @error('city')
                                             <div class="invalid-feedback" style="display: block !important;">
@@ -105,9 +101,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Code postal</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('organizations.pc') (*)</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control {{ $errors->has('pc') ? 'is-invalid' : '' }}" name="pc" id="inputName" placeholder="Code postal"
+                                            <input type="text" class="form-control {{ $errors->has('pc') ? 'is-invalid' : '' }}" name="pc" id="inputName" placeholder="@lang('organizations.pc')"
                                                    value="{{old('pc', $organization['postal_code'])}}">
                                             @error('pc')
                                             <div class="invalid-feedback" style="display: block !important;">

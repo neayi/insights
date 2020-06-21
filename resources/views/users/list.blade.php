@@ -77,7 +77,7 @@
                 }
                 var action = '<a href="'+data[7]+'" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
                     '<i class="far fa-plus-square"></i> ' +
-                    'Editer l\'utilisateurs</a>'
+                    'Editer l\'utilisateur</a>'
                 $('td', row).eq(3).html(action);
             }
         });
