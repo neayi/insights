@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Domain;
 
 
+use App\Events\UserDeleted;
 use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use Illuminate\Support\Facades\Mail;
@@ -84,6 +85,12 @@ class User
             $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
         }
         app(UserRepository::class)->update($this);
+    }
+
+    public function delete()
+    {
+        app(UserRepository::class)->delete($this->id);
+        event(new UserDeleted($this->id, $this->organizationId));
     }
 
     public function toArray()

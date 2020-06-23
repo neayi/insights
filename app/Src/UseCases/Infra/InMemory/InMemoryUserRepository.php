@@ -61,5 +61,12 @@ class InMemoryUserRepository implements UserRepository
         }
     }
 
-
+    public function delete(string $userId)
+    {
+        foreach ($this->users as $key => $user){
+            if($user->id() === $userId){
+                unset($this->users[$key]);
+            }
+        }
+    }
 }

@@ -35,6 +35,7 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
                             <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">Droits de l'utilisateur</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab" style="">Supprimer le compte</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -123,7 +124,18 @@
                                     </form>
                                 @endif
                             </div>
-                    </div>
+                            <div class="tab-pane" id="delete">
+                                <form role="form" class="form-horizontal" method="post"
+                                      action="{{ route('user.delete', ['id' => $user['uuid']]) }}">
+                                    @csrf
+                                    <div class="callout callout-info">
+                                        <h5>Supprimer le compte</h5>
+
+                                        <p>Cette action est irréversible ...</p>
+                                    </div>
+                                    <input type="submit" value="Supprimer" class="btn btn-danger"/>
+                                </form>
+                            </div>
                 </div>
             </div>
         </div>
