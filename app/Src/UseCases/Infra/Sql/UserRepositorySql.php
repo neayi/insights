@@ -81,5 +81,12 @@ class UserRepositorySql implements UserRepository
         ];
     }
 
+    public function delete(string $userId)
+    {
+        $userModel = \App\User::where('uuid', $userId)->first();
+
+        $userModel->delete();
+    }
+
 
 }

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\ListUsers;
@@ -11,6 +12,7 @@ use App\Src\UseCases\Organizations\GetOrganization;
 use App\Src\UseCases\Organizations\GrantUserAsAdminOrganization;
 use App\Src\UseCases\Organizations\RevokeUserAsAdminOrganization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -86,5 +88,19 @@ class UsersController extends Controller
         $grantUserAsAdminOrganization->revoke($userId, $organizationId);
         $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
         return redirect()->back();
+    }
+
+    public function delete(string $userId, Request $request, DeleteUser $deleteUser)
+    {
+        $redirect = 'back';
+        if($userId === Auth::id()){
+            $redirect = 'login';
+        }
+        $deleteUser->delete($userId);
+        if($redirect === 'login') {
+            return redirect()->route('login');
+        }
+        $request->session()->flash('notif_msg', 'L\'utilisateur a été supprimé');
+        return redirect()->route('home');
     }
 }
