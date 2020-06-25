@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Src\UseCases\Domain\DeleteUserFromOrganization;
 use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
@@ -53,7 +54,9 @@ class UsersController extends Controller
     public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization)
     {
         $user = $getUser->get($userId);
-        $organization = $getOrganization->get($user->organizationId());
+        if($user->organizationId() !== null) {
+            $organization = $getOrganization->get($user->organizationId());
+        }
         return view('users/edit_form', [
             'user' => $user->toArray(),
             'organization' => isset($organization) ? $organization->toArray() : null
@@ -102,5 +105,12 @@ class UsersController extends Controller
         }
         $request->session()->flash('notif_msg', 'L\'utilisateur a été supprimé');
         return redirect()->route('home');
+    }
+
+    public function leaveOrganization(string $userId, Request $request, DeleteUserFromOrganization $deleteUserFromOrganization)
+    {
+        $deleteUserFromOrganization->delete($userId);
+        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        return redirect()->back();
     }
 }

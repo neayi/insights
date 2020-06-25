@@ -1,14 +1,12 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Services;
+namespace App\Src\UseCases\Domain;
 
 
-use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use Illuminate\Support\Facades\Mail;
 
-class SendMailToUserWhenHeJoinsOrganization
+class DeleteUserFromOrganization
 {
     private $userRepository;
 
@@ -17,9 +15,10 @@ class SendMailToUserWhenHeJoinsOrganization
         $this->userRepository = $userRepository;
     }
 
-    public function send(string $userId)
+    public function delete(string $userId)
     {
         $user = $this->userRepository->getById($userId);
-        Mail::to($user->email())->send(new UserJoinsOrganizationToUser());
+        $user->leaveOrganization();
+
     }
 }

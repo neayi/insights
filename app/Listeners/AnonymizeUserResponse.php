@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\UserDeleted;
 
 class AnonymizeUserResponse
 {
@@ -12,7 +11,7 @@ class AnonymizeUserResponse
 
     }
 
-    public function handle(UserDeleted $event)
+    public function handle($event)
     {
 
     }

@@ -26,3 +26,4 @@ Route::post('/user/{id}/edit', 'UsersController@editProcess')->name('user.edit')
 Route::post('/user/{id}/delete', 'UsersController@delete')->name('user.delete');
 Route::post('/user/{id}/organization/{organization}/grant', 'UsersController@grantAsAdmin')->name('user.grant-admin.organization');
 Route::post('/user/{id}/organization/{organization}/revoke', 'UsersController@revokeAsAdmin')->name('user.revoke-admin.organization');
+Route::post('/user/{id}/organization/leave', 'UsersController@leaveOrganization')->name('user.leave.organization');

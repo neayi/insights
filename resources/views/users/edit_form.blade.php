@@ -99,7 +99,7 @@
                                 </form>
                             </div>
                             <div class="tab-pane" id="rights">
-                                @if(!in_array('admin', $user['roles']))
+                                @if(!in_array('admin', $user['roles']) && isset($organization))
                                     <form role="form" class="form-horizontal" method="post"
                                           action="{{ route('user.grant-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
                                           @csrf
@@ -111,7 +111,7 @@
                                           <input type="submit" value="Mettre admin" class="btn btn-danger"/>
                                     </form>
                                 @endif
-                                @if(in_array('admin', $user['roles']))
+                                @if(in_array('admin', $user['roles']) && isset($organization))
                                     <form role="form" class="form-horizontal" method="post"
                                           action="{{ route('user.revoke-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
                                           @csrf
@@ -120,8 +120,20 @@
 
                                             <p>Une fois administrateur l'utilisateur aura la possibilité de ...</p>
                                         </div>
-                                          <input type="submit" value="Revoquer" class="btn btn-danger"/>
+                                        <input type="submit" value="Revoquer" class="btn btn-danger"/>
                                     </form>
+                                @endif
+                                @if(isset($organization))
+                                        <hr/>
+                                        <form role="form" class="form-horizontal" method="post"
+                                              action="{{ route('user.leave.organization', ['id' => $user['uuid']]) }}">
+                                            @csrf
+                                            <div class="callout callout-info">
+                                                <h5>Retirer de l'organisation</h5>
+
+                                            </div>
+                                            <input type="submit" value="Retirer" class="btn btn-danger"/>
+                                        </form>
                                 @endif
                             </div>
                             <div class="tab-pane" id="delete">
