@@ -4,6 +4,7 @@
 namespace Tests\Unit\Organization;
 
 
+use App\Mail\UserJoinsOrganizationToAdmin;
 use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Address;
 use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
@@ -45,12 +46,21 @@ class AttachUserToAnOrganizationTest extends TestCase
         $user = new User($userId, 'anemail@gmail.com', 'firstname', 'lastname');
         $this->userRepository->add($user);
 
+        $adminId = Uuid::uuid4();
+        $admin = new User($adminId, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ['admin']);
+        $this->userRepository->add($admin);
+
+        $adminId2 = Uuid::uuid4();
+        $admin2 = new User($adminId2, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ["admin"]);
+        $this->userRepository->add($admin2);
+
         app(AttachUserToAnOrganization::class)->attach($userId, $organizationId);
 
         $userExpected = new User($userId, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId);
         self::assertEquals($userExpected, $user);
 
         Mail::assertSent(UserJoinsOrganizationToUser::class);
+        Mail::assertSent(UserJoinsOrganizationToAdmin::class, 2);
     }
 
 }

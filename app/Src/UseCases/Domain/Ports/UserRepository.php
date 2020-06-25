@@ -14,4 +14,5 @@ interface UserRepository
     public function add(User $u, string $password = null);
     public function update(User $u);
     public function delete(string $userId);
+    public function getAdminOfOrganization(string $organizationId):array;
 }
