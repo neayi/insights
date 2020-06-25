@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain;
 
 
 use App\Events\UserDeleted;
+use App\Events\UserLeaveOrganization;
 use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use Illuminate\Support\Facades\Mail;
@@ -77,6 +78,13 @@ class User
     {
         $this->roles = [];
         app(UserRepository::class)->update($this);
+    }
+
+    public function leaveOrganization()
+    {
+        $this->organizationId = null;
+        app(UserRepository::class)->update($this);
+        event(new UserLeaveOrganization());
     }
 
     public function isAdmin():bool

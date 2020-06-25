@@ -22,7 +22,7 @@ class UserJoinsOrganizationToAdmin extends Mailable
 
     public function build()
     {
-        return $this->view('mails.userJoinsOrganizationToUser', [
+        return $this->view('mails.userJoinsOrganizationToAdmin', [
             'fullname' => $this->fullname,
             'organization' => $this->organization
         ]);

@@ -84,9 +84,20 @@ class UserRepositorySql implements UserRepository
     public function delete(string $userId)
     {
         $userModel = \App\User::where('uuid', $userId)->first();
-
         $userModel->delete();
     }
 
-
+    public function getAdminOfOrganization(string $organizationId): array
+    {
+        $records = \App\User::role(['admin'])->where('organization_id', $organizationId)->get();
+        if(empty($records)){
+            return [];
+        }
+        $users = [];
+        foreach($records as $record){
+            $roles = \App\User::find($record->id)->roles()->pluck('name')->toArray();
+            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
+        }
+        return $users;
+    }
 }

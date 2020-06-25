@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\UserDeleted;
+use App\Events\UserLeaveOrganization;
 use App\Listeners\AnonymizeUserResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -15,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         UserDeleted::class => [
+            AnonymizeUserResponse::class
+        ],
+        UserLeaveOrganization::class => [
             AnonymizeUserResponse::class
         ]
     ];
