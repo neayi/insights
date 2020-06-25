@@ -69,4 +69,17 @@ class InMemoryUserRepository implements UserRepository
             }
         }
     }
+
+    public function getAdminOfOrganization(string $organizationId): array
+    {
+        $users = [];
+        foreach ($this->users as $key => $user){
+            if($user->organizationId() === $organizationId && $user->isAdmin()){
+                $users[] = $user;
+            }
+        }
+        return $users;
+    }
+
+
 }

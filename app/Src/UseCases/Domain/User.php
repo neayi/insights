@@ -40,6 +40,11 @@ class User
         return $this->id;
     }
 
+    public function fullname():string
+    {
+        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+    }
+
     public function organizationId():?string
     {
         return $this->organizationId;
@@ -72,6 +77,11 @@ class User
     {
         $this->roles = [];
         app(UserRepository::class)->update($this);
+    }
+
+    public function isAdmin():bool
+    {
+        return in_array('admin', $this->roles);
     }
 
     public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')

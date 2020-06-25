@@ -13,6 +13,6 @@ class UserJoinsOrganizationToUser extends Mailable
 
     public function build()
     {
-        return $this->view('mails.userJoinsOrganizationToUser');
+        return $this->view('mails.userJoinsOrganizationToAdmin');
     }
 }
