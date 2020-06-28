@@ -3,6 +3,8 @@
 return [
 
     'full_name'                   => 'Nom',
+    'firstname'                   => 'Prénom',
+    'lastname'                    => 'Nom',
     'email'                       => 'Email',
     'password'                    => 'Mot de passe',
     'retype_password'             => 'Entrez à nouveau le mot de passe',

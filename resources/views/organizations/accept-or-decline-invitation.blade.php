@@ -8,20 +8,19 @@
             <div class="col-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h5 class="card-title">Vous avez été invité à rejoindre l'organisme : {{ $organization_to_join['name'] }}</h5>
+                        <h5 class="card-title">@lang('organizations.message.you_have_been_invited', ['name' => $organization_to_join['name']])</h5>
                     </div>
                     <div class="card-body">
                         @if(isset($old_organisation))
                             <div class="callout callout-danger">
-                                <h5>Attention ! </h5>
+                                <h5>@lang('common.warning')</h5>
                                 <p>
-                                    Vous faites déjà parti de l'organisme : {{ $old_organisation['name'] }}, en rejoindre un nouveau
-                                    vous empéchera d'accèder à votre ancien environnement (segment, ...)
+                                    @lang('organizations.already_in_a_organization', ['name' => $old_organisation['name']])
                                 </p>
                             </div>
                         @endif
-                        <a href="{{route('organization.user.join')}}" class="btn btn-success">Rejoindre</a>
-                        <a href="{{route('home')}}" class="btn btn-danger">Décliner</a>
+                        <a href="{{route('organization.user.join')}}" class="btn btn-success">@lang('organisations.action.join')</a>
+                        <a href="{{route('home')}}" class="btn btn-danger">@lang('organisations.action.decline')</a>
                     </div>
                 </div>
             </div>

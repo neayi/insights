@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', __('pages.title_list_organization'))
 
 @section('content')
     <div class="container-fluid">
@@ -14,9 +14,9 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Logo</th>
-                                    <th>Actions</th>
+                                    <th>@lang('organizations.table.name')</th>
+                                    <th>@lang('organizations.table.logo')</th>
+                                    <th>@lang('organizations.table.actions')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,25 +34,27 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Inviter des utilisateurs dans l'organisation</h4>
+                        <h4 class="modal-title">@lang('organizations.action.invite_user')</h4>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" value="" id="i-organization-id" name="organization_id">
                         <div class="form-group">
-                            <label for="list-users">Ajouter des utilisateurs : un email par ligne</label>
+                            <label for="list-users">@lang('organizations.action.add_user')</label>
                             <textarea name="users" id="list-users" class="form-control" rows="5"></textarea>
                         </div>
-                        <hr>
-                        <p>Ou importer un fichier</p>
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input name="users" type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Seulement CSV</label>
+                        <div style="display:none;">
+                            <hr>
+                            <p>Ou importer un fichier</p>
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input name="users" type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Seulement CSV</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" disabled class="btn btn-primary" id="button-form-invite-user" value="Inviter">
+                        <input type="submit" disabled class="btn btn-primary" id="button-form-invite-user" value="@lang('organizations.action.invite_user_short')">
                     </div>
                 </div>
             </form>

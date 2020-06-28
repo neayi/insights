@@ -14,11 +14,11 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Avatar</th>
-                                    <th>Identité</th>
-                                    <th>Email</th>
-                                    <th>Actions</th>
-                                    <th>Actions</th>
+                                    <th>@lang('users.table.avatar')</th>
+                                    <th>@lang('users.table.identity')</th>
+                                    <th>@lang('users.table.email')</th>
+                                    <th>@lang('users.table.actions')</th>
+                                    <th>@lang('users.table.actions')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,6 +42,7 @@
     <script>
         $(function () {
 
+        var editActionMessage = '{{__('users.action.edit')}}';
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -76,8 +77,7 @@
                     $('td', row).eq(0).html(picture);
                 }
                 var action = '<a href="'+data[7]+'" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
-                    '<i class="far fa-plus-square"></i> ' +
-                    'Editer l\'utilisateur</a>'
+                    '<i class="far fa-plus-square"></i>'+editActionMessage+'</a>'
                 $('td', row).eq(3).html(action);
             }
         });
