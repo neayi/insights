@@ -9,7 +9,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{$organization['url_picture']}}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{$organization['url_picture']}}">
                         </div>
                         <h3 class="profile-username text-center">{{ ucfirst($organization['name']) }}</h3>
                         <ul class="list-group list-group-unbordered mb-3">

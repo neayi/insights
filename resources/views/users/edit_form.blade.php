@@ -9,14 +9,14 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture']}}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture']}}">
                         </div>
                         <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
                         <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             @if(in_array('admin', $user['roles']))
                                 <li class="list-group-item">
-                                    <b>Role </b> <a class="float-right"><span class="badge btn-danger">Admin</span></a>
+                                    <b>@lang('users.role') </b> <a class="float-right"><span class="badge btn-danger">@lang('users.role.admin')</span></a>
                                 </li>
                             @endif
                             <li class="list-group-item">
@@ -33,9 +33,9 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">Editer</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">Droits de l'utilisateur</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab" style="">Supprimer le compte</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">@lang('users.action.edit.profile')</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">@lang('users.rights')</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab" style="">@lang('users.action.delete.account')</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -44,7 +44,7 @@
                                 <form role="form" class="form-horizontal" action="{{ route('user.edit', ['id' => $user['uuid']]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Prénom</label>
+                                        <label for="inputName" class="col-sm-2 col-form-label">@lang('common.firstname')</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" name="firstname" id="inputName" placeholder="Prénom"
                                                    value="{{old('firstname', $user['firstname'])}}">
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Nom</label>
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">@lang('common.lastname')</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="inputEmail" placeholder="Nom"
                                                    value="{{old('lastname', $user['lastname'])}}">
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">Email</label>
+                                        <label for="inputName2" class="col-sm-2 col-form-label">@lang('common.email')</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="inputName2" placeholder="Email"
                                                    value="{{old('email', $user['email'])}}">
@@ -88,7 +88,7 @@
                                     <div class="form-group">
                                         <div class="custom-file">
                                             <input name="logo" type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Avatar de l'utilisateur</label>
+                                            <label class="custom-file-label" for="customFile">@lang('users.rights')</label>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -104,11 +104,11 @@
                                           action="{{ route('user.grant-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
                                           @csrf
                                         <div class="callout callout-info">
-                                            <h5>Nommer administrateur de l'organisation</h5>
+                                            <h5>@lang('users.action.set_admin')</h5>
 
-                                            <p>Une fois administrateur l'utilisateur aura la possibilité de ...</p>
+                                            <p>@lang('users.message.will_be_admin')</p>
                                         </div>
-                                          <input type="submit" value="Mettre admin" class="btn btn-danger"/>
+                                          <input type="submit" value="@lang('common.btn_confirm')" class="btn btn-danger"/>
                                     </form>
                                 @endif
                                 @if(in_array('admin', $user['roles']) && isset($organization))
@@ -116,11 +116,11 @@
                                           action="{{ route('user.revoke-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
                                           @csrf
                                         <div class="callout callout-info">
-                                            <h5>Revoquer le droit administrateur</h5>
+                                            <h5>@lang('users.action.revoke_admin')</h5>
 
-                                            <p>Une fois administrateur l'utilisateur aura la possibilité de ...</p>
+                                            <p>@lang('users.message.will_not_be_admin')</p>
                                         </div>
-                                        <input type="submit" value="Revoquer" class="btn btn-danger"/>
+                                        <input type="submit" value="@lang('common.btn_confirm')" class="btn btn-danger"/>
                                     </form>
                                 @endif
                                 @if(isset($organization))
@@ -129,10 +129,9 @@
                                               action="{{ route('user.leave.organization', ['id' => $user['uuid']]) }}">
                                             @csrf
                                             <div class="callout callout-info">
-                                                <h5>Retirer de l'organisation</h5>
-
+                                                <h5>@lang('users.action.delete_from_organization')</h5>
                                             </div>
-                                            <input type="submit" value="Retirer" class="btn btn-danger"/>
+                                            <input type="submit" value="@lang('users.action.delete_from_organization')" class="btn btn-danger"/>
                                         </form>
                                 @endif
                             </div>
@@ -141,11 +140,11 @@
                                       action="{{ route('user.delete', ['id' => $user['uuid']]) }}">
                                     @csrf
                                     <div class="callout callout-info">
-                                        <h5>Supprimer le compte</h5>
+                                        <h5>@lang('users.action.delete.account')</h5>
 
-                                        <p>Cette action est irréversible ...</p>
+                                        <p>@lang('users.message.delete.account')</p>
                                     </div>
-                                    <input type="submit" value="Supprimer" class="btn btn-danger"/>
+                                    <input type="submit" value="@lang('common.btn_delete')" class="btn btn-danger"/>
                                 </form>
                             </div>
                 </div>

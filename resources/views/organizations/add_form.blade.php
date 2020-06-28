@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', __('pages.title_add_organization'))
 
 @section('content_header')
     <h1>@lang('pages.title_add_organization')</h1>

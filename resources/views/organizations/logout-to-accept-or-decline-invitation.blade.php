@@ -8,18 +8,18 @@
             <div class="col-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h5 class="card-title">Vous avez été invité à rejoindre l'organisme : {{ $organization_to_join['name'] }}</h5>
+                        <h5 class="card-title">@lang('organizations.message.you_have_been_invited', ['name' => $organization_to_join['name']])</h5>
                     </div>
                     <div class="card-body">
                         <div class="callout callout-danger">
-                            <h5>Attention ! </h5>
+                            <h5>@lang('common.warning')</h5>
                             <p>
-                                Vous devez vous connecter avec le bon compte...
+                                @lang('organizations.message.should_be_log_with_other_account')
                             </p>
                         </div>
                         <form method="post" action="{{route('logout')}}">
                             @csrf
-                            <button class="btn btn-success">Se déconnecter pour rejoindre l'organisme</button>
+                            <button class="btn btn-success">@lang('organizations.message.logout_to_join_organization')</button>
                         </form>
                     </div>
                 </div>
