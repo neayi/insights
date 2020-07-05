@@ -81,5 +81,15 @@ class InMemoryUserRepository implements UserRepository
         return $users;
     }
 
+    public function getByProvider(string $provider, string $providerId): ?User
+    {
+        foreach ($this->users as $user){
+            if($user->provider($provider, $providerId) === true){
+                return $user;
+            }
+        }
+        return null;
+    }
+
 
 }

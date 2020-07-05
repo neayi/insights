@@ -19,8 +19,18 @@ class User
     private $organizationId;
     private $pathPicture;
     private $roles;
+    private $providers;
 
-    public function __construct(string $id, string $email, string $firstname, string $lastname, string $organizationId = null, string $pathPicture = null, array $roles = [])
+    public function __construct(
+        string $id,
+        string $email,
+        string $firstname,
+        string $lastname,
+        string $organizationId = null,
+        string $pathPicture = null,
+        array $roles = [],
+        array $providers = []
+    )
     {
         $this->id = $id;
         $this->email = $email;
@@ -29,6 +39,7 @@ class User
         $this->organizationId = $organizationId;
         $this->pathPicture = $pathPicture;
         $this->roles = $roles;
+        $this->providers = $providers;
     }
 
     public function email():string
@@ -51,13 +62,25 @@ class User
         return $this->organizationId;
     }
 
+    public function provider(string $provider, string $providerId):bool
+    {
+        if(isset($this->providers[$provider]) && $this->providers[$provider] == $providerId){
+            return true;
+        }
+        return false;
+    }
+
     public function belongsTo(string $organisationId):bool
     {
         return $this->organizationId === $organisationId;
     }
 
-    public function create(string $passwordHashed)
+    public function create(string $passwordHashed = null, Picture $picture = null)
     {
+        if(isset($picture)) {
+            $picture->resize('app/public/users/' . $this->id);
+            $this->pathPicture = $picture->relativePath();
+        }
         app(UserRepository::class)->add($this, $passwordHashed);
     }
 
@@ -122,7 +145,8 @@ class User
             'organization_id' => $this->organizationId,
             'path_picture' => $this->pathPicture,
             'url_picture' => $urlPicture,
-            'roles' => $this->roles
+            'roles' => $this->roles,
+            'providers' => $this->providers
         ];
     }
 }

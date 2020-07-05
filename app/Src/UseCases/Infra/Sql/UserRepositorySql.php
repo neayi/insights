@@ -100,4 +100,16 @@ class UserRepositorySql implements UserRepository
         }
         return $users;
     }
+
+    public function getByProvider(string $provider, string $providerId): ?User
+    {
+        $record = \App\User::where('providers.'.$provider, $providerId)->first();
+        if(!isset($record)){
+            return null;
+        }
+        $roles = $record->roles()->pluck('name')->toArray();
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
+    }
+
+
 }

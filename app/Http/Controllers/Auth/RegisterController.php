@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Src\UseCases\Domain\Auth\Register;
+use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
 use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends Controller
 {
@@ -79,5 +83,27 @@ class RegisterController extends Controller
         if($request->session()->has('should_attach_to_organization')){
             app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
         }
+    }
+
+    public function redirectToProvider(string $provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
+    {
+        try {
+            $userId = $register->register($provider);
+            $user = User::where('uuid', $userId)->first();
+            $this->guard()->login($user);
+            return $request->wantsJson()
+                ? new Response('', 201)
+                : redirect($this->redirectPath());
+        }catch (ValidationException $e) {
+            return redirect()->route('register')
+                ->withInput($e->validator->attributes())
+                ->withErrors($e->validator);
+        }
+
     }
 }

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
+use App\Src\UseCases\Domain\Auth\Register;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -75,5 +76,21 @@ class LoginController extends Controller
                 ? new Response('', 204)
                 : redirect($link);
         }
+    }
+
+    public function redirectToProvider(string $provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function handleProviderCallback(string $provider, Register $register)
+    {
+        $user = Socialite::driver($provider)->stateless()->user();
+        $email = $user['email'];
+        $firstname = $user['user']['given_name'];
+        $lastname = $user['user']['family_name'];
+        $userId = $register->register($email, $firstname, $lastname, 'secret83', 'secret83');
+        dd($userId);
+        // $user->token;
     }
 }

@@ -27,6 +27,10 @@
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
         <div class="card">
+            <div class="card-header">
+                <a href="{{ route('register.auth.provider', ['provider' => 'facebook']) }}" class="btn btn-block bg-gradient-primary">Facebook</a>
+                <a href="{{ route('register.auth.provider', ['provider' => 'google']) }}" class="btn btn-block bg-gradient-primary">google</a>
+            </div>
             <div class="card-body register-card-body">
                 <p class="login-box-msg">{{ __('adminlte::adminlte.register_message') }}</p>
                 <form action="{{ $register_url }}" method="post">

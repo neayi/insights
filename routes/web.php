@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('auth.provider');
+Route::get('register/{provider}', 'Auth\RegisterController@redirectToProvider')->name('register.auth.provider');
+Route::any('callback/{provider}', 'Auth\LoginController@handleProviderCallback')->name('auth.provider.callback');
+Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProviderCallback')->name('auth.provider.register_callback');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
 Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');

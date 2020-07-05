@@ -4,7 +4,7 @@
 namespace App\Exceptions\Domain;
 
 
-class ProviderNotSupported
+class ProviderNotSupported extends DomainException
 {
 
 }

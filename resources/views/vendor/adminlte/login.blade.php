@@ -34,6 +34,10 @@
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
         <div class="card">
+            <div class="card-header">
+                <a href="{{ route('auth.provider', ['provider' => 'facebook']) }}" class="btn btn-block bg-gradient-primary">Facebook</a>
+                <a href="{{ route('auth.provider', ['provider' => 'google']) }}" class="btn btn-block bg-gradient-primary">google</a>
+            </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
                 <form action="{{ $login_url }}" method="post">
@@ -85,7 +89,7 @@
                         </a>
                     </p>
                 @endif
-                
+
                 @if ($register_url)
                     <p class="mb-0">
                         <a href="{{ $register_url }}">
