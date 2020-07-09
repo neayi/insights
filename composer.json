@@ -17,6 +17,7 @@
         "intervention/image": "^2.5",
         "jeroennoten/laravel-adminlte": "3.3.*",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "spatie/laravel-permission": "^3.13"

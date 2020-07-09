@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
+use App\Src\UseCases\Domain\Auth\LogUserFromSocialNetwork;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -75,5 +76,18 @@ class LoginController extends Controller
                 ? new Response('', 204)
                 : redirect($link);
         }
+    }
+
+    public function redirectToProvider(string $provider)
+    {
+        config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
+        return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
+    }
+
+    public function handleProviderCallback(string $provider, LogUserFromSocialNetwork $logUserFromSocialNetwork)
+    {
+        config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
+        $logUserFromSocialNetwork->log($provider);
+        return redirect()->route('home');
     }
 }

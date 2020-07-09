@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasRoles;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture"
+        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"
     ];
 
     protected $hidden = [
@@ -23,12 +23,13 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'providers' => 'json',
     ];
 
     public function adminlte_image()
     {
         $urlPicture = $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
-        if($urlPicture === ""){
+        if(!isset($urlPicture) || $urlPicture === ""){
             $urlPicture = 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
         }
         return $urlPicture;

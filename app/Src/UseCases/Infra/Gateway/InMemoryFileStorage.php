@@ -4,6 +4,8 @@
 namespace App\Src\UseCases\Infra\Gateway;
 
 
+use App\Src\UseCases\Domain\Picture;
+
 class InMemoryFileStorage implements FileStorage
 {
     private $fs = [];
@@ -16,6 +18,13 @@ class InMemoryFileStorage implements FileStorage
     public function content(string $path): array
     {
         return $this->fs[$path];
+    }
+
+    public function uriToTmpPicture(string $uri): Picture
+    {
+        $path = uniqid();
+        app(PictureHandler::class)->add($path, 600, 600);
+        return new Picture($path, $ext = 'jpg');
     }
 
 }
