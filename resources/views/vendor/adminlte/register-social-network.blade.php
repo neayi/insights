@@ -34,11 +34,13 @@
             </div>
             <div class="card-body register-card-body">
                 <p class="login-box-msg">{{ __('adminlte::adminlte.register_message') }}</p>
-                <form action="{{ $register_url }}" method="post">
+                <form action="{{ route('auth.register-social-network') }}" method="post">
                     {{ csrf_field() }}
-
+                    <input type="hidden" name="provider" value="{{old('provider')}}">
+                    <input type="hidden" name="provider_id" value="{{old('provider_id')}}">
+                    <input type="hidden" name="picture_url" value="{{old('picture_url')}}">
                     <div class="input-group mb-3">
-                        <input type="text" name="firstname" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" value="{{ old('firstname') !== null ? old('firstname') : $firstname }}"
+                        <input type="text" name="firstname" class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" value="{{ old('firstname') }}"
                                placeholder="{{ __('adminlte::adminlte.firstname') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -53,7 +55,7 @@
                         @endif
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') !== null ? old('lastname') : $lastname }}"
+                        <input type="text" name="lastname" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" value="{{ old('lastname') }}"
                                placeholder="{{ __('adminlte::adminlte.lastname') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -68,7 +70,7 @@
                         @endif
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') !== null ? old('email') : $email }}"
+                        <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}"
                                placeholder="{{ __('adminlte::adminlte.email') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -78,34 +80,6 @@
                         @if ($errors->has('email'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('email') }}</strong>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                               placeholder="{{ __('adminlte::adminlte.password') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        @if ($errors->has('password'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
-                               placeholder="{{ __('adminlte::adminlte.retype_password') }}">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        @if ($errors->has('password_confirmation'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('password_confirmation') }}</strong>
                             </div>
                         @endif
                     </div>

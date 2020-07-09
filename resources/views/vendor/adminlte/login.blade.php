@@ -36,7 +36,8 @@
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('auth.provider', ['provider' => 'facebook']) }}" class="btn btn-block bg-gradient-primary">Facebook</a>
-                <a href="{{ route('auth.provider', ['provider' => 'google']) }}" class="btn btn-block bg-gradient-primary">google</a>
+                <a href="{{ route('auth.provider', ['provider' => 'google']) }}" class="btn btn-block bg-gradient-primary">Google</a>
+                <a href="{{ route('auth.provider', ['provider' => 'twitter']) }}" class="btn btn-block bg-gradient-primary">Twitter</a>
             </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>

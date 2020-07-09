@@ -20,7 +20,8 @@ class SessionAuthGateway implements AuthGateway
 
     public function log(User $u)
     {
-        // TODO: Implement log() method.
+        $autenticable = \App\User::where('uuid', $u->id())->first();
+        Auth::login($autenticable);
     }
 
 }

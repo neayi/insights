@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Src\UseCases\Domain\Auth\Register;
+use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
 use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
 use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
@@ -87,7 +88,8 @@ class RegisterController extends Controller
 
     public function redirectToProvider(string $provider)
     {
-        return Socialite::driver($provider)->redirect();
+        config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK')]);
+        return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
@@ -100,10 +102,30 @@ class RegisterController extends Controller
                 ? new Response('', 201)
                 : redirect($this->redirectPath());
         }catch (ValidationException $e) {
-            return redirect()->route('register')
-                ->withInput($e->validator->attributes())
+            $attributes = $e->validator->attributes();
+            $attributes['provider'] = $provider;
+            return redirect()->route('register-social-network')
+                ->withInput($attributes)
                 ->withErrors($e->validator);
         }
 
+    }
+
+    public function showErrorRegisterFormSocialNetwork()
+    {
+        return view('auth.register-social-network');
+    }
+
+    public function registerAfterError(Request $request, RegisterUserAfterErrorWithSocialNetwork $registerUserAfterErrorWithSocialNetwork)
+    {
+        $data = $request->all();
+        $email = isset($data['email']) ? $data['email'] : '';
+        $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
+        $lastname = $data['lastname'] !== null ? $data['lastname'] : '';
+        $provider = $data['provider'] !== null ? $data['provider'] : null;
+        $providerId = $data['provider_id'] !== null ? $data['provider_id'] : null;
+        $pictureUrl = $data['picture_url'] !== null ? $data['picture_url'] : '';
+        $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
+        return redirect()->route('home');
     }
 }

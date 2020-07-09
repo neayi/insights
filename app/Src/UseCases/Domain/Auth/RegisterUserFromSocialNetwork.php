@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain\Auth;
 
 
 use App\Exceptions\Domain\ProviderNotSupported;
+use App\Src\UseCases\Domain\Auth\Services\CheckEmailUniqueness;
 use App\Src\UseCases\Domain\Picture;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
@@ -64,25 +65,13 @@ class RegisterUserFromSocialNetwork
         $data = [
             'email' => $socialiteUser->email(),
             'firstname' => $socialiteUser->firstname(),
-            'lastname' => $socialiteUser->lastname()
+            'lastname' => $socialiteUser->lastname(),
+            'provider_id' => $socialiteUser->providerId(),
+            'picture_url' => $socialiteUser->pictureUrl()
         ];
         $validator = Validator::make($data, $rules);
-        $this->validateEmailUniqueness($socialiteUser->email(), $validator);
+        app(CheckEmailUniqueness::class)->validateEmailUniqueness($socialiteUser->email(), $validator);
         $validator->validate();
-    }
-
-    private function validateEmailUniqueness(string $email, \Illuminate\Contracts\Validation\Validator $validator): void
-    {
-        $errors = [];
-        $user = $this->userRepository->getByEmail($email);
-        if (isset($user)) {
-            $errors['email'] = __('validation.unique', ['attribute' => 'email']);
-            $validator->after(function () use ($validator, $errors) {
-                foreach ($errors as $field => $error) {
-                    $validator->errors()->add($field, $error);
-                }
-            });
-        }
     }
 
     private function handlePicture(SocialiteUser $socialiteUser): ?Picture

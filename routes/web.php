@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('auth.provider');
 Route::get('register/{provider}', 'Auth\RegisterController@redirectToProvider')->name('register.auth.provider');
-Route::any('callback/{provider}', 'Auth\LoginController@handleProviderCallback')->name('auth.provider.callback');
+Route::any('login/callback/{provider}', 'Auth\LoginController@handleProviderCallback')->name('auth.provider.callback');
 Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProviderCallback')->name('auth.provider.register_callback');
+Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
+Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
 Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
 Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');

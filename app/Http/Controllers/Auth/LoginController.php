@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Src\UseCases\Domain\Auth\Register;
+use App\Src\UseCases\Domain\Auth\LogUserFromSocialNetwork;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -80,17 +80,14 @@ class LoginController extends Controller
 
     public function redirectToProvider(string $provider)
     {
-        return Socialite::driver($provider)->redirect();
+        config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
+        return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
-    public function handleProviderCallback(string $provider, Register $register)
+    public function handleProviderCallback(string $provider, LogUserFromSocialNetwork $logUserFromSocialNetwork)
     {
-        $user = Socialite::driver($provider)->stateless()->user();
-        $email = $user['email'];
-        $firstname = $user['user']['given_name'];
-        $lastname = $user['user']['family_name'];
-        $userId = $register->register($email, $firstname, $lastname, 'secret83', 'secret83');
-        dd($userId);
-        // $user->token;
+        config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
+        $logUserFromSocialNetwork->log($provider);
+        return redirect()->route('home');
     }
 }

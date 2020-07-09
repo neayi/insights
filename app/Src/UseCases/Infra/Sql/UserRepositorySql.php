@@ -103,7 +103,7 @@ class UserRepositorySql implements UserRepository
 
     public function getByProvider(string $provider, string $providerId): ?User
     {
-        $record = \App\User::where('providers.'.$provider, $providerId)->first();
+        $record = \App\User::where('providers->'.$provider, $providerId)->first();
         if(!isset($record)){
             return null;
         }

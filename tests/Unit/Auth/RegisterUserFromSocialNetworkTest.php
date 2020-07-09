@@ -32,7 +32,6 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         if(config('app.env') === 'testing-ti'){
             Artisan::call('migrate:fresh');
         }
-
     }
 
     public function testShouldNotRegisterUserWhenProviderIsNotAllowed()

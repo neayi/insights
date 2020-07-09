@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'providers' => 'array',
+        'providers' => 'json',
     ];
 
     public function adminlte_image()
