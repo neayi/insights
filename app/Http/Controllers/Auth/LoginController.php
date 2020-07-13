@@ -21,9 +21,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
         session()->reflash();
+        if($request->has('callback')){
+            session()->flash('callback', $request->input('callback'));
+        }
         return view('auth.login');
     }
 
@@ -69,6 +72,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if($request->session()->has('callback')){
+            $callback = urldecode($request->session()->get('callback')).'?oauth_verifier=true';
+            return redirect($callback);
+        }
         if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){
             $token = $request->session()->get('should_attach_to_organization_token');
             $link = route('organization.invite.show').'?&token='.$token;
