@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
@@ -16,10 +17,13 @@ use App\Src\UseCases\Infra\Gateway\PictureHandler;
 use App\Src\UseCases\Infra\Gateway\Real\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\Real\RealSocialiteGateway;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
+use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
+use App\Src\Utils\Hash\HashGen;
+use App\Src\Utils\Hash\InMemoryHashGen;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
             $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
             $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
+            $this->app->singleton(HashGen::class, InMemoryHashGen::class);
+            $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         }
         if(config('app.env') === 'testing-ti'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
@@ -40,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
             $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
             $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
+            $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         }
 
         if(config('app.env') === 'local'){
