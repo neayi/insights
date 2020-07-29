@@ -7,6 +7,7 @@ namespace Tests\Unit\Users;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\ListUsers;
+use App\Src\UseCases\Domain\Users\UserDto;
 use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -39,7 +40,7 @@ class ListUsersTest extends TestCase
         $this->userRepository->add($u);
 
         $users = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(User::class, $users['list']);
+        self::assertContainsOnlyInstancesOf(UserDto::class, $users['list']);
         self::assertCount(1, $users['list']);
     }
 
@@ -56,11 +57,11 @@ class ListUsersTest extends TestCase
         $this->userRepository->add($u);
 
         $organizations = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(User::class, $organizations['list']);
+        self::assertContainsOnlyInstancesOf(UserDto::class, $organizations['list']);
         self::assertCount(2, $organizations['list']);
 
         $organizations = app(ListUsers::class)->list($organizationId, $page = 2, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(User::class, $organizations['list']);
+        self::assertContainsOnlyInstancesOf(UserDto::class, $organizations['list']);
         self::assertCount(1, $organizations['list']);
     }
 
@@ -75,7 +76,7 @@ class ListUsersTest extends TestCase
         $this->userRepository->add($u);
 
         $organizations = app(ListUsers::class)->list($organizationId, $page = 1, $perPage = 2);
-        self::assertContainsOnlyInstancesOf(User::class, $organizations['list']);
+        self::assertContainsOnlyInstancesOf(UserDto::class, $organizations['list']);
         self::assertCount(1, $organizations['list']);
     }
 }

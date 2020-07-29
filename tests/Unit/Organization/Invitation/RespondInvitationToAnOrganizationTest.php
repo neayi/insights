@@ -5,8 +5,10 @@ namespace Tests\Unit\Organization\Invitation;
 
 
 use App\Src\UseCases\Domain\Address;
+use App\Src\UseCases\Domain\Invitation;
 use App\Src\UseCases\Domain\Invitation\RespondInvitationToAnOrganization;
 use App\Src\UseCases\Domain\Organization;
+use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
@@ -20,6 +22,7 @@ class RespondInvitationToAnOrganizationTest extends TestCase
     private $organizationRepository;
     private $userRepository;
     private $authGateway;
+    private $invitationRepository;
 
     public function setUp(): void
     {
@@ -27,6 +30,7 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $this->organizationRepository = app(OrganizationRepository::class);
         $this->userRepository = app(UserRepository::class);
         $this->authGateway = app(AuthGateway::class);
+        $this->invitationRepository = app(InvitationRepository::class);
 
         if(config('app.env') === 'testing-ti'){
             Artisan::call('migrate:fresh');
@@ -37,9 +41,11 @@ class RespondInvitationToAnOrganizationTest extends TestCase
     {
         $organizationId = Uuid::uuid4();
         $email = 'anemailofunknowuser@gmail.com';
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
 
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'register',
@@ -67,8 +73,10 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
         $this->organizationRepository->add($organizationToJoin);
 
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'accept_or_decline',
@@ -96,8 +104,10 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $oldOrganization = new Organization($oldOrganizationId, 'old_org', '', $address);
         $this->organizationRepository->add($oldOrganization);
 
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'accept_or_decline',
@@ -125,8 +135,10 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
         $this->organizationRepository->add($organizationToJoin);
 
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'logout-login',
@@ -149,8 +161,10 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
         $this->organizationRepository->add($organizationToJoin);
 
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'logout-register',
@@ -177,8 +191,10 @@ class RespondInvitationToAnOrganizationTest extends TestCase
         $organizationToJoin = new Organization($organizationId, 'org_to_join', '', $address);
         $this->organizationRepository->add($organizationToJoin);
 
-        $token = base64_encode($organizationId.'|*|'.$email.'|*||*|');
-        $action = app(RespondInvitationToAnOrganization::class)->respond($token);
+        $invitation = new Invitation($organizationId, $email);
+        $this->invitationRepository->add($invitation);
+
+        $action = app(RespondInvitationToAnOrganization::class)->respond($invitation->hash());
 
         $actionExpected = [
             'action' => 'login',

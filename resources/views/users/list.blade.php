@@ -17,6 +17,8 @@
                                     <th>@lang('users.table.avatar')</th>
                                     <th>@lang('users.table.identity')</th>
                                     <th>@lang('users.table.email')</th>
+                                    <th>@lang('users.table.state')</th>
+                                    <th>@lang('users.table.last_login')</th>
                                     <th>@lang('users.table.actions')</th>
                                     <th>@lang('users.table.actions')</th>
                                 </tr>

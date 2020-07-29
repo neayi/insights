@@ -8,6 +8,9 @@ use App\Events\UserDeleted;
 use App\Events\UserLeaveOrganization;
 use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\Users\Identity;
+use App\Src\UseCases\Domain\Users\State;
+use App\Src\UseCases\Domain\Users\UserDto;
 use Illuminate\Support\Facades\Mail;
 
 class User
@@ -132,6 +135,13 @@ class User
     {
         app(UserRepository::class)->delete($this->id);
         event(new UserDeleted($this->id, $this->organizationId));
+    }
+
+    public function toDto():UserDto
+    {
+        $identity = new Identity($this->id, $this->email, $this->firstname, $this->lastname, $this->pathPicture);
+        $state = new State($this->organizationId, null, true);
+        return new UserDto($identity, $state);
     }
 
     public function toArray()

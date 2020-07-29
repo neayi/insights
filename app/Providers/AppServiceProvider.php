@@ -20,9 +20,11 @@ use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
+use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\Utils\Hash\HashGen;
+use App\Src\Utils\Hash\HashGenReal;
 use App\Src\Utils\Hash\InMemoryHashGen;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         }
         if(config('app.env') === 'testing-ti'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
+            $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
             $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
             $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
@@ -51,11 +54,13 @@ class AppServiceProvider extends ServiceProvider
 
         if(config('app.env') === 'local'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
+            $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
             $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
             $this->app->singleton(UserRepository::class, UserRepositorySql::class);
             $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
             $this->app->singleton(FileStorage::class, FsFileStorage::class);
             $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
+            $this->app->singleton(HashGen::class, HashGenReal::class);
 
         }
     }

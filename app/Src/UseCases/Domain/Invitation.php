@@ -15,7 +15,7 @@ class Invitation
     private $token;
     private $hash;
 
-    public function __construct(string $organizationId, string $email, ?string $firstname, ?string $lastname)
+    public function __construct(string $organizationId, string $email, ?string $firstname = null, ?string $lastname = null)
     {
         $this->organizationId = $organizationId;
         $this->email = $email;
@@ -28,5 +28,15 @@ class Invitation
     public function hash():string
     {
         return $this->hash;
+    }
+
+    public function data():array
+    {
+        return [
+            $this->organizationId,
+            $this->email,
+            $this->firstname,
+            $this->lastname,
+        ];
     }
 }
