@@ -217,6 +217,10 @@ return [
             'text' => 'Dashboard',
             'url'  => 'home',
         ],
+        [
+            'text' => 'Mon profil',
+            'url'  => 'user/edit/profile',
+        ],
         /*[
             'text'        => 'pages',
             'url'         => 'admin/pages',

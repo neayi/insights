@@ -38,7 +38,7 @@ class UsersController extends Controller
                 $user['state'] == false ? 'Invitation envoyée' : 'Actif',
                 isset($user['last_login_at']) ? 'Dernière connexion le : '.(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : 'Jamais',
                 $user['uuid'],
-                isset($user['url_picture']) && $user['url_picture'] !== "" ? $user['url_picture'] : 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png',
+                isset($user['url_picture']) && $user['url_picture'] !== "" ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img'),
                 route('user.edit.form', ['id' => $user['uuid']]),
             ];
         }
@@ -59,7 +59,8 @@ class UsersController extends Controller
         }
         return view('users/edit_form', [
             'user' => $user->toArray(),
-            'organization' => isset($organization) ? $organization->toArray() : null
+            'organization' => isset($organization) ? $organization->toArray() : null,
+            'action' => route('user.edit', ['id' => $userId])
         ]);
     }
 
