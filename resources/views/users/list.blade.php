@@ -69,6 +69,7 @@
                 {"name": "Name"},
                 {"name": "email"},
                 {"name": "state"},
+                {"name": "last_login"},
                 {"name": "Action"},
                 {"name": "id", 'visible':false},
                 {"name": "link", 'visible':false},
@@ -78,9 +79,11 @@
                     var picture = '<img style="height:34px; width:34px;" class="user-image img-circle elevation-2" src="' + data[6] + '"/>';
                     $('td', row).eq(0).html(picture);
                 }
-                var action = '<a href="'+data[7]+'" class="btn btn-block btn-outline-primary btn-xs" style="cursor:pointer;">' +
-                    '<i class="far fa-plus-square"></i>'+editActionMessage+'</a>'
-                $('td', row).eq(3).html(action);
+                var linkEdit = '<a href="'+data[7]+'" style="cursor:pointer;">' +
+                    '</i>'+data[1]+'</a>';
+                $('td', row).eq(1).html(linkEdit);
+                var action = '<a class="btn btn-default btn-sm" href="'+data[7]+'"><i class="fa fa-edit"></i></a>';
+                $('td', row).last().html(action);
             }
         });
     });
