@@ -30,7 +30,7 @@ class User extends Authenticatable
     {
         $urlPicture = $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
         if(!isset($urlPicture) || $urlPicture === ""){
-            $urlPicture = 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
+            $urlPicture = url('').'/'.config('adminlte.logo_img');
         }
         return $urlPicture;
     }
