@@ -5,27 +5,39 @@ namespace App\Src\UseCases\Domain;
 
 
 use App\Mail\InvitationLinkToOrganization;
+use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\Utils\Hash\HashGen;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class InviteUsersInOrganization
 {
     private $organizationRepository;
+    private $invitationRepository;
 
-    public function __construct(OrganizationRepository $organizationRepository)
+    public function __construct(
+        OrganizationRepository $organizationRepository,
+        InvitationRepository $invitationRepository
+    )
     {
         $this->organizationRepository = $organizationRepository;
+        $this->invitationRepository = $invitationRepository;
     }
 
     public function invite(string $organizationId, array $users)
     {
+        $invitations = [];
         $organization = $this->organizationRepository->get($organizationId);
         foreach($users as $user){
             $email = $user['email'];
             $firstname = isset($user['firstname']) ? $user['firstname'] : '';
             $lastname = isset($user['lastname']) ? $user['lastname'] : '';
-            $token = base64_encode($organizationId.'|*|'.$email.'|*|'.$firstname.'|*|'.$lastname);
-            Mail::to($email)->send(new InvitationLinkToOrganization($token, $email, $organization->name(), $firstname, $lastname));
+
+            $invitations[] = $invitation = new Invitation($organizationId, $email, $firstname, $lastname);
+            $this->invitationRepository->add($invitation);
+            Mail::to($email)->send(new InvitationLinkToOrganization($invitation->hash(), $email, $organization->name(), $firstname, $lastname));
         }
+        return $invitations;
     }
 }

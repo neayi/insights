@@ -41,7 +41,7 @@ class InMemoryUserRepository implements UserRepository
         $users = [];
         foreach($this->users as $user){
             if($user->organizationId() === $organizationId){
-                $users[] = $user;
+                $users[] = $user->toDto();
             }
         }
         $chunks = array_chunk($users, $perPage);

@@ -5,7 +5,8 @@ return [
     'table.identity' => 'Identité',
     'table.email' => 'Email',
     'table.actions' => 'Actions',
-    'table.actions' => 'Actions',
+    'table.state' => 'Etat',
+    'table.last_login' => 'Dernière connexion',
 
     'action.edit' => 'Editer l\'utilisateur',
     'action.edit.profile' => 'Editer',
