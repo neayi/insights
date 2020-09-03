@@ -179,7 +179,7 @@ return [
 
     'password_email_url' => 'password/email',
 
-    'profile_url' => false,
+    'profile_url' => 'user/edit/profile',
 
     /*
     |--------------------------------------------------------------------------
@@ -216,10 +216,12 @@ return [
         [
             'text' => 'Dashboard',
             'url'  => 'home',
+            'icon' => 'fa fa-home'
         ],
         [
             'text' => 'Mon profil',
             'url'  => 'user/edit/profile',
+            'icon' => 'fas fa-fw fa-user',
         ],
         /*[
             'text'        => 'pages',
@@ -246,10 +248,12 @@ return [
                 [
                     'text' => 'add_organization',
                     'url'  => 'organization/add/form',
+                    'icon'    => 'fas fa-fw fa-plus',
                 ],
                 [
                     'text' => 'list_organization',
                     'url'  => 'organizations',
+                    'icon' => 'fa fa-table'
                 ],
             ],
         ],
