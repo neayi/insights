@@ -24,6 +24,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'providers' => 'json',
+        'wiki_stats' => 'json',
     ];
 
     public function adminlte_image()

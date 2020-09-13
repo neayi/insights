@@ -3,6 +3,7 @@
 use App\Src\UseCases\Domain\Address;
 use App\Src\UseCases\Domain\Organization;
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Domain\Users\EditUserStats;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,17 @@ class RandomDataSeeder extends Seeder
                 if($j == 0){
                     $user->grantAsAdmin();
                 }
+
+                $stats = [
+                    'number_contributions' => rand(0,100),
+                    'number_questions' => rand(0,100),
+                    'number_answers' => rand(0,100),
+                    'number_votes' => rand(0,100),
+                    'number_validations' => rand(0,100),
+                    'number_wiki_edit' => rand(0,100),
+                    'number_contributions_last_30_days' => rand(0,100),
+                ];
+                app(EditUserStats::class)->edit($userId, $stats);
             }
         }
     }

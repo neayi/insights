@@ -19,6 +19,11 @@
                                     <b>@lang('users.role') </b> <a class="float-right"><span class="badge btn-danger">@lang('users.role.admin')</span></a>
                                 </li>
                             @endif
+                            @foreach($stats as $key => $stat)
+                                <li class="list-group-item">
+                                    <b>@lang('users.'.$key)</b> : <a class="pull-right">{{$stat}}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

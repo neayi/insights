@@ -23,5 +23,11 @@ return [
     'role.admin' => 'Admin',
     'role' => 'Role',
 
-
+    'number_contributions' => 'Nombre de contributions',
+    'number_questions' => 'Nombre de questions',
+    'number_answers' => 'Nombre de commentaires',
+    'number_votes' => 'Nombre de votes',
+    'number_validations' => 'Nombre de validations',
+    'number_wiki_edit' => 'Nombre de modifications dans le wiki',
+    'number_contributions_last_30_days' => 'Nombre de contributions dans les 30 derniers jours'
 ];

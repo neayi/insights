@@ -50,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
             $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
             $this->app->singleton(HashGen::class, InMemoryHashGen::class);
+            $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         }
 
         if(config('app.env') === 'local'){

@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain\Ports;
 
 
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Domain\Users\Stats;
 
 interface UserRepository
 {
@@ -16,4 +17,6 @@ interface UserRepository
     public function update(User $u);
     public function delete(string $userId);
     public function getAdminOfOrganization(string $organizationId):array;
+    public function getStats(string $userId):Stats;
+    public function addStats(string $userId, Stats $stats);
 }
