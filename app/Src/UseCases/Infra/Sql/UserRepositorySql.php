@@ -7,6 +7,7 @@ use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Identity;
 use App\Src\UseCases\Domain\Users\State;
+use App\Src\UseCases\Domain\Users\Stats;
 use App\Src\UseCases\Domain\Users\UserDto;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
@@ -135,5 +136,19 @@ class UserRepositorySql implements UserRepository
         return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
     }
 
+    public function getStats(string $userId): Stats
+    {
+        $record = \App\User::where('uuid', $userId)->first();
+        if(isset($record) && $record->wiki_stats !== null){
+            return new Stats($record->wiki_stats);
+        }
+        return new Stats([]);
+    }
 
+    public function addStats(string $userId, Stats $stats)
+    {
+        DB::table('users')
+            ->where('uuid', $userId)
+            ->update(['wiki_stats' => $stats->toArray()]);
+    }
 }
