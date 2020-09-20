@@ -18,3 +18,7 @@ echo ""
 echo "You can visit : http://dev.core.tripleperformance.com:8008"
 
 docker-compose up -d
+
+docker network create triple-network
+docker network connect triple-network tripleperformance-sql
+docker network connect triple-network neayi_php
