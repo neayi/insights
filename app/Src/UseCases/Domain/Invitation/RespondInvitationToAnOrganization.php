@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Domain\Invitation;
 
 
+use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
@@ -13,21 +14,26 @@ class RespondInvitationToAnOrganization
     private $userRepository;
     private $organizationRepository;
     private $authGateway;
+    private $invitationRepository;
 
     public function __construct(
         UserRepository $userRepository,
         OrganizationRepository $organizationRepository,
-        AuthGateway $authGateway
+        AuthGateway $authGateway,
+        InvitationRepository $invitationRepository
     )
     {
         $this->userRepository = $userRepository;
         $this->organizationRepository = $organizationRepository;
         $this->authGateway = $authGateway;
+        $this->invitationRepository = $invitationRepository;
     }
 
-    public function respond(string $token)
+    public function respond(string $hash)
     {
-        list($organizationId, $email, $firstname, $lastname) = explode('|*|', base64_decode($token));
+        $invitation = $this->invitationRepository->getByHash($hash);
+
+        list($organizationId, $email, $firstname, $lastname) = $invitation->data();
         $user = $this->userRepository->getByEmail($email);
 
         $organizationToJoin = $this->organizationRepository->get($organizationId);

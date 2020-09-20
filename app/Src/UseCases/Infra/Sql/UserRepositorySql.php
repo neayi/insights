@@ -5,7 +5,12 @@ namespace App\Src\UseCases\Infra\Sql;
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Domain\Users\Identity;
+use App\Src\UseCases\Domain\Users\State;
+use App\Src\UseCases\Domain\Users\Stats;
+use App\Src\UseCases\Domain\Users\UserDto;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class UserRepositorySql implements UserRepository
 {
@@ -55,25 +60,45 @@ class UserRepositorySql implements UserRepository
 
     public function search(string $organizationId, int $page, int $perPage = 10): array
     {
-        $records = DB::table('users')
-            ->select()
-            ->where('organization_id', $organizationId)
+        $first = DB::table('users', 'u')
+            ->selectRaw('u.last_login_at, u.path_picture, u.uuid, u.id as uid, u.firstname as ufirstname, u.lastname as ulastname, u.email as uemail, invitations.id as iid, invitations.firstname as ifirstname, invitations.lastname as ilastname, invitations.email as iemail')
+            ->leftJoin('invitations', 'invitations.email', 'u.email')
+            ->where('u.organization_id', $organizationId);
+
+        $records = DB::table('users', 'u')
+            ->selectRaw('u.last_login_at, u.path_picture, u.uuid, u.id as uid, u.firstname as ufirstname, u.lastname as ulastname, u.email as uemail, invitations.id as iid, invitations.firstname as ifirstname, invitations.lastname as ilastname, invitations.email as iemail')
+            ->rightJoin('invitations', 'invitations.email', 'u.email')
+            ->where('invitations.organization_id', $organizationId)
+            ->union($first)
+            ->get()
         ;
+
         $count = $records->count();
 
-        $records = DB::table('users')
-            ->select()
-            ->where('organization_id', $organizationId)
+        $records = DB::table('users', 'u')
+            ->selectRaw('u.last_login_at, u.path_picture, u.uuid, u.id as uid, u.firstname as ufirstname, u.lastname as ulastname, u.email as uemail, invitations.id as iid, invitations.firstname as ifirstname, invitations.lastname as ilastname, invitations.email as iemail')
+            ->rightJoin('invitations', 'invitations.email', 'u.email')
+            ->where('invitations.organization_id', $organizationId)
+            ->union($first)
             ->offset(($page-1)*$perPage)
             ->limit($perPage)
             ->get();
         if(empty($records)){
             return [];
         }
+
         $users = [];
         foreach($records as $record){
-            $roles = \App\User::find($record->id)->roles()->pluck('name')->toArray();
-            $users[] = new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
+            if($record->uuid === null){
+                $identity = new Identity(Uuid::uuid4(), $record->iemail, $record->ifirstname, $record->ilastname, null);
+                $state = new State($organizationId, null, false, []);
+                $users[] = new UserDto($identity, $state);
+                continue;
+            }
+            $roles = \App\User::find($record->uid)->roles()->pluck('name')->toArray();
+            $identity = new Identity($record->uuid, $record->uemail, $record->ufirstname, $record->ulastname, $record->path_picture);
+            $state = new State($organizationId, $record->last_login_at, true, $roles);
+            $users[] = new UserDto($identity, $state);
         }
         return [
             'list' => $users,
@@ -111,5 +136,19 @@ class UserRepositorySql implements UserRepository
         return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
     }
 
+    public function getStats(string $userId): Stats
+    {
+        $record = \App\User::where('uuid', $userId)->first();
+        if(isset($record) && $record->wiki_stats !== null){
+            return new Stats($record->wiki_stats);
+        }
+        return new Stats([]);
+    }
 
+    public function addStats(string $userId, Stats $stats)
+    {
+        DB::table('users')
+            ->where('uuid', $userId)
+            ->update(['wiki_stats' => $stats->toArray()]);
+    }
 }

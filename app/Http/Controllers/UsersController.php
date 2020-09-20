@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\DeleteUserFromOrganization;
 use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
+use App\Src\UseCases\Domain\Users\GetUserStats;
 use App\Src\UseCases\Domain\Users\ListUsers;
 use App\Src\UseCases\Organizations\GetOrganization;
 use App\Src\UseCases\Organizations\GrantUserAsAdminOrganization;
@@ -35,11 +36,11 @@ class UsersController extends Controller
                 '',
                 ucfirst($user['firstname']).' '.ucfirst($user['lastname']),
                 $user['email'],
-                '', //$user['state'],
-                '',
+                $user['state'] == false ? 'Invitation envoyée' : 'Actif',
+                isset($user['last_login_at']) ? 'Dernière connexion le : '.(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : 'Jamais',
                 $user['uuid'],
-                $user['url_picture'],
-                route('user.edit.form', ['id' => $user['uuid']])
+                isset($user['url_picture']) && $user['url_picture'] !== "" ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img'),
+                route('user.edit.form', ['id' => $user['uuid']]),
             ];
         }
 
@@ -51,15 +52,18 @@ class UsersController extends Controller
         ];
     }
 
-    public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization)
+    public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)
     {
         $user = $getUser->get($userId);
         if($user->organizationId() !== null) {
             $organization = $getOrganization->get($user->organizationId());
         }
+        $stats = $getUserStats->get($userId);
         return view('users/edit_form', [
             'user' => $user->toArray(),
-            'organization' => isset($organization) ? $organization->toArray() : null
+            'stats' => $stats->toArray(),
+            'organization' => isset($organization) ? $organization->toArray() : null,
+            'action' => route('user.edit', ['id' => $userId])
         ]);
     }
 

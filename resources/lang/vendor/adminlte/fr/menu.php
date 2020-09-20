@@ -2,7 +2,8 @@
 
 return [
 
-    'menu_organizations'                    => 'Organisations',
+    'menu_organizations'                   => 'Organisations',
     'add_organization'                     => 'Ajouter une organisation',
-    'list_organization'                     => 'Lister les organisations',
+    'list_organization'                    => 'Lister les organisations',
+    'profile'                              => 'Profil',
 ];

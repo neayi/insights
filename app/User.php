@@ -24,13 +24,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'providers' => 'json',
+        'wiki_stats' => 'json',
     ];
 
     public function adminlte_image()
     {
         $urlPicture = $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
         if(!isset($urlPicture) || $urlPicture === ""){
-            $urlPicture = 'http://dev.core.tripleperformance.com:8008/vendor/adminlte/dist/img/AdminLTELogo.png';
+            $urlPicture = url('').'/'.config('adminlte.logo_img');
         }
         return $urlPicture;
     }

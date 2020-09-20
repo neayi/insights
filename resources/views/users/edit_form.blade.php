@@ -9,7 +9,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture']}}">
+                            <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture'] !== null ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img')}}">
                         </div>
                         <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
                         <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
@@ -19,12 +19,11 @@
                                     <b>@lang('users.role') </b> <a class="float-right"><span class="badge btn-danger">@lang('users.role.admin')</span></a>
                                 </li>
                             @endif
-                            <li class="list-group-item">
-                                <b>Following</b> <a class="float-right">543</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Friends</b> <a class="float-right">13,287</a>
-                            </li>
+                            @foreach($stats as $key => $stat)
+                                <li class="list-group-item">
+                                    <b>@lang('users.'.$key)</b> : <a class="pull-right">{{$stat}}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -34,14 +33,16 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">@lang('users.action.edit.profile')</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">@lang('users.rights')</a></li>
+                            @if(isset($organization))
+                                <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">@lang('users.rights')</a></li>
+                            @endif
                             <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab" style="">@lang('users.action.delete.account')</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="tab-pane active" id="settings">
-                                <form role="form" class="form-horizontal" action="{{ route('user.edit', ['id' => $user['uuid']]) }}" method="POST" enctype="multipart/form-data">
+                                <form role="form" class="form-horizontal" action="{{$action}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group row">
                                         <label for="inputName" class="col-sm-2 col-form-label">@lang('common.firstname')</label>

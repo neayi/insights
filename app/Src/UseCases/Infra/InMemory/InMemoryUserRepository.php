@@ -6,10 +6,12 @@ namespace App\Src\UseCases\Infra\InMemory;
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
+use App\Src\UseCases\Domain\Users\Stats;
 
 class InMemoryUserRepository implements UserRepository
 {
     private $users = [];
+    private $stats = [];
 
     public function add(User $u, string $password = null)
     {
@@ -41,7 +43,7 @@ class InMemoryUserRepository implements UserRepository
         $users = [];
         foreach($this->users as $user){
             if($user->organizationId() === $organizationId){
-                $users[] = $user;
+                $users[] = $user->toDto();
             }
         }
         $chunks = array_chunk($users, $perPage);
@@ -91,5 +93,13 @@ class InMemoryUserRepository implements UserRepository
         return null;
     }
 
+    public function getStats(string $userId): Stats
+    {
+        return isset($this->stats[$userId]) ? $this->stats[$userId] : new Stats([]);
+    }
 
+    public function addStats(string $userId, Stats $stats)
+    {
+        $this->stats[$userId] = $stats;
+    }
 }

@@ -11,15 +11,15 @@ class InvitationLinkToOrganization extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $token;
+    private $hash;
     private $email;
     private $firstname;
     private $lastname;
     private $organization;
 
-    public function __construct(string $token, string $email, string $organization, string $firstname = null, string $lastname = null)
+    public function __construct(string $hash, string $email, string $organization, string $firstname = null, string $lastname = null)
     {
-        $this->token = $token;
+        $this->hash = $hash;
         $this->email = $email;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -28,7 +28,7 @@ class InvitationLinkToOrganization extends Mailable
 
     public function build()
     {
-        $link = route('organization.invite.show').'?&token='.$this->token;
+        $link = route('organization.invite.show').'?&token='.$this->hash;
         return $this->view('mails.invitationLinkToOrganization', [
             'link' => $link,
             'firstname' => $this->firstname,
