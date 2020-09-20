@@ -18,6 +18,14 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        if($request->has('wiki_callback')){
+            $user = Auth::user();
+            $user->wiki_token = $request->input('wiki_token');
+            $user->save();
+            $callback = urldecode($request->input('wiki_callback'));
+            return redirect($callback);
+        }
+
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }

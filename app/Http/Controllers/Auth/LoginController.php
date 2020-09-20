@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Auth\LogUserFromSocialNetwork;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -24,8 +25,9 @@ class LoginController extends Controller
     public function showLoginForm(Request $request)
     {
         session()->reflash();
-        if($request->has('callback')){
-            session()->flash('callback', $request->input('callback'));
+        if($request->has('wiki_callback')){
+            session()->flash('wiki_callback', $request->input('wiki_callback'));
+            session()->flash('wiki_token', $request->input('wiki_token'));
         }
         return view('auth.login');
     }
@@ -72,8 +74,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if($request->session()->has('callback')){
-            $callback = urldecode($request->session()->get('callback')).'?oauth_verifier=true';
+        if($request->session()->has('wiki_callback')){
+            $user = Auth::user();
+            $user->wiki_token = $request->session()->get('wiki_token');
+            $user->save();
+            $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
         }
         if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){

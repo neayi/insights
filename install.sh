@@ -21,4 +21,6 @@ docker-compose up -d
 
 docker network create triple-network
 docker network connect triple-network tripleperformance-sql
+docker network connect triple-network tripleperformance-web
 docker network connect triple-network neayi_php
+docker network connect triple-network neayi_nginx
