@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if($request->has('wiki_callback')){
+        if($request->has('wiki_callback') && Auth::user() !== null){
             $user = Auth::user();
             $user->wiki_token = $request->input('wiki_token');
             $user->save();

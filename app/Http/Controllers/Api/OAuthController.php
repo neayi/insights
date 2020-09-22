@@ -23,14 +23,12 @@ class OAuthController extends BaseController
             return ['error' => 'invalid_token'];
         }
 
-        $user->wiki_token = '';
-        //$user->save();
-
         return [
-            'id' => $user->id,
+            'id' => $user->uuid,
             'name' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
             'realname' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
-            'email' => $user->email
+            'email' => $user->email,
+            'avatar' => $user->adminlte_image()
         ];
     }
 }

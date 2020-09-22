@@ -92,6 +92,9 @@ class LoginController extends Controller
 
     public function redirectToProvider(string $provider)
     {
+        if(session()->has('wiki_callback')){
+            session()->reflash();
+        }
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
@@ -100,6 +103,9 @@ class LoginController extends Controller
     {
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         $logUserFromSocialNetwork->log($provider);
+        if(session()->has('wiki_callback')){
+            return $this->authenticated(request(), null);
+        }
         return redirect()->route('home');
     }
 }
