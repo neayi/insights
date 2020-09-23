@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         }
 
-        if(config('app.env') === 'local'){
+        if(config('app.env') === 'local' || config('app.env') === 'production'){
             $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
             $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
             $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
@@ -62,7 +62,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app->singleton(FileStorage::class, FsFileStorage::class);
             $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
             $this->app->singleton(HashGen::class, HashGenReal::class);
-
         }
     }
 

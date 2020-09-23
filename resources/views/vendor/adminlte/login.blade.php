@@ -70,13 +70,13 @@
                         @endif
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-7">
                             <div class="icheck-primary">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">{{ __('adminlte::adminlte.remember_me') }}</label>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-5">
                             <button type="submit" class="btn btn-primary btn-block btn-flat">
                                 {{ __('adminlte::adminlte.sign_in') }}
                             </button>

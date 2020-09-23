@@ -41,7 +41,7 @@ class ProfileController extends Controller
             $picture['mine_type'] = $request->file('logo')->getMimeType();
         }
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
-        $request->session()->flash('notif_msg', 'Mise à jour de votre profil réussie');
+        $request->session()->flash('notif_msg', __('users.message.profile.updated'));
         return redirect()->back();
     }
 }

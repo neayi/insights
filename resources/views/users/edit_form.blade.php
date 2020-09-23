@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <div class="custom-file">
                                             <input name="logo" type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">@lang('users.rights')</label>
+                                            <label class="custom-file-label" for="customFile">@lang('common.avatar')</label>
                                         </div>
                                     </div>
                                     <div class="form-group row">

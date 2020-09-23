@@ -7,6 +7,9 @@ return [
     'table.actions' => 'Actions',
     'table.state' => 'Etat',
     'table.last_login' => 'Dernière connexion',
+    'table.last_login_occ' => 'Dernière connexion le : ',
+    'table.invitation_send' => 'Invitation envoyée',
+    'table.state_active' => 'Actif',
 
     'action.edit' => 'Editer l\'utilisateur',
     'action.edit.profile' => 'Editer',
@@ -18,6 +21,10 @@ return [
     'message.will_be_admin' => 'Une fois administrateur l\'utilisateur aura la possibilité de ...',
     'message.will_not_be_admin' => 'Une fois révoquer l\'utilisateur n\'aura plus la possibilité de ...',
     'message.delete.account' => 'Cette action est irréversible ...',
+    'message.user.deleted' => 'L\'utilisateur a été supprimé',
+    'message.user.updated' => 'Mise à jour de l\'utilisateur réussie',
+    'message.profile.updated' => 'Mise à jour de votre profil réussie',
+
 
     'rights' => 'Droits de l\'utilisateur',
     'role.admin' => 'Admin',

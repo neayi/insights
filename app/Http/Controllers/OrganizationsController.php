@@ -74,7 +74,7 @@ class OrganizationsController extends Controller
         }
 
         $editOrganization->edit($organizationId, $name, $picture, $address);
-        $request->session()->flash('notif_msg', 'L\'organisme a été mis à jour');
+        $request->session()->flash('notif_msg', __('organizations.message.organization.updated'));
         return redirect()->back();
     }
 
@@ -128,7 +128,7 @@ class OrganizationsController extends Controller
         $organizationId = $request->input('organization_id');
 
         $inviteUsersInOrganization->invite($organizationId, $users['users']);
-        $request->session()->flash('notif_msg', 'Les utilisateurs ont été invité à rejoindre l\'organisation.');
+        $request->session()->flash('notif_msg', __('organizations.message.organization.invitation_send'));
         return redirect()->route('organization.list');
     }
 
@@ -179,7 +179,7 @@ class OrganizationsController extends Controller
         $userId = Auth::user()->uuid;
         $organizationId = $request->session()->get('should_attach_to_organization');
         $attachUserToAnOrganization->attach($userId, $organizationId);
-        $request->session()->flash('notif_msg', 'Vous avez rejoint un nouvel organisme');
+        $request->session()->flash('notif_msg', __('organizations.message.organization.joined'));
         return redirect()->route('home');
     }
 }

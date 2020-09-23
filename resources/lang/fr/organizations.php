@@ -32,5 +32,8 @@ return [
     'message.already_in_a_organization' => 'Vous faites déjà parti de l\'organisme : :name, en rejoindre un nouveau vous empéchera d\'accèder à votre ancien environnement (segment, ...)',
     'message.should_be_log_with_other_account' => 'Vous devez vous connecter avec le bon compte...',
     'message.logout_to_join_organization' => 'Se déconnecter pour rejoindre l\'organisme',
+    'message.organization.updated' => 'L\'organisme a été mis à jour',
+    'message.organization.joined' => 'Vous avez rejoint un nouvel organisme',
+    'message.organization.invitation_send' => 'Les utilisateurs ont été invité à rejoindre l\'organisation.',
 ];
 
