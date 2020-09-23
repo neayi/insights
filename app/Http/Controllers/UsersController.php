@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Common\Form\UserForm;
 use App\Src\UseCases\Domain\DeleteUserFromOrganization;
 use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
@@ -62,17 +63,9 @@ class UsersController extends Controller
         ]);
     }
 
-    public function editProcess(string $userId, Request $request, EditUser $editUser)
+    public function editProcess(string $userId, Request $request, EditUser $editUser, UserForm $form)
     {
-        $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
-        $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
-        $email = $request->input('email') !== null ? $request->input('email') : '';
-        $picture = [];
-        if($request->has('logo')){
-            $picture['path_picture'] = $request->file('logo')->path();
-            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('logo')->getMimeType();
-        }
+        list($firstname, $lastname, $email, $picture) = $form->process();
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
         $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();

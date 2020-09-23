@@ -163,6 +163,6 @@ class OrganizationsController extends Controller
             $picture['original_name'] = $request->file('logo')->getClientOriginalName();
             $picture['mine_type'] = $request->file('logo')->getMimeType();
         }
-        return array($name, $address, $picture);
+        return [$name, $address, $picture];
     }
 }
