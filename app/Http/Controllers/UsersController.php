@@ -44,12 +44,7 @@ class UsersController extends Controller
             ];
         }
 
-        return [
-            'draw' => $request->get('draw'),
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
-            'data' => $list,
-        ];
+        return format($total, $list);
     }
 
     public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)

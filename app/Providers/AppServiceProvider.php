@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        foreach (glob(app_path().'/Src/Utils/Helpers/*.php') as $filename){
+            require_once($filename);
+        }
+
         if(config('app.env') === 'testing'){
             $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
             $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);

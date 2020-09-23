@@ -23,24 +23,7 @@ class OrganizationsController extends Controller
 
     public function processAdd(Request $request, CreateOrganization $createOrganization)
     {
-        $name = $request->input('name') !== null ? $request->input('name') : '';
-        $address1 = $request->input('address1') !== null ? $request->input('address1') : '';
-        $address2 = $request->input('address2') !== null ? $request->input('address2') : '';
-        $pc = $request->input('pc') !== null ? $request->input('pc') : '';
-        $city = $request->input('city') !== null ? $request->input('city') : '';
-        $address = [
-            'address1' => $address1,
-            'address2' => $address2,
-            'pc' => $pc,
-            'city' => $city,
-        ];
-        $picture = [];
-        if($request->has('logo')){
-            $picture['path_picture'] = $request->file('logo')->path();
-            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('logo')->getMimeType();
-        }
-
+        list($name, $address, $picture) = $this->processOrganizationForm($request);
         $createOrganization->create($name, $picture, $address);
         return redirect()->route('organization.list');
     }
@@ -55,24 +38,7 @@ class OrganizationsController extends Controller
 
     public function processEdit(string $organizationId, Request $request, EditOrganization $editOrganization)
     {
-        $name = $request->input('name') !== null ? $request->input('name') : '';
-        $address1 = $request->input('address1') !== null ? $request->input('address1') : '';
-        $address2 = $request->input('address2') !== null ? $request->input('address2') : '';
-        $pc = $request->input('pc') !== null ? $request->input('pc') : '';
-        $city = $request->input('city') !== null ? $request->input('city') : '';
-        $address = [
-            'address1' => $address1,
-            'address2' => $address2,
-            'pc' => $pc,
-            'city' => $city,
-        ];
-        $picture = [];
-        if($request->has('logo')){
-            $picture['path_picture'] = $request->file('logo')->path();
-            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('logo')->getMimeType();
-        }
-
+        list($name, $address, $picture) = $this->processOrganizationForm($request);
         $editOrganization->edit($organizationId, $name, $picture, $address);
         $request->session()->flash('notif_msg', __('organizations.message.organization.updated'));
         return redirect()->back();
@@ -100,12 +66,7 @@ class OrganizationsController extends Controller
             ];
         }
 
-        return [
-            'draw' => $request->get('draw'),
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
-            'data' => $list,
-        ];
+        return format($total, $list);
     }
 
     public function prepareInvitation(Request $request,  PrepareInvitationUsersInOrganization $prepareInvitationUsersInOrganization)
@@ -181,5 +142,27 @@ class OrganizationsController extends Controller
         $attachUserToAnOrganization->attach($userId, $organizationId);
         $request->session()->flash('notif_msg', __('organizations.message.organization.joined'));
         return redirect()->route('home');
+    }
+
+    private function processOrganizationForm(Request $request): array
+    {
+        $name = $request->input('name') !== null ? $request->input('name') : '';
+        $address1 = $request->input('address1') !== null ? $request->input('address1') : '';
+        $address2 = $request->input('address2') !== null ? $request->input('address2') : '';
+        $pc = $request->input('pc') !== null ? $request->input('pc') : '';
+        $city = $request->input('city') !== null ? $request->input('city') : '';
+        $address = [
+            'address1' => $address1,
+            'address2' => $address2,
+            'pc' => $pc,
+            'city' => $city,
+        ];
+        $picture = [];
+        if ($request->has('logo')) {
+            $picture['path_picture'] = $request->file('logo')->path();
+            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
+            $picture['mine_type'] = $request->file('logo')->getMimeType();
+        }
+        return array($name, $address, $picture);
     }
 }
