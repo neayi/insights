@@ -19,11 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if($request->has('wiki_callback') && Auth::user() !== null){
-            $user = Auth::user();
-            $user->wiki_token = $request->input('wiki_token');
-            $user->save();
-            $callback = urldecode($request->input('wiki_callback'));
-            return redirect($callback);
+            return $this->redirectToWiki($request);
         }
 
         if (Auth::guard($guard)->check()) {
@@ -31,5 +27,14 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
+    }
+
+    private function redirectToWiki($request)
+    {
+        $user = Auth::user();
+        $user->wiki_token = $request->input('wiki_token');
+        $user->save();
+        $callback = urldecode($request->input('wiki_callback'));
+        return redirect($callback);
     }
 }

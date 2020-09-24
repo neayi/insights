@@ -32,41 +32,63 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->registerHelpers();
+
         if(config('app.env') === 'testing'){
-            $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
-            $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
-            $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
-            $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
-            $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
-            $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
-            $this->app->singleton(HashGen::class, InMemoryHashGen::class);
-            $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
+            $this->tuBinding();
         }
         if(config('app.env') === 'testing-ti'){
-            $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
-            $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
-            $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
-            $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
-            $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
-            $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
-            $this->app->singleton(HashGen::class, InMemoryHashGen::class);
-            $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
+            $this->tiBinding();
         }
-
-        if(config('app.env') === 'local'){
-            $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
-            $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
-            $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
-            $this->app->singleton(UserRepository::class, UserRepositorySql::class);
-            $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
-            $this->app->singleton(FileStorage::class, FsFileStorage::class);
-            $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
-            $this->app->singleton(HashGen::class, HashGenReal::class);
-
+        if(config('app.env') === 'local' || config('app.env') === 'production'){
+            $this->prodBinding();
         }
     }
 
     public function boot()
     {
+    }
+
+    private function registerHelpers(): void
+    {
+        foreach (glob(app_path() . '/Src/Utils/Helpers/*.php') as $filename) {
+            require_once($filename);
+        }
+    }
+
+    private function prodBinding(): void
+    {
+        $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
+        $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
+        $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
+        $this->app->singleton(UserRepository::class, UserRepositorySql::class);
+        $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
+        $this->app->singleton(FileStorage::class, FsFileStorage::class);
+        $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
+        $this->app->singleton(HashGen::class, HashGenReal::class);
+    }
+
+    private function tuBinding(): void
+    {
+        $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
+        $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
+        $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
+        $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
+        $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
+        $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
+        $this->app->singleton(HashGen::class, InMemoryHashGen::class);
+        $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
+    }
+
+    private function tiBinding(): void
+    {
+        $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
+        $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
+        $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
+        $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
+        $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
+        $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
+        $this->app->singleton(HashGen::class, InMemoryHashGen::class);
+        $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
     }
 }

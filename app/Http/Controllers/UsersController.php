@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Common\Form\UserForm;
 use App\Src\UseCases\Domain\DeleteUserFromOrganization;
 use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
@@ -36,20 +37,15 @@ class UsersController extends Controller
                 '',
                 ucfirst($user['firstname']).' '.ucfirst($user['lastname']),
                 $user['email'],
-                $user['state'] == false ? 'Invitation envoyée' : 'Actif',
-                isset($user['last_login_at']) ? 'Dernière connexion le : '.(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : 'Jamais',
+                $user['state'] == false ? __('table.invitation_send') : __('users.table.state_active'),
+                isset($user['last_login_at']) ?  __('users.table.last_login_occ').(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : __('common.never'),
                 $user['uuid'],
                 isset($user['url_picture']) && $user['url_picture'] !== "" ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img'),
                 route('user.edit.form', ['id' => $user['uuid']]),
             ];
         }
 
-        return [
-            'draw' => $request->get('draw'),
-            'recordsTotal' => $total,
-            'recordsFiltered' => $total,
-            'data' => $list,
-        ];
+        return format($total, $list);
     }
 
     public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)
@@ -67,33 +63,25 @@ class UsersController extends Controller
         ]);
     }
 
-    public function editProcess(string $userId, Request $request, EditUser $editUser)
+    public function editProcess(string $userId, Request $request, EditUser $editUser, UserForm $form)
     {
-        $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
-        $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
-        $email = $request->input('email') !== null ? $request->input('email') : '';
-        $picture = [];
-        if($request->has('logo')){
-            $picture['path_picture'] = $request->file('logo')->path();
-            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('logo')->getMimeType();
-        }
+        list($firstname, $lastname, $email, $picture) = $form->process();
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
-        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();
     }
 
     public function grantAsAdmin(string $userId, string $organizationId, Request $request, GrantUserAsAdminOrganization $grantUserAsAdminOrganization)
     {
         $grantUserAsAdminOrganization->grant($userId, $organizationId);
-        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();
     }
 
     public function revokeAsAdmin(string $userId, string $organizationId, Request $request, RevokeUserAsAdminOrganization $grantUserAsAdminOrganization)
     {
         $grantUserAsAdminOrganization->revoke($userId, $organizationId);
-        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();
     }
 
@@ -107,14 +95,14 @@ class UsersController extends Controller
         if($redirect === 'login') {
             return redirect()->route('login');
         }
-        $request->session()->flash('notif_msg', 'L\'utilisateur a été supprimé');
+        $request->session()->flash('notif_msg', __('users.message.user.deleted'));
         return redirect()->route('home');
     }
 
     public function leaveOrganization(string $userId, Request $request, DeleteUserFromOrganization $deleteUserFromOrganization)
     {
         $deleteUserFromOrganization->delete($userId);
-        $request->session()->flash('notif_msg', 'Mise à jour de l\'utilisateur réussie');
+        $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();
     }
 }

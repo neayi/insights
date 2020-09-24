@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Common\Form\UserForm;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\GetUserStats;
@@ -28,20 +29,12 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function processEditProfile(Request $request, EditUser $editUser)
+    public function processEditProfile(Request $request, EditUser $editUser, UserForm $form)
     {
         $userId = Auth::user()->uuid;
-        $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
-        $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
-        $email = $request->input('email') !== null ? $request->input('email') : '';
-        $picture = [];
-        if($request->has('logo')){
-            $picture['path_picture'] = $request->file('logo')->path();
-            $picture['original_name'] = $request->file('logo')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('logo')->getMimeType();
-        }
+        list($firstname, $lastname, $email, $picture) = $form->process();
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
-        $request->session()->flash('notif_msg', 'Mise à jour de votre profil réussie');
+        $request->session()->flash('notif_msg', __('users.message.profile.updated'));
         return redirect()->back();
     }
 }
