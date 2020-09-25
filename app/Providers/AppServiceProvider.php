@@ -48,7 +48,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        if(config('app.env') !== 'testing' && config('app.env') !== 'testing-ti') {
+            Schema::defaultStringLength(191);
+        }
     }
 
     private function registerHelpers(): void
