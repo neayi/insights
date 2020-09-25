@@ -19,17 +19,12 @@ class PrepareInvitationUsersInOrganization
 
     public function prepare(string $organizationId, array $users, string $filePathUsers = null)
     {
-        $usersLoop = [];
-        $usersToProcess = [];
+        $usersLoop = $usersToProcess = [];
         $usersLoop = $this->getUsersToProcess($users, $usersLoop, $filePathUsers);
         $errors = $imported = 0;
+
         foreach($usersLoop as $userToInvite){
-            $rules = [
-                'email' => 'email|required|min:2|max:255',
-                'firstname' => 'string|max:100',
-                'lastname' => 'string|max:100',
-            ];
-            $validator = Validator::make($userToInvite, $rules);
+            $validator = $this->validateUserData($userToInvite);
             if($validator->fails()){
                 $userToInvite['error'] = 'email.error.syntax';
                 $usersToProcess['users'][] = $userToInvite;
@@ -37,13 +32,9 @@ class PrepareInvitationUsersInOrganization
                 continue;
             }
 
-            $user = $this->userRepository->getByEmail($userToInvite['email']);
-            if(isset($user) && $user->organizationId() === $organizationId) {
-                $userToInvite["error"] = 'already_in';
-                $errors++;
-            }
-            $usersToProcess['users'][] = $userToInvite;
+            list($userToInvite, $errors) = $this->checkIfUserAlreadyIn($organizationId, $userToInvite, $errors);
 
+            $usersToProcess['users'][] = $userToInvite;
             if(!isset($userToInvite["error"])){
                 $imported++;
             }
@@ -68,5 +59,25 @@ class PrepareInvitationUsersInOrganization
             return $this->valueUnique($users, $usersLoop);
         }
         return app(FileStorage::class)->content($filePathUsers);
+    }
+
+    private function validateUserData($userToInvite): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'email' => 'email|required|min:2|max:255',
+            'firstname' => 'string|max:100',
+            'lastname' => 'string|max:100',
+        ];
+        return Validator::make($userToInvite, $rules);
+    }
+
+    private function checkIfUserAlreadyIn(string $organizationId, $userToInvite, int $errors): array
+    {
+        $user = $this->userRepository->getByEmail($userToInvite['email']);
+        if (isset($user) && $user->organizationId() === $organizationId) {
+            $userToInvite["error"] = 'already_in';
+            $errors++;
+        }
+        return [$userToInvite, $errors];
     }
 }
