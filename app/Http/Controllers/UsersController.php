@@ -29,7 +29,7 @@ class UsersController extends Controller
         $page = $request->input('start')/10 + 1;
 
         $users = $listUsers->list($organizationId, $page, 10);
-        $total = isset($users['total']) ? $users['total'] : 0;
+        $total = init($users['total'], 0);
         $list = [];
         foreach ($users['list'] as $user){
             $user = $user->toArray();
