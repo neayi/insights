@@ -55,12 +55,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
         $email = isset($data['email']) ? $data['email'] : '';
@@ -72,13 +66,6 @@ class RegisterController extends Controller
         return User::where('uuid', $userId)->first();
     }
 
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
     protected function registered(Request $request, $user)
     {
         if($request->session()->has('should_attach_to_organization')){
@@ -118,6 +105,13 @@ class RegisterController extends Controller
 
     public function registerAfterError(Request $request, RegisterUserAfterErrorWithSocialNetwork $registerUserAfterErrorWithSocialNetwork)
     {
+        list($email, $firstname, $lastname, $provider, $providerId, $pictureUrl) = $this->initData($request);
+        $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
+        return redirect()->route('home');
+    }
+
+    private function initData(Request $request): array
+    {
         $data = $request->all();
         $email = isset($data['email']) ? $data['email'] : '';
         $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
@@ -125,7 +119,6 @@ class RegisterController extends Controller
         $provider = $data['provider'] !== null ? $data['provider'] : null;
         $providerId = $data['provider_id'] !== null ? $data['provider_id'] : null;
         $pictureUrl = $data['picture_url'] !== null ? $data['picture_url'] : '';
-        $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
-        return redirect()->route('home');
+        return [$email, $firstname, $lastname, $provider, $providerId, $pictureUrl];
     }
 }
