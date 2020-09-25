@@ -26,6 +26,7 @@ use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\Utils\Hash\HashGen;
 use App\Src\Utils\Hash\HashGenReal;
 use App\Src\Utils\Hash\InMemoryHashGen;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -47,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        Schema::defaultStringLength(191);
     }
 
     private function registerHelpers(): void
