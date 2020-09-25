@@ -37,7 +37,7 @@ class UsersController extends Controller
                 '',
                 ucfirst($user['firstname']).' '.ucfirst($user['lastname']),
                 $user['email'],
-                $user['state'] == false ? __('table.invitation_send') : __('users.table.state_active'),
+                $user['state'] == false ? __('users.table.invitation_send') : __('users.table.state_active'),
                 isset($user['last_login_at']) ?  __('users.table.last_login_occ').(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : __('common.never'),
                 $user['uuid'],
                 isset($user['url_picture']) && $user['url_picture'] !== "" ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img'),
