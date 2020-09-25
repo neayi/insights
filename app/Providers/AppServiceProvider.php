@@ -48,6 +48,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // Force max key length - @see: https://laravel-news.com/laravel-5-4-key-too-long-error
+        Schema::defaultStringLength(191);
+
         if(config('app.env') !== 'testing' && config('app.env') !== 'testing-ti') {
             Schema::defaultStringLength(191);
         }
