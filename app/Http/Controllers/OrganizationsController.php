@@ -97,42 +97,17 @@ class OrganizationsController extends Controller
     public function acceptInvite(Request $request, RespondInvitationToAnOrganization $respondInvitationToAnOrganization)
     {
         $action = $respondInvitationToAnOrganization->respond($token = $request->input('token'));
-        if($action['action'] == 'register'){
-            $request->session()->flash('should_attach_to_organization', $action['organization_id']);
-            $request->session()->flash('user_to_register', $action['user']);
-            return redirect()->route('register');
-        }
-        if($action['action'] == 'accept_or_decline'){
-            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
-            return view('organizations.accept-or-decline-invitation', [
-                'old_organisation' => isset($action['old_organisation']) ? $action['old_organisation']->toArray() : null,
-                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
-            ]);
-        }
-        if($action['action'] == 'logout-login'){
-            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
-            $request->session()->flash('should_attach_to_organization_token', $token);
-            $request->session()->flash('should_attach_to_organization_redirect', route('login'));
-            return view('organizations.logout-to-accept-or-decline-invitation', [
-                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
-            ]);
-        }
-
-        if($action['action'] == 'login'){
-            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
-            $request->session()->flash('should_attach_to_organization_token', $token);
-            $request->session()->flash('should_attach_to_organization_redirect', route('login'));
-            return redirect()->route('login');
-        }
-
-        if($action['action'] == 'logout-register'){
-            $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
-            $request->session()->flash('should_attach_to_organization_token', $token);
-            $request->session()->flash('should_attach_to_organization_redirect', route('register'));
-            $request->session()->flash('user_to_register', $action['user']);
-            return view('organizations.logout-to-accept-or-decline-invitation', [
-                'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
-            ]);
+        switch($action['action']){
+            case 'register':
+                return $this->redirectToRegisterPage($request, $action);
+            case 'accept_or_decline':
+                return $this->showAcceptOrDeclinePage($request, $action);
+            case 'logout-login':
+                return $this->showLogoutToAcceptInvitation($request, $action, $token);
+            case 'login':
+                return $this->redirectToLogin($request, $action, $token);
+            case 'logout-register':
+                return $this->showLogoutToRegister($request, $action, $token);
         }
     }
 
@@ -143,5 +118,56 @@ class OrganizationsController extends Controller
         $attachUserToAnOrganization->attach($userId, $organizationId);
         $request->session()->flash('notif_msg', __('organizations.message.organization.joined'));
         return redirect()->route('home');
+    }
+
+    private function redirectToRegisterPage(Request $request, array $action): \Illuminate\Http\RedirectResponse
+    {
+        $request->session()->flash('should_attach_to_organization', $action['organization_id']);
+        $request->session()->flash('user_to_register', $action['user']);
+        return redirect()->route('register');
+    }
+
+    private function showAcceptOrDeclinePage(Request $request, array $action)
+    {
+        $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+        return view('organizations.accept-or-decline-invitation', [
+            'old_organisation' => isset($action['old_organisation']) ? $action['old_organisation']->toArray() : null,
+            'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+        ]);
+    }
+
+    private function showLogoutToAcceptInvitation(Request $request, array $action, $token)
+    {
+        $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+        $request->session()->flash('should_attach_to_organization_token', $token);
+        $request->session()->flash('should_attach_to_organization_redirect', route('login'));
+        return view('organizations.logout-to-accept-or-decline-invitation', [
+            'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+        ]);
+    }
+
+    private function redirectToLogin(Request $request, array $action, $token): \Illuminate\Http\RedirectResponse
+    {
+        $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+        $request->session()->flash('should_attach_to_organization_token', $token);
+        $request->session()->flash('should_attach_to_organization_redirect', route('login'));
+        return redirect()->route('login');
+    }
+
+    /**
+     * @param Request $request
+     * @param array $action
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    private function showLogoutToRegister(Request $request, array $action, $token)
+    {
+        $request->session()->flash('should_attach_to_organization', $action['organization_to_join']->id());
+        $request->session()->flash('should_attach_to_organization_token', $token);
+        $request->session()->flash('should_attach_to_organization_redirect', route('register'));
+        $request->session()->flash('user_to_register', $action['user']);
+        return view('organizations.logout-to-accept-or-decline-invitation', [
+            'organization_to_join' => isset($action['organization_to_join']) ? $action['organization_to_join']->toArray() : null
+        ]);
     }
 }
