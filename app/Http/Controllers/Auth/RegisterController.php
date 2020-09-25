@@ -113,12 +113,12 @@ class RegisterController extends Controller
     private function initData(Request $request): array
     {
         $data = $request->all();
-        $email = isset($data['email']) ? $data['email'] : '';
-        $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
-        $lastname = $data['lastname'] !== null ? $data['lastname'] : '';
-        $provider = $data['provider'] !== null ? $data['provider'] : null;
-        $providerId = $data['provider_id'] !== null ? $data['provider_id'] : null;
-        $pictureUrl = $data['picture_url'] !== null ? $data['picture_url'] : '';
+        $email = init($data['email'], '');
+        $firstname = init($data['firstname'], '');
+        $lastname = init($data['lastname'], '');
+        $provider = init($data['provider'], null);
+        $providerId = init($data['provider_id'], null);
+        $pictureUrl = init($data['picture_url'], '');
         return [$email, $firstname, $lastname, $provider, $providerId, $pictureUrl];
     }
 }
