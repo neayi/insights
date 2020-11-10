@@ -54,6 +54,10 @@ class AppServiceProvider extends ServiceProvider
         if(config('app.env') !== 'testing' && config('app.env') !== 'testing-ti') {
             Schema::defaultStringLength(191);
         }
+
+        if(config('app.env') === 'local' || config('app.env') === 'production'){
+            \URL::forceScheme('https');
+        }
     }
 
     private function registerHelpers(): void

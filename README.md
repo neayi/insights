@@ -8,6 +8,12 @@ Pour jouer les tests unitaires, ces tests vérifient que le métier est correcte
 
 `vendor/bin/phpunit tests/Unit`
 
+Avec la stack docker tripleperformance:
+
+```bash
+docker-compose run --rm --user="$UID:$GID" insights_php vendor/bin/phpunit tests/Unit
+```
+
 Pour jouer les tests d'intégration entre domaine métier et la couche infrastructure
 (Va tester la couche SQLRepository avec le domaine métier)
 
