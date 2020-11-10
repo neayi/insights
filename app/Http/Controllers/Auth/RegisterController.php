@@ -76,11 +76,32 @@ class RegisterController extends Controller
     public function redirectToProvider(string $provider)
     {
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK')]);
+        if($provider === 'twitter'){
+            return Socialite::driver($provider)->redirect();
+        }
         return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
     {
+        if($provider === 'facebook') {
+            $params = $request->all();
+            if(isset($params['\code'])) {
+                $request->merge([
+                    '\code' => null,
+                    'code' => $params['\code']
+                ]);
+            }
+        }
+        if($provider === 'twitter') {
+            $params = $request->all();
+            if(isset($params['\oauth_token'])) {
+                $request->merge([
+                    '\oauth_token' => null,
+                    'oauth_token' => $params['\oauth_token']
+                ]);
+            }
+        }
         try {
             $userId = $register->register($provider);
             $user = User::where('uuid', $userId)->first();

@@ -95,12 +95,34 @@ class LoginController extends Controller
         if(session()->has('wiki_callback')){
             session()->reflash();
         }
+        if($provider === 'twitter'){
+            return Socialite::driver($provider)->redirect();
+        }
+
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
-    public function handleProviderCallback(string $provider, LogUserFromSocialNetwork $logUserFromSocialNetwork)
+    public function handleProviderCallback(string $provider, Request  $request, LogUserFromSocialNetwork $logUserFromSocialNetwork)
     {
+        if($provider === 'facebook') {
+            $params = $request->all();
+            if(isset($params['\code'])) {
+                $request->merge([
+                    '\code' => null,
+                    'code' => $params['\code']
+                ]);
+            }
+        }
+        if($provider === 'twitter') {
+            $params = $request->all();
+            if(isset($params['\oauth_token'])) {
+                $request->merge([
+                    '\oauth_token' => null,
+                    'oauth_token' => $params['\oauth_token']
+                ]);
+            }
+        }
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         $logUserFromSocialNetwork->log($provider);
         if(session()->has('wiki_callback')){
