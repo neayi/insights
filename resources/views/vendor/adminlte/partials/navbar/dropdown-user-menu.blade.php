@@ -18,7 +18,7 @@
                  class="user-image img-circle elevation-2"
                  alt="{{ Auth::user()->firstname }}">
         @endif
-        <span @if(config('adminlte.usermenu_image')) class="d-none d-md-inline" @endif>
+        <span @if(config('adminlte.usermenu_image')) class="d-md-inline" @endif>
             {{ ucfirst(Auth::user()->firstname).' '.ucfirst(Auth::user()->lastname) }}
         </span>
     </a>
