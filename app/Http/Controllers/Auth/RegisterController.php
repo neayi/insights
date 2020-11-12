@@ -84,28 +84,15 @@ class RegisterController extends Controller
 
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
     {
-        if($provider === 'facebook') {
-            $params = $request->all();
-            if(isset($params['\code'])) {
-                $request->merge([
-                    '\code' => null,
-                    'code' => $params['\code']
-                ]);
-            }
-        }
-        if($provider === 'twitter') {
-            $params = $request->all();
-            if(isset($params['\oauth_token'])) {
-                $request->merge([
-                    '\oauth_token' => null,
-                    'oauth_token' => $params['\oauth_token']
-                ]);
-            }
-        }
         try {
             $userId = $register->register($provider);
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
+
+            if(session()->has('wiki_callback')){
+                session()->reflash();
+            }
+
             return $request->wantsJson()
                 ? new Response('', 201)
                 : redirect($this->redirectPath());
@@ -126,6 +113,9 @@ class RegisterController extends Controller
 
     public function registerAfterError(Request $request, RegisterUserAfterErrorWithSocialNetwork $registerUserAfterErrorWithSocialNetwork)
     {
+        if(session()->has('wiki_callback')){
+            session()->reflash();
+        }
         list($email, $firstname, $lastname, $provider, $providerId, $pictureUrl) = $this->initData($request);
         $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
         return redirect()->route('home');

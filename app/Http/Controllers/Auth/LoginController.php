@@ -105,24 +105,6 @@ class LoginController extends Controller
 
     public function handleProviderCallback(string $provider, Request  $request, LogUserFromSocialNetwork $logUserFromSocialNetwork)
     {
-        if($provider === 'facebook') {
-            $params = $request->all();
-            if(isset($params['\code'])) {
-                $request->merge([
-                    '\code' => null,
-                    'code' => $params['\code']
-                ]);
-            }
-        }
-        if($provider === 'twitter') {
-            $params = $request->all();
-            if(isset($params['\oauth_token'])) {
-                $request->merge([
-                    '\oauth_token' => null,
-                    'oauth_token' => $params['\oauth_token']
-                ]);
-            }
-        }
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         $logUserFromSocialNetwork->log($provider);
         if(session()->has('wiki_callback')){
