@@ -44,14 +44,19 @@ class RegisterUserFromSocialNetwork
 
         $socialiteUser = $this->socialiteGateway->user($provider);
 
+        if($socialiteUser->email() !== null) {
+            $user = $this->userRepository->getByEmail($socialiteUser->email());
+        }
+        if(isset($user)){
+            $user->addProvider($provider, $socialiteUser->providerId());
+            return [
+                'user_id' => $user->id(),
+                'provider_id' => $socialiteUser->providerId(),
+            ];
+        }
+
         $this->validateData($socialiteUser);
-        $user = new User($id = Uuid::uuid4(), $socialiteUser->email(), $socialiteUser->firstname(), $socialiteUser->lastname(), null, '', [], [$provider => $socialiteUser->providerId()]);
-        $picture = $this->handlePicture($socialiteUser);
-        $user->create(null, $picture);
-        return [
-            'user_id' => $id,
-            'provider_id' => $socialiteUser->providerId(),
-        ];
+        return $this->createUser($socialiteUser, $provider);
     }
 
     private function validateData(SocialiteUser $socialiteUser): void
@@ -70,7 +75,6 @@ class RegisterUserFromSocialNetwork
             'picture_url' => $socialiteUser->pictureUrl()
         ];
         $validator = Validator::make($data, $rules);
-        app(CheckEmailUniqueness::class)->validateEmailUniqueness($socialiteUser->email(), $validator);
         $validator->validate();
     }
 
@@ -88,5 +92,21 @@ class RegisterUserFromSocialNetwork
         if (!in_array($provider, $this->allowedProviders)) {
             throw new ProviderNotSupported();
         }
+    }
+
+    /**
+     * @param SocialiteUser $socialiteUser
+     * @param string $provider
+     * @return array
+     */
+    private function createUser(SocialiteUser $socialiteUser, string $provider): array
+    {
+        $user = new User($id = Uuid::uuid4(), $socialiteUser->email(), $socialiteUser->firstname(), $socialiteUser->lastname(), null, '', [], [$provider => $socialiteUser->providerId()]);
+        $picture = $this->handlePicture($socialiteUser);
+        $user->create(null, $picture);
+        return [
+            'user_id' => $id,
+            'provider_id' => $socialiteUser->providerId(),
+        ];
     }
 }

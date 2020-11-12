@@ -12,7 +12,7 @@ class SocialiteUser
     private $lastname;
     private $pictureUrl;
 
-    public function __construct(string $providerId, string $email, string $firstname, string $lastname, string $pictureUrl = null)
+    public function __construct(string $providerId, ?string $email, string $firstname, string $lastname, string $pictureUrl = null)
     {
         $this->providerId = $providerId;
         $this->email = $email;
@@ -27,7 +27,7 @@ class SocialiteUser
         return $this->providerId;
     }
 
-    public function email(): string
+    public function email():? string
     {
         return $this->email;
     }
