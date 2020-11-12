@@ -1,7 +1,7 @@
 {
-    "name": "triple-performance/core",
+    "name": "triple-performance/insights",
     "type": "project",
-    "description": "Core",
+    "description": "Insights",
     "keywords": [
         "framework",
         "laravel"
@@ -16,7 +16,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
-        "jeroennoten/laravel-adminlte": "3.3.*",
+        "jeroennoten/laravel-adminlte": "3.5.0",
         "laravel/framework": "^7.0",
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",

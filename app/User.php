@@ -45,4 +45,9 @@ class User extends Authenticatable
         }
         return $desc;
     }
+
+    public function adminlte_profile_url()
+    {
+        return 'user/edit/profile';
+    }
 }
