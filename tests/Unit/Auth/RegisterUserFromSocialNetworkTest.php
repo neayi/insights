@@ -85,4 +85,19 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         self::assertEquals($userExpected, $userSaved);
     }
 
+    public function testShouldNotRegisterUser_WhenUserAlreadyExist()
+    {
+        $email = 'unemail@gmail.com';
+
+        $socialiteUser = new SocialiteUser($gid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
+        $this->socialiteGateway->add($socialiteUser, $provider = 'google');
+
+        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, null, [], ['google' => $gid]);
+        $this->userRepository->add($user);
+
+        $result = app(RegisterUserFromSocialNetwork::class)->register($provider);
+
+        self::assertEquals('user_already_exist', $result['state']);
+    }
+
 }

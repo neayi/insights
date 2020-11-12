@@ -55,4 +55,17 @@ class LogUserFromSocialNetworkTest extends TestCase
 
         self::assertEquals($user, $userInSession);
     }
+
+    public function test_ShouldRegisterUserAndLog_WhenUserDoesNotExist()
+    {
+        $userSocialite = new SocialiteUser($pid = uniqid(), $email = 'anemmail@gmail.com', $first = 'first', $last = 'last');
+        $this->socialiteGateway->add($userSocialite, 'facebook');
+
+        app(LogUserFromSocialNetwork::class)->log($provider = 'facebook');
+        $userInSession = $this->authGateway->current();
+
+        $userSaved = $this->userRepository->getByProvider($provider, $pid);
+        self::assertNotNull($userInSession);
+        self::assertNotNull($userSaved);
+    }
 }
