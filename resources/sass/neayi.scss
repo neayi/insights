@@ -1,0 +1,271 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import 'variables_neayi';
+
+// General
+body{
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    line-height: $line-height-base;
+}
+
+a:not(.btn){
+    color: $darkGreen;
+    font-weight:600;
+    text-decoration: underline;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:hover{
+        color: darken($darkGreen, 6%)
+    }
+}
+
+.btn{
+    font-weight:800;
+    letter-spacing: 0.5px;
+}
+
+.avatar{
+    object-fit: cover;
+    &.big{
+        width:98px;
+        height:98px;
+    }
+}
+
+.hero{
+    background-size:cover;
+    height:544px;
+    position:relative;
+    -webkit-transition: background 0.3s ease;
+    -moz-transition: background 0.3s ease;
+    -ms-transition: background 0.3s ease;
+    -o-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+    h1{
+        font-weight:800;
+        letter-spacing:1.25px;
+        font-size: 3.75rem;
+    }
+    h2{
+        font-size: 2.125rem;
+        font-weight: 800;
+    }
+    .green-layer{
+        position: absolute;
+        background-size:cover;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height:100%;
+    }
+}
+
+h3{
+    font-size: 1.95rem;
+}
+
+// Cards
+
+.card{
+    border:1px solid #efefef;
+    border-radius: 4px;
+
+    .img-top-container {
+        position: relative;
+        display: inline-block;
+        height: 168px;
+        img{
+            object-fit: cover;
+            height: 100%;
+        }
+        .card-img-top-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to bottom, rgba(69, 69, 69, 0), #212121);
+            color: white;
+
+            .card-title {
+                font-size: 1.25rem;
+                line-height: 1.2;
+                text-align: left;
+                font-weight: 600;
+                color: white;
+
+            }
+        }
+    }
+
+    .card-text{
+        line-height: 1.5;
+    }
+
+    .badge{
+        padding: 0.4rem;
+        font-weight:600;
+        font-size:0.8rem;
+        border-radius:2Px;
+        &.badge-grey{
+            background-color: #f2f2f2;
+        }
+    }
+
+    &.article{
+        .card-body{
+            font-size: 1rem;
+            text-align:left;
+        }
+        .avatar{
+            width: 48px;
+            height: 48px;
+        }
+        .badge-light{
+            position: absolute;
+            left: 15Px;
+            top: 14px;
+            color: $darkPurple;
+            z-index: 10;
+        }
+    }
+}
+
+// section caractéristiques agriculture
+
+.icons{
+    img{
+        height:24px;
+        width:auto;
+    }
+    span{
+        font-size: 0.8rem;
+        line-height: 1.33;
+    }
+}
+
+.agri-name{
+    font-weight: 800;
+    font-size: 3rem;
+}
+
+// Forms
+
+.form-control{
+    border-radius: 28px;
+    border: solid 1px #dddddd;
+    background-color: #f2f3f6;
+    &::placeholder{
+        color:#212121;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+}
+
+.search-form{
+    input{
+        height: 56px;
+        text-indent: 2.5rem;
+        &:focus, &:hover{
+            outline:none;
+            box-shadow:none;
+            border-color: $darkGreen;
+            z-index:200;
+        }
+    }
+    .input-group-prepend{
+        margin-right: -35px;
+        z-index: 1000;
+        .input-group-text{
+            background: transparent;
+            border-top-left-radius: 26px;
+            border-bottom-left-radius: 26px;
+            border:none;
+            margin-right: -22Px;
+            .material-icons{
+                font-size:2rem;
+            }
+        }
+    }
+    .form-control.first-input{
+        border-top-left-radius: 26px;
+        border-bottom-left-radius: 26px;
+        width: 21%;
+    }
+    .btn{
+        border-top-right-radius: 28px;
+        border-bottom-right-radius: 28px;
+    }
+}
+
+.testimonies{
+    .avatar{
+        width: 64px;
+        height: 64px;
+        border: solid 1px #919191
+    }
+}
+
+.footer{
+    font-weight:600;
+    letter-spacing: 0.44px;
+    color: $darkPurple;
+    font-size: 1rem;
+    a{
+        color: $darkPurple;
+        font-size: 1rem;
+    }
+    img{
+        height:46px;
+    }
+    .rs-line{
+        img{
+            height: 46px;
+        }
+    }
+    small{
+        font-size: 16px;
+        font-weight:normal;
+    }
+    @media (max-width:768px){
+        .partners img{
+            width: auto;
+        }
+    }
+}
+
+// Utilities
+
+.grey-bg{
+    background-color: $greyBg;
+}
+
+.text-dark-green{
+    color: $darkGreen;
+}
+
+.text-yellow{
+    color: $yellow;
+}
+
+.font-weight-semibold{
+    font-weight: 600;
+}
+
+.btn-dark-green{
+    background-color: $darkGreen;
+    &:hover{
+        background: darken($darkGreen, 6%)
+    }
+}
+
+.no-line-height{
+    line-height: inherit;
+}
+
+.normal-line-height{
+    line-height: normal;
+}
+
+

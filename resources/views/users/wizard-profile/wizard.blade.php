@@ -1,6 +1,6 @@
-@extends('adminlte::page')
+@extends('layouts.neayi.master')
 
-@section('title', __('pages.title_list_users'))
+@section('title', __('pages.wizard-profile'))
 
 @section('content')
 
