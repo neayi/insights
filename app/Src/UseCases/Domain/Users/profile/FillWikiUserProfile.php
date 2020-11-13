@@ -15,9 +15,10 @@ class FillWikiUserProfile
         $this->userRepository = $userRepository;
     }
 
-    public function fill(string $userId, string $role)
+    public function fill(string $userId, string $role, string $firstname, string $lastname)
     {
         $user = $this->userRepository->getById($userId);
+        $user->update($user->email(), $firstname, $lastname, "");
         $user->addRole($role);
     }
 }

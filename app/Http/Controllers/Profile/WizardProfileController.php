@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
+use App\Src\UseCases\Domain\Users\profile\FillWikiUserProfile;
 use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class WizardProfileController extends Controller
         ]);
     }
 
-    public function processWizard(Request $request)
+    public function processWizard(Request $request, FillWikiUserProfile $fillWikiUserProfile)
     {
         $role = $request->input('role');
         $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';

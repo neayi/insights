@@ -35,9 +35,11 @@ class FillUserWikiProfileTest extends TestCase
     public function test_ShouldUpdateUserProfile()
     {
         $role = 'farmer';
-        app(FillWikiUserProfile::class)->fill($this->userId, $role);
+        $newFirstname = 'newFirstname';
+        $newLastname = 'newLastname';
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname);
 
-        $userExpected = new User($this->userId, 'email@gmail.com', 'firstname', 'lastname', null, null, ['farmer']);
+        $userExpected = new User($this->userId, 'email@gmail.com', $newFirstname, $newLastname, null, null, ['farmer']);
         $userSaved = $this->userRepository->getById($this->userId);
         self::assertEquals($userExpected, $userSaved);
     }
