@@ -78,7 +78,7 @@ class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
         app(RegisterUserAfterErrorWithSocialNetwork::class)->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
     }
 
-    public function testShouldNotRegisterUser_WhenEmailAlreadyExists()
+    public function testShouldAddProviderToUser_WhenEmailAlreadyExists()
     {
         $email = 'unemail@gmail.com';
         $firstname = 'first';
@@ -87,10 +87,15 @@ class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
         $providerId = 'abc';
         $pictureUrl = 'http://picture-uri.com/pic.jpg';
 
-        $user = new User(Uuid::uuid4(), $email, $firstname, $lastname);
+        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname);
         $this->userRepository->add($user);
 
-        self::expectException(ValidationException::class);
         app(RegisterUserAfterErrorWithSocialNetwork::class)->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
+
+        $userMerged = $this->userRepository->getByProvider($provider, $providerId);
+        $userExpected = new User($uid, $email, $firstname, $lastname, null, null, [], [
+            'facebook' => $providerId,
+        ]);
+        self::assertEquals($userExpected, $userMerged);
     }
 }

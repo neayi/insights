@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
@@ -71,11 +72,22 @@ class RegisterController extends Controller
         if($request->session()->has('should_attach_to_organization')){
             app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
         }
+
+        if($request->session()->has('wiki_callback')){
+            $user = Auth::user();
+            $user->wiki_token = $request->session()->get('wiki_token');
+            $user->save();
+            $callback = urldecode($request->session()->get('wiki_callback'));
+            return redirect($callback);
+        }
     }
 
     public function redirectToProvider(string $provider)
     {
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK')]);
+        if($provider === 'twitter'){
+            return Socialite::driver($provider)->redirect();
+        }
         return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
@@ -85,6 +97,15 @@ class RegisterController extends Controller
             $userId = $register->register($provider);
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
+
+            if($request->session()->has('wiki_callback')){
+                $user = Auth::user();
+                $user->wiki_token = $request->session()->get('wiki_token');
+                $user->save();
+                $callback = urldecode($request->session()->get('wiki_callback'));
+                return redirect($callback);
+            }
+
             return $request->wantsJson()
                 ? new Response('', 201)
                 : redirect($this->redirectPath());
