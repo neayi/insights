@@ -63,6 +63,15 @@ class InMemoryUserRepository implements UserRepository
         }
     }
 
+    public function updateProviders(User $u)
+    {
+        foreach ($this->users as $key => $user){
+            if($user->id() === $u->id()){
+                $this->users[$key] = $u;
+            }
+        }
+    }
+
     public function delete(string $userId)
     {
         foreach ($this->users as $key => $user){

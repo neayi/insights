@@ -73,6 +73,12 @@ class User
         return false;
     }
 
+    public function addProvider(string $provider, string $providerId)
+    {
+        $this->providers[$provider] = $providerId;
+        app(UserRepository::class)->updateProviders($this);
+    }
+
     public function belongsTo(string $organisationId):bool
     {
         return $this->organizationId === $organisationId;

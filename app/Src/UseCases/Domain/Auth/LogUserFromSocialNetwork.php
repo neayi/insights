@@ -5,11 +5,10 @@ namespace App\Src\UseCases\Domain\Auth;
 
 
 use App\Exceptions\Domain\ProviderNotSupported;
+use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
 use App\Src\UseCases\Infra\Gateway\Auth\SocialiteGateway;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Validation\ValidationException;
 
 class LogUserFromSocialNetwork
 {
@@ -42,9 +41,8 @@ class LogUserFromSocialNetwork
 
         $user = $this->userRepository->getByProvider($provider, $socialiteUser->providerId());
         if($user === null){
-            throw ValidationException::withMessages([
-                'email' => [trans('auth.failed')],
-            ]);
+            app(RegisterUserFromSocialNetworkService::class)->register($provider, $socialiteUser);
+            $user = $this->userRepository->getByProvider($provider, $socialiteUser->providerId());
         }
         $this->authGateway->log($user);
     }
