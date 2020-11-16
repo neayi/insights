@@ -23,6 +23,7 @@
     </div>
 
     @include('layouts.neayi.partials.footer')
+    @include('users.modals.register')
 </div>
 </body>
 </html>
