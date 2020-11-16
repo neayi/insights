@@ -15,6 +15,7 @@ interface UserRepository
     public function search(string $organizationId, int $page, int $perPage = 10): array;
     public function add(User $u, string $password = null);
     public function update(User $u);
+    public function updateProviders(User $u);
     public function delete(string $userId);
     public function getAdminOfOrganization(string $organizationId):array;
     public function getStats(string $userId):Stats;

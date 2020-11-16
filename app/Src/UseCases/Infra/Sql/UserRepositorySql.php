@@ -21,7 +21,7 @@ class UserRepositorySql implements UserRepository
             return null;
         }
         $roles = $record->roles()->pluck('name')->toArray();
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
     }
 
     public function getById(string $id): ?User
@@ -31,7 +31,7 @@ class UserRepositorySql implements UserRepository
             return null;
         }
         $roles = $record->roles()->pluck('name')->toArray();
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles);
+        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
     }
 
     public function add(User $u, string $password = null)
@@ -57,6 +57,15 @@ class UserRepositorySql implements UserRepository
 
         $userModel->syncRoles($roles);
     }
+
+    public function updateProviders(User $u)
+    {
+        $userModel = \App\User::where('uuid', $u->id())->first();
+        $providers = $u->toArray()['providers'];
+        $userModel->providers = $providers;
+        $userModel->save();
+    }
+
 
     public function search(string $organizationId, int $page, int $perPage = 10): array
     {

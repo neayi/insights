@@ -40,18 +40,35 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         app(RegisterUserFromSocialNetwork::class)->register('github');
     }
 
-    public function testShouldNotRegisterUser_WhenEmailAlreadyExists()
+    public function testShouldNotRegisterUser_WhenEmailEmpty()
+    {
+        $email = null;
+
+        $socialiteUser = new SocialiteUser($fid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
+        $this->socialiteGateway->add($socialiteUser, $provider = 'facebook');
+
+        self::expectException(ValidationException::class);
+        app(RegisterUserFromSocialNetwork::class)->register($provider);
+    }
+
+    public function testShouldAddProviderToUser_WhenEmailAlreadyExists()
     {
         $email = 'unemail@gmail.com';
 
-        $socialiteUser = new SocialiteUser(Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
-        $this->socialiteGateway->add($socialiteUser, 'facebook');
+        $socialiteUser = new SocialiteUser($fid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
+        $this->socialiteGateway->add($socialiteUser, $provider = 'facebook');
 
-        $user = new User(Uuid::uuid4(), $email, $firstname, $lastname);
+        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, null, [], ['google' => $gid = Uuid::uuid4()]);
         $this->userRepository->add($user);
 
-        self::expectException(ValidationException::class);
-        app(RegisterUserFromSocialNetwork::class)->register('facebook');
+        app(RegisterUserFromSocialNetwork::class)->register($provider);
+
+        $userMerged = $this->userRepository->getByProvider($provider, $fid);
+        $userExpected = new User($uid, $email, $firstname, $lastname, null, null, [], [
+            'google' => $gid,
+            'facebook' => $fid,
+        ]);
+        self::assertEquals($userExpected, $userMerged);
     }
 
     public function testShouldRegisterUser()
@@ -66,6 +83,21 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         $userExpected = new User($ids['user_id'], $email, $firstname, $lastname, null, 'app/public/users/'.$ids['user_id'].'.jpg', [], [$provider => $ids['provider_id']]);
         $userSaved = $this->userRepository->getByProvider($provider, $ids['provider_id']);
         self::assertEquals($userExpected, $userSaved);
+    }
+
+    public function testShouldNotRegisterUser_WhenUserAlreadyExist()
+    {
+        $email = 'unemail@gmail.com';
+
+        $socialiteUser = new SocialiteUser($gid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
+        $this->socialiteGateway->add($socialiteUser, $provider = 'google');
+
+        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, null, [], ['google' => $gid]);
+        $this->userRepository->add($user);
+
+        $result = app(RegisterUserFromSocialNetwork::class)->register($provider);
+
+        self::assertEquals('user_already_exist', $result['state']);
     }
 
 }

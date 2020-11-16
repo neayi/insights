@@ -30,6 +30,7 @@ use App\Src\Utils\Hash\HashGen;
 use App\Src\Utils\Hash\HashGenReal;
 use App\Src\Utils\Hash\InMemoryHashGen;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -56,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         if(config('app.env') === 'local' || config('app.env') === 'production'){
-            \URL::forceScheme('https');
+            URL::forceScheme('https');
         }
     }
 
