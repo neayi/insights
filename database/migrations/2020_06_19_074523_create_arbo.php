@@ -10,6 +10,7 @@ class CreateArbo extends Migration
 {
     public function up()
     {
+        shell_exec("chown -R www-data:www-data ./storage/app/public");
         Storage::makeDirectory('public/organizations');
         Storage::makeDirectory('public/users');
         Artisan::call('storage:link');
