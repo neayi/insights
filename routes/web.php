@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function (){
@@ -29,7 +29,6 @@ Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
 
     Route::post('/organization/users/prepare-invite', 'OrganizationsController@prepareInvitation')->name('organization.users.prepare-invite');
     Route::post('/organization/users/invite', 'OrganizationsController@sendInvitations')->name('organization.users.invite');
-
 
     Route::get('/organization/{id}/users', 'UsersController@showListUsers')->name('users.list');
     Route::post('/organization/{id}/users', 'UsersController@listUsers')->name('users.list.datatable');
