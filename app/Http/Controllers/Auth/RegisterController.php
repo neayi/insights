@@ -39,7 +39,7 @@ class RegisterController extends Controller
             $lastname = $user['lastname'];
         }
         session()->reflash();
-        return view('auth.register', [
+        return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
             'lastname' => $lastname
@@ -52,15 +52,16 @@ class RegisterController extends Controller
             session()->reflash();
         }
         return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => 'required|min:8|max:255|confirmed'
         ]);
     }
 
     protected function create(array $data)
     {
         $email = isset($data['email']) ? $data['email'] : '';
-        $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
-        $lastname = $data['lastname'] !== null ? $data['lastname'] : '';
+        $firstname = isset($data['firstname']) ? $data['firstname'] : '';
+        $lastname = isset($data['lastname']) ? $data['lastname'] : '';
         $password = $data['password'] !== null ? $data['password'] : '';
         $passwordConfirmation = $data['password_confirmation'] !== null ? $data['password_confirmation'] : '';
         $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);
@@ -78,7 +79,7 @@ class RegisterController extends Controller
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
-            return redirect($callback);
+            //return redirect($callback);
         }
     }
 
@@ -98,17 +99,19 @@ class RegisterController extends Controller
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
 
-            if($request->session()->has('wiki_callback')){
+            return redirect()->route('wizard.profile');
+
+            /*if($request->session()->has('wiki_callback')){
                 $user = Auth::user();
                 $user->wiki_token = $request->session()->get('wiki_token');
                 $user->save();
                 $callback = urldecode($request->session()->get('wiki_callback'));
-                return redirect($callback);
+                //return redirect($callback);
             }
 
             return $request->wantsJson()
                 ? new Response('', 201)
-                : redirect($this->redirectPath());
+                : redirect($this->redirectPath());*/
         }catch (ValidationException $e) {
             $attributes = $e->validator->attributes();
             $attributes['provider'] = $provider;

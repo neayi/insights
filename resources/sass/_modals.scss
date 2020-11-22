@@ -1,0 +1,77 @@
+.modal{
+  &.modal-bg{
+    .modal-content{
+      background-image: url('../../public/images/bg-modal.png');
+      background-size: 719px auto;
+      border-radius: 8px;
+      box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.3);
+      border: none;
+      background-repeat: no-repeat;
+    }
+  }
+  p.text-merriweather{
+    font-size:0.9rem;
+    line-height:2;
+    font-weight: 700;
+  }
+  .rs-line{
+    img{
+      height: 44px;
+    }
+  }
+  h5{
+    font-size: 1rem;
+  }
+  .login-with-rs{
+    img{
+      width:40px;
+      height: auto;
+    }
+  }
+  .btn-link{
+    color: $darkGreen;
+    font-weight:600;
+    text-decoration: underline;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:hover{
+      color: darken($darkGreen, 6%)
+    }
+  }
+}
+
+
+@media (min-width: 992px){
+  .modal-lg, .modal-xl {
+    max-width: 952px;
+  }
+}
+
+
+// hack for white background on mobile
+
+@media (max-width: 991px){
+  .bg-white-mobile{
+    background:white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+  }
+}
+
+.social-buttons{
+  //min-width: 220px;
+}
+
+#loginModal{
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+.social-buttons a{
+    text-decoration: none !important;
+}
+
+.message-success-reset{
+    font-size: small;
+}

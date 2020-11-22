@@ -24,8 +24,8 @@ class Register
     {
         $rules = [
             'email' => 'string|required|email|min:2|max:255',
-            'firstname' => 'string|required|min:2|max:255',
-            'lastname' => 'string|required|min:2|max:255',
+            'firstname' => 'string|min:2|max:255|nullable',
+            'lastname' => 'string|min:2|max:255|nullable',
             'password' => 'string|required|min:8|max:255|confirmed',
         ];
 

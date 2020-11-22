@@ -29,7 +29,7 @@ class LoginController extends Controller
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
-        return view('auth.login');
+        return view('public.auth.login');
     }
 
     public function logout(Request $request)
@@ -79,7 +79,7 @@ class LoginController extends Controller
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
-            return redirect($callback);
+            //return redirect($callback);
         }
         if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){
             $token = $request->session()->get('should_attach_to_organization_token');
