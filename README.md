@@ -19,3 +19,10 @@ Pour jouer les tests d'intégration entre domaine métier et la couche infrastru
 
 `vendor/bin/phpunit tests/Unit/ -c phpunit-ti-domain-sql.xml`
 
+
+
+# Fichier de configuration Neayi 
+
+Les variables de configuration Neayi sont dans le fichier config/neayi.php 
+Il faut au maximum accèder aux variables d'environnement en passant par le fichier de configuration.
+Via le helper config(neayi.) et non env('WIKI_URL')
