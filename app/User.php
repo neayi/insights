@@ -45,4 +45,14 @@ class User extends Authenticatable
         }
         return $desc;
     }
+
+    public function adminlte_profile_url()
+    {
+        return 'user/edit/profile';
+    }
+
+    public function fullname()
+    {
+        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+    }
 }
