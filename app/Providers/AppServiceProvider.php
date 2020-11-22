@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Src\UseCases\Domain\Ports\ExploitationRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
@@ -18,6 +19,7 @@ use App\Src\UseCases\Infra\Gateway\PictureHandler;
 use App\Src\UseCases\Infra\Gateway\Real\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\Real\RealSocialiteGateway;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
+use App\Src\UseCases\Infra\InMemory\InMemoryExploitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
@@ -79,7 +81,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
-
     }
 
     private function tuBinding(): void
@@ -93,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
+        $this->app->singleton(ExploitationRepository::class, InMemoryExploitationRepository::class);
     }
 
     private function tiBinding(): void
@@ -105,5 +107,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
+        $this->app->singleton(ExploitationRepository::class, InMemoryExploitationRepository::class);
     }
 }
