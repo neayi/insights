@@ -66,33 +66,6 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     @stack('js')
     @yield('js')
-
-    <script type="text/javascript">
-        $(function() {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: true,
-                timer: 5000
-            });
-
-                @if (Session::has('notif_msg'))
-            var msg = '{{Session::get('notif_msg')}}';
-            Toast.fire({
-                icon: 'success',
-                title: msg
-            });
-            @endif
-        });
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bs-custom-file-input/1.3.4/bs-custom-file-input.js"></script>
-    <script>
-        $(document).ready(function () {
-            bsCustomFileInput.init();
-        });
-    </script>
 @stop
