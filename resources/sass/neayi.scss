@@ -2,7 +2,8 @@
 
 @import 'variables_neayi';
 @import 'modals';
-
+@import "~bootstrap-select/sass/bootstrap-select";
+// General
 
 body{
     font-size: $font-size-base;
@@ -160,6 +161,31 @@ h3{
         color: $darkPurple;
         font-size: 0.9rem;
         line-height: 0.9rem;
+        &.label-big{
+            font-size: 2.4rem;
+            line-height: 2.4rem;
+            color: $dark;
+            font-weight:700;
+            position: relative;
+            letter-spacing: 0.83px;
+            &.required{
+                &:after{
+                    content:"*";
+                    color: $danger;
+                }
+            }
+            &.success{
+                &:after{
+                    font-family: 'Material Icons';
+                    content: "check";
+                    color: $darkGreen;
+                    top: -5px;
+                    right: -28px;
+                    position: absolute;
+                    font-size:1.4rem;
+                }
+            }
+        }
     }
 }
 
@@ -167,6 +193,9 @@ h3{
     border-radius: 4px;
     border: solid 1px #e7e8ed;
     height:40px;
+    &.input-big{
+        height:48px;
+    }
     &::placeholder{
         font-size: 0.8rem;
         font-family: 'Merriweather', serif;
@@ -179,6 +208,13 @@ h3{
         border: solid 1px #b5bacb;
     }
 }
+
+.form-text{
+    font-size: 0.75rem;
+    line-height:1rem;
+}
+
+
 
 .form-icon{
     position: absolute;
@@ -195,6 +231,45 @@ h3{
     }
 }
 
+// custom select
+.bootstrap-select{
+    max-width: 100%;
+    .dropdown-menu{
+        border:none;
+        box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.3);
+        border-radius:4px;
+        line-height: 2.5rem;
+        color:#404964;
+        .dropdown-item{
+            color: #404964;
+            font-weight: 700;
+            &:hover{
+                background-color:#d0d5e6;
+
+            }
+        }
+        .selected{
+            color: #404964;
+            &.active{
+                background-color:#f2f3f6;
+                color: #404964;
+            }
+        }
+    }
+    .btn.dropdown-toggle{
+        border-radius:4px;
+        line-height: 34px;
+        text-indent: 0.6rem;
+        background-color: #f2f3f6;
+        &:hover{
+            background-color: #d0d5e6;
+        }
+        &:focus{
+            outline:none;
+        }
+
+    }
+}
 
 .search-form{
 
@@ -313,6 +388,10 @@ button:focus{
     color: $darkPurple;
 }
 
+.text-muted{
+    color: $muted !important;
+}
+
 .text-merriweather{
     font-family: 'Merriweather', serif;
 }
@@ -328,6 +407,14 @@ button:focus{
     }
 }
 
+.btn-outline-darkgreen{
+    background-color: white;
+    border:2px solid $darkGreen;
+    &:hover{
+        background: rgba(21, 160, 114, 0.1)
+    }
+}
+
 .no-line-height{
     line-height: inherit;
 }
@@ -336,9 +423,19 @@ button:focus{
     line-height: normal;
 }
 
+.text-big{
+    font-size: 4rem;
+}
+
 
 // Login page
 body.login{
     background-image: url('../../public/images/background-login.jpg');
     background-size:cover;
+}
+
+.cta-fixed-bar{
+    strong{
+        font-size: 1rem;
+    }
 }

@@ -8,7 +8,7 @@ use App\Src\UseCases\Domain\Agricultural\Model\Exploitation;
 use App\Src\UseCases\Domain\Ports\ExploitationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\profile\FillWikiUserProfile;
+use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
@@ -58,7 +58,7 @@ class FillUserWikiProfileTest extends TestCase
         $postcode = '83130';
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode);
 
-        $exploitationExpected = new Exploitation($postcode, []);
+        $exploitationExpected = new Exploitation(Uuid::uuid4(), $postcode, []);
         $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
@@ -73,7 +73,7 @@ class FillUserWikiProfileTest extends TestCase
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode, $farmingType);
 
-        $exploitationExpected = new Exploitation($postcode, $farmingType);
+        $exploitationExpected = new Exploitation(Uuid::uuid4(), $postcode, $farmingType);
         $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }

@@ -1,26 +1,21 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Users\profile;
+namespace App\Src\UseCases\Domain\Users\Profile;
 
 
 use App\Src\UseCases\Domain\Agricultural\Model\Exploitation;
-use App\Src\UseCases\Domain\Ports\ExploitationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class FillWikiUserProfile
 {
     private $userRepository;
-    private $exploitationRepository;
 
-    public function __construct(
-        UserRepository $userRepository,
-        ExploitationRepository $exploitationRepository
-    )
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->exploitationRepository = $exploitationRepository;
     }
 
     public function fill(string $userId, string $role, string $firstname, string $lastname, string $postcode, array $farmingType = [])
@@ -31,7 +26,8 @@ class FillWikiUserProfile
         $user->update($user->email(), $firstname, $lastname, "");
         $user->addRole($role);
 
-        $this->exploitationRepository->add($userId, new Exploitation($postcode, $farmingType));
+        $exploitation = new Exploitation($exploitationId = Uuid::uuid4(), $postcode, $farmingType);
+        $exploitation->create($userId);
     }
 
     private function validate(string $firstname, string $lastname, string $role, string $postcode): void

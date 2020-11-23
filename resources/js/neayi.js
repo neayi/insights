@@ -1,5 +1,5 @@
 require('./bootstrap');
-
+require('bootstrap-select');
 
 // modal login
 $("#show_hide_password a").on('click', function(event) {
@@ -12,3 +12,46 @@ $("#show_hide_password a").on('click', function(event) {
         $('#show_hide_password span').text( "visibility_off" );
     }
 });
+
+$('#input-role').change(function (){
+    var elem = $('#state-role');
+    succeedState(elem);
+    if($(this).val() !== "") {
+        succeedState(elem);
+        return;
+    }
+    failedState(elem)
+});
+
+$('#input-postal').change(function (){
+    var elem = $('#state-postal');
+    var postal = $(this).val();
+    const regex = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
+    const found = postal.match(regex);
+    if(found != null) {
+        succeedState(elem);
+        return;
+    }
+    failedState(elem)
+});
+
+$('.input-identity').change(function (){
+    var elem = $('#state-identity');
+    var inputs = $('.input-identity');
+
+    if($('#surname').val() != "" && $('#firstname').val() != ""){
+        succeedState(elem);
+        return;
+    }
+    failedState(elem);
+});
+
+function succeedState(elem) {
+    elem.removeClass('required');
+    elem.addClass('success');
+}
+
+function failedState(elem) {
+    elem.addClass('required');
+    elem.removeClass('success');
+}

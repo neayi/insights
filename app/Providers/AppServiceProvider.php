@@ -24,6 +24,7 @@ use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRoleRepository;
+use App\Src\UseCases\Infra\Sql\ExploitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
@@ -81,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
+        $this->app->singleton(ExploitationRepository::class, ExploitationRepositorySql::class);
     }
 
     private function tuBinding(): void
