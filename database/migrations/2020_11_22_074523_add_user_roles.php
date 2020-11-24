@@ -13,6 +13,9 @@ class AddUserRoles extends Migration
         \Spatie\Permission\Models\Role::create(['name' => 'farmer']);
         \Spatie\Permission\Models\Role::create(['name' => 'student']);
         \Spatie\Permission\Models\Role::create(['name' => 'advisor']);
+        \Spatie\Permission\Models\Role::create(['name' => 'searcher']);
+        \Spatie\Permission\Models\Role::create(['name' => 'others']);
+        \Spatie\Permission\Models\Role::create(['name' => 'agro-supplier']);
     }
 
     public function down()
@@ -20,5 +23,8 @@ class AddUserRoles extends Migration
         \Spatie\Permission\Models\Role::where('name', 'farmer')->delete();
         \Spatie\Permission\Models\Role::where('name', 'student')->delete();
         \Spatie\Permission\Models\Role::where('name', 'advisor')->delete();
+        \Spatie\Permission\Models\Role::where('name', 'searcher')->delete();
+        \Spatie\Permission\Models\Role::where('name', 'others')->delete();
+        \Spatie\Permission\Models\Role::where('name', 'agro-supplier')->delete();
     }
 }

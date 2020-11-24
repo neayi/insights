@@ -36,6 +36,13 @@ class WizardProfileController extends Controller
         $farmingType = $request->input('farming_type') !== null ? $request->input('farming_type') : [];
 
         $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $postalCode, $farmingType);
+        if(session()->has('wiki_callback')){
+            $user = Auth::user();
+            $user->wiki_token = session()->get('wiki_token');
+            $user->save();
+            $callback = urldecode(session()->get('wiki_callback'));
+            return redirect($callback);
+        }
         return redirect(config('neayi.wiki_url'));
     }
 }

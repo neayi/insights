@@ -16,8 +16,10 @@ Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProvid
 Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
-Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
-Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
+Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function() {
+    Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
+    Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
+});
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');

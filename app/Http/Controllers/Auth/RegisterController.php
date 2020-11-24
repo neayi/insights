@@ -78,7 +78,7 @@ class RegisterController extends Controller
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
-            //return redirect($callback);
+            return redirect($callback);
         }
     }
 
@@ -98,19 +98,14 @@ class RegisterController extends Controller
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
 
-            return redirect()->route('wizard.profile');
-
-            /*if($request->session()->has('wiki_callback')){
-                $user = Auth::user();
+            if($user->exploitation_id !== null){
                 $user->wiki_token = $request->session()->get('wiki_token');
                 $user->save();
                 $callback = urldecode($request->session()->get('wiki_callback'));
-                //return redirect($callback);
+                return redirect($callback);
             }
 
-            return $request->wantsJson()
-                ? new Response('', 201)
-                : redirect($this->redirectPath());*/
+            return redirect()->route('wizard.profile');
         }catch (ValidationException $e) {
             $attributes = $e->validator->attributes();
             $attributes['provider'] = $provider;
@@ -118,7 +113,6 @@ class RegisterController extends Controller
                 ->withInput($attributes)
                 ->withErrors($e->validator);
         }
-
     }
 
     public function showErrorRegisterFormSocialNetwork()
