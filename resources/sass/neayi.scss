@@ -439,3 +439,69 @@ body.login{
         font-size: 1rem;
     }
 }
+
+.icon-checkboxes{
+    img{
+        width:98px;
+        height: auto;
+    }
+    ul {
+        list-style-type: none;
+        padding-left:0;
+
+        li {
+            text-align:center;
+            display: inline-block;
+            max-width:100px;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            img{
+                border: 1px solid #fff;
+            }
+        }
+
+        label:before {
+            background-color: white;
+            color: white;
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            border: 1px solid grey;
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 28px;
+            transition-duration: 0.4s;
+            transform: scale(0);
+        }
+
+        :checked + label img {
+            border:1px solid $darkGreen;
+        }
+
+        :checked + label img {
+            z-index: -1;
+        }
+    }
+
+}
+
+@media (max-width:768px){
+    .icon-checkboxes{
+        img{
+            width: 50px;
+            height:auto;
+        }
+    }
+}

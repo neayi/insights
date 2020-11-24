@@ -6,6 +6,7 @@ namespace Tests\Unit\Users\Profile;
 
 use App\Src\UseCases\Domain\Agricultural\Model\Exploitation;
 use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
@@ -56,9 +57,12 @@ class FillUserWikiProfileTest extends TestCase
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
         $postcode = '83130';
+        $identityProvider = app(IdentityProvider::class);
+        $identityProvider->setId($exploitationId = Uuid::uuid4());
+
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode);
 
-        $exploitationExpected = new Exploitation(Uuid::uuid4(), $postcode, []);
+        $exploitationExpected = new Exploitation($exploitationId, $postcode, []);
         $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
@@ -70,10 +74,12 @@ class FillUserWikiProfileTest extends TestCase
         $newLastname = 'newLastname';
         $postcode = '83130';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
+        $identityProvider = app(IdentityProvider::class);
+        $identityProvider->setId($exploitationId = Uuid::uuid4());
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode, $farmingType);
 
-        $exploitationExpected = new Exploitation(Uuid::uuid4(), $postcode, $farmingType);
+        $exploitationExpected = new Exploitation($exploitationId, $postcode, $farmingType);
         $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }

@@ -13,7 +13,11 @@ $("#show_hide_password a").on('click', function(event) {
     }
 });
 
+
 $('#input-role').change(function (){
+
+    showSelectFarming($(this).val())
+
     var elem = $('#state-role');
     succeedState(elem);
     if($(this).val() !== "") {
@@ -37,8 +41,6 @@ $('#input-postal').change(function (){
 
 $('.input-identity').change(function (){
     var elem = $('#state-identity');
-    var inputs = $('.input-identity');
-
     if($('#surname').val() != "" && $('#firstname').val() != ""){
         succeedState(elem);
         return;
@@ -54,4 +56,14 @@ function succeedState(elem) {
 function failedState(elem) {
     elem.addClass('required');
     elem.removeClass('success');
+}
+
+function showSelectFarming(role)
+{
+    var elem = $('#select-farming');
+    if(role === 'farmer'){
+        elem.slideDown();
+        return;
+    }
+    elem.slideUp();
 }

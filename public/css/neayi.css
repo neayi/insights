@@ -11942,3 +11942,66 @@ body.login {
   font-size: 1rem;
 }
 
+.icon-checkboxes img {
+  width: 98px;
+  height: auto;
+}
+
+.icon-checkboxes ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.icon-checkboxes ul li {
+  text-align: center;
+  display: inline-block;
+  max-width: 100px;
+}
+
+.icon-checkboxes ul input[type=checkbox] {
+  display: none;
+}
+
+.icon-checkboxes ul label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.icon-checkboxes ul label img {
+  border: 1px solid #fff;
+}
+
+.icon-checkboxes ul label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.icon-checkboxes ul :checked + label img {
+  border: 1px solid #00a46e;
+}
+
+.icon-checkboxes ul :checked + label img {
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .icon-checkboxes img {
+    width: 50px;
+    height: auto;
+  }
+}
+

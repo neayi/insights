@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Src\UseCases\Domain\IdentityProviderImpl;
 use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
+use App\Src\UseCases\Domain\Ports\ListRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
@@ -26,6 +29,7 @@ use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRoleRepository;
 use App\Src\UseCases\Infra\Sql\ExploitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
+use App\Src\UseCases\Infra\Sql\ListRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
@@ -73,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function prodBinding(): void
     {
+        $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
         $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
         $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
@@ -83,10 +88,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ExploitationRepository::class, ExploitationRepositorySql::class);
+        $this->app->singleton(ListRepository::class, ListRepositorySql::class);
     }
 
     private function tuBinding(): void
     {
+        $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
         $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
         $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
@@ -101,6 +108,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function tiBinding(): void
     {
+        $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
         $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
