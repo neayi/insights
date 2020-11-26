@@ -16,12 +16,9 @@
 <body>
 <div id="app">
     @include('layouts.neayi.partials.top-navbar')
-
     <div class="container-fluid">
-
         @yield('content')
     </div>
-
     @include('layouts.neayi.partials.footer')
     @include('users.modals.register')
 </div>

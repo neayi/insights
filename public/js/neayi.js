@@ -40573,7 +40573,6 @@ $("#show_hide_password a").on('click', function (event) {
   }
 });
 $('#input-role').change(function () {
-  showSelectFarming($(this).val());
   var elem = $('#state-role');
   succeedState(elem);
 
@@ -40597,9 +40596,21 @@ $('#input-postal').change(function () {
 
   failedState(elem);
 });
+$('#input-email').change(function () {
+  var elem = $('#state-email');
+  var email = $(this).val();
+  var regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  var found = email.match(regex);
+
+  if (found != null) {
+    succeedState(elem);
+    return;
+  }
+
+  failedState(elem);
+});
 $('.input-identity').change(function () {
   var elem = $('#state-identity');
-  var inputs = $('.input-identity');
 
   if ($('#surname').val() != "" && $('#firstname').val() != "") {
     succeedState(elem);
@@ -40607,6 +40618,9 @@ $('.input-identity').change(function () {
   }
 
   failedState(elem);
+});
+$('#more-main-production').click(function () {
+  $('#second-row-main-production').slideDown();
 });
 
 function succeedState(elem) {
@@ -40617,17 +40631,6 @@ function succeedState(elem) {
 function failedState(elem) {
   elem.addClass('required');
   elem.removeClass('success');
-}
-
-function showSelectFarming(role) {
-  var elem = $('#select-farming');
-
-  if (role == 'farmer') {
-    elem.slideDown();
-    return;
-  }
-
-  elem.slideUp();
 }
 
 /***/ }),

@@ -465,6 +465,7 @@ body.login{
             cursor: pointer;
             img{
                 border: 1px solid #fff;
+                background-color: #F3F3F3;
             }
         }
 
@@ -499,9 +500,26 @@ body.login{
 
 @media (max-width:768px){
     .icon-checkboxes{
-        img{
-            width: 50px;
-            height:auto;
+        ul{
+            li{
+                text-align: left;
+                display: inline-flex;
+                max-width: none;
+                width: 33%;
+                margin-bottom: 1rem;
+                img{
+                    width: 50px;
+                    height:auto;
+                }
+            }
         }
     }
+}
+
+body{
+    overflow-x: hidden;
+}
+
+.city-input{
+    width: 110px;
 }

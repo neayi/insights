@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ListRepositorySql implements ListRepository
 {
-    public function getByType(string $type): array
+    public function getByType(string $type, bool $isMain): array
     {
         $list = DB::table('list')
             ->where('type', $type)
+            ->where('main', $isMain)
             ->orderBy('priority')
             ->get();
         return $list->toArray();

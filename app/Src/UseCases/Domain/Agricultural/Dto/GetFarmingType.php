@@ -18,6 +18,11 @@ class GetFarmingType
 
     public function get()
     {
-        return $this->listRepository->getByType(self::type);
+        $mains = $this->listRepository->getByType(self::type, true);
+        $others = $this->listRepository->getByType(self::type, false);
+        return [
+            'main' => $mains,
+            'others' => $others,
+        ];
     }
 }

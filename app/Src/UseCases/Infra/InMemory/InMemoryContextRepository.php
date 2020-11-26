@@ -4,14 +4,14 @@
 namespace App\Src\UseCases\Infra\InMemory;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Exploitation;
-use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Ports\ContextRepository;
 
-class InMemoryExploitationRepository implements ExploitationRepository
+class InMemoryContextRepository implements ContextRepository
 {
     private $exploitations = [];
 
-    public function add(Exploitation $exploitation, string $userId)
+    public function add(Context $exploitation, string $userId)
     {
         $this->exploitations[$userId] = $exploitation;
     }

@@ -6,5 +6,5 @@ namespace App\Src\UseCases\Domain\Ports;
 
 interface ListRepository
 {
-    public function getByType(string $type):array;
+    public function getByType(string $type, bool $isMain):array;
 }

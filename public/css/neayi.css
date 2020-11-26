@@ -11970,6 +11970,7 @@ body.login {
 
 .icon-checkboxes ul label img {
   border: 1px solid #fff;
+  background-color: #F3F3F3;
 }
 
 .icon-checkboxes ul label:before {
@@ -11999,9 +12000,25 @@ body.login {
 }
 
 @media (max-width: 768px) {
-  .icon-checkboxes img {
+  .icon-checkboxes ul li {
+    text-align: left;
+    display: inline-flex;
+    max-width: none;
+    width: 33%;
+    margin-bottom: 1rem;
+  }
+
+  .icon-checkboxes ul li img {
     width: 50px;
     height: auto;
   }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.city-input {
+  width: 110px;
 }
 

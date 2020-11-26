@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserExploitationTable extends Migration
+class AddUserContextTable extends Migration
 {
     public function up()
     {
-        Schema::create('exploitations', function (Blueprint $table){
+        Schema::create('contexts', function (Blueprint $table){
             $table->id();
             $table->uuid('uuid');
             $table->string('postal_code', 10)->nullable()->default(null);
@@ -16,15 +16,15 @@ class AddUserExploitationTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table){
-            $table->integer('exploitation_id')->nullable()->default(null);
+            $table->integer('context_id')->nullable()->default(null);
         });
     }
 
     public function down()
     {
-        Schema::drop('exploitations');
+        Schema::drop('contexts');
         Schema::table('users', function (Blueprint $table){
-            $table->dropColumn('exploitation_id');
+            $table->dropColumn('context_id');
         });
     }
 }

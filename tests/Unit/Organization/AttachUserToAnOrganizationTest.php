@@ -46,21 +46,47 @@ class AttachUserToAnOrganizationTest extends TestCase
         $user = new User($userId, 'anemail@gmail.com', 'firstname', 'lastname');
         $this->userRepository->add($user);
 
-        $adminId = Uuid::uuid4();
-        $admin = new User($adminId, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ['admin']);
-        $this->userRepository->add($admin);
-
-        $adminId2 = Uuid::uuid4();
-        $admin2 = new User($adminId2, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ["admin"]);
-        $this->userRepository->add($admin2);
+        $this->addAdminOrganization1($organizationId);
+        $this->addAdminOrganization2($organizationId);
 
         app(AttachUserToAnOrganization::class)->attach($userId, $organizationId);
 
         $userExpected = new User($userId, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId);
+        $user = $this->userRepository->getById($userId);
         self::assertEquals($userExpected, $user);
 
-        Mail::assertSent(UserJoinsOrganizationToUser::class);
+        $this->assertMailSendToUser();
+        $this->assertMailSentToAdminOrganization();
+    }
+
+    /**
+     * @param \Ramsey\Uuid\UuidInterface $organizationId
+     */
+    private function addAdminOrganization1(\Ramsey\Uuid\UuidInterface $organizationId): void
+    {
+        $adminId = Uuid::uuid4();
+        $admin = new User($adminId, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ['admin']);
+        $this->userRepository->add($admin);
+    }
+
+    /**
+     * @param \Ramsey\Uuid\UuidInterface $organizationId
+     */
+    private function addAdminOrganization2(\Ramsey\Uuid\UuidInterface $organizationId): void
+    {
+        $adminId2 = Uuid::uuid4();
+        $admin2 = new User($adminId2, 'anemail@gmail.com', 'firstname', 'lastname', $organizationId, '', ["admin"]);
+        $this->userRepository->add($admin2);
+    }
+
+    private function assertMailSentToAdminOrganization(): void
+    {
         Mail::assertSent(UserJoinsOrganizationToAdmin::class, 2);
+    }
+
+    private function assertMailSendToUser(): void
+    {
+        Mail::assertSent(UserJoinsOrganizationToUser::class);
     }
 
 }

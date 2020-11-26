@@ -4,26 +4,26 @@
 namespace App\Src\UseCases\Domain\Agricultural\Model;
 
 
-use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Ports\ContextRepository;
 
-class Exploitation
+class Context
 {
     private $uid;
     private $postalCode;
     private $farmingType;
-    private $exploitationRepository;
+    private $contextRepository;
 
     public function __construct(string $id, string $postalCode, array $farmingType = [])
     {
         $this->uid = $id;
         $this->postalCode = $postalCode;
         $this->farmingType = $farmingType;
-        $this->exploitationRepository = app(ExploitationRepository::class);
+        $this->contextRepository = app(ContextRepository::class);
     }
 
     public function create(string $userId)
     {
-        $this->exploitationRepository->add($this, $userId);
+        $this->contextRepository->add($this, $userId);
     }
 
     public function toArray()

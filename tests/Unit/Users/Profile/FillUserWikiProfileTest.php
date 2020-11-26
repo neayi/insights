@@ -4,8 +4,8 @@
 namespace Tests\Unit\Users\Profile;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Exploitation;
-use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
@@ -19,7 +19,7 @@ use Tests\TestCase;
 class FillUserWikiProfileTest extends TestCase
 {
     private $userRepository;
-    private $exploitationRepository;
+    private $contextRepository;
 
     private $userId;
 
@@ -27,7 +27,7 @@ class FillUserWikiProfileTest extends TestCase
     {
         parent::setUp();
         $this->userRepository = app(UserRepository::class);
-        $this->exploitationRepository = app(ExploitationRepository::class);
+        $this->contextRepository = app(ContextRepository::class);
 
         if(config('app.env') === 'testing-ti'){
             Artisan::call('migrate:fresh');
@@ -44,67 +44,70 @@ class FillUserWikiProfileTest extends TestCase
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
         $postcode = '83130';
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode);
+        $email = 'e@email.com';
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
 
-        $userExpected = new User($this->userId, 'email@gmail.com', $newFirstname, $newLastname, null, null, ['farmer']);
+        $userExpected = new User($this->userId, $email, $newFirstname, $newLastname, null, null, ['farmer']);
         $userSaved = $this->userRepository->getById($this->userId);
         self::assertEquals($userExpected, $userSaved);
     }
 
-    public function test_ShouldUpdateExploitationWithEmptyFarmingType()
+    public function test_ShouldUpdateContextWithEmptyFarmingType()
     {
         $role = 'farmer';
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
         $postcode = '83130';
+        $email = 'e@email.com';
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
 
-        $exploitationExpected = new Exploitation($exploitationId, $postcode, []);
-        $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
+        $exploitationExpected = new Context($exploitationId, $postcode, []);
+        $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
 
-    public function test_ShouldUpdateExploitationWithFarmingType()
+    public function test_ShouldUpdateContextWithFarmingType()
     {
         $role = 'farmer';
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
         $postcode = '83130';
+        $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postcode, $farmingType);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode, $farmingType);
 
-        $exploitationExpected = new Exploitation($exploitationId, $postcode, $farmingType);
-        $exploitationSaved = $this->exploitationRepository->getByUser($this->userId);
+        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType);
+        $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
 
     /**
      * @dataProvider dataProvider
      */
-    public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $postalCode)
+    public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $email, $postalCode)
     {
         self::expectException(ValidationException::class);
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $postalCode);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postalCode);
     }
 
     public function dataProvider()
     {
         return [
-            ['', '', '', ''],
-            ['role', '', '', '83130'],
-            ['role', 'firstname', '', '83130'],
-            ['role', '', 'lastname' , '83130'],
-            ['', 'firstname', 'lastname', '83130'],
-            ['', 'firstname', 'lastname', '83130'],
-            ['', 'firstname', '', '83130'],
-            ['', '', 'lastname', '83130'],
-            ['farmer', 'firstname', 'lastname', '0183130'],
+            ['', '', '', '', ''],
+            ['role', '', '', 'e@email','83130'],
+            ['role', 'firstname', '', 'e@email.com', '83130'],
+            ['role', '', 'lastname' ,  'e@email.com','83130'],
+            ['', 'firstname', 'lastname',  'e@email.com', '83130'],
+            ['', 'firstname', 'lastname',  'e@email.com', '83130'],
+            ['', 'firstname', '',  'e@email.com', '83130'],
+            ['', '', 'lastname',  'e@email.com', '83130'],
+            ['farmer', 'firstname', 'lastname',  'e@email.com', '0183130'],
         ];
     }
 }

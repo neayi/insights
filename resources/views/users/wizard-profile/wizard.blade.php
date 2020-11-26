@@ -37,14 +37,43 @@
             @include('users.wizard-profile.fill-postal-code')
         </div>
     </div>
-    <div class="row mt-5 icon-checkboxes" id="select-farming" @if(old('role') !== "farmer") style="display: none;" @endif>
+    <div class="row">
+        <div class="col-lg-12 offset-md-2">
+            @include('users.wizard-profile.fill-email')
+        </div>
+    </div>
+    <div class="row mt-5 icon-checkboxes" id="select-farming">
         <div class="col-lg-8 offset-md-2">
             <div class="form-group">
                 <label class="label-big mb-3">Je suis principalement en</label>
                 <ul class="d-md-flex">
-                    @foreach($farmingType as $farming)
+                    @foreach($farmingTypeMain as $farming)
                         <li class="mr-4 ">
-                            @include('users.wizard-profile.icon-farming', ['uuid' => $farming->uuid, 'code' => $farming->code])
+                            @include('users.wizard-profile.icon-farming', [
+                                 'uuid' => $farming->uuid,
+                                 'code' => $farming->code,
+                                 'icon' => $farming->icon,
+                             ])
+                        </li>
+                    @endforeach
+                    <li class="mr-4 more" id="more-main-production">
+                        <label for="myCheckbox23">
+                            <img src="{{asset('icons/More.svg')}}" class="rounded-circle mb-2" />
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-8 offset-md-2" id="second-row-main-production" style="display: none;">
+            <div class="form-group">
+                <ul class="d-md-flex">
+                    @foreach($farmingType as $farming)
+                        <li class="mr-4">
+                            @include('users.wizard-profile.icon-farming', [
+                                 'uuid' => $farming->uuid,
+                                 'code' => $farming->code,
+                                 'icon' => $farming->icon,
+                             ])
                         </li>
                     @endforeach
                 </ul>

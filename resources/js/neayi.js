@@ -15,9 +15,6 @@ $("#show_hide_password a").on('click', function(event) {
 
 
 $('#input-role').change(function (){
-
-    showSelectFarming($(this).val())
-
     var elem = $('#state-role');
     succeedState(elem);
     if($(this).val() !== "") {
@@ -39,6 +36,18 @@ $('#input-postal').change(function (){
     failedState(elem)
 });
 
+$('#input-email').change(function (){
+    var elem = $('#state-email');
+    var email = $(this).val();
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const found = email.match(regex);
+    if(found != null) {
+        succeedState(elem);
+        return;
+    }
+    failedState(elem)
+});
+
 $('.input-identity').change(function (){
     var elem = $('#state-identity');
     if($('#surname').val() != "" && $('#firstname').val() != ""){
@@ -46,6 +55,10 @@ $('.input-identity').change(function (){
         return;
     }
     failedState(elem);
+});
+
+$('#more-main-production').click(function (){
+   $('#second-row-main-production').slideDown();
 });
 
 function succeedState(elem) {
@@ -56,14 +69,4 @@ function succeedState(elem) {
 function failedState(elem) {
     elem.addClass('required');
     elem.removeClass('success');
-}
-
-function showSelectFarming(role)
-{
-    var elem = $('#select-farming');
-    if(role === 'farmer'){
-        elem.slideDown();
-        return;
-    }
-    elem.slideUp();
 }

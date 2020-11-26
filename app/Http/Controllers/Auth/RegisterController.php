@@ -80,6 +80,8 @@ class RegisterController extends Controller
             $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
         }
+
+        return redirect()->route('wizard.profile');
     }
 
     public function redirectToProvider(string $provider)

@@ -23,7 +23,9 @@ class WizardProfileController extends Controller
             'userRoles' => $roles,
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
-            'farmingType' => $farmingType
+            'farmingType' => $farmingType['others'],
+            'farmingTypeMain' => $farmingType['main'],
+            'email' => $user['email']
         ]);
     }
 
@@ -33,9 +35,10 @@ class WizardProfileController extends Controller
         $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
         $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
         $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
+        $email = $request->input('email') !== null ? $request->input('email') : '';
         $farmingType = $request->input('farming_type') !== null ? $request->input('farming_type') : [];
 
-        $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $postalCode, $farmingType);
+        $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $postalCode, $farmingType);
         if(session()->has('wiki_callback')){
             $user = Auth::user();
             $user->wiki_token = session()->get('wiki_token');

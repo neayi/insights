@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Src\UseCases\Domain\IdentityProviderImpl;
-use App\Src\UseCases\Domain\Ports\ExploitationRepository;
+use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\ListRepository;
@@ -22,12 +22,12 @@ use App\Src\UseCases\Infra\Gateway\PictureHandler;
 use App\Src\UseCases\Infra\Gateway\Real\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\Real\RealSocialiteGateway;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
-use App\Src\UseCases\Infra\InMemory\InMemoryExploitationRepository;
+use App\Src\UseCases\Infra\InMemory\InMemoryContextRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
 use App\Src\UseCases\Infra\InMemory\InMemoryUserRoleRepository;
-use App\Src\UseCases\Infra\Sql\ExploitationRepositorySql;
+use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\ListRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
@@ -87,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
-        $this->app->singleton(ExploitationRepository::class, ExploitationRepositorySql::class);
+        $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(ListRepository::class, ListRepositorySql::class);
     }
 
@@ -103,20 +103,20 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
-        $this->app->singleton(ExploitationRepository::class, InMemoryExploitationRepository::class);
+        $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
     }
 
     private function tiBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
         $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
-        $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
+        $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
-        $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
+        $this->app->singleton(UserRepository::class, UserRepositorySql::class);
         $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
         $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
-        $this->app->singleton(ExploitationRepository::class, InMemoryExploitationRepository::class);
+        $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
     }
 }

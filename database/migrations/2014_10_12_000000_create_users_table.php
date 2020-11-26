@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
             $table->uuid('organization_id')->nullable();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamp('join_organization_at')->nullable();
