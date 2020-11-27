@@ -74,7 +74,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if($user->exploitation_id === null){
+        if($user->context_id === null){
             return redirect()->route('wizard.profile');
         }
 

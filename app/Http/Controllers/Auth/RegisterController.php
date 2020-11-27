@@ -72,9 +72,13 @@ class RegisterController extends Controller
         if($request->session()->has('should_attach_to_organization')){
             app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
         }
+        $user = Auth::user();
+
+        if($user->context_id === null) {
+            return redirect()->route('wizard.profile');
+        }
 
         if($request->session()->has('wiki_callback')){
-            $user = Auth::user();
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
@@ -100,7 +104,7 @@ class RegisterController extends Controller
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
 
-            if($user->exploitation_id !== null){
+            if($user->context_id !== null){
                 $user->wiki_token = $request->session()->get('wiki_token');
                 $user->save();
                 $callback = urldecode($request->session()->get('wiki_callback'));

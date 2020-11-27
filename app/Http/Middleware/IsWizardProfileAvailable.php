@@ -11,7 +11,7 @@ class IsWizardProfileAvailable
     public function handle($request, \Closure $next)
     {
         $user = Auth::user();
-        if($user->exploitation_id === null){
+        if($user->context_id === null){
             return $next($request);
         }
         if(session()->has('wiki_callback')){
