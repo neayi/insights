@@ -440,19 +440,29 @@ body.login{
     }
 }
 
+.city-input{
+    width: 110px;
+}
+
 .icon-checkboxes{
-    img{
-        width:98px;
-        height: auto;
-    }
-    ul {
-        list-style-type: none;
+
+    div.circle-row {
         padding-left:0;
 
-        li {
+        div.circle-item {
             text-align:center;
-            display: inline-block;
-            max-width:100px;
+            width: 115px;
+
+            img{
+                width:98px;
+                height: auto;
+            }
+
+            @media (min-width:500px){
+                &{
+                    margin-right: 1em;
+                }
+            }
         }
 
         input[type="checkbox"] {
@@ -498,28 +508,6 @@ body.login{
 
 }
 
-@media (max-width:768px){
-    .icon-checkboxes{
-        ul{
-            li{
-                text-align: left;
-                display: inline-flex;
-                max-width: none;
-                width: 33%;
-                margin-bottom: 1rem;
-                img{
-                    width: 50px;
-                    height:auto;
-                }
-            }
-        }
-    }
-}
-
 body{
     overflow-x: hidden;
-}
-
-.city-input{
-    width: 110px;
 }
