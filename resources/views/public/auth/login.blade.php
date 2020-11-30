@@ -67,6 +67,11 @@
                                                     <div class="form-icon">
                                                         <a href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
                                                     </div>
+                                                    <div>
+                                                        <a href="{{ route('password.request') }}">
+                                                            <small style="font-size: x-small;">Mot de passe oublié</small>
+                                                        </a>
+                                                    </div>
                                                     @if ($errors->has('password'))
                                                         <div class="invalid-feedback" style="display: block !important;">
                                                             {{ $errors->first('password') }}
@@ -76,12 +81,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <a href="{{ route('password.request') }}">
-                                                <small style="font-size: x-small;">Mot de passe oublié</small>
-                                            </a>
-                                        </div>
                                     <div class="row text-right mt-4">
                                         <div class="col-12">
                                             <a href="{{ route('register') }}" class="btn btn-link text-dark-green mr-4">Créez votre compte</a>

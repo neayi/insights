@@ -12,12 +12,12 @@ return [
     |
     */
 
-    'failed'   => 'Ces identifiants ne correspondent pas à nos enregistrements',
+    'failed'   => 'Ces identifiants ne nous ont pas permis de vous connecter',
     'throttle' => 'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
 
 
     'modal.welcome' => 'Bienvenue,',
-    'modal.reinsurance1' => 'Sur Triple Performance vos informations ne seront jamais transmises à un tiers à des fins commerciales.',
+    'modal.reinsurance1' => 'Sur Triple Performance vos informations ne seront pas transmises à un tiers à des fins commerciales.',
     'modal.reinsurance2' => 'Nous ne spammerons pas non <br> plus votre boîte aux lettres.<br>',
     'modal.find-us' => 'Retrouvez-nous sur',
     'modal.create-account' => 'Créer votre compte',
