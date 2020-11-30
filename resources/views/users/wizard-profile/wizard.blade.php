@@ -10,20 +10,27 @@
         <div class="col-lg-3 offset-lg-2 col-md-4">
             <button type="button" class="btn btn-dark-green text-white px-5 py-2 mr-2 w-100 mb-2 mb-md-0 ml-3">Valider</button>
         </div>
-        <div class="col-lg-5 col-md-6">
+        <!--div class="col-lg-5 col-md-6">
             <button type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 w-100 ml-3">Valider et continuer de se présenter</button>
-        </div>
+        </div-->
     </div>
     <div class="row py-5">
-        <div class="col-lg-8 offset-lg-2 col-12">
-            <span class="font-weight-bold text-dark-green text-big d-block mb-4">Merci !</span>
-            <p class="mb-4">
-                Pour vous aider à trouver des Retours d’expériences ou des Pratiques pouvant s’appliquer à votre exploitation et aider la communauté à vous comprendre,
-            </p>
-            <strong>
-                Présentez-vous,
-            </strong>
-        </div>
+        @if(empty($errors->any()))
+            <div class="col-lg-8 offset-lg-2 col-12" id="msg">
+                <span class="font-weight-bold text-dark-green text-big d-block mb-4">Merci !</span>
+                <p class="mb-4">
+                    Pour vous aider à trouver des retours d’expériences ou des pratiques pouvant s’appliquer
+                    à votre exploitation et aider la communauté à vous comprendre, présentez-vous,
+                </p>
+            </div>
+        @endif
+        @if(isset($errors) && $errors->any())
+            <div class="col-lg-8 offset-lg-2 col-12" id="msg-err">
+                <p class="mb-4" style="color: red;">
+                    Vous y êtes presque ! Il nous manque deux trois infos dans le formulaire pour pouvoir continuer !
+                </p>
+            </div>
+        @endif
     </div>
     <div class="row">
         <div class="col-lg-2 offset-lg-2">

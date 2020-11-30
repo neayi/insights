@@ -9,6 +9,8 @@ Route::get('/', function (){
     return redirect('/login');
 });
 
+Route::get('user/logout', 'Api\OAuthController@logout');
+
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('auth.provider');
 Route::get('register/{provider}', 'Auth\RegisterController@redirectToProvider')->name('register.auth.provider');
 Route::any('login/callback/{provider}', 'Auth\LoginController@handleProviderCallback')->middleware('transform.request.login')->name('auth.provider.callback');
