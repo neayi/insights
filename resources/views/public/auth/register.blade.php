@@ -49,7 +49,7 @@
                                         <div class="col-md-10">
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Votre adresse email">
+                                                <input type="email" class="form-control" name="email" id="email" autocomplete="email" aria-describedby="emailHelp" placeholder="Votre adresse email">
                                                 @if ($errors->has('email'))
                                                     <div class="invalid-feedback" style="display: block !important;">
                                                         {{ $errors->first('email') }}
@@ -63,7 +63,7 @@
                                             <div class="form-group">
                                                 <label>Mot de passe</label>
                                                 <div id="show_hide_password">
-                                                    <input class="form-control" name="password" type="password" placeholder="8 caractères minimum">
+                                                    <input class="form-control" name="password" type="password" autocomplete="new-password" placeholder="8 caractères minimum">
                                                     <div class="form-icon">
                                                         <a href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
                                                     </div>
@@ -81,7 +81,7 @@
                                             <div class="form-group">
                                                 <label>Confirmation mot de passe</label>
                                                 <div id="show_hide_password">
-                                                    <input class="form-control" name="password_confirmation" type="password" placeholder="8 caractères minimum">
+                                                    <input class="form-control" name="password_confirmation" type="password" autocomplete="new-password" placeholder="8 caractères minimum">
                                                 </div>
                                                 @if ($errors->has('password_confirmation'))
                                                     <div class="invalid-feedback" style="display: block !important;">

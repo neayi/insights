@@ -11,7 +11,7 @@
             <label>Code postal</label>
         </div>
         <div class="col-lg-5 col-9">
-            <input value="{{old('postal_code')}}" type="text" id="input-postal" name="postal_code" class="form-control" placeholder="">
+            <input value="{{old('postal_code')}}" type="text" id="input-postal" name="postal_code" autocomplete="postal-code" class="form-control" placeholder="">
         </div>
     </div>
     <small class="form-text text-muted font-weight-semibold mt-2">
