@@ -36,12 +36,11 @@ class OAuthController extends BaseController
     public function logout()
     {
         $user = Auth::user();
-        if(!isset($user)){
-            redirect(config('neayi.wiki_url'));
+        if(isset($user)){
+            $user->wiki_token = '';
+            $user->save();
+            Auth::logout();
         }
-        $user->wiki_token = '';
-        $user->save();
-        Auth::logout();
         redirect(config('neayi.wiki_url'));
     }
 }
