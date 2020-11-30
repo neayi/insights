@@ -24,7 +24,9 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        session()->reflash();
+        if($request->session()->has('should_attach_to_organization')) {
+            session()->reflash();
+        }
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));

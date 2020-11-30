@@ -1,6 +1,6 @@
 @extends('layouts.neayi.empty-layout')
 
-@section('title', __('pages.wizard-profile'))
+@section('title', __('pages.login'))
 
 @section('content')
 

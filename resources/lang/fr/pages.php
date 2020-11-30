@@ -8,4 +8,7 @@ return [
   'invite_users' => 'Inviter des utilisateurs dans l\'organisme',
   'title_list_users' => 'Liste des utilisateurs',
   'title_edit_user' => 'Editer l\'utilisateur',
+
+  'login' => 'Se connecter ou créer un compte',
+  'register' => 'Créer un compte',
 ];

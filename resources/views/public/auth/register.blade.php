@@ -1,6 +1,6 @@
 @extends('layouts.neayi.empty-layout')
 
-@section('title', __('pages.wizard-profile'))
+@section('title', __('pages.register'))
 
 @section('content')
 
@@ -49,7 +49,7 @@
                                         <div class="col-md-10">
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" name="email" id="email" autocomplete="email" aria-describedby="emailHelp" placeholder="Votre adresse email">
+                                                <input value="{{ old('email') }}" type="email" class="form-control" name="email" id="email" autocomplete="email" aria-describedby="emailHelp" placeholder="Votre adresse email">
                                                 @if ($errors->has('email'))
                                                     <div class="invalid-feedback" style="display: block !important;">
                                                         {{ $errors->first('email') }}

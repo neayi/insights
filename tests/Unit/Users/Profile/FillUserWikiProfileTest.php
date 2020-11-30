@@ -92,6 +92,9 @@ class FillUserWikiProfileTest extends TestCase
      */
     public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $email, $postalCode)
     {
+        $user = new User(Uuid::uuid4(), 'useremail@gmail.com', 'first', 'last');
+        $this->userRepository->add($user);
+
         self::expectException(ValidationException::class);
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postalCode);
     }
@@ -108,6 +111,7 @@ class FillUserWikiProfileTest extends TestCase
             ['', 'firstname', '',  'e@email.com', '83130'],
             ['', '', 'lastname',  'e@email.com', '83130'],
             ['farmer', 'firstname', 'lastname',  'e@email.com', '0183130'],
+            ['farmer', 'firstname', 'lastname',  'useremail@gmail.com', '83130'],
         ];
     }
 }

@@ -37,7 +37,9 @@ class RegisterController extends Controller
             $firstname = $user['firstname'];
             $lastname = $user['lastname'];
         }
-        session()->reflash();
+        if(session()->has('should_attach_to_organization')) {
+            session()->reflash();
+        }
         return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
@@ -53,6 +55,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => 'required|min:8|max:255|confirmed'
+        ], [
+            'password.confirmed' => 'Veuillez confirmer votre mot de passe ci-dessous'
         ]);
     }
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="fr">
     <head>
-        <title>{{ config('app.name', 'Triple Performance') }}</title>
+        <title>@yield('title')</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

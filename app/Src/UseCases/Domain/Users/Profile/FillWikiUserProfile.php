@@ -25,7 +25,13 @@ class FillWikiUserProfile
 
     public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $postcode, array $farmingType = [])
     {
-        $this->validate($firstname, $lastname, $role, $email, $postcode);
+        $errors = [];
+        $user = $this->userRepository->getByEmail($email);
+        if(isset($user) && $user->id() !== $userId){
+            $errors[] = ['validation.unique'];
+        }
+
+        $this->validate($firstname, $lastname, $role, $email, $postcode, $errors);
 
         $user = $this->userRepository->getById($userId);
         $user->update($email, $firstname, $lastname, "");
@@ -36,7 +42,7 @@ class FillWikiUserProfile
         $context->create($userId);
     }
 
-    private function validate(string $firstname, string $lastname, string $role, string $email, string $postcode): void
+    private function validate(string $firstname, string $lastname, string $role, string $email, string $postcode, array $errors = []): void
     {
         $rules = [
             'firstname' => 'required',
@@ -46,12 +52,20 @@ class FillWikiUserProfile
             'postal_code' => ['required', 'regex:/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/'],
         ];
 
-        Validator::make([
+        $validator = Validator::make([
             'firstname' => $firstname,
             'lastname' => $lastname,
             'role' => $role,
             'postal_code' => $postcode,
             'email' => $email
-        ], $rules)->validate();
+        ], $rules);
+
+        $validator->after(function () use ($validator, $errors) {
+            foreach ($errors as $field => $error) {
+                $validator->errors()->add($field, $error);
+            }
+        });
+
+        $validator->validate();
     }
 }
