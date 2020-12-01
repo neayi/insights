@@ -38,11 +38,14 @@ class UserRepositorySql implements UserRepository
     {
         $userModel = new \App\User();
         $data = $u->toArray();
+        $roles = $data['roles'];
         unset($data['url_picture']);
         unset($data['roles']);
         $userModel->fill($data);
         $userModel->password = $password;
         $userModel->save();
+
+        $userModel->syncRoles($roles);
     }
 
     public function update(User $u)

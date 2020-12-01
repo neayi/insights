@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 
 class OAuthController extends BaseController
@@ -30,5 +31,16 @@ class OAuthController extends BaseController
             'email' => $user->email,
             'avatar' => $user->adminlte_image()
         ];
+    }
+
+    public function logout()
+    {
+        $user = Auth::user();
+        if(isset($user)){
+            $user->wiki_token = '';
+            $user->save();
+            Auth::logout();
+        }
+        redirect(config('neayi.wiki_url'));
     }
 }

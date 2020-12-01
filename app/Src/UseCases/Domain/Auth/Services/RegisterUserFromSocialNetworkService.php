@@ -37,7 +37,7 @@ class RegisterUserFromSocialNetworkService
             ];
         }
 
-        if($socialiteUser->email() !== null) {
+        if($socialiteUser->email() !== null  && $socialiteUser->email() != "") {
             $user = $this->userRepository->getByEmail($socialiteUser->email());
         }
         if(isset($user)){
@@ -55,9 +55,9 @@ class RegisterUserFromSocialNetworkService
     private function validateData(SocialiteUser $socialiteUser): void
     {
         $rules = [
-            'email' => 'required|string|email|min:2|max:255',
-            'firstname' => 'string|required|min:2|max:255',
-            'lastname' => 'string|required|min:2|max:255'
+            'email' => 'string|email|min:2|max:255|nullable',
+            'firstname' => 'string|min:2|max:255',
+            'lastname' => 'string|min:2|max:255'
         ];
 
         $data = [

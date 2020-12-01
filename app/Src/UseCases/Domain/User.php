@@ -150,6 +150,12 @@ class User
         return new UserDto($identity, $state);
     }
 
+    public function addRole(string $role)
+    {
+        $this->roles[] = $role;
+        app(UserRepository::class)->update($this);
+    }
+
     public function toArray()
     {
         $urlPicture = $this->pathPicture != "" ? asset('storage/'.str_replace('app/public/', '', $this->pathPicture)) : null;

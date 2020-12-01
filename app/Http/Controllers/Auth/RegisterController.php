@@ -11,7 +11,6 @@ use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -38,8 +37,10 @@ class RegisterController extends Controller
             $firstname = $user['firstname'];
             $lastname = $user['lastname'];
         }
-        session()->reflash();
-        return view('auth.register', [
+        if(session()->has('should_attach_to_organization')) {
+            session()->reflash();
+        }
+        return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
             'lastname' => $lastname
@@ -52,15 +53,18 @@ class RegisterController extends Controller
             session()->reflash();
         }
         return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => 'required|min:8|max:255|confirmed'
+        ], [
+            'password.confirmed' => 'Veuillez confirmer votre mot de passe ci-dessous'
         ]);
     }
 
     protected function create(array $data)
     {
         $email = isset($data['email']) ? $data['email'] : '';
-        $firstname = $data['firstname'] !== null ? $data['firstname'] : '';
-        $lastname = $data['lastname'] !== null ? $data['lastname'] : '';
+        $firstname = isset($data['firstname']) ? $data['firstname'] : '';
+        $lastname = isset($data['lastname']) ? $data['lastname'] : '';
         $password = $data['password'] !== null ? $data['password'] : '';
         $passwordConfirmation = $data['password_confirmation'] !== null ? $data['password_confirmation'] : '';
         $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);
@@ -72,14 +76,20 @@ class RegisterController extends Controller
         if($request->session()->has('should_attach_to_organization')){
             app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
         }
+        $user = Auth::user();
+
+        if($user->context_id === null) {
+            return redirect()->route('wizard.profile');
+        }
 
         if($request->session()->has('wiki_callback')){
-            $user = Auth::user();
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
         }
+
+        return redirect()->route('wizard.profile');
     }
 
     public function redirectToProvider(string $provider)
@@ -98,17 +108,14 @@ class RegisterController extends Controller
             $user = User::where('uuid', $userId)->first();
             $this->guard()->login($user);
 
-            if($request->session()->has('wiki_callback')){
-                $user = Auth::user();
+            if($user->context_id !== null){
                 $user->wiki_token = $request->session()->get('wiki_token');
                 $user->save();
                 $callback = urldecode($request->session()->get('wiki_callback'));
                 return redirect($callback);
             }
 
-            return $request->wantsJson()
-                ? new Response('', 201)
-                : redirect($this->redirectPath());
+            return redirect()->route('wizard.profile');
         }catch (ValidationException $e) {
             $attributes = $e->validator->attributes();
             $attributes['provider'] = $provider;
@@ -116,7 +123,6 @@ class RegisterController extends Controller
                 ->withInput($attributes)
                 ->withErrors($e->validator);
         }
-
     }
 
     public function showErrorRegisterFormSocialNetwork()

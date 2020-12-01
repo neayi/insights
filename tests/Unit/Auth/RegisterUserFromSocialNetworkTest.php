@@ -40,17 +40,6 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         app(RegisterUserFromSocialNetwork::class)->register('github');
     }
 
-    public function testShouldNotRegisterUser_WhenEmailEmpty()
-    {
-        $email = null;
-
-        $socialiteUser = new SocialiteUser($fid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
-        $this->socialiteGateway->add($socialiteUser, $provider = 'facebook');
-
-        self::expectException(ValidationException::class);
-        app(RegisterUserFromSocialNetwork::class)->register($provider);
-    }
-
     public function testShouldAddProviderToUser_WhenEmailAlreadyExists()
     {
         $email = 'unemail@gmail.com';
@@ -100,4 +89,18 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         self::assertEquals('user_already_exist', $result['state']);
     }
 
+    public function testShouldRegisterUser_WithoutEmail()
+    {
+        $socialiteUser = new SocialiteUser($gid = Uuid::uuid4(), '', $firstname = 'first', $lastname = 'last');
+        $this->socialiteGateway->add($socialiteUser, $provider = 'google');
+
+        $user = new User($uid = Uuid::uuid4(), '', $firstname, $lastname, null, null, [], ['google' => $gid]);
+        $this->userRepository->add($user);
+
+        $ids = app(RegisterUserFromSocialNetwork::class)->register($provider);
+
+        $userExpected = new User($ids['user_id'], '', $firstname, $lastname, null, null, [], [$provider => $ids['provider_id']]);
+        $userSaved = $this->userRepository->getByProvider($provider, $ids['provider_id']);
+        self::assertEquals($userExpected, $userSaved);
+    }
 }

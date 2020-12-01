@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function (){
     return redirect('/login');
 });
+
+Route::get('user/logout', 'Api\OAuthController@logout');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('auth.provider');
 Route::get('register/{provider}', 'Auth\RegisterController@redirectToProvider')->name('register.auth.provider');
@@ -15,6 +17,11 @@ Route::any('login/callback/{provider}', 'Auth\LoginController@handleProviderCall
 Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProviderCallback')->middleware('transform.request.login')->name('auth.provider.register_callback');
 Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
+
+Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function() {
+    Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
+    Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
+});
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
@@ -26,7 +33,6 @@ Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
 
     Route::post('/organization/users/prepare-invite', 'OrganizationsController@prepareInvitation')->name('organization.users.prepare-invite');
     Route::post('/organization/users/invite', 'OrganizationsController@sendInvitations')->name('organization.users.invite');
-
 
     Route::get('/organization/{id}/users', 'UsersController@showListUsers')->name('users.list');
     Route::post('/organization/{id}/users', 'UsersController@listUsers')->name('users.list.datatable');

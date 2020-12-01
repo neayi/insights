@@ -24,12 +24,14 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        session()->reflash();
+        if($request->session()->has('should_attach_to_organization')) {
+            session()->reflash();
+        }
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
-        return view('auth.login');
+        return view('public.auth.login');
     }
 
     public function logout(Request $request)
@@ -74,8 +76,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if($user->context_id === null){
+            return redirect()->route('wizard.profile');
+        }
+
         if($request->session()->has('wiki_callback')){
-            $user = Auth::user();
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
@@ -88,6 +93,7 @@ class LoginController extends Controller
                 ? new Response('', 204)
                 : redirect($link);
         }
+        return redirect()->route('home');
     }
 
     public function redirectToProvider(string $provider)
@@ -105,9 +111,6 @@ class LoginController extends Controller
     {
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         $logUserFromSocialNetwork->log($provider);
-        if(session()->has('wiki_callback')){
-            return $this->authenticated(request(), null);
-        }
-        return redirect()->route('home');
+        return $this->authenticated(request(), Auth::user());
     }
 }
