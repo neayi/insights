@@ -40561,7 +40561,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! bootstrap-select */ "./node_modules/bootstrap-select/dist/js/bootstrap-select.js"); // modal login
 
 
-$("#show_hide_password a").on('click', function (event) {
+$("#show_hide_password a.eye").on('click', function (event) {
   event.preventDefault();
 
   if ($('#show_hide_password input').attr("type") == "text") {
