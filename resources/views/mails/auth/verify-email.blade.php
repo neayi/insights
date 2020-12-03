@@ -29,13 +29,13 @@
                 <div style="font-family: Helvetica,Arial,sans-serif;">
                     <div style="font-family: Helvetica,Arial,sans-serif; background: no-repeat center / 100% auto; padding: 40px 40px 36px;">
                         <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 42px !important; font-stretch: normal; font-style: normal; font-weight: 700; letter-spacing: normal; line-height: 1.24;">
-                            Vérifiez votre adresse mail
+                            Merci pour votre inscription !
                         </div>
                         <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; line-height: 1.4; margin-top: 16px; opacity: .6;">
-                            Cliquez sur le bouton ci dessous pour valider votre adresse mail
+                            Cliquez sur le bouton ci-dessous pour valider votre adresse email&nbsp;:
                         </div>
                         <a href="{{$url}}" target="_blank" style="padding:0 20px; background-color: #3f53d9; border-radius: 4px; box-sizing: border-box; color: #fff !important; cursor: pointer; display: inline-block; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; height: 60px; letter-spacing: normal; line-height: 60px !important; text-align: center; text-decoration: none; white-space: nowrap; margin: 24px 0 0; border: none;">
-                            Validez votre adresse mail
+                            Valider mon adresse email
                         </a>
                         <br/>
                         <br/>
