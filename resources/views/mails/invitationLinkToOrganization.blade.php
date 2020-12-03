@@ -7,7 +7,7 @@
 
 <body style="-moz-box-sizing: border-box; -ms-text-size-adjust: 100%; -webkit-box-sizing: border-box; -webkit-text-size-adjust: 100%; background-color: #f3f4f8; box-sizing: border-box; color: #0a0a0a; font-family: Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 400; line-height: 1.43; min-width: 600px; text-align: left; width: 100% !important; margin: 0; padding: 0;" bgcolor="#f3f4f8">
     <div style="display: none; max-height: 0px; overflow: hidden; mso-hide:all;">Bonjour {{$firstname}}! Vous avez été invité à participer sur la
-        plateforme TriplePerformance.
+        plateforme Triple&nbsp;Performance.
     </div>
     <div style="display: none; max-height: 0px; overflow: hidden; mso-hide:all;"> ‌ ‌ ‌ </div>
     <table align="center" width="600" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; font-family: Helvetica,Arial,sans-serif; max-width: 600px; min-width: 600px; text-align: left; vertical-align: top; padding: 0;">
@@ -23,7 +23,7 @@
                                     <a style="color: #2a79ff; font-family: Helvetica,Arial,sans-serif; font-weight: 400; line-height: 1.43; text-align: left; text-decoration: none; margin: 0; padding: 0;" href="{{$link}}" target="_blank"><img src="https://questions.tripleperformance.fr/qa-plugin/neayi/logo-triple-performance.svg" style="-ms-interpolation-mode: bicubic; clear: both; display: block; font-family: Helvetica,Arial,sans-serif; height: 50px; max-height: 100%; max-width: 100%; outline: 0; text-decoration: none; width: auto; border: none;"></a>
                                 </td>
                                 <td style="-moz-hyphens: auto; -webkit-hyphens: auto; border-collapse: collapse !important; color: #0a0a0a; font-family: Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 400; hyphens: auto; line-height: 1.43; text-align: right; vertical-align: top; width: 50%; word-wrap: break-word; margin: 0; padding: 26px 0 0;" align="right" valign="top">
-                                    <a href="{{$link}}" target="_blank" style="background-color: #fff; border-radius: 4px; box-sizing: border-box; color: #050038 !important; cursor: pointer; display: inline-block; font-family: Helvetica,Arial,sans-serif; font-size: 16px !important; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-decoration: none; white-space: nowrap; margin: 0; padding: 14px; border: 1px solid #050038;"><span style="font-family: Helvetica,Arial,sans-serif;">Aller à la plateforme<br>TriplePerformance</span></a>
+                                    <a href="{{$link}}" target="_blank" style="background-color: #fff; border-radius: 4px; box-sizing: border-box; color: #050038 !important; cursor: pointer; display: inline-block; font-family: Helvetica,Arial,sans-serif; font-size: 16px !important; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-decoration: none; white-space: nowrap; margin: 0; padding: 14px; border: 1px solid #050038;"><span style="font-family: Helvetica,Arial,sans-serif;">Aller à la plateforme<br>Triple&nbsp;Performance</span></a>
                                 </td>
                             </tr>
                             </tbody>
@@ -32,17 +32,17 @@
                     <div style="font-family: Helvetica,Arial,sans-serif;">
                         <div style="font-family: Helvetica,Arial,sans-serif; background: no-repeat center / 100% auto; padding: 40px 40px 36px;">
                             <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 42px !important; font-stretch: normal; font-style: normal; font-weight: 700; letter-spacing: normal; line-height: 1.24;">
-                                Accompagnez vos agriculteurs avec TriplePerformance
+                                Accompagnez vos agriculteurs avec Triple&nbsp;Performance
                             </div>
                             <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; line-height: 1.4; margin-top: 16px; opacity: .6;">
-                                Bonjour {{$firstname}}! Vous avez été invité à rejoindre {{$organization}} sur la plateforme TriplePerformance.
+                                Bonjour {{$firstname}}! Vous avez été invité à rejoindre {{$organization}} sur la plateforme Triple&nbsp;Performance.
                             </div>
                             <a href="{{$link}}" target="_blank" style="background-color: #3f53d9; border-radius: 4px; box-sizing: border-box; color: #fff !important; cursor: pointer; display: inline-block; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; height: 60px; letter-spacing: normal; line-height: 60px !important; text-align: center; text-decoration: none; white-space: nowrap; width: 183px; margin: 24px 0 0; padding: 0; border: none;">Y aller</a>
                         </div>
 
                         <div style="font-family: Helvetica,Arial,sans-serif; padding: 56px 40px 64px;">
                             <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 32px !important; font-stretch: normal; font-style: normal; font-weight: 700; letter-spacing: normal; line-height: 1.25;">
-                                La plateforme TriplePerformance
+                                La plateforme Triple&nbsp;Performance
                             </div>
                             <table style="border-collapse: collapse; border-spacing: 0; font-family: Helvetica,Arial,sans-serif; margin-top: 24px; table-layout: fixed; text-align: left; vertical-align: top; width: 100%; padding: 0;">
                                 <tbody>

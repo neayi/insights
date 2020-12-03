@@ -31,6 +31,6 @@ class PasswordResetLink extends Mailable
         return $this->view('mails.auth.password-reset-link', [
             'url' => $url,
             'validity' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')
-        ])->subject('Tripleperformance : Réinialisez votre mot de passe');
+        ])->subject('Triple performance : Réinitialisez votre mot de passe');
     }
 }

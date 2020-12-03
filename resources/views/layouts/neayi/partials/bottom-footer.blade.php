@@ -9,7 +9,7 @@
 <div class="row text-right rs-line mt-5">
     <div class="col-md-12">
         <small class="font-italic">
-            Copyright © 2020 Triple performance : Marque déposée de Neayi
+            Copyright © 2020 Triple&nbsp;Performance : Marque déposée de Neayi
         </small>
         <a href="https://neayi.com/" target="_blank" class="text-decoration-none">
             <img src="images/logo-neayi.png" alt="Neayi" class="d-inline-block ml-4">

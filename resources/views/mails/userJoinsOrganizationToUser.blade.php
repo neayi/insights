@@ -1,6 +1,6 @@
 Bonjour,<br/><br/>
 
-Et merci d'avoir décidé de rejoindre la plateforme TriplePerformance.<br/><br/>
+Et merci d'avoir décidé de rejoindre la plateforme Triple&nbsp;Performance.<br/><br/>
 
 Cette plateforme vous permet de rester en contact avec vos agriculteurs.
 Pour cela vous pouvez paramétrer des règles de notification afin de recevoir un mail quand un de
