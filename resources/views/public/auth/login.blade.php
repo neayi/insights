@@ -65,11 +65,11 @@
                                                 <div id="show_hide_password">
                                                     <input class="form-control" type="password" name="password" placeholder="8 caractères minimum">
                                                     <div class="form-icon">
-                                                        <a href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
+                                                        <a class="eye" href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
                                                     </div>
                                                     <div>
-                                                        <a href="{{ route('password.request') }}">
-                                                            <small style="font-size: x-small;">Mot de passe oublié</small>
+                                                        <a style="font-size: x-small" href="{{ route('password.request') }}">
+                                                           Mot de passe oublié
                                                         </a>
                                                     </div>
                                                     @if ($errors->has('password'))

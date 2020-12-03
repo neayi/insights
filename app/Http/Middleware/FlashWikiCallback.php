@@ -17,7 +17,7 @@ class FlashWikiCallback
     public function handle($request, Closure $next)
     {
         if(session()->has('wiki_callback')){
-            session()->reflash();
+            session()->keep(['wiki_callback', 'wiki_token']);
         }
         return $next($request);
     }
