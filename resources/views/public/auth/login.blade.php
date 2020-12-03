@@ -56,7 +56,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div>git checkout
                                     </div>
                                     <div class="row">
                                         <div class="col-md-8">
