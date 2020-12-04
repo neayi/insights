@@ -65,7 +65,7 @@
                                                 <div id="show_hide_password">
                                                     <input class="form-control" name="password" type="password" autocomplete="new-password" placeholder="8 caractères minimum">
                                                     <div class="form-icon">
-                                                        <a href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
+                                                        <a class="eye" href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
                                                     </div>
                                                 </div>
                                                 @if ($errors->has('password'))
