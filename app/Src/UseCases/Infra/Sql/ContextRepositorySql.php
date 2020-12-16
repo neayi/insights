@@ -24,7 +24,7 @@ class ContextRepositorySql implements ContextRepository
     public function add(Context $exploitation, string $userId)
     {
         $contextData = $exploitation->toArray();
-        $contextId = DB::table('contexts')->insert($contextData);
+        $contextId = DB::table('contexts')->insertGetId($contextData);
 
         $user = User::where('uuid', $userId)->first();
         $user->context_id = $contextId;
