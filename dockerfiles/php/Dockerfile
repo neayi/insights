@@ -39,5 +39,5 @@ FROM prod AS prod_sources
 
 COPY --chown=www-data:www-data . /var/www/html
 
-RUN composer install --no-dev --prefer-dist && composer clear-cache -n
+RUN composer install --no-progress --no-interaction --no-dev --prefer-dist && composer clear-cache -n
 
