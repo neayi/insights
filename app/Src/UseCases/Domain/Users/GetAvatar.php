@@ -45,7 +45,7 @@ class GetAvatar
 
     private function getPathPicture(?User $user): string
     {
-        if (isset($user)) {
+        if (isset($user) && $user->toArray()['path_picture'] !== null) {
             return storage_path($user->toArray()['path_picture']);
         }
         return public_path(config('neayi.default_avatar'));
