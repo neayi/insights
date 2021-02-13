@@ -8,8 +8,8 @@ use App\Exceptions\Domain\ProviderMissing;
 use App\Exceptions\Domain\ProviderNotSupported;
 use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
-use App\Src\UseCases\Infra\Gateway\FileStorage;
+use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 
 class RegisterUserAfterErrorWithSocialNetwork
 {

@@ -5,10 +5,9 @@ namespace Tests\Unit\Organization;
 
 
 use App\Exceptions\Domain\OrganizationNotFound;
-use App\Src\UseCases\Domain\Address;
-use App\Src\UseCases\Domain\Organization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Organizations\EditOrganization;
+use App\Src\UseCases\Domain\Organizations\EditOrganization;
+use App\Src\UseCases\Domain\Organizations\Model\Address;
+use App\Src\UseCases\Domain\Organizations\Model\Organization;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

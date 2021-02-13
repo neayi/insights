@@ -12,6 +12,9 @@ use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controller used for filling public profile for the wiki
+ */
 class WizardProfileController extends Controller
 {
     public function showWizard()

@@ -4,10 +4,8 @@
 namespace Tests\Unit\Organization;
 
 
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Organizations\RevokeUserAsAdminOrganization;
+use App\Src\UseCases\Domain\Organizations\RevokeUserAsAdminOrganization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

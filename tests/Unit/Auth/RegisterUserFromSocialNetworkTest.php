@@ -7,12 +7,7 @@ namespace Tests\Unit\Auth;
 use App\Exceptions\Domain\ProviderNotSupported;
 use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
 use App\Src\UseCases\Domain\Auth\SocialiteUser;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Infra\Gateway\Auth\SocialiteGateway;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

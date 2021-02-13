@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Organization;
+use App\Src\UseCases\Domain\Organizations\Model\Organization;
 
 interface OrganizationRepository
 {

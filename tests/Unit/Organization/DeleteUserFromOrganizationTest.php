@@ -5,9 +5,7 @@ namespace Tests\Unit\Organization;
 
 
 use App\Events\UserLeaveOrganization;
-use App\Src\UseCases\Domain\DeleteUserFromOrganization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\Organizations\Invitation\DeleteUserFromOrganization;
 use App\Src\UseCases\Domain\User;
 use Illuminate\Support\Facades\Event;
 use Ramsey\Uuid\Uuid;

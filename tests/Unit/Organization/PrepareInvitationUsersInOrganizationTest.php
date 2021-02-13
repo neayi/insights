@@ -4,12 +4,8 @@
 namespace Tests\Unit\Organization;
 
 
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\PrepareInvitationUsersInOrganization;
+use App\Src\UseCases\Domain\Organizations\Invitation\PrepareInvitationUsersInOrganization;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Infra\Gateway\FileStorage;
-use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -79,7 +75,7 @@ class PrepareInvitationUsersInOrganizationTest extends TestCase
         ];
 
         $path = 'pathfile.csv';
-        app(FileStorage::class)->setContent($path, $emails);
+        $this->fileStorage->setContent($path, $emails);
         $usersToProcess = app(PrepareInvitationUsersInOrganization::class)->prepare($organizationId, [], $path);
 
         $userExpectedToProcess = [

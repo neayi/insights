@@ -4,11 +4,9 @@
 namespace Tests\Unit\Organization;
 
 
-use App\Src\UseCases\Domain\Address;
-use App\Src\UseCases\Domain\ListOrganizations;
-use App\Src\UseCases\Domain\Organization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use Illuminate\Support\Facades\Artisan;
+use App\Src\UseCases\Domain\Organizations\ListOrganizations;
+use App\Src\UseCases\Domain\Organizations\Model\Address;
+use App\Src\UseCases\Domain\Organizations\Model\Organization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

@@ -5,10 +5,10 @@ namespace App\Src\UseCases\Domain\Auth\Services;
 
 
 use App\Src\UseCases\Domain\Auth\SocialiteUser;
-use App\Src\UseCases\Domain\Picture;
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
+use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Infra\Gateway\FileStorage;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 

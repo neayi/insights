@@ -5,10 +5,7 @@ namespace Tests\Unit\Auth;
 
 
 use App\Src\UseCases\Domain\Auth\Register;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

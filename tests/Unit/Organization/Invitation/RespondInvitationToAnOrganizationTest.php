@@ -4,16 +4,11 @@
 namespace Tests\Unit\Organization\Invitation;
 
 
-use App\Src\UseCases\Domain\Address;
-use App\Src\UseCases\Domain\Invitation;
-use App\Src\UseCases\Domain\Invitation\RespondInvitationToAnOrganization;
-use App\Src\UseCases\Domain\Organization;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\Organizations\Invitation\RespondInvitationToAnOrganization;
+use App\Src\UseCases\Domain\Organizations\Model\Address;
+use App\Src\UseCases\Domain\Organizations\Model\Invitation;
+use App\Src\UseCases\Domain\Organizations\Model\Organization;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
-use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
