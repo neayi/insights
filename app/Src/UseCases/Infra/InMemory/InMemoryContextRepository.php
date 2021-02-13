@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Infra\InMemory;
 
 
+use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
 use App\Src\UseCases\Domain\Agricultural\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 
@@ -19,6 +20,11 @@ class InMemoryContextRepository implements ContextRepository
     public function getByUser(string $userId)
     {
         return $this->exploitations[$userId] ?? null;
+    }
+
+    public function getByUserDto(string $userId): ?ContextDto
+    {
+        // TODO: Implement getByUserDto() method.
     }
 
 }

@@ -15,19 +15,6 @@ use Tests\TestCase;
 
 class DeleteUserTest extends TestCase
 {
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->userRepository = app(UserRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-        Event::fake();
-    }
-
     public function testShouldDeleteUser()
     {
         $userId = Uuid::uuid4();

@@ -19,24 +19,6 @@ use Tests\TestCase;
 
 class RespondInvitationToAnOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-    private $authGateway;
-    private $invitationRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-        $this->authGateway = app(AuthGateway::class);
-        $this->invitationRepository = app(InvitationRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldAskUserToRegisterWhenItDoesNotExist()
     {
         $organizationId = Uuid::uuid4();

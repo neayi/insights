@@ -2,9 +2,72 @@
 
 namespace Tests;
 
+use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\UseCases\Domain\Ports\InvitationRepository;
+use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
+use App\Src\UseCases\Infra\Gateway\Auth\SocialiteGateway;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    protected $contextRepository;
+    protected $userRepository;
+    protected $organizationRepository;
+    protected $invitationRepository;
+    protected $authGateway;
+    protected $socialiteGateway;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->contextRepository = $this->contextRepository();
+        $this->userRepository = $this->userRepository();
+        $this->organizationRepository = $this->organizationRepository();
+        $this->invitationRepository = $this->invitationRepository();
+        $this->authGateway = $this->authGateway();
+        $this->socialiteGateway = $this->socialiteGateway();
+
+        if(config('app.env') === 'testing-ti'){
+            Artisan::call('migrate:fresh');
+        }
+        Event::fake();
+        Mail::fake();
+    }
+
+    private function userRepository():UserRepository
+    {
+        return app(UserRepository::class);
+    }
+
+    private function contextRepository():ContextRepository
+    {
+        return app(ContextRepository::class);
+    }
+
+    private function organizationRepository():OrganizationRepository
+    {
+        return app(OrganizationRepository::class);
+    }
+
+    private function invitationRepository():InvitationRepository
+    {
+        return app(InvitationRepository::class);
+    }
+
+    private function authGateway():AuthGateway
+    {
+        return app(AuthGateway::class);
+    }
+
+    private function socialiteGateway():SocialiteGateway
+    {
+        return app(SocialiteGateway::class);
+    }
 }

@@ -18,22 +18,6 @@ use Tests\TestCase;
 
 class RegisterUserFromSocialNetworkTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-    private $socialiteGateway;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-        $this->socialiteGateway = app(SocialiteGateway::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldNotRegisterUserWhenProviderIsNotAllowed()
     {
         self::expectException(ProviderNotSupported::class);

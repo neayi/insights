@@ -17,22 +17,6 @@ use Tests\TestCase;
 
 class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
 {
-    private $organizationRepository;
-    private $authGateway;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-        $this->authGateway = app(AuthGateway::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldRegisterUser()
     {
         $firstname = 'first';

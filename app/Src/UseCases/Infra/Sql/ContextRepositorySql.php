@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
 use App\Src\UseCases\Domain\Agricultural\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\User;
@@ -30,4 +31,19 @@ class ContextRepositorySql implements ContextRepository
         $user->context_id = $contextId;
         $user->save();
     }
+
+    public function getByUserDto(string $userId): ?ContextDto
+    {
+        $user = User::where('uuid', $userId)->first();
+        if($user == null){
+            return null;
+        }
+        $context = DB::table('contexts')->where('id', $user->context_id)->first();
+        if($context == null){
+            return null;
+        }
+        return new ContextDto($context->postal_code);
+    }
+
+
 }

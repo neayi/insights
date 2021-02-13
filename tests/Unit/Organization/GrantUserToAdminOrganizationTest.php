@@ -14,16 +14,6 @@ use Tests\TestCase;
 
 class GrantUserToAdminOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-    }
-
     public function testShouldNotGrantUserAsAdmin_WhenHeDoesNotBelongToOrganization()
     {
         $user = new User($uid = Uuid::uuid4(), 'email@gmail.com', 'first', 'last');

@@ -20,6 +20,4 @@ class IdentityProviderImpl implements IdentityProvider
     {
         $this->id = $id;
     }
-
-
 }

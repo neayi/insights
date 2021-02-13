@@ -14,14 +14,6 @@ use Tests\TestCase;
 
 class SuperAdminCreateOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-    }
-
     public function testShouldNotCreateOrganization_WhenNameMissing()
     {
         $name = '';

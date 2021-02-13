@@ -19,19 +19,11 @@ use Tests\TestCase;
 
 class AttachUserToAnOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
     private $address;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
         $this->address = new Address('la garde', 'res', 'tutu', '83130');
         Mail::fake();
     }

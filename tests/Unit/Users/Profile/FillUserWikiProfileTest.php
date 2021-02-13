@@ -18,22 +18,11 @@ use Tests\TestCase;
 
 class FillUserWikiProfileTest extends TestCase
 {
-    private $userRepository;
-    private $contextRepository;
-
     private $userId;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->userRepository = app(UserRepository::class);
-        $this->contextRepository = app(ContextRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-        Event::fake();
-
         $user = new User($this->userId = Uuid::uuid4(), 'email@gmail.com', 'firstname', 'lastname', null, null, []);
         $this->userRepository->add($user);
     }

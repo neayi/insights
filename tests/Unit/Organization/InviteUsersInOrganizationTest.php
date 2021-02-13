@@ -20,22 +20,12 @@ use Tests\TestCase;
 
 class InviteUsersInOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $invitationRepository;
     private $address;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->invitationRepository = app(InvitationRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
         $this->address = new Address('la garde', 'res', 'tutu', '83130');
-
-        Mail::fake();
     }
 
     public function test_ShouldInvite()

@@ -14,19 +14,11 @@ use Tests\TestCase;
 
 class ListOrganizationsTest extends TestCase
 {
-    private $organizationRepository;
-
     private $address;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-
         $this->address = new Address('la garde', 'res', 'tutu', '83130');
     }
 

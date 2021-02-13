@@ -4,28 +4,14 @@
 namespace Tests\Unit\Users;
 
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\ListUsers;
 use App\Src\UseCases\Domain\Users\UserDto;
-use Illuminate\Support\Facades\Artisan;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class ListUsersTest extends TestCase
 {
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->userRepository = app(UserRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldBeEmptyList()
     {
         $organizationId = Uuid::uuid4();

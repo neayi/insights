@@ -13,16 +13,6 @@ use Tests\TestCase;
 
 class RevokeUserToAdminOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-    }
-
     public function testShouldNotGrantUserAsAdmin_WhenHeDoesNotBelongToOrganization()
     {
         $organizationId = Uuid::uuid4();

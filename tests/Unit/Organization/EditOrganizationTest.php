@@ -15,14 +15,11 @@ use Tests\TestCase;
 
 class EditOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-
     private $organizationId;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
 
         $this->organizationId = Uuid::uuid4();
         $address = new Address('1', '1', '1', '83130');

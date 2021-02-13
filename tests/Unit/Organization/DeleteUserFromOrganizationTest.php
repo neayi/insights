@@ -15,17 +15,6 @@ use Tests\TestCase;
 
 class DeleteUserFromOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-        Event::fake();
-    }
-
     public function testShouldDeleteUserFromOrganization()
     {
         $userId = Uuid::uuid4();
