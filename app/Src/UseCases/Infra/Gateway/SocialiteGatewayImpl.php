@@ -8,7 +8,7 @@ use App\Src\UseCases\Domain\Auth\SocialiteUser;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use Laravel\Socialite\Facades\Socialite;
 
-class RealSocialiteGateway implements SocialiteGateway
+class SocialiteGatewayImpl implements SocialiteGateway
 {
     public function user(string $provider): SocialiteUser
     {
