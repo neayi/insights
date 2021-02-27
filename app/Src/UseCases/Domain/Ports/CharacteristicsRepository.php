@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-interface ListRepository
+interface CharacteristicsRepository
 {
     public function getByType(string $type, bool $isMain):array;
 }

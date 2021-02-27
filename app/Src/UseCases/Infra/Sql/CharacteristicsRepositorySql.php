@@ -4,14 +4,14 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Ports\ListRepository;
-use Illuminate\Support\Facades\DB;
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
+use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 
-class ListRepositorySql implements ListRepository
+class CharacteristicsRepositorySql implements CharacteristicsRepository
 {
     public function getByType(string $type, bool $isMain): array
     {
-        $list = DB::table('list')
+        $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->where('main', $isMain)
             ->orderBy('priority')

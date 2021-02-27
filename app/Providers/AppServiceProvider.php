@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\ListRepository;
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
@@ -20,7 +20,7 @@ use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
-use App\Src\UseCases\Infra\Sql\ListRepositorySql;
+use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
@@ -88,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
-        $this->app->singleton(ListRepository::class, ListRepositorySql::class);
+        $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
     }
 
     private function tuBinding(): void

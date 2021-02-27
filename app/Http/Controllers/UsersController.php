@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Common\Form\UserForm;
-use App\Src\UseCases\Domain\DeleteUserFromOrganization;
+use App\Src\UseCases\Domain\Organizations\GetOrganization;
+use App\Src\UseCases\Domain\Organizations\GrantUserAsAdminOrganization;
+use App\Src\UseCases\Domain\Organizations\Invitation\DeleteUserFromOrganization;
+use App\Src\UseCases\Domain\Organizations\RevokeUserAsAdminOrganization;
 use App\Src\UseCases\Domain\Users\DeleteUser;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\GetUserStats;
 use App\Src\UseCases\Domain\Users\ListUsers;
-use App\Src\UseCases\Organizations\GetOrganization;
-use App\Src\UseCases\Organizations\GrantUserAsAdminOrganization;
-use App\Src\UseCases\Organizations\RevokeUserAsAdminOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

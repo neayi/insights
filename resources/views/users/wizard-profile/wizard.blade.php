@@ -56,9 +56,10 @@
                 @foreach($farmingTypeMain as $farming)
                         <div class="circle-item">
                         @include('users.wizard-profile.icon-farming', [
-                                 'uuid' => $farming->uuid,
-                                 'code' => $farming->code,
-                                 'icon' => $farming->icon,
+                                 'uuid' => $farming['uuid'],
+                                 'code' => $farming['code'],
+                                 'icon' => $farming['icon'],
+                                 'label' => $farming['page_label'],
                              ])
                         </div>
                     @endforeach
@@ -76,9 +77,10 @@
                     @foreach($farmingType as $farming)
                         <div class="circle-item">
                             @include('users.wizard-profile.icon-farming', [
-                                 'uuid' => $farming->uuid,
-                                 'code' => $farming->code,
-                                 'icon' => $farming->icon,
+                                 'uuid' => $farming['uuid'],
+                                 'code' => $farming['code'],
+                                 'icon' => $farming['icon'],
+                                 'label' => $farming['page_label'],
                              ])
                         </div>
                     @endforeach
