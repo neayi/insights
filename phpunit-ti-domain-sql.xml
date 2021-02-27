@@ -14,8 +14,9 @@
     </testsuite>
   </testsuites>
   <php>
-    <server name="APP_ENV" value="testing-ti"/>
-    <server name="BCRYPT_ROUNDS" value="4"/>
+      <server name="APP_ENV" value="testing-ti"/>
+      <server name="DB_DATABASE" value="insight_testing_ti"/>
+      <server name="BCRYPT_ROUNDS" value="4"/>
     <server name="CACHE_DRIVER" value="array"/>
     <server name="DB_CONNECTION" value="mysql"/>
     <server name="MAIL_MAILER" value="array"/>

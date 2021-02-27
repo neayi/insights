@@ -21,10 +21,8 @@ php artisan test
 #Test intégration domain + sql
 Pour jouer les tests d'intégration entre domaine métier et la couche infrastructure
 (Va tester la couche SQLRepository avec le domaine métier)
-### ⚠️ Attention les tests effacent la base de données 
 
 `vendor/bin/phpunit tests/Unit/ -c phpunit-ti-domain-sql.xml`
-
 
 
 # Fichier de configuration Neayi 

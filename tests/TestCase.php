@@ -9,6 +9,7 @@ use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, DatabaseTransactions;
 
     protected $contextRepository;
     protected $userRepository;
@@ -37,9 +38,6 @@ abstract class TestCase extends BaseTestCase
         $this->socialiteGateway = $this->socialiteGateway();
         $this->fileStorage = $this->fileStorage();
 
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
         Event::fake();
         Mail::fake();
     }
