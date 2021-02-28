@@ -34,6 +34,7 @@ use Tests\Adapters\Gateway\InMemoryAuthGateway;
 use Tests\Adapters\Gateway\InMemoryFileStorage;
 use Tests\Adapters\Gateway\InMemoryPictureHandler;
 use Tests\Adapters\Gateway\InMemorySocialiteGateway;
+use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
 use Tests\Adapters\Repositories\InMemoryContextRepository;
 use Tests\Adapters\Repositories\InMemoryInvitationRepository;
 use Tests\Adapters\Repositories\InMemoryOrganizationRepository;
@@ -104,6 +105,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
+        $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
     }
 
     private function tiBinding(): void
@@ -118,5 +120,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
+        $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
     }
 }

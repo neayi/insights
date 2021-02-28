@@ -12,7 +12,7 @@ class CreateUserCharacteristicsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('characteristic_id');
-            $table->json('value');
+            $table->json('value')->nullable()->default(null);
             $table->timestamps();
         });
     }

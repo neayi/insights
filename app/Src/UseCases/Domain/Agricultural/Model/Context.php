@@ -31,7 +31,7 @@ class Context
         return [
             'uuid' => $this->uid,
             'postal_code' => $this->postalCode,
-            'farmings' => json_encode($this->farmingType),
+            'farmings' => $this->farmingType,
         ];
     }
 }

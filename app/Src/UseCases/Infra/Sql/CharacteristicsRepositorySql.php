@@ -18,4 +18,19 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
             ->get();
         return $list->toArray();
     }
+
+    /**
+     * only used for ti test
+     * @param array $cs
+     */
+    public function add(array $cs)
+    {
+        foreach ($cs as $c){
+            $cModel = new CharacteristicsModel();
+            $cModel->uuid = $c;
+            $cModel->code = uniqid();
+            $cModel->type = uniqid();
+            $cModel->save();
+        }
+    }
 }

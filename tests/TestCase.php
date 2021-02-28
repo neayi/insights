@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
@@ -11,7 +12,6 @@ use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,6 +26,7 @@ abstract class TestCase extends BaseTestCase
     protected $authGateway;
     protected $socialiteGateway;
     protected $fileStorage;
+    protected $characteristicRepository;
 
     public function setUp(): void
     {
@@ -34,6 +35,7 @@ abstract class TestCase extends BaseTestCase
         $this->userRepository = $this->userRepository();
         $this->organizationRepository = $this->organizationRepository();
         $this->invitationRepository = $this->invitationRepository();
+        $this->characteristicRepository = $this->characteristicRepository();
         $this->authGateway = $this->authGateway();
         $this->socialiteGateway = $this->socialiteGateway();
         $this->fileStorage = $this->fileStorage();
@@ -75,5 +77,10 @@ abstract class TestCase extends BaseTestCase
     private function fileStorage():FileStorage
     {
         return app(FileStorage::class);
+    }
+
+    private function characteristicRepository():CharacteristicsRepository
+    {
+        return app(CharacteristicsRepository::class);
     }
 }

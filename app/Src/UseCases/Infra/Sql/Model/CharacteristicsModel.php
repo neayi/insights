@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql\Model;
 
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class CharacteristicsModel extends Model
@@ -21,5 +22,9 @@ class CharacteristicsModel extends Model
         'code',
     ];
 
-
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->using(UserCharacteristicsModel::class);
+    }
 }

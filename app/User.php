@@ -3,7 +3,11 @@
 namespace App;
 
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
@@ -59,5 +63,15 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     public function sendEmailVerificationNotification()
     {
         Mail::to($this->email)->send(new \App\Mail\Auth\VerifyEmail($this));
+    }
+
+    public function characteristics():BelongsToMany
+    {
+        return $this->belongsToMany(CharacteristicsModel::class,
+            'user_characteristics',
+            'user_id',
+            'characteristic_id'
+        )
+            ->using(UserCharacteristicsModel::class);
     }
 }
