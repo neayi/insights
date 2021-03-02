@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
 use App\Src\UseCases\Domain\Agricultural\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
@@ -46,10 +47,13 @@ class ContextRepositorySql implements ContextRepository
         if($user == null){
             return null;
         }
-        $context = DB::table('contexts')->where('id', $user->context_id)->first();
+        $context = ContextModel::find($user->context_id);
         if($context == null){
             return null;
         }
-        return new ContextDto($context->postal_code);
+        $characteristics = $user->characteristics()->get()->transform(function(CharacteristicsModel $item){
+            return $item->toDto();
+        });
+        return new ContextDto($context->postal_code, $characteristics->toArray());
     }
 }

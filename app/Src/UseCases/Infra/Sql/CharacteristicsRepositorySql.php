@@ -27,9 +27,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
     {
         foreach ($cs as $c){
             $cModel = new CharacteristicsModel();
-            $cModel->uuid = $c;
-            $cModel->code = uniqid();
-            $cModel->type = uniqid();
+            $cModel->fill($c);
             $cModel->save();
         }
     }
