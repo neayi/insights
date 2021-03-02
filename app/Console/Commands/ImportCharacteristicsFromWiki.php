@@ -17,8 +17,10 @@ class ImportCharacteristicsFromWiki extends Command
     protected $description = 'Import the wiki characteristics';
 
     private $httpClient;
+    
+    // @see https://wiki.tripleperformance.fr/wiki/Aide:Requettes_Insights
     private $queryFarming = "?action=ask&api_version=3&query=[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
-    private $queryCroppingSystem  = "?action=ask&api_version=3&query=[[Est%20un%20%C3%A9l%C3%A9ment%20de%20profil::Cahier des charges]]|%3FA%20un%20fichier%20d%27icone%20de%20caract%C3%A9ristique|%3FDoit%20%C3%AAtre%20affich%C3%A9%20par%20d%C3%A9faut|%3FA%20une%20priorit%C3%A9%20d%27affichage|%3FA%20un%20label|sort%3DA%20une%20priorit%C3%A9%20d%27affichage|order%3Dasc&format=json";
+    private $queryCroppingSystem  = "?action=ask&api_version=3&query=[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
 
 
     public function __construct()
