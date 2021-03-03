@@ -58,7 +58,13 @@ $('.input-identity').change(function (){
 });
 
 $('#more-main-production').click(function (){
+   $(this).fadeOut();
    $('#second-row-main-production').slideDown();
+});
+
+$('#more-main-cropping').click(function (){
+    $(this).fadeOut();
+    $('#second-row-main-cropping').slideDown();
 });
 
 function succeedState(elem) {

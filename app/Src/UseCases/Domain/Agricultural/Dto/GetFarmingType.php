@@ -21,9 +21,18 @@ class GetFarmingType
     {
         $mains = $this->characteristicsRepository->getByType(self::type, true);
         $others = $this->characteristicsRepository->getByType(self::type, false);
+
+        $mainsTs = $this->characteristicsRepository->getByType(self::typeSystem, true);
+        $othersTs = $this->characteristicsRepository->getByType(self::typeSystem, false);
         return [
-            'main' => $mains,
-            'others' => $others,
+            self::type => [
+                'main' => $mains,
+                'others' => $others
+            ],
+            self::typeSystem => [
+                'main' => $mainsTs,
+                'others' => $othersTs
+            ],
         ];
     }
 }

@@ -27,8 +27,10 @@ class WizardProfileController extends Controller
             'userRoles' => $roles,
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
-            'farmingType' => $farmingType['others'],
-            'farmingTypeMain' => $farmingType['main'],
+            'farmingType' => $farmingType[GetFarmingType::type]['others'],
+            'farmingTypeMain' => $farmingType[GetFarmingType::type]['main'],
+            'croppingType' => $farmingType[GetFarmingType::typeSystem]['others'],
+            'croppingTypeMain' => $farmingType[GetFarmingType::typeSystem]['main'],
             'email' => $user['email']
         ]);
     }
