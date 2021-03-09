@@ -6,6 +6,7 @@ namespace Tests\Integration\Context;
 
 use App\Src\UseCases\Domain\Agricultural\Dto\CharacteristicDto;
 use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
+use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
 use App\Src\UseCases\Domain\Agricultural\Model\Context;
 use App\Src\UseCases\Domain\Agricultural\Queries\ContextQueryByUser;
 use App\Src\UseCases\Domain\User;
@@ -25,7 +26,7 @@ class ContextQueryTest extends TestCase
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto($postalCode = 83220);
+        $contextExpected = new ContextDto('first', 'last',$postalCode = 83220);
         self::assertEquals($contextExpected, $context);
     }
 
@@ -40,9 +41,10 @@ class ContextQueryTest extends TestCase
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto($postalCode = 97400);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 97400);
         $contextExpected->department = 974;
-
+        $contextExpected->firstname = 'first';
+        $contextExpected->lastname = 'last';
         self::assertEquals($contextExpected, $context);
     }
 
@@ -59,18 +61,34 @@ class ContextQueryTest extends TestCase
             [
                 'uuid' => $uuid = Uuid::uuid4()->toString(),
                 'code' => 'code',
-                'type' => 'farming',
-                'page_label' => 'label',
+                'type' => GetFarmingType::type,
+                'page_label' => 'c:label',
+                'pretty_page_label' => 'label',
                 'icon' => 'public/characteristics/'.$uuid.'.png'
             ]
         ]);
 
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$uuid]), $userId1);
+        $this->characteristicRepository->add([
+            [
+                'uuid' => $uuid2 = Uuid::uuid4()->toString(),
+                'code' => 'code',
+                'type' => GetFarmingType::typeSystem,
+                'page_label' => 'c:label2',
+                'pretty_page_label' => 'label2',
+                'icon' => 'public/characteristics/'.$uuid2.'.png'
+            ]
+        ]);
+
+        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$uuid, $uuid2]), $userId1);
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
         $icon = route('api.icon.serve', ['id' => $uuid]);
-        $charDto = new CharacteristicDto($uuid, 'label', 'farming', $icon);
-        $contextExpected = new ContextDto($postalCode = 83400, [$charDto]);
+        $icon2 = route('api.icon.serve', ['id' => $uuid2]);
+        $charDto = new CharacteristicDto($uuid, 'c:label', GetFarmingType::type, $icon, 'label');
+        $char2Dto = new CharacteristicDto($uuid2, 'c:label2', GetFarmingType::typeSystem, $icon2, 'label2');
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 83400, [$charDto, $char2Dto]);
+
+
         self::assertEquals($contextExpected, $context);
     }
 }

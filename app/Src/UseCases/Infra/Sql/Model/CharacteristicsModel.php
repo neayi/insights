@@ -18,6 +18,7 @@ class CharacteristicsModel extends Model
         'priority',
         'icon',
         'page_label',
+        'pretty_page_label',
         'page_id',
         'type',
         'code',
@@ -39,7 +40,8 @@ class CharacteristicsModel extends Model
             $this->uuid,
             $this->page_label,
             $this->type,
-            $icon
+            $icon,
+            $this->pretty_page_label
         );
     }
 }

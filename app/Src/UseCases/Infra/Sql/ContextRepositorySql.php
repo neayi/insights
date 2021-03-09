@@ -54,6 +54,6 @@ class ContextRepositorySql implements ContextRepository
         $characteristics = $user->characteristics()->get()->transform(function(CharacteristicsModel $item){
             return $item->toDto();
         });
-        return new ContextDto($context->postal_code, $characteristics->toArray());
+        return new ContextDto($user->firstname, $user->lastname, $context->postal_code, $characteristics->toArray());
     }
 }

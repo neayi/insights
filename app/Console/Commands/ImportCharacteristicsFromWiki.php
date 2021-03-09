@@ -17,7 +17,7 @@ class ImportCharacteristicsFromWiki extends Command
     protected $description = 'Import the wiki characteristics';
 
     private $httpClient;
-    
+
     // @see https://wiki.tripleperformance.fr/wiki/Aide:Requettes_Insights
     private $queryFarming = "?action=ask&api_version=3&query=[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
     private $queryCroppingSystem  = "?action=ask&api_version=3&query=[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
@@ -75,7 +75,8 @@ class ImportCharacteristicsFromWiki extends Command
             $pageInfo = last($content['query']['pages']);
 
             $main = last($characteristic['printouts']['Doit être affiché par défaut']) == "t" ? true : false;
-            $label = last($characteristic['printouts']['A un label']) !== false ? last($characteristic['printouts']['A un label']) : $pageInfo['title'];
+            $label = $page;
+            $prettyPage = last($characteristic['printouts']['A un label']) !== false ? last($characteristic['printouts']['A un label']) : $pageInfo['title'];
 
             $characteristicsToSave = [
                 'uuid' => $uuid,
@@ -83,6 +84,7 @@ class ImportCharacteristicsFromWiki extends Command
                 'priority' => (int)last($characteristic['printouts']['A une priorité d\'affichage']),
                 'icon' => $path,
                 'page_label' => $label,
+                'pretty_page_label' => $prettyPage,
                 'page_id' => (int)$pageInfo['pageid'],
                 'type' => $type,
                 'code' => $pageInfo['title']

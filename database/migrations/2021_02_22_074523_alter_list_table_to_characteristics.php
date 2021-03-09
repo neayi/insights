@@ -12,6 +12,7 @@ class AlterListTableToCharacteristics extends Migration
         Schema::table('characteristics', function (Blueprint $table){
             $table->integer('page_id')->nullable()->default(null);
             $table->string('page_label', 200)->nullable()->default(null);
+            $table->string('pretty_page_label', 200)->nullable()->default(null);
             $table->json('opt')->nullable()->default(null);
             $table->timestamps();
         });
@@ -22,6 +23,7 @@ class AlterListTableToCharacteristics extends Migration
         Schema::table('characteristics', function (Blueprint $table){
             $table->dropColumn('page_id');
             $table->dropColumn('page_label');
+            $table->dropColumn('pretty_page_label');
             $table->dropColumn('opt');
             $table->dropTimestamps();
         });

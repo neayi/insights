@@ -59,7 +59,7 @@
                                  'uuid' => $farming['uuid'],
                                  'code' => $farming['code'],
                                  'icon' => $farming['icon'],
-                                 'label' => $farming['page_label'],
+                                 'label' => $farming['pretty_page_label'],
                              ])
                         </div>
                     @endforeach
@@ -80,7 +80,7 @@
                                  'uuid' => $farming['uuid'],
                                  'code' => $farming['code'],
                                  'icon' => $farming['icon'],
-                                 'label' => $farming['page_label'],
+                                 'label' => $farming['pretty_page_label'],
                              ])
                         </div>
                     @endforeach
@@ -97,7 +97,7 @@
                                  'uuid' => $farming['uuid'],
                                  'code' => $farming['code'],
                                  'icon' => $farming['icon'],
-                                 'label' => $farming['page_label'],
+                                 'label' => $farming['pretty_page_label'],
                              ])
                         </div>
                     @endforeach
@@ -120,7 +120,7 @@
                                  'uuid' => $farming['uuid'],
                                  'code' => $farming['code'],
                                  'icon' => $farming['icon'],
-                                 'label' => $farming['page_label'],
+                                 'label' => $farming['pretty_page_label'],
                              ])
                         </div>
                     @endforeach
