@@ -38,8 +38,8 @@ class ImportCharacteristicsFromWiki extends Command
 
     public function importCharacteristics(string $query, string $type)
     {
-        $queryPictures = '?action=query&format=json&prop=imageinfo&iiprop=url&titles=';
-        $this->queryPages = $queryPages = '?action=query&prop=info&format=json&titles=';
+        $queryPictures = '?action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
+        $this->queryPages = $queryPages = '?action=query&redirects=true&prop=info&format=json&titles=';
 
         $response = $this->httpClient->get(config('wiki.api_uri').$query);
         $content = json_decode($response->getBody()->getContents(), true);
