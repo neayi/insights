@@ -37,10 +37,12 @@ class RegisterController extends Controller
             $firstname = $user['firstname'];
             $lastname = $user['lastname'];
         }
+
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
+
         if(session()->has('should_attach_to_organization')) {
             session()->reflash();
         }
