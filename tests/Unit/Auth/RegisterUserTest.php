@@ -5,29 +5,12 @@ namespace Tests\Unit\Auth;
 
 
 use App\Src\UseCases\Domain\Auth\Register;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldNotRegister_WhenEmailMissing()
     {
         $email = '';

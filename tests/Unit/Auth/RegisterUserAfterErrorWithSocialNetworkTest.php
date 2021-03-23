@@ -6,33 +6,13 @@ namespace Tests\Unit\Auth;
 
 use App\Exceptions\Domain\ProviderMissing;
 use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
 {
-    private $organizationRepository;
-    private $authGateway;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-        $this->authGateway = app(AuthGateway::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-    }
-
     public function testShouldRegisterUser()
     {
         $firstname = 'first';

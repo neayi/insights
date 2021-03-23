@@ -6,12 +6,15 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
-use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controller used for filling public profile for the wiki
+ */
 class WizardProfileController extends Controller
 {
     public function showWizard()
@@ -19,12 +22,15 @@ class WizardProfileController extends Controller
         $farmingType = app(GetFarmingType::class)->get();
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
+
         return view('users.wizard-profile.wizard', [
             'userRoles' => $roles,
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
-            'farmingType' => $farmingType['others'],
-            'farmingTypeMain' => $farmingType['main'],
+            'farmingType' => $farmingType[GetFarmingType::type]['others'],
+            'farmingTypeMain' => $farmingType[GetFarmingType::type]['main'],
+            'croppingType' => $farmingType[GetFarmingType::typeSystem]['others'],
+            'croppingTypeMain' => $farmingType[GetFarmingType::typeSystem]['main'],
             'email' => $user['email']
         ]);
     }

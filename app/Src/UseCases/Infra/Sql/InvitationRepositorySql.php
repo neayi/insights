@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Invitation;
+use App\Src\UseCases\Domain\Organizations\Model\Invitation;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use Illuminate\Support\Facades\DB;
 

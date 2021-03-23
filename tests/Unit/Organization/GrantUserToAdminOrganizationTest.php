@@ -5,25 +5,13 @@ namespace Tests\Unit\Organization;
 
 
 use App\Exceptions\Domain\UserGrantAdminException;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Organizations\GrantUserAsAdminOrganization;
+use App\Src\UseCases\Domain\Organizations\GrantUserAsAdminOrganization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class GrantUserToAdminOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-    private $userRepository;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
-        $this->userRepository = app(UserRepository::class);
-    }
-
     public function testShouldNotGrantUserAsAdmin_WhenHeDoesNotBelongToOrganization()
     {
         $user = new User($uid = Uuid::uuid4(), 'email@gmail.com', 'first', 'last');

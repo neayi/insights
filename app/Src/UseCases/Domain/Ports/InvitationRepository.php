@@ -4,7 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Invitation;
+
+use App\Src\UseCases\Domain\Organizations\Model\Invitation;
 
 interface InvitationRepository
 {

@@ -5,24 +5,20 @@ namespace Tests\Unit\Organization;
 
 
 use App\Exceptions\Domain\OrganizationNotFound;
-use App\Src\UseCases\Domain\Address;
-use App\Src\UseCases\Domain\Organization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Organizations\EditOrganization;
+use App\Src\UseCases\Domain\Organizations\EditOrganization;
+use App\Src\UseCases\Domain\Organizations\Model\Address;
+use App\Src\UseCases\Domain\Organizations\Model\Organization;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class EditOrganizationTest extends TestCase
 {
-    private $organizationRepository;
-
     private $organizationId;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->organizationRepository = app(OrganizationRepository::class);
 
         $this->organizationId = Uuid::uuid4();
         $address = new Address('1', '1', '1', '83130');

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Common\Form\UserForm;
+use App\Src\UseCases\Domain\Organizations\GetOrganization;
 use App\Src\UseCases\Domain\Users\EditUser;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\GetUserStats;
-use App\Src\UseCases\Organizations\GetOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

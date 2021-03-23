@@ -8,4 +8,4 @@ before_script:
 install:
   - composer update
 
-script: vendor/bin/phpunit tests/Unit
+script: php artisan test

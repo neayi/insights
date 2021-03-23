@@ -2,34 +2,25 @@
 
 namespace App\Providers;
 
-use App\Src\UseCases\Domain\IdentityProviderImpl;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\ListRepository;
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
-use App\Src\UseCases\Infra\Gateway\Auth\AuthGateway;
-use App\Src\UseCases\Infra\Gateway\Auth\InMemoryAuthGateway;
-use App\Src\UseCases\Infra\Gateway\Auth\SessionAuthGateway;
-use App\Src\UseCases\Infra\Gateway\Auth\SocialiteGateway;
-use App\Src\UseCases\Infra\Gateway\FileStorage;
-use App\Src\UseCases\Infra\Gateway\InMemory\InMemorySocialiteGateway;
-use App\Src\UseCases\Infra\Gateway\InMemoryFileStorage;
-use App\Src\UseCases\Infra\Gateway\InMemoryPictureHandler;
-use App\Src\UseCases\Infra\Gateway\PictureHandler;
-use App\Src\UseCases\Infra\Gateway\Real\FsFileStorage;
-use App\Src\UseCases\Infra\Gateway\Real\RealSocialiteGateway;
+use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
+use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
+use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
+use App\Src\UseCases\Domain\Shared\Provider\IdentityProviderImpl;
+use App\Src\UseCases\Infra\Gateway\FsFileStorage;
+use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
+use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
-use App\Src\UseCases\Infra\InMemory\InMemoryContextRepository;
-use App\Src\UseCases\Infra\InMemory\InMemoryInvitationRepository;
-use App\Src\UseCases\Infra\InMemory\InMemoryOrganizationRepository;
-use App\Src\UseCases\Infra\InMemory\InMemoryUserRepository;
-use App\Src\UseCases\Infra\InMemory\InMemoryUserRoleRepository;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
-use App\Src\UseCases\Infra\Sql\ListRepositorySql;
+use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
@@ -39,6 +30,16 @@ use App\Src\Utils\Hash\InMemoryHashGen;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Tests\Adapters\Gateway\InMemoryAuthGateway;
+use Tests\Adapters\Gateway\InMemoryFileStorage;
+use Tests\Adapters\Gateway\InMemoryPictureHandler;
+use Tests\Adapters\Gateway\InMemorySocialiteGateway;
+use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
+use Tests\Adapters\Repositories\InMemoryContextRepository;
+use Tests\Adapters\Repositories\InMemoryInvitationRepository;
+use Tests\Adapters\Repositories\InMemoryOrganizationRepository;
+use Tests\Adapters\Repositories\InMemoryUserRepository;
+use Tests\Adapters\Repositories\InMemoryUserRoleRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -84,11 +85,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserRepository::class, UserRepositorySql::class);
         $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
         $this->app->singleton(FileStorage::class, FsFileStorage::class);
-        $this->app->singleton(SocialiteGateway::class, RealSocialiteGateway::class);
+        $this->app->singleton(SocialiteGateway::class, SocialiteGatewayImpl::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
-        $this->app->singleton(ListRepository::class, ListRepositorySql::class);
+        $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
     }
 
     private function tuBinding(): void
@@ -104,6 +105,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
+        $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
     }
 
     private function tiBinding(): void
@@ -118,5 +120,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
+        $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
     }
 }

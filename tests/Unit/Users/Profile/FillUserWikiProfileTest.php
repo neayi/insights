@@ -5,35 +5,20 @@ namespace Tests\Unit\Users\Profile;
 
 
 use App\Src\UseCases\Domain\Agricultural\Model\Context;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class FillUserWikiProfileTest extends TestCase
 {
-    private $userRepository;
-    private $contextRepository;
-
     private $userId;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->userRepository = app(UserRepository::class);
-        $this->contextRepository = app(ContextRepository::class);
-
-        if(config('app.env') === 'testing-ti'){
-            Artisan::call('migrate:fresh');
-        }
-        Event::fake();
-
         $user = new User($this->userId = Uuid::uuid4(), 'email@gmail.com', 'firstname', 'lastname', null, null, []);
         $this->userRepository->add($user);
     }
@@ -77,6 +62,9 @@ class FillUserWikiProfileTest extends TestCase
         $postcode = '83130';
         $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
+
+        $this->characteristicRepository->add([$ft1, $ft2]);
+
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
