@@ -51,7 +51,7 @@
     <div class="row mt-5 icon-checkboxes" id="select-farming">
         <div class="col-lg-8 offset-lg-2">
             <div class="form-group">
-                <label class="label-big mb-3">Je suis principalement en</label>
+                <label class="label-big mb-3">Mes productions</label>
                 <div class="circle-row d-flex flex-wrap">
                 @foreach($farmingTypeMain as $farming)
                         <div class="circle-item">
@@ -89,7 +89,7 @@
         </div>
         <div class="col-lg-8 offset-lg-2">
             <div class="form-group">
-                <label class="label-big mb-3">Je suis en</label>
+                <label class="label-big mb-3">Mon cahier des charges</label>
                 <div class="circle-row d-flex flex-wrap">
                 @foreach($croppingTypeMain as $farming)
                         <div class="circle-item">

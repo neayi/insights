@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="row text-right mt-4">
                                         <div class="col-12">
-                                            <a href="{{ route('register') }}" class="btn btn-link text-dark-green mr-4">Créez votre compte</a>
+                                            <a href="{{ route('register') }}" class="btn btn-link text-dark-green mr-4">Je n'ai pas encore de compte</a>
                                             <button type="submit" class="btn btn-dark-green text-white px-5 py-2">Valider</button>
                                         </div>
                                     </div>
