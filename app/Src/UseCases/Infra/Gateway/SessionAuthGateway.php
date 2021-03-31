@@ -16,7 +16,8 @@ class SessionAuthGateway implements AuthGateway
         if(!isset($userModel)){
             return null;
         }
-        return new User($userModel->uuid, $userModel->email, $userModel->firstname, $userModel->lastname, $userModel->organization_id);
+        $roles = $userModel->roles()->pluck('name')->toArray();
+        return new User($userModel->uuid, $userModel->email, $userModel->firstname, $userModel->lastname, $userModel->organization_id, $userModel->path_picture, $roles, $userModel->providers);
     }
 
     public function log(User $u)

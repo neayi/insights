@@ -6,11 +6,11 @@ namespace App\Src\UseCases\Domain\Agricultural\Dto;
 
 class CharacteristicDto implements \JsonSerializable
 {
-    private $uuid;
-    private $label;
-    private $prettyLabel;
-    private $type;
-    private $icon;
+    public $uuid;
+    public $label;
+    public $prettyLabel;
+    public $type;
+    public $icon;
 
     public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel)
     {
@@ -27,6 +27,11 @@ class CharacteristicDto implements \JsonSerializable
     }
 
     public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    public function toArray()
     {
         return [
             'page' => $this->label,

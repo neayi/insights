@@ -76,3 +76,36 @@ function failedState(elem) {
     elem.addClass('required');
     elem.removeClass('success');
 }
+
+
+$('.picture_upload').click(function(){
+    $('#fileinput').trigger('click');
+});
+
+
+$("#fileinput").change(function(){
+    var fd = new FormData();
+    var files = $('#fileinput')[0].files;
+
+    if(files.length > 0 ){
+        fd.append('file',files[0]);
+
+        $.ajax({
+            url: 'upload.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                    $("#img").attr("src",response);
+                    $(".preview img").show(); // Display image element
+                }else{
+                    alert('file not uploaded');
+                }
+            },
+        });
+    }else{
+        alert("Please select a file.");
+    }
+});

@@ -2,6 +2,10 @@
 
 @import 'variables_neayi';
 @import 'modals';
+@import 'profile';
+@import 'caracteristiques_exploitation';
+@import 'toc';
+@import 'interaction';
 @import "~bootstrap-select/sass/bootstrap-select";
 // General
 
@@ -508,6 +512,20 @@ body.login{
 
 }
 
+.circle-icon, a.circle-icon{
+    border: 1px solid #9198a3;
+    border-radius: 50px;
+    padding: 3px;
+    color: $darkPurple;
+    text-decoration: none;
+    font-weight: normal;
+    cursor:pointer;
+}
+
 body{
     overflow-x: hidden;
 }
+
+
+
+
