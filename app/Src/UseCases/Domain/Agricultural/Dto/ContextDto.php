@@ -27,15 +27,26 @@ class ContextDto implements \JsonSerializable
         }
     }
 
-    public function jsonSerialize()
+    private function fullname():string
+    {
+        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+    }
+
+    public function toArray()
     {
         return [
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'postal_code' => $this->postalCode,
             'department' => $this->department,
+            'fullname' => $this->fullname(),
             'productions' => $this->characteristicsByType[GetFarmingType::type] ?? [],
             'characteristics' => $this->characteristicsByType[GetFarmingType::typeSystem] ?? [],
         ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

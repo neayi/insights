@@ -10972,6 +10972,577 @@ a.text-dark:focus {
   font-size: small;
 }
 
+.exploitations-edit textarea {
+  font-size: 0.9rem;
+  line-height: 2;
+  font-family: "Merriweather", serif;
+}
+
+.caracteristiques-edit .info {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.caracteristiques-edit .info .circle-icon {
+  font-size: 0.9rem;
+}
+
+.caracteristique-search h3 {
+  font-size: 1.3rem;
+}
+
+.caracteristique-search .modal-dialog {
+  border-radius: 4px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+  max-width: 708px;
+}
+
+.caracteristique-search .icon-checkboxes img {
+  width: 98px;
+  height: auto;
+}
+
+.caracteristique-search .icon-checkboxes input[type=checkbox] {
+  display: none;
+}
+
+.caracteristique-search .icon-checkboxes label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.caracteristique-search .icon-checkboxes label img {
+  border: 1px solid #fff;
+  background-color: #F3F3F3;
+}
+
+.caracteristique-search .icon-checkboxes label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.caracteristique-search .icon-checkboxes :checked + label img {
+  border: 1px solid #00a46e;
+}
+
+.caracteristique-search .icon-checkboxes :checked + label img {
+  z-index: 0;
+}
+
+.caracteristique-search .search-form .form-control {
+  background-color: white;
+}
+
+.caracteristique-search p {
+  font-size: 0.9rem;
+}
+
+.modal-pratiques {
+  max-width: 800px;
+}
+
+.modal-pratiques .modal-footer {
+  justify-content: left;
+}
+
+.modal-pratiques .btn-outline-gray .material-icons {
+  vertical-align: bottom;
+}
+
+.following-edit .followed-page .delete-page {
+  opacity: 0;
+}
+
+.following-edit .followed-page:hover .delete-page {
+  opacity: 1;
+}
+
+.following-edit .followed-page:hover .followed-content {
+  background-color: #f2f3f6;
+}
+
+.following-edit .followed-page h4 {
+  font-weight: bold;
+  font-size: 1rem;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+.following-edit .followed-page .followed-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 130px;
+}
+
+.following-edit .followed-page .applause-count {
+  font-size: 0.8rem;
+}
+
+.following-edit .followed-page .applause-count img {
+  display: inline-block;
+  width: 17px;
+  height: auto;
+  margin-top: -3px;
+}
+
+.profile h2 {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.profile h3 {
+  font-size: 1.5rem;
+}
+
+.profile p {
+  font-size: 0.9rem;
+  line-height: 1.71;
+  font-family: "Merriweather", serif;
+}
+
+.profile .editable {
+  border: 1px solid #fff;
+  cursor: pointer;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.profile .editable:hover {
+  border: 1px solid #e7e8ed;
+}
+
+.profile .editable:hover .edit-link {
+  opacity: 1;
+}
+
+.profile .editable .edit-link {
+  opacity: 0;
+  font-size: 1rem;
+}
+
+.profile .map img {
+  width: 200px;
+  height: auto;
+}
+
+.profile .btn .material-icons {
+  font-size: 20px;
+  vertical-align: sub;
+}
+
+.profile .avatar-block .edit-btn {
+  position: absolute;
+  top: 0;
+  right: 41px;
+}
+
+.profile .avatar {
+  width: 197px;
+  height: 197px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.profile .empty-avatar {
+  width: 197px;
+  height: 197px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.profile .empty-avatar .initials {
+  color: #9198a3;
+  font-size: 6rem;
+  font-weight: 700;
+  opacity: 0.2;
+}
+
+.profile .empty-avatar .material-icons {
+  position: absolute;
+  font-size: 2.3rem;
+  left: calc(50% - 18px);
+  top: calc(50% - 18px);
+}
+
+.profile .empty-avatar .add-avatar {
+  display: none;
+  position: absolute;
+  font-size: 1rem;
+}
+
+.profile .empty-avatar:hover .material-icons {
+  display: none;
+}
+
+.profile .empty-avatar:hover .add-avatar {
+  display: block;
+}
+
+.exploitations-objectifs.edition .filled {
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pratiques.edition .filled {
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pratiques .filled {
+  font-size: 0.9rem;
+  line-height: 1.71;
+}
+
+.pratiques .filled .elements {
+  margin-left: -22px;
+}
+
+.pratiques .filled .elements li {
+  margin-top: 8px;
+}
+
+.pratiques .filled .elements li a {
+  font-size: 0.9rem;
+  color: #0645ad;
+  text-decoration: none;
+  line-height: 1.71;
+}
+
+.pratiques .filled .year {
+  font-weight: 600;
+}
+
+.nav-tabs .nav-item {
+  font-size: 1rem;
+}
+
+.nav-tabs .nav-item .nav-link {
+  text-decoration: none;
+  color: #2c2c2c;
+  background: #f2f3f6;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  color: #00a46e;
+  font-weight: 700;
+  background: white;
+}
+
+.following:hover .edit-link {
+  opacity: 1;
+}
+
+.following .edit-link {
+  opacity: 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.following .followed-page h4 {
+  font-weight: bold;
+  font-size: 1rem;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+.following .followed-page .followed-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 130px;
+}
+
+.following .followed-page .applause-count {
+  font-size: 0.8rem;
+}
+
+.following .followed-page .applause-count img {
+  display: inline-block;
+  width: 17px;
+  height: auto;
+  margin-top: -3px;
+}
+
+.profile .avatar-block .edit-btn {
+  position: absolute;
+  top: 0;
+  right: 41px;
+}
+
+.profile .avatar {
+  width: 197px;
+  height: 197px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.exploitations-objectifs.edition .filled {
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pratiques.edition .filled {
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pratiques .filled {
+  font-size: 0.9rem;
+  line-height: 1.71;
+}
+
+.pratiques .filled .elements {
+  margin-left: -22px;
+}
+
+.pratiques .filled .elements li {
+  margin-top: 8px;
+}
+
+.pratiques .filled .elements li a {
+  font-size: 0.9rem;
+  color: #0645ad;
+  text-decoration: none;
+  line-height: 1.71;
+}
+
+.pratiques .filled .year {
+  font-weight: 600;
+}
+
+.modal-edit {
+  max-width: 1196px;
+}
+
+.resume-exploitation {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.resume-exploitation .resume-exploitation-titre {
+  font-size: 16px;
+}
+
+.resume-exploitation .resume-exploitation-container {
+  padding: 0px 125px 0 24px;
+  border-radius: 6px;
+  border: solid 1px #e7e8ed;
+  background-color: #ffffff;
+}
+
+.resume-exploitation .resume-exploitation-container .caracteristique-exploitation {
+  width: 70px;
+  height: 100px;
+  position: relative;
+  text-align: center;
+}
+
+.resume-exploitation .resume-exploitation-container .caracteristique-exploitation img {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+.resume-exploitation .resume-exploitation-container .caracteristique-exploitation a {
+  font-weight: bold;
+  color: #414A64;
+}
+
+.resume-exploitation .resume-exploitation-container .caracteristique-exploitation a:hover {
+  text-decoration: none;
+}
+
+.resume-exploitation .resume-exploitation-container .caracteristique-exploitation span {
+  position: absolute;
+  width: 150%;
+  left: -25%;
+  top: 59px;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: center;
+  color: #414A64;
+}
+
+.toc {
+  border: none;
+  background-color: inherit;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  margin-top: 35px;
+  display: none;
+}
+
+.toc .toctitle {
+  text-align: left;
+  padding: 0 0 0 20px;
+}
+
+.toc ul {
+  font-family: "Raleway";
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toc ul li.toclevel-1 > a.active {
+  background-color: #0645ad;
+  border-radius: 3px;
+  color: #FFF;
+}
+
+.toc ul li.toclevel-1 > a.active span {
+  color: #FFF;
+}
+
+.toc ul li {
+  line-height: 1.25rem;
+}
+
+.toc ul li a {
+  padding: 0 0 0 20px;
+}
+
+.toc .toctogglespan {
+  display: none;
+}
+
+.interaction-bloc {
+  width: 342px;
+  background-color: #CCF1E5;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  margin-top: -47px;
+  margin-right: -15px;
+}
+
+.interaction-bloc .interaction-top {
+  padding: 24px 23px 16px 24px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.33;
+  color: #000000;
+}
+
+.interaction-bloc .interaction-top .interaction-buttons {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #0a6a4a;
+}
+
+.interaction-bloc .interaction-top .interaction-buttons button {
+  height: 50px;
+  margin-top: 23px;
+  margin-bottom: 5px;
+}
+
+.interaction-bloc .interaction-links button,
+.interaction-bloc .interaction-links a {
+  height: 64px;
+  font-family: Raleway;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 0;
+}
+
+.interaction-bloc .interaction-links button.menu,
+.interaction-bloc .interaction-links a.menu {
+  width: 64px;
+}
+
+.interaction-bloc .interaction-links a {
+  display: inline-block;
+  line-height: 49px;
+}
+
+.interaction-bloc-mobile {
+  background-color: #CCF1E5;
+  margin: -47px -15px 15px -30px;
+}
+
+.interaction-bloc-mobile .interaction-top {
+  padding: 0px 23px 16px 24px;
+  font-family: Raleway;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.33;
+  color: #000000;
+}
+
+.interaction-bloc-mobile .interaction-top .interaction-buttons {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #0a6a4a;
+}
+
+.interaction-bloc-mobile .interaction-top .interaction-buttons button {
+  height: 50px;
+  margin-top: 23px;
+  margin-bottom: 5px;
+}
+
+.interaction-bloc-mobile .interaction-links button,
+.interaction-bloc-mobile .interaction-links a {
+  height: 64px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 0;
+}
+
+.interaction-bloc-mobile .interaction-links button.menu,
+.interaction-bloc-mobile .interaction-links a.menu {
+  width: 64px;
+}
+
+.interaction-bloc-mobile .interaction-links a {
+  display: inline-block;
+  line-height: 49px;
+}
+
 @-webkit-keyframes bs-notify-fadeOut {
   0% {
     opacity: 0.9;
@@ -12005,6 +12576,17 @@ body.login {
 
 .icon-checkboxes div.circle-row :checked + label img {
   z-index: -1;
+}
+
+.circle-icon,
+a.circle-icon {
+  border: 1px solid #9198a3;
+  border-radius: 50px;
+  padding: 3px;
+  color: #404964;
+  text-decoration: none;
+  font-weight: normal;
+  cursor: pointer;
 }
 
 body {
