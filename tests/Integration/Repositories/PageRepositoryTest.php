@@ -19,4 +19,17 @@ class PageRepositoryTest extends TestCase
 
         self::assertDatabaseHas('pages', ['page_id' => 1]);
     }
+
+    /**
+     * @test
+     */
+    public function shouldGetPage()
+    {
+        $page = new Page(1, true);
+        $this->pageRepository->save($page);
+
+        $expected = clone $page;
+        $pageRetrieved = $this->pageRepository->get(1);
+        self::assertEquals($expected, $pageRetrieved);
+    }
 }

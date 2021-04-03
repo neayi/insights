@@ -12,7 +12,11 @@ class PageRepositorySql implements PageRepository
 {
     public function get(string $pageId): ?Page
     {
-        // TODO: Implement get() method.
+        $pageModel = PageModel::where('page_id', $pageId)->first();
+        if(!isset($pageModel)){
+            return null;
+        }
+        return new Page($pageModel->page_id, $pageModel->dry);
     }
 
     public function save(Page $page)
