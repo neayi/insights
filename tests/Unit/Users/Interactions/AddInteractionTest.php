@@ -113,6 +113,27 @@ class AddInteractionTest extends TestCase
     /**
      * @test
      */
+    public function shouldAddInteractionWithValue()
+    {
+        $pageId = 1;
+        $this->pageRepository->save(new Page($pageId));
+
+        $user = new User($userId = 'abc', 'g@gmail.com', 'g', 'g');
+        $this->userRepository->add($user);
+        $this->authGateway->log($user);
+        $registeredUser = new RegisteredUser($userId);
+
+        $interaction = ['follow', 'done'];
+        app(HandleInteractions::class)->execute($pageId, $interaction, ['start_at' => '2020-10-23']);
+
+        $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId);
+        $expected = new Interaction(1,true, false, true, $doneValue = ['start_at' => '2020-10-23']);
+        self::assertEquals($expected, $interactionSaved);
+    }
+
+    /**
+     * @test
+     */
     public function shouldAddInteractionToAnonymousUser()
     {
         $pageId = 1;

@@ -8,24 +8,24 @@ use App\Events\InteractionOnPage;
 
 trait Interact
 {
-    public function interaction(array $interactions, int $pageId):Interaction
+    public function interaction(array $interactions, int $pageId, array $doneValue = []):Interaction
     {
         $follow = in_array('follow', $interactions);
         $applause = in_array('applause', $interactions);
         $done = in_array('done', $interactions);
-        return new Interaction($pageId, $follow, $applause, $done);
+        return new Interaction($pageId, $follow, $applause, $done, $doneValue);
     }
 
-    public function addInteraction(array $interactions, int $pageId)
+    public function addInteraction(array $interactions, int $pageId, array $doneValue = [])
     {
-        $interaction = $this->interaction($interactions, $pageId);
+        $interaction = $this->interaction($interactions, $pageId, $doneValue);
         $this->interactionRepository->save($this, $interaction);
         event(new InteractionOnPage($pageId));
     }
 
-    public function updateInteraction(Interaction $interaction, array $newInteractions)
+    public function updateInteraction(Interaction $interaction, array $newInteractions, array $doneValue = [])
     {
-        $interaction->update($newInteractions);
+        $interaction->update($newInteractions, $doneValue);
         $this->interactionRepository->save($this, $interaction);
         event(new InteractionOnPage($interaction->pageId()));
     }

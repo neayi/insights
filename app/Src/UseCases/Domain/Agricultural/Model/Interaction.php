@@ -9,18 +9,21 @@ class Interaction
     private $applause;
     private $done;
     private $pageId;
+    private $doneValue;
 
     public function __construct(
         int $pageId,
         bool $follow,
         bool $applause,
-        bool $done
+        bool $done,
+        array $doneValue = []
     )
     {
         $this->pageId = $pageId;
         $this->done = $done;
         $this->follow = $follow;
         $this->applause = $applause;
+        $this->doneValue = $doneValue;
     }
 
     public function pageId():int
@@ -28,7 +31,7 @@ class Interaction
         return $this->pageId;
     }
 
-    public function update(array $interactions)
+    public function update(array $interactions, array $doneValue = [])
     {
         foreach ($interactions as $interaction){
             switch ($interaction){
@@ -40,9 +43,11 @@ class Interaction
                     break;
                 case 'done':
                     $this->done = true;
+                    $this->doneValue = $doneValue;
                     break;
                 case 'undone':
                     $this->done = false;
+                    $this->doneValue = null;
                     break;
                 case 'applause':
                     $this->applause = true;

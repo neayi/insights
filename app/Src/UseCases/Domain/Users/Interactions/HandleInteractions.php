@@ -11,6 +11,7 @@ use App\Src\UseCases\Domain\Exceptions\PageNotFound;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use Exception;
 
 class HandleInteractions
 {
@@ -36,10 +37,11 @@ class HandleInteractions
     /**
      * @param string $pageId
      * @param array $interactions
+     * @param array $doneValue
      * @throws PageNotFound
-     * @throws \Exception
+     * @throws Exception
      */
-    public function execute(string $pageId, array $interactions):void
+    public function execute(string $pageId, array $interactions, array $doneValue = []):void
     {
         $this->checkAllowedInteractions($interactions);
         $this->checkPageExist($pageId);
@@ -47,10 +49,10 @@ class HandleInteractions
         $canInteractUser = $this->getInteractUser();
         $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId);
         if(!isset($interaction)) {
-            $canInteractUser->addInteraction($interactions, $pageId);
+            $canInteractUser->addInteraction($interactions, $pageId, $doneValue);
             return;
         }
-        $canInteractUser->updateInteraction($interaction, $interactions);
+        $canInteractUser->updateInteraction($interaction, $interactions, $doneValue);
     }
 
     private function checkPageExist(string $pageId): void
@@ -63,12 +65,12 @@ class HandleInteractions
 
     /**
      * @param array $interactions
-     * @throws \Exception
+     * @throws Exception
      */
     private function checkAllowedInteractions(array $interactions): void
     {
         if (empty(array_intersect($interactions, $this->allowedInteractions))) {
-            throw new \Exception('interaction_not_allowed');
+            throw new Exception('interaction_not_allowed');
         }
     }
 
