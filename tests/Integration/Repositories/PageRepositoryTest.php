@@ -32,4 +32,20 @@ class PageRepositoryTest extends TestCase
         $pageRetrieved = $this->pageRepository->get(1);
         self::assertEquals($expected, $pageRetrieved);
     }
+
+    /**
+     * @test
+     */
+    public function shouldUpdatePage()
+    {
+        $page = new Page(1, true);
+        $this->pageRepository->save($page);
+
+        $pageUpdated = new Page(1, false);
+        $this->pageRepository->save($pageUpdated);
+
+        $expected = clone $pageUpdated;
+        $pageRetrieved = $this->pageRepository->get(1);
+        self::assertEquals($expected, $pageRetrieved);
+    }
 }

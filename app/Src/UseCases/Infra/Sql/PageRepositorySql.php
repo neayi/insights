@@ -21,7 +21,10 @@ class PageRepositorySql implements PageRepository
 
     public function save(Page $page)
     {
-        $pageModel = new PageModel();
+        $pageModel = PageModel::where('page_id', $page->pageId())->first();
+        if(!isset($pageModel)){
+            $pageModel = new PageModel();
+        }
         $pageModel->page_id = $page->pageId();
         $pageModel->fill($page->toArray());
         $pageModel->save();
