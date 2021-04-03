@@ -27,4 +27,11 @@ class Page
         $this->dryState = true;
         app(PageRepository::class)->save($this);
     }
+
+    public function toArray()
+    {
+        return [
+            'dry' => $this->dryState
+        ];
+    }
 }

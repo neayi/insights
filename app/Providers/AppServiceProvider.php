@@ -21,8 +21,10 @@ use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
+use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
+use App\Src\UseCases\Infra\Sql\PageRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
@@ -94,6 +96,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
+        $this->app->singleton(PageRepository::class, PageRepositorySql::class);
+        $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
     }
 
     private function tuBinding(): void
@@ -127,5 +131,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
+        $this->app->singleton(PageRepository::class, PageRepositorySql::class);
+        $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
     }
 }
