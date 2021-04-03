@@ -29,5 +29,8 @@ class AnonymousUser implements CanInteract
         return $this->identifier;
     }
 
-
+    public function transfer(RegisteredUser $registeredUser)
+    {
+        $this->interactionRepository->transfer($this, $registeredUser);
+    }
 }

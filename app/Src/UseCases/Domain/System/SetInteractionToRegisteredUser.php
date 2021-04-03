@@ -30,7 +30,7 @@ class SetInteractionToRegisteredUser
             return 'nothing_to_do';
         }
         $anonymousUser = new AnonymousUser($this->authGateway->wikiSessionId());
-        $this->interactionRepository->transfer($anonymousUser, new RegisteredUser($currentUser->id()));
+        $anonymousUser->transfer(new RegisteredUser($currentUser->id()));
         return null;
     }
 }
