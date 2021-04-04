@@ -18,7 +18,8 @@ class InteractionController extends Controller
         $doneValue = $request->input('done_value', []);
         $handleInteractions->execute($pageId, $interactions, $doneValue);
 
-        return $interactionsQueryByPageAndUser->execute($pageId);
+        $interaction = $interactionsQueryByPageAndUser->execute($pageId);
+        return isset($interaction) ? $interaction->toArray() : [];
     }
 
     public function countsInteractionOnPage($pageId, CountInteractionsOnPageQuery $countInteractionsOnPage):array
