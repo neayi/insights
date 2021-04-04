@@ -22,7 +22,7 @@ class InMemoryAuthGateway implements AuthGateway
         return $this->currentUser;
     }
 
-    public function wikiSessionId(): string
+    public function wikiSessionId():? string
     {
         return $this->wikiSessionId;
     }

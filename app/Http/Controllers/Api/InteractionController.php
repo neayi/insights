@@ -15,7 +15,7 @@ class InteractionController extends Controller
     public function handle($pageId, Request $request, HandleInteractions $handleInteractions, InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser)
     {
         $interactions = $request->input('interactions');
-        $doneValue = $request->input('done_value');
+        $doneValue = $request->input('done_value', []);
         $handleInteractions->execute($pageId, $interactions, $doneValue);
 
         return $interactionsQueryByPageAndUser->execute($pageId);
@@ -28,6 +28,7 @@ class InteractionController extends Controller
 
     public function getInteractionsOnPageByUser($pageId, InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser)
     {
-        return $interactionsQueryByPageAndUser->execute($pageId);
+        $interaction = $interactionsQueryByPageAndUser->execute($pageId);
+        return isset($interaction) ? $interaction->toArray() : [];
     }
 }

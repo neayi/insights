@@ -7,6 +7,7 @@ namespace App\Src\UseCases\Infra\Gateway;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class SessionAuthGateway implements AuthGateway
 {
@@ -23,6 +24,11 @@ class SessionAuthGateway implements AuthGateway
     {
         $autenticable = \App\User::where('uuid', $u->id())->first();
         Auth::login($autenticable);
+    }
+
+    public function wikiSessionId():? string
+    {
+        return Session::get('wiki_session_id');
     }
 
 }

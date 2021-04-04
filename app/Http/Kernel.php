@@ -75,5 +75,6 @@ class Kernel extends HttpKernel
         'auth.check.role' => CheckRole::class,
         'flash.wiki' => FlashWikiCallback::class,
         'is.wizard.profile.available' => IsWizardProfileAvailable::class,
+        'wiki.session.id' => SetWikiSessionId::class
     ];
 }

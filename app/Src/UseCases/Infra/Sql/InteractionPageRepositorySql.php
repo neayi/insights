@@ -33,8 +33,9 @@ class InteractionPageRepositorySql implements InteractionRepository
 
     public function getByInteractUser(CanInteract $canInteract, int $pageId): ?Interaction
     {
-
-        $user = User::query()->where('uuid', $canInteract->identifier())->first();
+        if($canInteract->key() == 'user_id') {
+            $user = User::query()->where('uuid', $canInteract->identifier())->first();
+        }
 
         $interactionModel = InteractionModel::query()
             ->where($canInteract->key(), isset($user->id) ? $user->id : $canInteract->identifier())
@@ -45,7 +46,8 @@ class InteractionPageRepositorySql implements InteractionRepository
             return null;
         }
 
-        return new Interaction($pageId, $interactionModel->follow, $interactionModel->applause, $interactionModel->done, $interactionModel->value);
+        $value = $interactionModel->value ?? [];
+        return new Interaction($pageId, $interactionModel->follow, $interactionModel->applause, $interactionModel->done, $value);
     }
 
     public function transfer(CanInteract $anonymous, CanInteract $registered)
