@@ -58,4 +58,15 @@ class Interaction
             }
         }
     }
+
+    public function toArray():array
+    {
+        return [
+            'done' => $this->done,
+            'follow' => $this->follow,
+            'applause' => $this->applause,
+            'value' => $this->doneValue,
+            'page_id' => $this->pageId
+        ];
+    }
 }

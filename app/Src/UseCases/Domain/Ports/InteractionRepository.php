@@ -11,4 +11,6 @@ interface InteractionRepository
 {
     public function save(CanInteract $canInteract, Interaction $interaction);
     public function getByInteractUser(CanInteract $canInteract, int $pageId):?Interaction;
+    public function transfer(CanInteract $anonymous, CanInteract $registered);
+    public function getCountInteractionsOnPage(int $pageId):array;
 }

@@ -30,4 +30,9 @@ class InMemoryInteractionRepository implements InteractionRepository
         }
         unset($this->interactions[$anonymous->key()][$anonymous->identifier()]);
     }
+
+    public function getCountInteractionsOnPage(int $pageId): array
+    {
+        return [];
+    }
 }

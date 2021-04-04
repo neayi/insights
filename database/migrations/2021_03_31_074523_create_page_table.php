@@ -13,6 +13,7 @@ class CreatePageTable extends Migration
             $table->id();
             $table->integer('page_id')->unique();
             $table->text('title')->nullable();
+            $table->text('picture')->nullable();
             $table->boolean('dry')->default(false);
             $table->timestamps();
         });
