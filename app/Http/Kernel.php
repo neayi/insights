@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\FlashWikiCallback;
 use App\Http\Middleware\IsWizardProfileAvailable;
+use App\Http\Middleware\SetWikiSessionId;
 use App\Http\Middleware\TransformRequestLoginProvider;
 use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -43,6 +44,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             FlashWikiCallback::class,
+            SetWikiSessionId::class
         ],
 
         'api' => [

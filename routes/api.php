@@ -10,6 +10,8 @@ Route::get('icon/{id}/{dim?}', 'Api\PictureController@serve')->name('api.icon.se
 Route::get('user/{id}/context', 'Api\UserController@context');
 
 
-
+Route::get('page/{pageId}/counts', 'Api\InteractionController@countsInteractionOnPage');
+Route::get('user/page/{pageId}', 'Api\InteractionController@getInteractionsOnPageByUser');
+Route::post('page/{pageId}', 'Api\InteractionController@handle');
 
 
