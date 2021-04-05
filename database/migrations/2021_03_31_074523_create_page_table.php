@@ -15,6 +15,7 @@ class CreatePageTable extends Migration
             $table->text('title')->nullable();
             $table->text('picture')->nullable();
             $table->boolean('dry')->default(false);
+            $table->dateTime('last_sync')->nullable();
             $table->timestamps();
         });
     }
