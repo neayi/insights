@@ -200,8 +200,8 @@ fetch(url, {
 </blockquote>
 <pre><code class="language-json">{
     "follow": 1,
-    "done": 1,
-    "applause": 0
+    "done": 0,
+    "applause": 1
 }</code></pre>
 <div id="execution-results-GETapi-page--pageId--counts" hidden>
     <blockquote>Received response<span id="execution-response-status-GETapi-page--pageId--counts"></span>:</blockquote>
@@ -266,11 +266,18 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "done": true,
-    "follow": false,
-    "applause": false,
-    "value": [],
-    "page_id": 1
+    "state": {
+        "done": false,
+        "follow": false,
+        "applause": true,
+        "value": [],
+        "page_id": 1
+    },
+    "counts": {
+        "follow": 1,
+        "done": 0,
+        "applause": 1
+    }
 }</code></pre>
 <div id="execution-results-GETapi-user-page--pageId-" hidden>
     <blockquote>Received response<span id="execution-response-status-GETapi-user-page--pageId-"></span>:</blockquote>
@@ -312,7 +319,7 @@ The wiki session id</p>
     "https://insights.vcap.me/api/page/1?wiki_session_id=abc" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"interactions":["consequatur","ut"]}'
+    -d '{"interactions":["rerum","modi"]}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "https://insights.vcap.me/api/page/1"
@@ -331,8 +338,8 @@ let headers = {
 
 let body = {
     "interactions": [
-        "consequatur",
-        "ut"
+        "rerum",
+        "modi"
     ]
 }
 

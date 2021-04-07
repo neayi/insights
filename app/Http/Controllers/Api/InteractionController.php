@@ -57,9 +57,16 @@ class InteractionController extends Controller
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      */
-    public function getInteractionsOnPageByUser($pageId, InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser)
+    public function getInteractionsOnPageByUser($pageId,
+                                                InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+                                                CountInteractionsOnPageQuery $countInteractionsOnPage
+    )
     {
         $interaction = $interactionsQueryByPageAndUser->execute($pageId);
-        return isset($interaction) ? $interaction->toArray() : [];
+        $counts = $countInteractionsOnPage->execute($pageId);
+        return [
+            'state' => isset($interaction) ? $interaction->toArray() : [],
+            'counts' => $counts
+        ];
     }
 }

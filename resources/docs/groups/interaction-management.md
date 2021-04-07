@@ -45,8 +45,8 @@ fetch(url, {
 ```json
 {
     "follow": 1,
-    "done": 1,
-    "applause": 0
+    "done": 0,
+    "applause": 1
 }
 ```
 <div id="execution-results-GETapi-page--pageId--counts" hidden>
@@ -125,11 +125,18 @@ fetch(url, {
 
 ```json
 {
-    "done": true,
-    "follow": false,
-    "applause": false,
-    "value": [],
-    "page_id": 1
+    "state": {
+        "done": false,
+        "follow": false,
+        "applause": true,
+        "value": [],
+        "page_id": 1
+    },
+    "counts": {
+        "follow": 1,
+        "done": 0,
+        "applause": 1
+    }
 }
 ```
 <div id="execution-results-GETapi-user-page--pageId-" hidden>
@@ -178,7 +185,7 @@ curl -X POST \
     "https://insights.vcap.me/api/page/1?wiki_session_id=abc" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"interactions":["consequatur","ut"]}'
+    -d '{"interactions":["rerum","modi"]}'
 
 ```
 
@@ -200,8 +207,8 @@ let headers = {
 
 let body = {
     "interactions": [
-        "consequatur",
-        "ut"
+        "rerum",
+        "modi"
     ]
 }
 

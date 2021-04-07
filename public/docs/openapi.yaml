@@ -131,12 +131,12 @@ paths:
                                 type: object
                                 example:
                                     follow: 1
-                                    done: 1
-                                    applause: 0
+                                    done: 0
+                                    applause: 1
                                 properties:
                                     follow: { type: integer, example: 1 }
-                                    done: { type: integer, example: 1 }
-                                    applause: { type: integer, example: 0 }
+                                    done: { type: integer, example: 0 }
+                                    applause: { type: integer, example: 1 }
             tags:
                 - 'Interaction management'
             security: []
@@ -186,17 +186,11 @@ paths:
                             schema:
                                 type: object
                                 example:
-                                    done: true
-                                    follow: false
-                                    applause: false
-                                    value: []
-                                    page_id: 1
+                                    state: { done: false, follow: false, applause: true, value: [], page_id: 1 }
+                                    counts: { follow: 1, done: 0, applause: 1 }
                                 properties:
-                                    done: { type: boolean, example: true }
-                                    follow: { type: boolean, example: false }
-                                    applause: { type: boolean, example: false }
-                                    value: { type: array, example: [] }
-                                    page_id: { type: integer, example: 1 }
+                                    state: { type: object, example: { done: false, follow: false, applause: true, value: [], page_id: 1 } }
+                                    counts: { type: object, example: { follow: 1, done: 0, applause: 1 } }
             tags:
                 - 'Interaction management'
             security: []
@@ -251,7 +245,7 @@ paths:
                                 interactions:
                                     type: array
                                     description: 'The user''s interactions on the page.'
-                                    example: [consequatur, ut]
+                                    example: [rerum, modi]
                                     items: { type: string }
                             required:
                                 - interactions
