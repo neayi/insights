@@ -178,7 +178,7 @@ curl -X POST \
     "https://insights.vcap.me/api/page/1?wiki_session_id=abc" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"interactions":["necessitatibus","amet"]}'
+    -d '{"interactions":["consequatur","ut"]}'
 
 ```
 
@@ -200,8 +200,8 @@ let headers = {
 
 let body = {
     "interactions": [
-        "necessitatibus",
-        "amet"
+        "consequatur",
+        "ut"
     ]
 }
 

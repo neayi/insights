@@ -24,14 +24,22 @@ class InteractionController extends Controller
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      * @bodyParam interactions string[] required The user's interactions on the page. Example: unapplause, done
      */
-    public function handle($pageId, Request $request, HandleInteractions $handleInteractions, InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser)
+    public function handle($pageId, Request $request,
+                           HandleInteractions $handleInteractions,
+                           InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+                           CountInteractionsOnPageQuery $countInteractionsOnPage
+    )
     {
         $interactions = $request->input('interactions');
         $doneValue = $request->input('done_value', []);
         $handleInteractions->execute($pageId, $interactions, $doneValue);
 
         $interaction = $interactionsQueryByPageAndUser->execute($pageId);
-        return isset($interaction) ? $interaction->toArray() : [];
+        $counts = $countInteractionsOnPage->execute($pageId);
+        return [
+            'state' => isset($interaction) ? $interaction->toArray() : [],
+            'counts' => $counts
+        ];
     }
 
     /**

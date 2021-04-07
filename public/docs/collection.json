@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Triple performance api documentation",
-        "_postman_id": "1ccebf48-ddb3-4820-86ea-ba9928fde642",
+        "_postman_id": "191b06b8-2243-4c21-9859-ffb8ae8bc37c",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -223,7 +223,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"interactions\": [\n        \"necessitatibus\",\n        \"amet\"\n    ]\n}"
+                            "raw": "{\n    \"interactions\": [\n        \"consequatur\",\n        \"ut\"\n    ]\n}"
                         },
                         "description": "",
                         "auth": {

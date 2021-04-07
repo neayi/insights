@@ -251,7 +251,7 @@ paths:
                                 interactions:
                                     type: array
                                     description: 'The user''s interactions on the page.'
-                                    example: [necessitatibus, amet]
+                                    example: [consequatur, ut]
                                     items: { type: string }
                             required:
                                 - interactions
