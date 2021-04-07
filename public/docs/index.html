@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Triple performance api documentation</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css" media="screen" />
+        <link rel="stylesheet" href="css/print.css" media="print" />
+        <script src="js/all.js"></script>
+
+        <link rel="stylesheet" href="css/highlight-darcula.css" media="" />
+        <script src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="" data-languages="[&quot;bash&quot;,&quot;javascript&quot;]">
+<a href="#" id="nav-button">
+      <span>
+        NAV
+            <img src="images/navbar.png" alt="-image" class=""/>
+      </span>
+</a>
+<div class="tocify-wrapper">
+                <div class="lang-selector">
+                            <a href="#" data-language-name="bash">bash</a>
+                            <a href="#" data-language-name="javascript">javascript</a>
+                    </div>
+        <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+
+    <ul id="toc">
+    </ul>
+
+            <ul class="toc-footer" id="toc-footer">
+                            <li><a href="./collection.json">View Postman collection</a></li>
+                            <li><a href="./openapi.yaml">View OpenAPI (Swagger) spec</a></li>
+                            <li><a href='http://github.com/knuckleswtf/scribe'>Documentation powered by Scribe ✍</a></li>
+                    </ul>
+            <ul class="toc-footer" id="last-updated">
+            <li>Last updated: April 7 2021</li>
+        </ul>
+</div>
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1>Introduction</h1>
+<p>This documentation aims to provide all the information you need to work with our API.</p>
+<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+<script>
+    var baseUrl = "https://insights.vcap.me";
+</script>
+<script src="js/tryitout-2.5.3.js"></script>
+<blockquote>
+<p>Base URL</p>
+</blockquote>
+<pre><code class="language-yaml">https://insights.vcap.me</code></pre><h1>Authenticating requests</h1>
+<p>This API is not authenticated.</p><h1>Endpoints</h1>
+<h2>api/user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/user" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/user"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "invalid_token"
+}</code></pre>
+<div id="execution-results-GETapi-user" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-user"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user"></code></pre>
+</div>
+<div id="execution-error-GETapi-user" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user"></code></pre>
+</div>
+<form id="form-GETapi-user" data-method="GET" data-path="api/user" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-user', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-user" onclick="tryItOut('GETapi-user');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-user" onclick="cancelTryOut('GETapi-user');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-user" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/user</code></b>
+</p>
+</form>
+<h2>api/icon/{id}/{dim?}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/icon/0a581bd9-3e63-4ee9-9246-59b54b760bda/300" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/icon/0a581bd9-3e63-4ee9-9246-59b54b760bda/300"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json"></code></pre>
+<div id="execution-results-GETapi-icon--id---dim--" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-icon--id---dim--"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-icon--id---dim--"></code></pre>
+</div>
+<div id="execution-error-GETapi-icon--id---dim--" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-icon--id---dim--"></code></pre>
+</div>
+<form id="form-GETapi-icon--id---dim--" data-method="GET" data-path="api/icon/{id}/{dim?}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-icon--id---dim--', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-icon--id---dim--" onclick="tryItOut('GETapi-icon--id---dim--');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-icon--id---dim--" onclick="cancelTryOut('GETapi-icon--id---dim--');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-icon--id---dim--" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/icon/{id}/{dim?}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="GETapi-icon--id---dim--" data-component="url" required  hidden>
+<br>
+The uuid of the characteristics</p>
+<p>
+<b><code>dim</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="dim" data-endpoint="GETapi-icon--id---dim--" data-component="url"  hidden>
+<br>
+Width of the picture in pixels</p>
+</form><h1>Interaction management</h1>
+<p>APIs for interaction on pages</p>
+<h2>Get the number of interactions for the page given</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/page/1/counts?wiki_session_id=abc" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/page/1/counts"
+);
+
+let params = {
+    "wiki_session_id": "abc",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "follow": 1,
+    "done": 1,
+    "applause": 0
+}</code></pre>
+<div id="execution-results-GETapi-page--pageId--counts" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-page--pageId--counts"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-page--pageId--counts"></code></pre>
+</div>
+<div id="execution-error-GETapi-page--pageId--counts" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-page--pageId--counts"></code></pre>
+</div>
+<form id="form-GETapi-page--pageId--counts" data-method="GET" data-path="api/page/{pageId}/counts" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-page--pageId--counts', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-page--pageId--counts" onclick="tryItOut('GETapi-page--pageId--counts');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-page--pageId--counts" onclick="cancelTryOut('GETapi-page--pageId--counts');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-page--pageId--counts" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/page/{pageId}/counts</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>pageId</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="pageId" data-endpoint="GETapi-page--pageId--counts" data-component="url" required  hidden>
+<br>
+The wiki page id</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>wiki_session_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="wiki_session_id" data-endpoint="GETapi-page--pageId--counts" data-component="query" required  hidden>
+<br>
+The wiki session id</p>
+</form>
+<h2>Get the state of interaction for the user authenticated on the page given</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/user/page/1?wiki_session_id=abc" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/user/page/1"
+);
+
+let params = {
+    "wiki_session_id": "abc",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "done": true,
+    "follow": false,
+    "applause": false,
+    "value": [],
+    "page_id": 1
+}</code></pre>
+<div id="execution-results-GETapi-user-page--pageId-" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-user-page--pageId-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user-page--pageId-"></code></pre>
+</div>
+<div id="execution-error-GETapi-user-page--pageId-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user-page--pageId-"></code></pre>
+</div>
+<form id="form-GETapi-user-page--pageId-" data-method="GET" data-path="api/user/page/{pageId}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-user-page--pageId-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-user-page--pageId-" onclick="tryItOut('GETapi-user-page--pageId-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-user-page--pageId-" onclick="cancelTryOut('GETapi-user-page--pageId-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-user-page--pageId-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/user/page/{pageId}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>pageId</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="pageId" data-endpoint="GETapi-user-page--pageId-" data-component="url" required  hidden>
+<br>
+The wiki page id</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>wiki_session_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="wiki_session_id" data-endpoint="GETapi-user-page--pageId-" data-component="query" required  hidden>
+<br>
+The wiki session id</p>
+</form>
+<h2>Add a interaction (follow, unfollow, done, undone, applause, unapplause) of the user authenticated to the page given</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "https://insights.vcap.me/api/page/1?wiki_session_id=abc" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"interactions":["necessitatibus","amet"]}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/page/1"
+);
+
+let params = {
+    "wiki_session_id": "abc",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "interactions": [
+        "necessitatibus",
+        "amet"
+    ]
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+<div id="execution-results-POSTapi-page--pageId-" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-page--pageId-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-page--pageId-"></code></pre>
+</div>
+<div id="execution-error-POSTapi-page--pageId-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-page--pageId-"></code></pre>
+</div>
+<form id="form-POSTapi-page--pageId-" data-method="POST" data-path="api/page/{pageId}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-page--pageId-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-page--pageId-" onclick="tryItOut('POSTapi-page--pageId-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-page--pageId-" onclick="cancelTryOut('POSTapi-page--pageId-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-page--pageId-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>api/page/{pageId}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>pageId</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="pageId" data-endpoint="POSTapi-page--pageId-" data-component="url" required  hidden>
+<br>
+The wiki page id</p>
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+<p>
+<b><code>wiki_session_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="wiki_session_id" data-endpoint="POSTapi-page--pageId-" data-component="query" required  hidden>
+<br>
+The wiki session id</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>interactions</code></b>&nbsp;&nbsp;<small>string[]</small>  &nbsp;
+<input type="text" name="interactions.0" data-endpoint="POSTapi-page--pageId-" data-component="body" required  hidden>
+<input type="text" name="interactions.1" data-endpoint="POSTapi-page--pageId-" data-component="body" hidden>
+<br>
+The user's interactions on the page.</p>
+
+</form><h1>User management</h1>
+<p>APIs for managing users</p>
+<h2>Serve the avatar of the user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/user/avatar/379189d0-287f-4042-bf81-577deb7696f4/300" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/user/avatar/379189d0-287f-4042-bf81-577deb7696f4/300"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json"></code></pre>
+<div id="execution-results-GETapi-user-avatar--id---dim-" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-user-avatar--id---dim-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user-avatar--id---dim-"></code></pre>
+</div>
+<div id="execution-error-GETapi-user-avatar--id---dim-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user-avatar--id---dim-"></code></pre>
+</div>
+<form id="form-GETapi-user-avatar--id---dim-" data-method="GET" data-path="api/user/avatar/{id}/{dim}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-user-avatar--id---dim-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-user-avatar--id---dim-" onclick="tryItOut('GETapi-user-avatar--id---dim-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-user-avatar--id---dim-" onclick="cancelTryOut('GETapi-user-avatar--id---dim-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-user-avatar--id---dim-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/user/avatar/{id}/{dim}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="GETapi-user-avatar--id---dim-" data-component="url" required  hidden>
+<br>
+The user uuid</p>
+<p>
+<b><code>dim</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="dim" data-endpoint="GETapi-user-avatar--id---dim-" data-component="url" required  hidden>
+<br>
+Width of the picture in pixels</p>
+</form>
+<h2>Get the context of a user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "https://insights.vcap.me/api/user/379189d0-287f-4042-bf81-577deb7696f4/context" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "https://insights.vcap.me/api/user/379189d0-287f-4042-bf81-577deb7696f4/context"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "firstname": "Eric",
+    "lastname": "Dupond",
+    "postal_code": "83220",
+    "department": "83",
+    "productions": [
+        {
+            "page": "Catégorie:Arboriculture et petits fruits",
+            "icon": "https:\/\/insights.vcap.me\/api\/icon\/8f4a3bc6-f386-4722-97b8-be306456c5d5",
+            "caption": "Arboriculture"
+        },
+        {
+            "page": "Élevage équin",
+            "icon": "https:\/\/insights.vcap.me\/api\/icon\/7a8a48f1-2c9c-48a0-ba99-7b82fe724941",
+            "caption": "Élevage équin"
+        },
+        {
+            "page": "Cultures tropicales",
+            "icon": "https:\/\/insights.vcap.me\/api\/icon\/0a581bd9-3e63-4ee9-9246-59b54b760bda",
+            "caption": "Cultures tropicales"
+        }
+    ],
+    "characteristics": []
+}</code></pre>
+<div id="execution-results-GETapi-user--id--context" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETapi-user--id--context"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user--id--context"></code></pre>
+</div>
+<div id="execution-error-GETapi-user--id--context" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user--id--context"></code></pre>
+</div>
+<form id="form-GETapi-user--id--context" data-method="GET" data-path="api/user/{id}/context" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-user--id--context', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETapi-user--id--context" onclick="tryItOut('GETapi-user--id--context');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETapi-user--id--context" onclick="cancelTryOut('GETapi-user--id--context');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETapi-user--id--context" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-green">GET</small>
+ <b><code>api/user/{id}/context</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="GETapi-user--id--context" data-component="url" required  hidden>
+<br>
+the user uuid</p>
+</form>
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+            </div>
+</div>
+<script>
+    $(function () {
+        var languages = ["bash","javascript"];
+        setupLanguages(languages);
+    });
+</script>
+</body>
+</html>

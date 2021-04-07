@@ -79,6 +79,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
+        $this->guard()->login($user, true);
         if($request->session()->has('should_attach_to_organization')){
             app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
         }

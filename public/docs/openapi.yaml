@@ -1,0 +1,366 @@
+openapi: 3.0.3
+info:
+    title: 'Triple performance api documentation'
+    description: ''
+    version: 1.0.0
+servers:
+    -
+        url: 'https://insights.vcap.me'
+paths:
+    /api/user:
+        get:
+            summary: ''
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    error: invalid_token
+                                properties:
+                                    error: { type: string, example: invalid_token }
+            tags:
+                - Endpoints
+            security: []
+    '/api/icon/{id}/{dim}':
+        get:
+            summary: ''
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: !!binary 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
+            tags:
+                - Endpoints
+            security: []
+        parameters:
+            -
+                in: path
+                name: id
+                description: 'The uuid of the characteristics'
+                example: 0a581bd9-3e63-4ee9-9246-59b54b760bda
+                required: true
+                schema:
+                    type: string
+            -
+                in: path
+                name: dim
+                description: 'Optional parameter. Width of the picture in pixels'
+                required: true
+                schema:
+                    type: integer
+                examples:
+                    omitted:
+                        summary: 'When the value is omitted'
+                        value: ''
+                    present:
+                        summary: 'When the value is present'
+                        value: 300
+    '/api/page/{pageId}/counts':
+        get:
+            summary: 'Get the number of interactions for the page given'
+            description: ''
+            parameters:
+                -
+                    in: query
+                    name: wiki_session_id
+                    description: 'The wiki session id'
+                    example: abc
+                    required: true
+                    schema:
+                        type: string
+                        description: 'The wiki session id'
+                        example: abc
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    follow: 1
+                                    done: 1
+                                    applause: 0
+                                properties:
+                                    follow: { type: integer, example: 1 }
+                                    done: { type: integer, example: 1 }
+                                    applause: { type: integer, example: 0 }
+            tags:
+                - 'Interaction management'
+            security: []
+        parameters:
+            -
+                in: path
+                name: pageId
+                description: 'The wiki page id'
+                example: 1
+                required: true
+                schema:
+                    type: integer
+    '/api/user/page/{pageId}':
+        get:
+            summary: 'Get the state of interaction for the user authenticated on the page given'
+            description: ''
+            parameters:
+                -
+                    in: query
+                    name: wiki_session_id
+                    description: 'The wiki session id'
+                    example: abc
+                    required: true
+                    schema:
+                        type: string
+                        description: 'The wiki session id'
+                        example: abc
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    done: true
+                                    follow: false
+                                    applause: false
+                                    value: []
+                                    page_id: 1
+                                properties:
+                                    done: { type: boolean, example: true }
+                                    follow: { type: boolean, example: false }
+                                    applause: { type: boolean, example: false }
+                                    value: { type: array, example: [] }
+                                    page_id: { type: integer, example: 1 }
+            tags:
+                - 'Interaction management'
+            security: []
+        parameters:
+            -
+                in: path
+                name: pageId
+                description: 'The wiki page id'
+                example: 1
+                required: true
+                schema:
+                    type: integer
+    '/api/page/{pageId}':
+        post:
+            summary: 'Add a interaction (follow, unfollow, done, undone, applause, unapplause) of the user authenticated to the page given'
+            description: ''
+            parameters:
+                -
+                    in: query
+                    name: wiki_session_id
+                    description: 'The wiki session id'
+                    example: abc
+                    required: true
+                    schema:
+                        type: string
+                        description: 'The wiki session id'
+                        example: abc
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses: {  }
+            tags:
+                - 'Interaction management'
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                interactions:
+                                    type: array
+                                    description: 'The user''s interactions on the page.'
+                                    example: [necessitatibus, amet]
+                                    items: { type: string }
+                            required:
+                                - interactions
+            security: []
+        parameters:
+            -
+                in: path
+                name: pageId
+                description: 'The wiki page id'
+                example: 1
+                required: true
+                schema:
+                    type: integer
+    '/api/user/avatar/{id}/{dim}':
+        get:
+            summary: 'Serve the avatar of the user'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        text/plain:
+                            schema:
+                                type: string
+                                example: !!binary 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
+            tags:
+                - 'User management'
+            security: []
+        parameters:
+            -
+                in: path
+                name: id
+                description: 'The user uuid'
+                example: 379189d0-287f-4042-bf81-577deb7696f4
+                required: true
+                schema:
+                    type: string
+            -
+                in: path
+                name: dim
+                description: 'Width of the picture in pixels'
+                example: 300
+                required: true
+                schema:
+                    type: integer
+    '/api/user/{id}/context':
+        get:
+            summary: 'Get the context of a user'
+            description: ''
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: ''
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    firstname: Eric
+                                    lastname: Dupond
+                                    postal_code: '83220'
+                                    department: '83'
+                                    productions: [{ page: 'Catégorie:Arboriculture et petits fruits', icon: 'https://insights.vcap.me/api/icon/8f4a3bc6-f386-4722-97b8-be306456c5d5', caption: Arboriculture }, { page: 'Élevage équin', icon: 'https://insights.vcap.me/api/icon/7a8a48f1-2c9c-48a0-ba99-7b82fe724941', caption: 'Élevage équin' }, { page: 'Cultures tropicales', icon: 'https://insights.vcap.me/api/icon/0a581bd9-3e63-4ee9-9246-59b54b760bda', caption: 'Cultures tropicales' }]
+                                    characteristics: []
+                                properties:
+                                    firstname: { type: string, example: Eric }
+                                    lastname: { type: string, example: Dupond }
+                                    postal_code: { type: string, example: '83220' }
+                                    department: { type: string, example: '83' }
+                                    productions: { type: array, example: [{ page: 'Catégorie:Arboriculture et petits fruits', icon: 'https://insights.vcap.me/api/icon/8f4a3bc6-f386-4722-97b8-be306456c5d5', caption: Arboriculture }, { page: 'Élevage équin', icon: 'https://insights.vcap.me/api/icon/7a8a48f1-2c9c-48a0-ba99-7b82fe724941', caption: 'Élevage équin' }, { page: 'Cultures tropicales', icon: 'https://insights.vcap.me/api/icon/0a581bd9-3e63-4ee9-9246-59b54b760bda', caption: 'Cultures tropicales' }], items: { type: object } }
+                                    characteristics: { type: array, example: [] }
+            tags:
+                - 'User management'
+            security: []
+        parameters:
+            -
+                in: path
+                name: id
+                description: 'the user uuid'
+                example: 379189d0-287f-4042-bf81-577deb7696f4
+                required: true
+                schema:
+                    type: string

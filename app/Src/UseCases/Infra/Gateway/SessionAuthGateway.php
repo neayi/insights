@@ -22,8 +22,8 @@ class SessionAuthGateway implements AuthGateway
 
     public function log(User $u)
     {
-        $autenticable = \App\User::where('uuid', $u->id())->first();
-        Auth::login($autenticable);
+        $authenticate = \App\User::where('uuid', $u->id())->first();
+        Auth::login($authenticate, true);
     }
 
     public function wikiSessionId():? string

@@ -21,7 +21,7 @@ class UserRepositorySql implements UserRepository
             return null;
         }
         $roles = $record->roles()->pluck('name')->toArray();
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
+        return $this->buildUser($record, $roles);
     }
 
     public function getById(string $id): ?User
@@ -31,7 +31,7 @@ class UserRepositorySql implements UserRepository
             return null;
         }
         $roles = $record->roles()->pluck('name')->toArray();
-        return new User($record->uuid, $record->email, $record->firstname, $record->lastname, $record->organization_id, $record->path_picture, $roles, $record->providers);
+        return $this->buildUser($record, $roles);
     }
 
     public function add(User $u, string $password = null)
@@ -162,5 +162,24 @@ class UserRepositorySql implements UserRepository
         DB::table('users')
             ->where('uuid', $userId)
             ->update(['wiki_stats' => $stats->toArray()]);
+    }
+
+    /**
+     * @param $record
+     * @param $roles
+     * @return User
+     */
+    private function buildUser($record, $roles): User
+    {
+        return new User(
+            $record->uuid,
+            $record->email,
+            $record->firstname,
+            $record->lastname,
+            $record->organization_id,
+            $record->path_picture,
+            $roles,
+            $record->providers ?? []
+        );
     }
 }
