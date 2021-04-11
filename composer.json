@@ -19,6 +19,7 @@
         "intervention/imagecache": "^2.5",
         "jeroennoten/laravel-adminlte": "3.5.0",
         "laravel/framework": "^8.0",
+        "laravel/sanctum": "^2.9",
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",

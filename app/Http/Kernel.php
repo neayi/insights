@@ -9,6 +9,7 @@ use App\Http\Middleware\SetWikiSessionId;
 use App\Http\Middleware\TransformRequestLoginProvider;
 use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class Kernel extends HttpKernel
 {
@@ -75,6 +76,7 @@ class Kernel extends HttpKernel
         'auth.check.role' => CheckRole::class,
         'flash.wiki' => FlashWikiCallback::class,
         'is.wizard.profile.available' => IsWizardProfileAvailable::class,
-        'wiki.session.id' => SetWikiSessionId::class
+        'wiki.session.id' => SetWikiSessionId::class,
+        'is.stateful' => EnsureFrontendRequestsAreStateful::class,
     ];
 }
