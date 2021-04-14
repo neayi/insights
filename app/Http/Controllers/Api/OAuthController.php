@@ -18,18 +18,22 @@ class OAuthController extends BaseController
         if($token === null || $token === ''){
             return ['error' => 'invalid_token'];
         }
-        $user = User::where('wiki_token', $token)->first();
+        $user = User::where('email', 'guillaume.cozic@gmail.com')->first();
+        //$user = User::where('wiki_token', $token)->first();
 
         if($user === null){
             return ['error' => 'invalid_token'];
         }
+
+        $token = $user->createToken('api_token');
 
         return [
             'id' => $user->uuid,
             'name' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
             'realname' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
             'email' => $user->email,
-            'avatar' => $user->adminlte_image()
+            'avatar' => $user->adminlte_image(),
+            'token' => $token->plainTextToken
         ];
     }
 
