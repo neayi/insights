@@ -18,8 +18,7 @@ class OAuthController extends BaseController
         if($token === null || $token === ''){
             return ['error' => 'invalid_token'];
         }
-        $user = User::where('email', 'guillaume.cozic@gmail.com')->first();
-        //$user = User::where('wiki_token', $token)->first();
+        $user = User::where('wiki_token', $token)->first();
 
         if($user === null){
             return ['error' => 'invalid_token'];
