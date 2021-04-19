@@ -4,8 +4,10 @@ namespace Tests;
 
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
@@ -27,6 +29,8 @@ abstract class TestCase extends BaseTestCase
     protected $socialiteGateway;
     protected $fileStorage;
     protected $characteristicRepository;
+    protected $pageRepository;
+    protected $interactionRepository;
 
     public function setUp(): void
     {
@@ -39,6 +43,8 @@ abstract class TestCase extends BaseTestCase
         $this->authGateway = $this->authGateway();
         $this->socialiteGateway = $this->socialiteGateway();
         $this->fileStorage = $this->fileStorage();
+        $this->pageRepository = $this->pageRepository();
+        $this->interactionRepository = $this->interactionRepository();
 
         Event::fake();
         Mail::fake();
@@ -82,5 +88,15 @@ abstract class TestCase extends BaseTestCase
     private function characteristicRepository():CharacteristicsRepository
     {
         return app(CharacteristicsRepository::class);
+    }
+
+    private function pageRepository():PageRepository
+    {
+        return app(PageRepository::class);
+    }
+
+    private function interactionRepository():InteractionRepository
+    {
+        return app(InteractionRepository::class);
     }
 }

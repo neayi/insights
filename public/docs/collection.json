@@ -1,0 +1,327 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "insights.vcap.me"
+        }
+    ],
+    "info": {
+        "name": "Triple performance api documentation",
+        "_postman_id": "c7d0ff58-4900-4c1b-bd84-8290d8416764",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "api\/user",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "api\/icon\/{id}\/{dim?}",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/icon\/:id\/:dim",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/icon\/:id\/:dim",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "0a581bd9-3e63-4ee9-9246-59b54b760bda",
+                                    "description": "The uuid of the characteristics"
+                                },
+                                {
+                                    "id": "dim",
+                                    "key": "dim",
+                                    "value": "300",
+                                    "description": "Width of the picture in pixels"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Interaction management",
+            "description": "\nAPIs for interaction on pages",
+            "item": [
+                {
+                    "name": "Get the number of interactions for the page given",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/page\/:pageId\/counts",
+                            "query": [
+                                {
+                                    "key": "wiki_session_id",
+                                    "value": "abc",
+                                    "description": "The wiki session id",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/page\/:pageId\/counts?wiki_session_id=abc",
+                            "variable": [
+                                {
+                                    "id": "pageId",
+                                    "key": "pageId",
+                                    "value": "1",
+                                    "description": "The wiki page id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get the state of interaction for the user authenticated on the page given",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/page\/:pageId",
+                            "query": [
+                                {
+                                    "key": "wiki_session_id",
+                                    "value": "abc",
+                                    "description": "The wiki session id",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/user\/page\/:pageId?wiki_session_id=abc",
+                            "variable": [
+                                {
+                                    "id": "pageId",
+                                    "key": "pageId",
+                                    "value": "1",
+                                    "description": "The wiki page id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Add a interaction (follow, unfollow, done, undone, applause, unapplause) of the user authenticated to the page given",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/page\/:pageId",
+                            "query": [
+                                {
+                                    "key": "wiki_session_id",
+                                    "value": "abc",
+                                    "description": "The wiki session id",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/page\/:pageId?wiki_session_id=abc",
+                            "variable": [
+                                {
+                                    "id": "pageId",
+                                    "key": "pageId",
+                                    "value": "1",
+                                    "description": "The wiki page id"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"interactions\": [\n        \"rerum\",\n        \"modi\"\n    ]\n}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User management",
+            "description": "\nAPIs for managing users",
+            "item": [
+                {
+                    "name": "Serve the avatar of the user",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/avatar\/:id\/:dim",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/user\/avatar\/:id\/:dim",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "379189d0-287f-4042-bf81-577deb7696f4",
+                                    "description": "The user uuid"
+                                },
+                                {
+                                    "id": "dim",
+                                    "key": "dim",
+                                    "value": "300",
+                                    "description": "Width of the picture in pixels"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get the context of a user",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id\/context",
+                            "query": [],
+                            "raw": "https:\/\/{{baseUrl}}\/api\/user\/:id\/context",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "379189d0-287f-4042-bf81-577deb7696f4",
+                                    "description": "the user uuid"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

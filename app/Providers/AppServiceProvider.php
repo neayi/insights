@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
+use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
@@ -19,8 +21,10 @@ use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
+use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
+use App\Src\UseCases\Infra\Sql\PageRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
@@ -36,8 +40,10 @@ use Tests\Adapters\Gateway\InMemoryPictureHandler;
 use Tests\Adapters\Gateway\InMemorySocialiteGateway;
 use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
 use Tests\Adapters\Repositories\InMemoryContextRepository;
+use Tests\Adapters\Repositories\InMemoryInteractionRepository;
 use Tests\Adapters\Repositories\InMemoryInvitationRepository;
 use Tests\Adapters\Repositories\InMemoryOrganizationRepository;
+use Tests\Adapters\Repositories\InMemoryPageRepository;
 use Tests\Adapters\Repositories\InMemoryUserRepository;
 use Tests\Adapters\Repositories\InMemoryUserRoleRepository;
 
@@ -90,6 +96,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
+        $this->app->singleton(PageRepository::class, PageRepositorySql::class);
+        $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
     }
 
     private function tuBinding(): void
@@ -106,6 +114,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
+        $this->app->singleton(PageRepository::class, InMemoryPageRepository::class);
+        $this->app->singleton(InteractionRepository::class, InMemoryInteractionRepository::class);
     }
 
     private function tiBinding(): void
@@ -121,5 +131,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
+        $this->app->singleton(PageRepository::class, PageRepositorySql::class);
+        $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
     }
 }

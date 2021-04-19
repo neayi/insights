@@ -45,6 +45,7 @@
                                 </div>
                                 <form method="POST" action="/login">
                                     {{ csrf_field() }}
+                                    <input type="checkbox" name="remember" checked style="display: none;">
                                     <div class="row">
                                         <div class="col-md-10">
                                             <div class="form-group">
