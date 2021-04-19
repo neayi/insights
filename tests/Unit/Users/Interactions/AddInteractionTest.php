@@ -26,19 +26,6 @@ class AddInteractionTest extends TestCase
     /**
      * @test
      */
-    public function shouldNotAddInteractionToUserWhenPageDoesNotExist()
-    {
-        $pageId = 1;
-        $interaction = ['follow'];
-
-        self::expectException(PageNotFound::class);
-        self::expectExceptionMessage('page_not_found');
-        app(HandleInteractions::class)->execute($pageId, $interaction);
-    }
-
-    /**
-     * @test
-     */
     public function shouldNotAddNotAllowedInteractions()
     {
         $pageId = 1;
