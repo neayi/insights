@@ -44,7 +44,6 @@ class HandleInteractions
     public function execute(string $pageId, array $interactions, array $doneValue = []):void
     {
         $this->checkAllowedInteractions($interactions);
-        $this->checkPageExist($pageId);
 
         $canInteractUser = $this->getInteractUser();
         $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId);
@@ -53,14 +52,6 @@ class HandleInteractions
             return;
         }
         $canInteractUser->updateInteraction($interaction, $interactions, $doneValue);
-    }
-
-    private function checkPageExist(string $pageId): void
-    {
-        $page = $this->pageRepository->get($pageId);
-        if (!isset($page)) {
-            throw new PageNotFound(PageNotFound::error);
-        }
     }
 
     /**
