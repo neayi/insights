@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Domain\System;
 
 
+use App\Src\UseCases\Domain\Agricultural\Model\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 
 class SetPageDryState
@@ -18,6 +19,11 @@ class SetPageDryState
     public function execute(int $pageId)
     {
         $page = $this->pageRepository->get($pageId);
+        if($page === null){
+            $page = new Page($pageId, true);
+            $this->pageRepository->save($page);
+            return;
+        }
         $page->setOnDryState();
     }
 }
