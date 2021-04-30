@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVerifyEmail
 {
-    use Notifiable, HasRoles, MustVerifyEmail;
+    use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens;
 
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"

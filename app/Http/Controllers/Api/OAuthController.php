@@ -24,12 +24,15 @@ class OAuthController extends BaseController
             return ['error' => 'invalid_token'];
         }
 
+        $token = $user->createToken('api_token');
+
         return [
             'id' => $user->uuid,
             'name' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
             'realname' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
             'email' => $user->email,
-            'avatar' => $user->adminlte_image()
+            'avatar' => $user->adminlte_image(),
+            'token' => $token->plainTextToken
         ];
     }
 
