@@ -53,8 +53,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) - Secteur d'activité</div>
-                                <div class="rattachement">rattaché à [structure]</div>
+                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '-'.$context['sector'] : '' }}</div>
+                                <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.$context['structure'] : '' }}</div>
                                 <div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      <span class="material-icons mr-2">
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 map">
-                                <img src="assets/map-example.jpg">
+                                <img src="{{ asset('images/map-france/544px-France_Climat_Département_'.$context['department'].'.png') }}">
                             </div>
                         </div>
                     </div>
@@ -163,8 +163,8 @@
                         <p class="empty d-none">
                             Présentez à la communauté votre exploitation, son histoire et vos objectifs.
                         </p>
-                        <p class="filled">
-                            {{ $description }}
+                        <p class="filled" id="dev-description">
+                            {{ $context['description'] }}
                         </p>
                     </div>
                     <div class="col-md-6 editable pratiques edition">

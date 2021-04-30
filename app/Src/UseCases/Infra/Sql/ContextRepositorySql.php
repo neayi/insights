@@ -36,7 +36,6 @@ class ContextRepositorySql implements ContextRepository
         }
 
         $contextId = DB::table('contexts')->insertGetId($contextData->except('farmings')->toArray());
-
         $user->context_id = $contextId;
         $user->save();
     }
@@ -54,6 +53,19 @@ class ContextRepositorySql implements ContextRepository
         $characteristics = $user->characteristics()->get()->transform(function(CharacteristicsModel $item){
             return $item->toDto();
         });
-        return new ContextDto($user->firstname, $user->lastname, $context->postal_code, $characteristics->toArray());
+        return new ContextDto($user->firstname, $user->lastname, $context->postal_code, $characteristics->toArray(), $context->description);
     }
+
+    public function update(Context $context, string $userId)
+    {
+        $contextModel = ContextModel::where('uuid', $context->id())->first();
+        if($contextModel == null){
+            return null;
+        }
+        $contextData = collect($context->toArray());
+        $contextModel->fill($contextData->except('farmings')->toArray());
+        $contextModel->save();
+    }
+
+
 }

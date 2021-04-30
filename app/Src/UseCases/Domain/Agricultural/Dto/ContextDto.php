@@ -14,8 +14,14 @@ class ContextDto implements \JsonSerializable
     public $department;
     public $characteristics;
     public $characteristicsByType;
+    public $description;
 
-    public function __construct(string $firstname, string $lastname, string $postalCode, array $characteristics = [])
+    public function __construct(
+        string $firstname,
+        string $lastname,
+        string $postalCode,
+        array $characteristics,
+        string $description)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -25,6 +31,7 @@ class ContextDto implements \JsonSerializable
         foreach($this->characteristics as $characteristic){
             $this->characteristicsByType[$characteristic->type()][] = $characteristic;
         }
+        $this->description = $description;
     }
 
     private function fullname():string
@@ -42,6 +49,7 @@ class ContextDto implements \JsonSerializable
             'fullname' => $this->fullname(),
             'productions' => $this->characteristicsByType[GetFarmingType::type] ?? [],
             'characteristics' => $this->characteristicsByType[GetFarmingType::typeSystem] ?? [],
+            'description' => $this->description,
         ];
     }
 

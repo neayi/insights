@@ -138,6 +138,17 @@ class User
         app(UserRepository::class)->update($this);
     }
 
+    public function updateAvatar(string $pathPicture, string $ext = 'jpg')
+    {
+        if($pathPicture !== "") {
+            $picture = new Picture($pathPicture);
+            $picture->resize('app/public/users/' . $this->id . '.' . $ext);
+            $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
+        }
+        app(UserRepository::class)->update($this);
+        return $this->pathPicture;
+    }
+
     public function delete()
     {
         app(UserRepository::class)->delete($this->id);
