@@ -6,7 +6,7 @@
             </button>
             <div class="modal-body pt-2">
                 <div class="container-fluid">
-                    <form>
+                    <form id="form-update-main-data" action="{{ route('context.update') }}">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
+                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
                                 <button data-dismiss="modal" type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">Annuler</button>
                             </div>
                         </div>

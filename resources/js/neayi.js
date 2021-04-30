@@ -1,6 +1,13 @@
 require('./bootstrap');
 require('bootstrap-select');
 
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 // modal login
 $("#show_hide_password a.eye").on('click', function(event) {
     event.preventDefault();
@@ -91,21 +98,48 @@ $("#fileinput").change(function(){
         fd.append('file',files[0]);
 
         $.ajax({
-            url: 'upload.php',
+            url: '/update-avatar',
             type: 'post',
             data: fd,
             contentType: false,
             processData: false,
             success: function(response){
                 if(response != 0){
-                    $("#img").attr("src",response);
-                    $(".preview img").show(); // Display image element
-                }else{
-                    alert('file not uploaded');
+                    $(".avatar-block img").attr("src", response);
                 }
             },
         });
-    }else{
-        alert("Please select a file.");
     }
+});
+
+$( "#form-update-description-btn" ).click(function() {
+    $( "#form-update-description" ).submit();
+});
+
+$('#form-update-description').submit(function () {
+    var form = $(this);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(response){
+            $('#dev-description').html(response);
+            $('#exploitationsEdit').modal('hide');
+        }
+    })
+    return false;
+});
+
+$('#form-update-main-data').submit(function () {
+    var form = $(this);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(response){
+            $('#headerEdit').modal('hide');
+            location.reload();
+        }
+    })
+    return false;
 });

@@ -28,7 +28,16 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('context/update-description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
+    Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
+});
+
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
+
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
     Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
     Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');

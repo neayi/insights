@@ -22,11 +22,11 @@ class ContextQueryTest extends TestCase
     {
         $userId1 = Uuid::uuid4()->toString();
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 83220), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), 83220, [], 'desc'), $userId1);
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last',$postalCode = 83220);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 83220,  [], 'desc');
         self::assertEquals($contextExpected, $context);
     }
 
@@ -37,11 +37,11 @@ class ContextQueryTest extends TestCase
     {
         $userId1 = Uuid::uuid4()->toString();
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 97400), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), 97400, [], 'desc'), $userId1);
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last', $postalCode = 97400);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 97400, [], 'desc');
         $contextExpected->department = 974;
         $contextExpected->firstname = 'first';
         $contextExpected->lastname = 'last';
@@ -79,14 +79,14 @@ class ContextQueryTest extends TestCase
             ]
         ]);
 
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$uuid, $uuid2]), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$uuid, $uuid2], 'description'), $userId1);
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
         $icon = route('api.icon.serve', ['id' => $uuid]);
         $icon2 = route('api.icon.serve', ['id' => $uuid2]);
         $charDto = new CharacteristicDto($uuid, 'c:label', GetFarmingType::type, $icon, 'label');
         $char2Dto = new CharacteristicDto($uuid2, 'c:label2', GetFarmingType::typeSystem, $icon2, 'label2');
-        $contextExpected = new ContextDto('first', 'last', $postalCode = 83400, [$charDto, $char2Dto]);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 83400, [$charDto, $char2Dto], 'description');
 
 
         self::assertEquals($contextExpected, $context);

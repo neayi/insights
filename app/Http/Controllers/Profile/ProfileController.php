@@ -6,23 +6,15 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Agricultural\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\UpdateDescription;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
+use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    private function description()
-    {
-        return 'Président du Gabb32 : les Bios du Gers (Groupement des agriculteurs biologiques et biodynamiques).
-
-J’ai commencé à convertir mon exploitation en agriculture biologique en 2010. Suite à ce changement, j’ai cherché à reconcevoir mon système de culture en mettant en œuvre des techniques autres que le désherbage chimique pour la gestion des adventices sur mes parcelles.
-
-Mes convictions: Sol couvert l’hiver, vie du sol, contre l’érosion, enrichir le sol en matière organique, avec légumineuses pour apport d’azote, meilleure structure et porosité du sol.';
-    }
-
-
     public function show(ContextQueryByUser $contextQueryByUser)
     {
         $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
@@ -35,23 +27,31 @@ Mes convictions: Sol couvert l’hiver, vie du sol, contre l’érosion, enrichi
             'userRoles' => $roles,
             'role' => $role,
             'user' => $user,
-            'description' => $this->description(),
             'characteristics' => array_merge($context['productions'], $context['characteristics'])
         ]);
     }
 
-    public function updateProfilePicture(Request $request)
+    public function updateProfilePicture(Request $request, UpdateUserAvatar $updateUserAvatar)
     {
-        if ($request->has('picture')) {
-            $picture['path_picture'] = $request->file('picture')->path();
-            $picture['original_name'] = $request->file('picture')->getClientOriginalName();
-            $picture['mine_type'] = $request->file('picture')->getMimeType();
+        $picture = [];
+        if ($request->has('file')) {
+            $picture['path_picture'] = $request->file('file')->path();
+            $picture['original_name'] = $request->file('file')->getClientOriginalName();
+            $picture['mine_type'] = $request->file('file')->getMimeType();
         }
 
-
+        $pathPicture = $updateUserAvatar->execute(Auth::user()->uuid, $picture);
+        return asset('storage/'.str_replace('app/public/', '', $pathPicture));
     }
 
-    public function updateAccountData()
+    public function updateDescription(Request $request, UpdateDescription $updateDescription)
+    {
+        $description = $request->input('description', '');
+        $updateDescription->execute($description);
+        return $description;
+    }
+
+    public function updateContext()
     {
         return [];
     }

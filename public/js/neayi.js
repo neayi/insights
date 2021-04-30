@@ -40558,8 +40558,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! bootstrap-select */ "./node_modules/bootstrap-select/dist/js/bootstrap-select.js"); // modal login
+__webpack_require__(/*! bootstrap-select */ "./node_modules/bootstrap-select/dist/js/bootstrap-select.js");
 
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+}); // modal login
 
 $("#show_hide_password a.eye").on('click', function (event) {
   event.preventDefault();
@@ -40648,23 +40653,47 @@ $("#fileinput").change(function () {
   if (files.length > 0) {
     fd.append('file', files[0]);
     $.ajax({
-      url: 'upload.php',
+      url: '/update-avatar',
       type: 'post',
       data: fd,
       contentType: false,
       processData: false,
       success: function success(response) {
         if (response != 0) {
-          $("#img").attr("src", response);
-          $(".preview img").show(); // Display image element
-        } else {
-          alert('file not uploaded');
+          $(".avatar-block img").attr("src", response);
         }
       }
     });
-  } else {
-    alert("Please select a file.");
   }
+});
+$("#form-update-description-btn").click(function () {
+  $("#form-update-description").submit();
+});
+$('#form-update-description').submit(function () {
+  var form = $(this);
+  $.ajax({
+    url: form.attr('action'),
+    type: 'post',
+    data: form.serialize(),
+    success: function success(response) {
+      $('#dev-description').html(response);
+      $('#exploitationsEdit').modal('hide');
+    }
+  });
+  return false;
+});
+$('#form-update-main-data').submit(function () {
+  var form = $(this);
+  $.ajax({
+    url: form.attr('action'),
+    type: 'post',
+    data: form.serialize(),
+    success: function success(response) {
+      $('#headerEdit').modal('hide');
+      location.reload();
+    }
+  });
+  return false;
 });
 
 /***/ }),

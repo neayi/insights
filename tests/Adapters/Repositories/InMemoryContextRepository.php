@@ -10,16 +10,21 @@ use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class InMemoryContextRepository implements ContextRepository
 {
-    private $exploitations = [];
+    private $contexts = [];
 
-    public function add(Context $exploitation, string $userId)
+    public function add(Context $context, string $userId)
     {
-        $this->exploitations[$userId] = $exploitation;
+        $this->contexts[$userId] = $context;
+    }
+
+    public function update(Context $context, string $userId)
+    {
+        $this->contexts[$userId] = $context;
     }
 
     public function getByUser(string $userId)
     {
-        return $this->exploitations[$userId] ?? null;
+        return $this->contexts[$userId] ?? null;
     }
 
     public function getByUserDto(string $userId): ?ContextDto
