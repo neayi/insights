@@ -40695,6 +40695,19 @@ $('#form-update-main-data').submit(function () {
   });
   return false;
 });
+$('#form-update-characteristics').submit(function () {
+  var form = $(this);
+  $.ajax({
+    url: form.attr('action'),
+    type: 'post',
+    data: form.serialize(),
+    success: function success(response) {
+      $('#caracteristiquesEdit').modal('hide');
+      location.reload();
+    }
+  });
+  return false;
+});
 
 /***/ }),
 

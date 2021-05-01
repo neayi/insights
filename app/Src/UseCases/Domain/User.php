@@ -125,7 +125,7 @@ class User
         return in_array('admin', $this->roles);
     }
 
-    public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')
+    public function update(string $email, string $firstname, string $lastname, string $pathPicture = "", string $ext = 'jpg')
     {
         $this->email = $email;
         $this->firstname = $firstname;
@@ -165,6 +165,12 @@ class User
     public function addRole(string $role)
     {
         $this->roles[] = $role;
+        app(UserRepository::class)->update($this);
+    }
+
+    public function updateRole(string $role)
+    {
+        $this->roles = [$role];
         app(UserRepository::class)->update($this);
     }
 

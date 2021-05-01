@@ -53,8 +53,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '-'.$context['sector'] : '' }}</div>
-                                <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.$context['structure'] : '' }}</div>
+                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}</div>
+                                <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.ucfirst($context['structure']) : '' }}</div>
                                 <div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      <span class="material-icons mr-2">

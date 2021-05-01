@@ -14,15 +14,15 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <select name="role" id="input-role" title="-" class="selectpicker w-100">
-                                                @foreach($userRoles as $role)
-                                                    <option @if($role['role'] === old('role')) selected @endif value="{{$role['role']}}">
-                                                        @lang('wiki_profile.'.$role['role'])
+                                                @foreach($userRoles as $roleAllowed)
+                                                    <option @if($roleAllowed['role'] === $role) selected @endif value="{{$roleAllowed['role']}}">
+                                                        @lang('wiki_profile.'.$roleAllowed['role'])
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="[secteur, spécialité, ect.]">
+                                            <input name="sector" type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="[secteur, spécialité, ect.]" value="{{$context['sector'] ?? ''}}">
                                         </div>
                                     </div>
                                     <small class="form-text text-muted font-weight-semibold mt-2">
@@ -56,7 +56,7 @@
                                                     <label>Code postal</label>
                                                 </div>
                                                 <div class="col-lg-5 col-9">
-                                                    <input type="text" class="form-control input-big city-input" id="city" aria-describedby="" placeholder="{{$context['postal_code']}}">
+                                                    <input name="postal_code" type="text" class="form-control input-big city-input" id="city" aria-describedby="" value="{{$context['postal_code']}}">
                                                 </div>
                                             </div>
                                             <small class="form-text text-muted font-weight-semibold mt-2">
@@ -69,10 +69,7 @@
                                                     <label>Structure de rattachement</label>
                                                 </div>
                                                 <div class="col-lg-6 col-9">
-                                                    <select class="selectpicker w-100" title="-">
-                                                        <option value="1">Agriculteur</option>
-                                                        <option value="2">Autre</option>
-                                                    </select>
+                                                    <input name="structure" type="text" class="form-control input-big" id="structure" aria-describedby="" value="{{$context['structure'] ?? ''}}">
                                                 </div>
                                             </div>
                                         </div>

@@ -35,4 +35,10 @@ class InMemoryInteractionRepository implements InteractionRepository
     {
         return [];
     }
+
+    public function getDoneByUser(string $userId): array
+    {
+        // TODO: Implement getDoneByUser() method.
+    }
+
 }

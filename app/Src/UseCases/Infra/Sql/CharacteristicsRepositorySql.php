@@ -19,6 +19,16 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $list->toArray();
     }
 
+    public function getAllByType(string $type): array
+    {
+        $list = CharacteristicsModel::query()
+            ->where('type', $type)
+            ->orderBy('priority')
+            ->get();
+        return $list->toArray();
+    }
+
+
     /**
      * only used for ti test
      * @param array $cs

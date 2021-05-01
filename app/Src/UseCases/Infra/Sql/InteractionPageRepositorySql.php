@@ -70,5 +70,14 @@ class InteractionPageRepositorySql implements InteractionRepository
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
     }
 
+    public function getDoneByUser(string $userId): array
+    {
+        $user = User::query()->where('uuid', $userId)->first();
+        return InteractionModel::query()
+            ->where('user_id', $user->id)
+            ->get()
+            ->toArray();
+    }
+
 
 }

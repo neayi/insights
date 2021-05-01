@@ -17,4 +17,11 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
     {
         // do nothing
     }
+
+    public function getAllByType(string $type): array
+    {
+        // TODO: Implement getAllByType() method.
+    }
+
+
 }
