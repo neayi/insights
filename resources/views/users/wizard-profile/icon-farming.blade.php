@@ -1,6 +1,6 @@
 @php
 $state = '';
-if(in_array($uuid, old('farming_type', []))){
+if(in_array($uuid, old('farming_type', [])) || (isset($checked) && $checked == true)){
     $state = 'checked';
 }
 @endphp
