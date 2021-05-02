@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
     Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
     Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
+
+    Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
