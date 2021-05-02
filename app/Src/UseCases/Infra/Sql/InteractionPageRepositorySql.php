@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\UseCases\Domain\Agricultural\Dto\PractiseVo;
 use App\Src\UseCases\Domain\Agricultural\Model\CanInteract;
 use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
@@ -73,10 +74,19 @@ class InteractionPageRepositorySql implements InteractionRepository
     public function getDoneByUser(string $userId): array
     {
         $user = User::query()->where('uuid', $userId)->first();
-        return InteractionModel::query()
+        $records = InteractionModel::query()
+            ->with('page')
             ->where('user_id', $user->id)
-            ->get()
-            ->toArray();
+            ->where('done', true)
+            ->get();
+        foreach ($records as $record){
+            $practises[] = new PractiseVo(
+                $record->page_id,
+                $record->page->title ?? '',
+                $record->start_done_at ?? new \DateTime()
+            );
+        }
+        return $practises ?? [];
     }
 
 

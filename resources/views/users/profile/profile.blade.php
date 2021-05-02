@@ -183,78 +183,24 @@
                         </div>
                         <p class="empty d-none">Renseignez les pratiques misent en œuvre sur votre exploitation.</p>
                         <div class="timeline filled">
-                            <div class="year">2021</div>
-                            <ul class="elements">
-                                <li>
-                                    <a href="#">
-                                        Activité biologique des sols
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la conduite des cultures au débouché visé
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la dose de traitement au volume foliaire en verger
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la puissance du tracteur aux outils utilisés et à la charge
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter le système de culture en fonction du risque de salissement qu'il génère
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la conduite des cultures au débouché visé
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la dose de traitement au volume foliaire en verger
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la puissance du tracteur aux outils utilisés et à la charge
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter le système de culture en fonction du risque de salissement qu'il génère
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la conduite des cultures au débouché visé
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la dose de traitement au volume foliaire en verger
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter la puissance du tracteur aux outils utilisés et à la charge
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Adapter le système de culture en fonction du risque de salissement qu'il génère
-                                    </a>
-                                </li>
-                            </ul>
+                            @php $count = 0; @endphp
+                            @foreach($practises as $year => $practisesByYear)
+                                @php $count++; @endphp
+                                <div class="year practises-elem">{{$year}}</div>
+                                <ul class="elements practises-elem">
+                                    @foreach($practisesByYear as $practise)
+                                        <li class="practises-elem">
+                                            <a href="#">
+                                                {{$practise['label']}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endforeach
                         </div>
-                        <a class="btn btn-outline-gray mt-2">
+                        <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
                             Afficher toutes mes pratiques
-                        </a>
+                        </button>
                     </div>
                 </div>
 
