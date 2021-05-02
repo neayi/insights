@@ -40708,6 +40708,16 @@ $('#form-update-characteristics').submit(function () {
   });
   return false;
 });
+var loadAsyncDivs = $('[show-async]');
+loadAsyncDivs.each(function (key, item) {
+  $.ajax({
+    url: $(item).attr('show-async'),
+    type: 'GET',
+    success: function success(html) {
+      $(item).html(html);
+    }
+  });
+});
 
 /***/ }),
 
