@@ -40765,6 +40765,20 @@ loadAsyncDivs.each(function (key, item) {
     }
   });
 });
+$('#btn-show-practises').click(function () {
+  var action = $(this).attr('action');
+
+  if (action === 'show') {
+    $(this).attr('action', 'hide');
+    $(this).html('Ne plus afficher');
+    $(".pratiques.edition .filled").css('-webkit-line-clamp', 'unset');
+    return;
+  }
+
+  $(this).attr('action', 'show');
+  $(this).html('Afficher toutes mes pratiques');
+  $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
+});
 
 /***/ }),
 

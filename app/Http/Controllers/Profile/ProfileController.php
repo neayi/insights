@@ -27,7 +27,6 @@ class ProfileController extends Controller
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
-
         $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
@@ -41,6 +40,7 @@ class ProfileController extends Controller
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'farmingType' => $allCharacteristics[GetAllCharacteristics::type],
             'croppingType' => $allCharacteristics[GetAllCharacteristics::typeSystem],
+            'practises' => $practises
         ]);
     }
 
