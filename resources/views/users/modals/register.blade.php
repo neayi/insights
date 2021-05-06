@@ -23,7 +23,7 @@
                                     <a href="https://www.facebook.com/tripleperformance" target="_blank" class="text-decoration-none">
                                         <img src="images/facebook-white.png" alt="Facebook" class="d-inline-block mr-1">
                                     </a>
-                                    <a href="https://twitter.com/neayi_com" target="_blank" class="text-decoration-none">
+                                    <a href="https://twitter.com/TriplePerforma1" target="_blank" class="text-decoration-none">
                                         <img src="images/twitter-white.png" alt="Twitter" class="d-inline-block mr-1">
                                     </a>
                                     <a href="https://medium.com/neayi-en-fran%C3%A7ais" target="_blank" class="text-decoration-none">
