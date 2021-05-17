@@ -9,7 +9,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <p class="info">
+                                <!--p class="info">
                                     Pensez à utiliser
                                     <span class="material-icons circle-icon mx-1">
                                      search
@@ -21,7 +21,7 @@
                                     </span>
                                     <strong>ajouter vous-même</strong>
                                     ce qui vous caractérise le mieux.
-                                </p>
+                                </p-->
                             </div>
                         </div>
                         <!-- je suis principalement en -->
@@ -29,12 +29,12 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis principalement en</label>
-                                    <a class="material-icons circle-icon mx-1" data-toggle="modal" data-target="#caracteristiqueSearch">
+                                    <!--a class="material-icons circle-icon mx-1" data-toggle="modal" data-target="#caracteristiqueSearch">
                                         search
                                     </a>
                                     <a class="material-icons circle-icon mx-1" href="#">
                                         add
-                                    </a>
+                                    </a-->
                                     <div class="circle-row d-flex flex-wrap">
                                     @foreach($farmingType as $farming)
                                         <div class="circle-item">
@@ -56,12 +56,12 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis en</label>
-                                    <a class="material-icons circle-icon mx-1" href="#">
+                                    <!--a class="material-icons circle-icon mx-1" href="#">
                                         search
                                     </a>
                                     <a class="material-icons circle-icon mx-1" href="#">
                                         add
-                                    </a>
+                                    </a-->
                                     <div class="circle-row d-flex flex-wrap">
                                         @foreach($croppingType as $farming)
                                             <div class="circle-item">

@@ -31,13 +31,17 @@
         @foreach($comments as $comment)
             <div class="col-lg-6 followed-page mb-3">
             <div class="row align-items-center">
+                @if(isset($comment['picture']))
                 <div class="col-lg-5">
-                    <img src="{{ $picture }}" class="followed-image mb-lg-0 mb-3">
+                    <img src="{{ $comment['picture'] }}" class="followed-image mb-lg-0 mb-3">
                 </div>
+                @endif
                 <div class="col-lg-7">
                     <h4>
                         {{ $comment['username'] }}
-                        {!! $comment['html'] !!}
+                        <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$comment['real_page_id']}}">
+                            {!! $comment['html'] !!}
+                        </a>
                     </h4>
                     <div class="applause-count d-inline-block">
                         {{ $comment['numupvotes'] }} <img src="{{ asset('images/applause.png') }}">
