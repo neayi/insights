@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 map">
-                                <img src="{{ asset('images/map-france/544px-France_Climat_Département_'.$context['department'].'.png') }}">
+                                <img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}">
                             </div>
                         </div>
                     </div>
