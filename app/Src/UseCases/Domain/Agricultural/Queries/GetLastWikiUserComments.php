@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain\Agricultural\Queries;
 
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 
@@ -40,15 +41,17 @@ class GetLastWikiUserComments
             if(!isset($commentsToRetrieved[$comment['pageid']])) {
                 $commentsToRetrieved[$comment['pageid']] = $comment;
             }
-            if(count($commentsToRetrieved) > 3){
-                break;
-            }
         }
 
         foreach($commentsToRetrieved as $pageId => $commentToRetrieved){
             $response = $this->httpClient->get(config('wiki.api_uri').$this->commentEndPoint.$pageId);
             $content = json_decode($response->getBody()->getContents(), true);
             $commentsToRetrieved[$pageId] = array_merge($commentsToRetrieved[$pageId], $content['csquerycomment']);
+
+            $realPageId = $content['csquerycomment']['associatedid'];
+            $page = PageModel::where('page_id', $realPageId)->first();
+            $commentsToRetrieved[$pageId]['picture'] = $page['picture'];
+            $commentsToRetrieved[$pageId]['real_page_id'] = $realPageId;
         }
 
         Cache::put("comments_".$userId, json_encode($commentsToRetrieved), 86400);

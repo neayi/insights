@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}</div>
                                 <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.ucfirst($context['structure']) : '' }}</div>
-                                <div class="dropdown mt-3">
+                                <!--div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      <span class="material-icons mr-2">
                                         settings
@@ -94,7 +94,7 @@
                                             Se déconnecter
                                         </a>
                                     </div>
-                                </div>
+                                </div-->
                             </div>
                             <div class="col-md-4 map">
                                 <img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}">
@@ -170,7 +170,7 @@
                     <div class="col-md-6 editable pratiques edition">
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">Mes pratiques</h3>
-                            <div class="edit d-inline-block ml-4 mb-1">
+                            <!--div class="edit d-inline-block ml-4 mb-1">
                                 <a class="btn btn-outline-gray edit-btn mr-2" data-toggle="modal" data-target="#pratiquesEdit">
                              <span class="material-icons text-dark-green">
                                  edit
@@ -179,7 +179,7 @@
                                 <a class="text-dark-green edit-link text-decoration-none">
                                     Editer
                                 </a>
-                            </div>
+                            </div-->
                         </div>
                         <p class="empty d-none">Renseignez les pratiques misent en œuvre sur votre exploitation.</p>
                         <div class="timeline filled">
@@ -190,7 +190,7 @@
                                 <ul class="elements practises-elem">
                                     @foreach($practisesByYear as $practise)
                                         <li class="practises-elem">
-                                            <a href="#">
+                                            <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$practise['page_id']}}">
                                                 {{$practise['label']}}
                                             </a>
                                         </li>
@@ -231,7 +231,7 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active following" id="following" role="tabpanel" aria-labelledby="following-tab">
-                                <div class="row mt-4">
+                                <!--div class="row mt-4">
                                     <div class="col-md-12">
                                         <p class="empty d-none">Accédez rapidement à toutes les pages que souhaitez mettre de côté dans cette section.</p>
                                         <a class="btn btn-outline-gray">
@@ -256,91 +256,66 @@
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div-->
                                 <div class="row mt-4">
                                     <!--followed page -->
-                                    <div class="col-lg-6 followed-page mb-3">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-5">
-                                                <img src="assets/background-hero.jpg" class="followed-image mb-lg-0 mb-3">
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <h4>Gérer les populations des bioagresseurs grâce aux mesures prophylactiques</h4>
-                                                <div class="applause-count d-inline-block">
-                                                    67
-                                                    <img src="assets/applause.png">
+                                    @if(isset($interactions['follow']))
+                                        @foreach($interactions['follow'] as $interaction)
+                                            <div class="col-lg-6 followed-page mb-3">
+                                                <div class="row align-items-center">
+                                                    @if(isset($interaction['picture']))
+                                                        <div class="col-lg-5">
+                                                            <img src="{{ $interaction['picture'] }}" class="followed-image mb-lg-0 mb-3">
+                                                        </div>
+                                                    @endif
+                                                    <div class="col-lg-7">
+                                                        <h4>{{ $interaction['title'] }}</h4>
+                                                        <div class="applause-count d-inline-block">
+                                                            {{ $interaction['applause']}}
+                                                            <img src="{{ asset('images/applause.png') }}">
+                                                        </div>
+                                                        <!--span class="badge badge-grey">
+                                                            Bioagresseurs
+                                                        </span-->
+                                                    </div>
                                                 </div>
-                                                <span class="badge badge-grey">
-                                                Bioagresseurs
-                                            </span>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <!--followed page -->
-                                    <div class="col-lg-6 followed-page mb-3">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-5">
-                                                <img src="assets/background-hero2.jpg" class="followed-image mb-lg-0 mb-3">
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <h4>Implanter des bandes herbeuses et florales en bordure des parcelles</h4>
-                                                <div class="applause-count d-inline-block">
-                                                    52
-                                                    <img src="assets/applause.png">
-                                                </div>
-                                                <span class="badge badge-grey">
-                                                Bordures
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--followed page -->
-                                    <div class="col-lg-6 followed-page mb-3">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-5">
-                                                <img src="assets/background-hero.jpg" class="followed-image mb-lg-0 mb-3">
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <h4>Gérer les populations des bioagresseurs grâce aux mesures prophylactiques</h4>
-                                                <div class="applause-count d-inline-block">
-                                                    67
-                                                    <img src="assets/applause.png">
-                                                </div>
-                                                <span class="badge badge-grey">
-                                                Bioagresseurs
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--followed page -->
-                                    <div class="col-lg-6 followed-page mb-3">
-                                        <div class="row align-items-center">
-                                            <div class="col-lg-5">
-                                                <img src="https://wiki.tripleperformance.fr/images/b/b6/Georges-Joya.jpg" class="followed-image mb-lg-0 mb-3">
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <h4>Implanter des bandes herbeuses et florales en bordure des parcelles</h4>
-                                                <div class="applause-count d-inline-block">
-                                                    52
-                                                    <img src="assets/applause.png">
-                                                </div>
-                                                <span class="badge badge-grey">
-                                                Bordures
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                        @endforeach
+                                    @endif
                                 </div>
 
                             </div>
-                            <div show-async="{{ route('profile.comments.show') }}" class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                            <div show-async="{{ route('profile.comments.show') }}"
+                                 class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                             </div>
-                            <div class="tab-pane fade" id="third" role="tabpanel" aria-labelledby="third-tab">...</div>
+                            <div class="tab-pane fade following" id="third" role="tabpanel" aria-labelledby="third-tab">
+                                <div class="row mt-4">
+                                    <!--followed page -->
+                                    @if(isset($interactions['applause']))
+                                        @foreach($interactions['applause'] as $interaction)
+                                            <div class="col-lg-6 followed-page mb-3">
+                                                <div class="row align-items-center">
+                                                    @if(isset($interaction['picture']))
+                                                        <div class="col-lg-5">
+                                                            <img src="{{ $interaction['picture'] }}" class="followed-image mb-lg-0 mb-3">
+                                                        </div>
+                                                    @endif
+                                                    <div class="col-lg-7">
+                                                        <h4>{{ $interaction['title'] }}</h4>
+                                                        <div class="applause-count d-inline-block">
+                                                            {{ $interaction['applause']}}
+                                                            <img src="{{ asset('images/applause.png') }}">
+                                                        </div>
+                                                        <!--span class="badge badge-grey">
+                                                            Bioagresseurs
+                                                        </span-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -13,5 +13,6 @@ interface InteractionRepository
     public function getByInteractUser(CanInteract $canInteract, int $pageId):?Interaction;
     public function transfer(CanInteract $anonymous, CanInteract $registered);
     public function getCountInteractionsOnPage(int $pageId):array;
+    public function getInteractionsByUser(string $userId):array;
     public function getDoneByUser(string $userId):array;
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Agricultural\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Agricultural\Dto\GetUserPractises;
 use App\Src\UseCases\Domain\Agricultural\Queries\ContextQueryByUser;
-use App\Src\UseCases\Domain\Agricultural\Queries\GetLastWikiUserComments;
+use App\Src\UseCases\Domain\Agricultural\Queries\InteractionsQueryByUser;
 use App\Src\UseCases\Domain\Context\UpdateCharacteristics;
 use App\Src\UseCases\Domain\Context\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UpdateMainData;
@@ -27,6 +27,7 @@ class ProfileController extends Controller
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
+        $interactions = app(InteractionsQueryByUser::class)->get(Auth::user()->uuid);
         $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
@@ -40,7 +41,8 @@ class ProfileController extends Controller
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'farmingType' => $allCharacteristics[GetAllCharacteristics::type],
             'croppingType' => $allCharacteristics[GetAllCharacteristics::typeSystem],
-            'practises' => $practises
+            'practises' => $practises,
+            'interactions' => $interactions
         ]);
     }
 
