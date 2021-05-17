@@ -269,7 +269,11 @@
                                                         </div>
                                                     @endif
                                                     <div class="col-lg-7">
-                                                        <h4>{{ $interaction['title'] }}</h4>
+                                                        <h4>
+                                                            <a style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
+                                                                {{ $interaction['title'] }}
+                                                            </a>
+                                                        </h4>
                                                         <div class="applause-count d-inline-block">
                                                             {{ $interaction['applause']}}
                                                             <img src="{{ asset('images/applause.png') }}">
@@ -301,7 +305,11 @@
                                                         </div>
                                                     @endif
                                                     <div class="col-lg-7">
-                                                        <h4>{{ $interaction['title'] }}</h4>
+                                                        <h4>
+                                                            <a style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
+                                                                {{ $interaction['title'] }}
+                                                            </a>
+                                                        </h4>
                                                         <div class="applause-count d-inline-block">
                                                             {{ $interaction['applause']}}
                                                             <img src="{{ asset('images/applause.png') }}">
