@@ -164,7 +164,12 @@
                             Présentez à la communauté votre exploitation, son histoire et vos objectifs.
                         </p>
                         <p class="filled" id="dev-description">
-                            {{ $context['description'] }}
+                            @php
+                                $description = preg_replace('((https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}))',
+                                    '<a target="_blank" href="$1">$1</a>',
+                                    $context['description']);
+                            @endphp
+                            {!! $description !!}
                         </p>
                     </div>
                     <div class="col-md-6 editable pratiques edition">
