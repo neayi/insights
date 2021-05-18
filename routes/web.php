@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
 
     Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
+    Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {

@@ -68,8 +68,15 @@
                                                 <div class="col-lg-4 col-3">
                                                     <label>Structure de rattachement</label>
                                                 </div>
-                                                <div class="col-lg-6 col-9">
-                                                    <input name="structure" type="text" class="form-control input-big" id="structure" aria-describedby="" value="{{$context['structure'] ?? ''}}">
+                                                <div class="col-lg-8 col-9">
+                                                    <input name="structure"
+                                                           type="text"
+                                                           class="structure-auto-complete form-control input-big"
+                                                           id="structure"
+                                                           autocomplete="off"
+                                                           data-url="{{ route('profile.structure.search') }}"
+                                                           data-noresults-text="Pas de résultats"
+                                                           value="{{$context['structure'] ?? ''}}">
                                                 </div>
                                             </div>
                                         </div>
