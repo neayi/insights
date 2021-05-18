@@ -28,28 +28,34 @@
         </div-->
     </div>
     <div class="row mt-4">
-        @foreach($comments as $comment)
-            <div class="col-lg-6 followed-page mb-3">
-            <div class="row align-items-center">
-                @if(isset($comment['picture']))
-                <div class="col-lg-5">
-                    <img src="{{ $comment['picture'] }}" class="followed-image mb-lg-0 mb-3">
-                </div>
-                @endif
-                <div class="col-lg-7">
-                    <h4>
-                        {{ $comment['username'] }}
-                        <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$comment['real_page_id']}}">
-                            {!! $comment['html'] !!}
-                        </a>
-                    </h4>
-                    <div class="applause-count d-inline-block">
-                        {{ $comment['numupvotes'] }} <img src="{{ asset('images/applause.png') }}">
+        @if(!empty($comments))
+            @foreach($comments as $comment)
+                <div class="col-lg-6 followed-page mb-3">
+                <div class="row align-items-center">
+                    @if(isset($comment['picture']))
+                    <div class="col-lg-5">
+                        <img src="{{ $comment['picture'] }}" class="followed-image mb-lg-0 mb-3">
+                    </div>
+                    @endif
+                    <div class="col-lg-7">
+                        <h4>
+                            {{ $comment['username'] }}
+                            <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$comment['real_page_id']}}">
+                                {!! $comment['html'] !!}
+                            </a>
+                        </h4>
+                        <div class="applause-count d-inline-block">
+                            {{ $comment['numupvotes'] }} <img src="{{ asset('images/applause.png') }}">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @endforeach
+            @endforeach
+        @else
+            <div class="alert alert-info">
+                Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+            </div>
+        @endif
     </div>
 </div>
 
