@@ -184,23 +184,31 @@
                         <p class="empty d-none">Renseignez les pratiques misent en œuvre sur votre exploitation.</p>
                         <div class="timeline filled">
                             @php $count = 0; @endphp
-                            @foreach($practises as $year => $practisesByYear)
-                                @php $count++; @endphp
-                                <div class="year practises-elem">{{$year}}</div>
-                                <ul class="elements practises-elem">
-                                    @foreach($practisesByYear as $practise)
-                                        <li class="practises-elem">
-                                            <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$practise['page_id']}}">
-                                                {{$practise['label']}}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endforeach
+                            @if(!empty($practises))
+                                @foreach($practises as $year => $practisesByYear)
+                                    @php $count++; @endphp
+                                    <div class="year practises-elem">{{$year}}</div>
+                                    <ul class="elements practises-elem">
+                                        @foreach($practisesByYear as $practise)
+                                            <li class="practises-elem">
+                                                <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$practise['page_id']}}">
+                                                    {{$practise['label']}}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endforeach
+                            @else
+                                <div class="alert alert-info">
+                                    Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                </div>
+                            @endif
                         </div>
-                        <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
-                            Afficher toutes mes pratiques
-                        </button>
+                        @if(!empty($practises))
+                            <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
+                                Afficher toutes mes pratiques
+                            </button>
+                        @endif
                     </div>
                 </div>
 
@@ -259,7 +267,7 @@
                                 </div-->
                                 <div class="row mt-4">
                                     <!--followed page -->
-                                    @if(isset($interactions['follow']))
+                                    @if(isset($interactions['follow']) && !empty($interactions['follow']))
                                         @foreach($interactions['follow'] as $interaction)
                                             <div class="col-lg-6 followed-page mb-3">
                                                 <div class="row align-items-center">
@@ -285,6 +293,10 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                    @else
+                                        <div class="alert alert-info">
+                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        </div>
                                     @endif
                                 </div>
 
@@ -295,7 +307,7 @@
                             <div class="tab-pane fade following" id="third" role="tabpanel" aria-labelledby="third-tab">
                                 <div class="row mt-4">
                                     <!--followed page -->
-                                    @if(isset($interactions['applause']))
+                                    @if(isset($interactions['applause']) && !empty($interactions['applause']))
                                         @foreach($interactions['applause'] as $interaction)
                                             <div class="col-lg-6 followed-page mb-3">
                                                 <div class="row align-items-center">
@@ -321,6 +333,10 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                    @else
+                                        <div class="alert alert-info">
+                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        </div>
                                     @endif
                                 </div>
                             </div>
