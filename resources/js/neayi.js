@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('bootstrap-select');
+require('bootstrap-autocomplete');
 
 
 $.ajaxSetup({
@@ -184,3 +185,4 @@ $('#btn-show-practises').click(function (){
 });
 
 
+$('.structure-auto-complete').autoComplete();
