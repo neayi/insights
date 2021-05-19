@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Agricultural\Queries;
+namespace App\Src\UseCases\Domain\Context\Queries;
 
 
 use App\Src\UseCases\Domain\Ports\UserRepository;

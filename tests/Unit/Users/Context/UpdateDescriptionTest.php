@@ -4,8 +4,8 @@
 namespace Tests\Unit\Users\Context;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
-use App\Src\UseCases\Domain\Context\UpdateDescription;
+use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 

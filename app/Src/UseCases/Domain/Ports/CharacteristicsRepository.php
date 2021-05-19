@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Characteristic;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 
 interface CharacteristicsRepository
 {

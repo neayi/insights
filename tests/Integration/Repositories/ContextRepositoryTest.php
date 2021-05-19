@@ -4,7 +4,7 @@
 namespace Tests\Integration\Repositories;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use Tests\TestCase;

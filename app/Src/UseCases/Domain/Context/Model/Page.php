@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Agricultural\Model;
+namespace App\Src\UseCases\Domain\Context\Model;
 
 
 use App\Src\UseCases\Domain\Ports\PageRepository;

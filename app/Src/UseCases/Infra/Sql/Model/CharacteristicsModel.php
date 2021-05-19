@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Sql\Model;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\CharacteristicDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Characteristic;
+use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 

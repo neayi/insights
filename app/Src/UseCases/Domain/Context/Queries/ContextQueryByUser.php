@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Agricultural\Queries;
+namespace App\Src\UseCases\Domain\Context\Queries;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class ContextQueryByUser

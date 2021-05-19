@@ -4,11 +4,11 @@
 namespace Tests\Integration\Context;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\CharacteristicDto;
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
-use App\Src\UseCases\Domain\Agricultural\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
 use App\Src\UseCases\Domain\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
