@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Infra\Sql\Model;
 
 
 use App\Src\UseCases\Domain\Agricultural\Dto\CharacteristicDto;
+use App\Src\UseCases\Domain\Agricultural\Model\Characteristic;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,7 @@ class CharacteristicsModel extends Model
         'page_id',
         'type',
         'code',
+        'visible',
     ];
 
     public function users()
@@ -43,5 +45,10 @@ class CharacteristicsModel extends Model
             $icon,
             $this->pretty_page_label
         );
+    }
+
+    public function toDomain()
+    {
+        return new Characteristic($this->type, $this->code, $this->attributes['visible']);
     }
 }

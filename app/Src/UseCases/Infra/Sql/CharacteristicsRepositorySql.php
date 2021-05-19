@@ -4,8 +4,10 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\UseCases\Domain\Agricultural\Model\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use Ramsey\Uuid\Uuid;
 
 class CharacteristicsRepositorySql implements CharacteristicsRepository
 {
@@ -41,4 +43,36 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
             $cModel->save();
         }
     }
+
+    public function save(Characteristic $c)
+    {
+        $memento = $c->memento();
+        $characteristicModel = new CharacteristicsModel();
+        $characteristicModel->page_label = $memento->title();
+        $characteristicModel->pretty_page_label = $memento->title();
+        $characteristicModel->main = false;
+        $characteristicModel->priority = 0;
+        $characteristicModel->uuid = Uuid::uuid4();
+        $characteristicModel->code = $memento->title();
+        $characteristicModel->type = $memento->type();
+        $characteristicModel->visible = $memento->visible();
+        $characteristicModel->save();
+    }
+
+    public function getBy(array $conditions): ?Characteristic
+    {
+        $characteristicModel = CharacteristicsModel::query()
+            ->when(isset($conditions['type']), function ($query) use($conditions){
+                $query->where('type', $conditions['type']);
+            })->when(isset($conditions['title']), function ($query) use($conditions){
+                $query->where('code', $conditions['title']);
+            })
+            ->first();
+        if(!isset($characteristicModel)){
+            return null;
+        }
+        return $characteristicModel->toDomain();
+    }
+
+
 }
