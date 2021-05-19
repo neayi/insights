@@ -10,7 +10,7 @@ class Context
 {
     private $uid;
     private $postalCode;
-    private $farmingType;
+    private $characteristics;
     private $description;
     private $sector;
     private $structure;
@@ -19,7 +19,7 @@ class Context
     public function __construct(
         string $id,
         string $postalCode,
-        array $farmingType = [],
+        array $characteristics = [],
         string $description = null,
         string $sector = null,
         string $structure = null
@@ -27,7 +27,7 @@ class Context
     {
         $this->uid = $id;
         $this->postalCode = $postalCode;
-        $this->farmingType = $farmingType;
+        $this->characteristics = $characteristics;
         $this->description = $description;
         $this->sector = $sector;
         $this->structure = $structure;
@@ -48,10 +48,15 @@ class Context
     {
         $this->description = $params['description'] ?? $this->description;
         $this->postalCode = $params['postal_code'] ?? $this->postalCode;
-        $this->farmingType = $params['characteristics'] ?? $this->farmingType;
+        $this->characteristics = $params['characteristics'] ?? $this->characteristics;
         $this->sector = $params['sector'] ?? $this->sector;
         $this->structure = $params['structure'] ?? $this->structure;
         $this->contextRepository->update($this, $userId);
+    }
+
+    public function addCharacteristics(array $characteristics)
+    {
+        $this->characteristics = array_merge($this->characteristics, $characteristics);
     }
 
     public function toArray()
@@ -59,7 +64,7 @@ class Context
         return [
             'uuid' => $this->uid,
             'postal_code' => $this->postalCode,
-            'farmings' => $this->farmingType,
+            'farmings' => $this->characteristics,
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,

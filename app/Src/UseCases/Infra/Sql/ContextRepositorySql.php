@@ -66,8 +66,8 @@ class ContextRepositorySql implements ContextRepository
             $context->postal_code,
             $characteristics->toArray(),
             $context->description,
-            $context->sector,
-            $context->structure
+            $context->sector ?? '',
+            $context->structure ?? ''
         );
     }
 
