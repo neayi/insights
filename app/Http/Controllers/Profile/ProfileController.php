@@ -6,12 +6,12 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
-use App\Src\UseCases\Domain\Context\Dto\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
-use App\Src\UseCases\Domain\Context3\UpdateCharacteristics;
-use App\Src\UseCases\Domain\Context3\UpdateDescription;
-use App\Src\UseCases\Domain\Context3\UpdateMainData;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
