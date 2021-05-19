@@ -14,7 +14,7 @@ class CharacteristicsRepositoryTest extends TestCase
      */
     public function saveCharacteristics()
     {
-        $char = new Characteristic('type', 'title', false);
+        $char = new Characteristic('abc', 'type', 'title', false);
         $this->characteristicRepository->save($char);
 
         self::assertDatabaseHas('characteristics', [
@@ -28,7 +28,7 @@ class CharacteristicsRepositoryTest extends TestCase
      */
     public function shouldGetCharacteristic()
     {
-        $char = new Characteristic('type', 'title', false);
+        $char = new Characteristic('abc', 'type', 'title', false);
         $this->characteristicRepository->save($char);
 
         $characteristicFromDb = $this->characteristicRepository->getBy(['type' => 'type', 'title' => 'title']);

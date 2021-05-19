@@ -52,7 +52,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->pretty_page_label = $memento->title();
         $characteristicModel->main = false;
         $characteristicModel->priority = 0;
-        $characteristicModel->uuid = Uuid::uuid4();
+        $characteristicModel->uuid = $memento->id();
         $characteristicModel->code = $memento->title();
         $characteristicModel->type = $memento->type();
         $characteristicModel->visible = $memento->visible();
