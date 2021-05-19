@@ -10,6 +10,9 @@ use App\Src\UseCases\Domain\Shared\Model\Memento;
 
 class Characteristic implements HasMemento
 {
+    const FARMING_TYPE = 'farming';
+    const CROPPING_SYSTEM = 'croppingSystem';
+
     private $title;
     private $type;
     private $visible;

@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Domain\Context\Dto;
 
 
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
 class GetFarmingType
@@ -19,17 +20,17 @@ class GetFarmingType
 
     public function get()
     {
-        $mains = $this->characteristicsRepository->getByType(self::type, true);
-        $others = $this->characteristicsRepository->getByType(self::type, false);
+        $mains = $this->characteristicsRepository->getByType(Characteristic::FARMING_TYPE, true);
+        $others = $this->characteristicsRepository->getByType(Characteristic::FARMING_TYPE, false);
 
-        $mainsTs = $this->characteristicsRepository->getByType(self::typeSystem, true);
-        $othersTs = $this->characteristicsRepository->getByType(self::typeSystem, false);
+        $mainsTs = $this->characteristicsRepository->getByType(Characteristic::CROPPING_SYSTEM, true);
+        $othersTs = $this->characteristicsRepository->getByType(Characteristic::CROPPING_SYSTEM, false);
         return [
-            self::type => [
+            Characteristic::FARMING_TYPE => [
                 'main' => $mains,
                 'others' => $others
             ],
-            self::typeSystem => [
+            Characteristic::CROPPING_SYSTEM => [
                 'main' => $mainsTs,
                 'others' => $othersTs
             ],
