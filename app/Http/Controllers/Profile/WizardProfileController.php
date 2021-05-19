@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Profile;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
