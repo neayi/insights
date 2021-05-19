@@ -49,6 +49,6 @@ class CharacteristicsModel extends Model
 
     public function toDomain()
     {
-        return new Characteristic($this->type, $this->code, $this->attributes['visible']);
+        return new Characteristic($this->uuid, $this->type, $this->code, $this->attributes['visible']);
     }
 }
