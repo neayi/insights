@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\System;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 
 class SetPageDryState

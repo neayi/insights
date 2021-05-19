@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Agricultural\Dto;
+namespace App\Src\UseCases\Domain\Context\Dto;
 
 
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;

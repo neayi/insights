@@ -4,10 +4,10 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\PractiseVo;
-use App\Src\UseCases\Domain\Agricultural\Model\CanInteract;
-use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Dto\PractiseVo;
+use App\Src\UseCases\Domain\Context\Model\CanInteract;
+use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;

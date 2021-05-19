@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;

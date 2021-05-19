@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Agricultural\Dto;
+namespace App\Src\UseCases\Domain\Context\Dto;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\PostalCode;
+use App\Src\UseCases\Domain\Context\Model\PostalCode;
 
 class ContextDto implements \JsonSerializable
 {

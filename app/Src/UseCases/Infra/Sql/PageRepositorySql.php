@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 

@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\CanInteract;
-use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Model\CanInteract;
+use App\Src\UseCases\Domain\Context\Model\Interaction;
 
 interface InteractionRepository
 {
