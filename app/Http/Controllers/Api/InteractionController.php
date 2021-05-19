@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Agricultural\Queries\CountInteractionsOnPageQuery;
-use App\Src\UseCases\Domain\Agricultural\Queries\InteractionsQueryByPageAndUser;
+use App\Src\UseCases\Domain\Context\Queries\CountInteractionsOnPageQuery;
+use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByPageAndUser;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Http\Request;
 

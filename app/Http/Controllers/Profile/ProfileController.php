@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Profile;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Agricultural\Dto\GetAllCharacteristics;
-use App\Src\UseCases\Domain\Agricultural\Dto\GetUserPractises;
-use App\Src\UseCases\Domain\Agricultural\Queries\ContextQueryByUser;
-use App\Src\UseCases\Domain\Agricultural\Queries\InteractionsQueryByUser;
+use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
+use App\Src\UseCases\Domain\Context\Dto\GetUserPractises;
+use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
 use App\Src\UseCases\Domain\Context3\UpdateCharacteristics;
 use App\Src\UseCases\Domain\Context3\UpdateDescription;
 use App\Src\UseCases\Domain\Context3\UpdateMainData;
