@@ -186,3 +186,20 @@ $('#btn-show-practises').click(function (){
 
 
 $('.structure-auto-complete').autoComplete();
+
+$('#search-characteristics').change(function(){
+    var elem = $(this);
+    var type = $(this).attr('data-type');
+    var search = $(this).val();
+    $.ajax({
+        url : elem.attr('data-action'),
+        data: {type:type, search:search},
+        success:function (data){
+            $('#result-row').html(data);
+        }
+    });
+});
+
+$('.search-type-c').click(function(){
+    $('#search-characteristics').attr('data-type', $(this).attr('data-type'));
+});

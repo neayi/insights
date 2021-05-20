@@ -38,6 +38,6 @@ class CreateCharacteristic
 
         $user = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($user->id());
-        $context->addCharacteristics([$id]);
+        $context->addCharacteristics([$id], $user->id());
     }
 }

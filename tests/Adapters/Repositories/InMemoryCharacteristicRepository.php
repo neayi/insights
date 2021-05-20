@@ -46,4 +46,11 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
         }
         return null;
     }
+
+    public function search(string $type, string $search): array
+    {
+        return [];
+    }
+
+
 }
