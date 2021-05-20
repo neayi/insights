@@ -357,6 +357,7 @@
     @include('users.profile.modals.farming-edit')
     @include('users.profile.modals.header-edit')
     @include('users.profile.modals.my-practices')
+    @include('users.profile.modals.characteristics-search')
 @endsection
 
 

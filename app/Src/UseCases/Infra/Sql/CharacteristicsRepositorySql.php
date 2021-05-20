@@ -16,6 +16,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->where('main', $isMain)
+            ->where('visible', true)
             ->orderBy('priority')
             ->get();
         return $list->toArray();
@@ -26,6 +27,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->orderBy('priority')
+            ->where('visible', true)
             ->get();
         return $list->toArray();
     }
@@ -51,7 +53,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->page_label = $memento->title();
         $characteristicModel->pretty_page_label = $memento->title();
         $characteristicModel->main = false;
-        $characteristicModel->priority = 0;
+        $characteristicModel->priority = 100000;
         $characteristicModel->uuid = $memento->id();
         $characteristicModel->code = $memento->title();
         $characteristicModel->type = $memento->type();
@@ -74,5 +76,19 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $characteristicModel->toDomain();
     }
 
+    public function search(string $type, string $search): array
+    {
+        $characteristicModel = CharacteristicsModel::query()
+            ->where('type', $type)
+            ->where('pretty_page_label','LIKE', '%'.$search.'%')
+            ->get();
 
+        if(!isset($characteristicModel)){
+            return [];
+        }
+        foreach ($characteristicModel as $characteristic){
+            $characteristics[] = $characteristic->toArray();
+        }
+        return $characteristics ?? [];
+    }
 }

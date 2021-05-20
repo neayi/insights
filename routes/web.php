@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
     Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
+    Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
+    Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {

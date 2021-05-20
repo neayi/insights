@@ -54,9 +54,10 @@ class Context
         $this->contextRepository->update($this, $userId);
     }
 
-    public function addCharacteristics(array $characteristics)
+    public function addCharacteristics(array $characteristics, string $userId)
     {
         $this->characteristics = array_merge($this->characteristics, $characteristics);
+        $this->contextRepository->update($this, $userId);
     }
 
     public function toArray()

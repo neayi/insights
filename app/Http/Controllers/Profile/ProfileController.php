@@ -9,6 +9,8 @@ use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
+use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
@@ -18,6 +20,7 @@ use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Uuid;
 
 class ProfileController extends Controller
 {
@@ -102,6 +105,25 @@ class ProfileController extends Controller
             }, $results);
         }
         return ['results' => []];
+    }
+
+    public function searchCharacteristics(Request $request, SearchCharacteristics $searchCharacteristics)
+    {
+        $search = $request->input('search', '');
+        $type = $request->input('type', '');
+        return view('users.profile.search-characteristics', [
+            'characteristics' => $searchCharacteristics->execute($type, $search),
+            'search' => $search,
+            'type' => $type,
+        ]);
+    }
+
+    public function createCharacteristic(Request $request, CreateCharacteristic $createCharacteristic)
+    {
+        $title = $request->input('title', '');
+        $type = $request->input('type', '');
+        $createCharacteristic->execute(Uuid::uuid4(), $type, $title);
+        return redirect()->back();
     }
 
 }
