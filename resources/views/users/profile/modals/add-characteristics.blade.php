@@ -29,10 +29,12 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis principalement en</label>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-toggle="modal" data-type="farming" data-target="#caracteristiqueSearch">
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis principalement en"
+                                       data-toggle="modal" data-type="farming" data-target="#caracteristiqueSearch">
                                         search
                                     </a>
-                                    <a class="material-icons circle-icon mx-1" href="#">
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis principalement en"
+                                       href="#" data-toggle="modal" data-type="farming" data-target="#caracteristiqueAdd">
                                         add
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
@@ -56,12 +58,14 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis en</label>
-                                    <!--a class="material-icons circle-icon mx-1" href="#">
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis en"
+                                       href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueSearch">
                                         search
                                     </a>
-                                    <a class="material-icons circle-icon mx-1" href="#">
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis en"
+                                       href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueAdd">
                                         add
-                                    </a-->
+                                    </a>
                                     <div class="circle-row d-flex flex-wrap">
                                         @foreach($croppingType as $farming)
                                             <div class="circle-item">
