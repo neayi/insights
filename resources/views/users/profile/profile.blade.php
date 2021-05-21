@@ -353,11 +353,11 @@
     </div>
 
     @include('users.profile.modals.add-characteristics')
-    @include('users.profile.modals.characteristics-edit')
     @include('users.profile.modals.farming-edit')
     @include('users.profile.modals.header-edit')
     @include('users.profile.modals.my-practices')
     @include('users.profile.modals.characteristics-search')
+    @include('users.profile.modals.characteristic-add-link')
 @endsection
 
 

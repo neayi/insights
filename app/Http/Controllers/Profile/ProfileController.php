@@ -10,6 +10,7 @@ use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
 use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
+use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
 use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
@@ -126,4 +127,10 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
+    public function addCharacteristicsToContext(Request $request, AddCharacteristicsToContext $addCharacteristicsToContext)
+    {
+        $characteristics = $request->input('farming_type');
+        $addCharacteristicsToContext->execute($characteristics);
+        return redirect()->back();
+    }
 }

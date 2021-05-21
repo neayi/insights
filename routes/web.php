@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
     Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
     Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
+    Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {

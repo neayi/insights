@@ -202,4 +202,6 @@ $('#search-characteristics').change(function(){
 
 $('.search-type-c').click(function(){
     $('#search-characteristics').attr('data-type', $(this).attr('data-type'));
+    $('.input-type').val($(this).attr('data-type'));
+    $('.span-type').html($(this).attr('data-type-pretty'));
 });
