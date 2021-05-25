@@ -1,3 +1,7 @@
+// Font awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
 @import '~bootstrap/scss/bootstrap';
 
 @import 'variables_neayi';
@@ -7,6 +11,7 @@
 @import 'toc';
 @import 'interaction';
 @import "~bootstrap-select/sass/bootstrap-select";
+
 // General
 
 body{
@@ -342,30 +347,60 @@ h3{
     }
 }
 
-.footer{
-    font-weight:600;
-    letter-spacing: 0.44px;
-    color: $darkPurple;
-    font-size: 1rem;
-    a{
-        color: $darkPurple;
-        font-size: 1rem;
-    }
-    img{
-        height:46px;
-    }
-    .rs-line{
-        img{
-            height: 46px;
+.footer {
+    letter-spacing  : 0.44px;
+    color           : $darkPurple;
+    font-size       : 1rem;
+    max-width       : 100%;
+    background-color: #e9ecef;
+    font-family     : $font-family-base;
+
+    li {
+        margin-top: 1em;
+        font-size : 14px;
+        line-height: 21px;
+
+        a {
+            color: $darkPurple;
+            text-decoration: none;
+            font-weight: 400;
         }
     }
-    small{
-        font-size: 16px;
-        font-weight:normal;
+
+    p.footer-title {
+        font-weight: 600;
     }
-    @media (max-width:768px){
-        .partners img{
+
+    img {
+        height: 46px;
+    }
+
+    @media (max-width: 768px) {
+        .partners img {
             width: auto;
+        }
+    }
+
+    .social-links {
+        margin-left: 4px;
+
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+
+            span {
+                display       : inline-block;
+                border-radius : 50%;
+                box-shadow    : 0px 0px 0px 2px #404964;
+                font-size     : 14px;
+                height        : 25px;
+                width         : 25px;
+                line-height   : 27px;
+                margin        : 0 3px;
+                text-align    : center;
+                vertical-align: middle;
+            }
         }
     }
 }
