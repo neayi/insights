@@ -23,9 +23,9 @@ class ContextDto implements \JsonSerializable
         string $lastname,
         string $postalCode,
         array $characteristics,
-        string $description,
-        string $sector,
-        string $structure
+        ?string $description,
+        ?string $sector,
+        ?string $structure
     )
     {
         $this->firstname = $firstname;
