@@ -205,3 +205,7 @@ $('.search-type-c').click(function(){
     $('.input-type').val($(this).attr('data-type'));
     $('.span-type').html($(this).attr('data-type-pretty'));
 });
+
+$('#btn-remove-avatar').click(function (){
+    $(this).parents('form').submit();
+});

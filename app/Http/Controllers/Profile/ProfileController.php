@@ -17,6 +17,7 @@ use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
+use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -131,6 +132,13 @@ class ProfileController extends Controller
     {
         $characteristics = $request->input('farming_type');
         $addCharacteristicsToContext->execute($characteristics);
+        return redirect()->back();
+    }
+
+    public function removeAvatar(RemoveAvatar $removeAvatar, AuthGateway $authGateway)
+    {
+        $currentUser = $authGateway->current();
+        $removeAvatar->execute($currentUser->id());
         return redirect()->back();
     }
 }
