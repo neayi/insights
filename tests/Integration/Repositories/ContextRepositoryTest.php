@@ -7,11 +7,15 @@ namespace Tests\Integration\Repositories;
 use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
 class ContextRepositoryTest extends TestCase
 {
-    public function testUpdateContext()
+    /**
+     * @test
+     */
+    public function updateContext()
     {
         $characteristic1 = new CharacteristicsModel();
         $characteristic1->fill([
@@ -67,5 +71,35 @@ class ContextRepositoryTest extends TestCase
 
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($newContext, $contextSaved);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetContextWithEmptyDescription()
+    {
+        $characteristic1 = new CharacteristicsModel();
+        $characteristic1->fill([
+            'uuid' => 'abc',
+            'main' => true,
+            'priority' => 0,
+            'icon' => '',
+            'page_label' => 'label',
+            'pretty_page_label' => 'label pretty',
+            'page_id' => 1,
+            'type' => 'prod',
+            'code' => uniqid(),
+        ]);
+
+        $characteristic1->save();
+
+        $user = new User('abc', 'g@gmail.com', 'f', 'l');
+        $this->userRepository->add($user);
+
+        $contextExpected = new Context('abc', '83220', ['abc'], '');
+        $this->contextRepository->add($contextExpected, 'abc');
+
+        $contextSaved = $this->contextRepository->getByUser('abc');
+        self::assertEquals($contextExpected, $contextSaved);
     }
 }
