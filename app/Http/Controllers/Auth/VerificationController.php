@@ -49,6 +49,6 @@ class VerificationController extends Controller
      */
     protected function verified(Request $request)
     {
-        return redirect(config('neayi.wiki_url'));
+        return view('public.auth.verified');
     }
 }
