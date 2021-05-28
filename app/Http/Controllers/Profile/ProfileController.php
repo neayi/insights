@@ -29,7 +29,11 @@ class ProfileController extends Controller
     public function show(ContextQueryByUser $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
-        $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        try {
+            $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        }catch (\Throwable $e){
+            return redirect()->route('wizard.profile');
+        }
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
