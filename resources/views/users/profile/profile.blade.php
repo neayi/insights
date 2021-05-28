@@ -19,22 +19,26 @@
                                     <div class="initials">
                                         {{ strtoupper(substr($user['firstname'], 0, 1).substr($user['lastname'], 0, 1)) }}
                                     </div>
-                                    <span class="material-icons text-dark-green">
-                                        add
-                                    </span>
-                                    <span class="add-avatar picture_upload">
-                                        Ajouter une photo
-                                    </span>
+                                    @if($edit)
+                                        <span class="material-icons text-dark-green">
+                                            add
+                                        </span>
+                                        <span class="add-avatar picture_upload">
+                                            Ajouter une photo
+                                        </span>
+                                    @endif
                                 </div>
                             </a>
                         @else
                             <div class="avatar-block">
                                 <img src="{{ $user['url_picture'] }}" alt="Avatar auteur" class="rounded-circle avatar picture_upload">
-                                <a class="btn btn-outline-gray edit-btn mr-2">
-                                 <span class="material-icons text-dark-green picture_upload">
-                                     edit
-                                </span>
-                                </a>
+                                @if($edit)
+                                    <a class="btn btn-outline-gray edit-btn mr-2">
+                                         <span class="material-icons text-dark-green picture_upload">
+                                             edit
+                                         </span>
+                                    </a>
+                                @endif
                             </div>
                         @endif
                     </div>
@@ -44,20 +48,22 @@
                             <div class="col-md-8">
                                 <div class="d-flex align-items-center">
                                     <h2 class="d-inline-block mb-0">{{$context['fullname']}}</h2>
-                                    <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
-                                        <a class="btn btn-outline-gray edit-btn mr-2">
-                                         <span class="material-icons text-dark-green">
-                                             edit
-                                        </span>
-                                        </a>
-                                        <a class="text-dark-green edit-link text-decoration-none">
-                                            Modifier
-                                        </a>
-                                    </div>
+                                    @if($edit)
+                                        <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
+                                            <a class="btn btn-outline-gray edit-btn mr-2">
+                                                 <span class="material-icons text-dark-green">
+                                                     edit
+                                                </span>
+                                            </a>
+                                            <a class="text-dark-green edit-link text-decoration-none">
+                                                Modifier
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}</div>
                                 <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.ucfirst($context['structure']) : '' }}</div>
-                                @if(!empty($user['url_picture']))
+                                @if(!empty($user['url_picture']) && $edit)
                                     <form action="{{ route('user.delete.avatar') }}" method="POST">
                                         @csrf
                                         <i id="btn-remove-avatar" class="far fa-trash-alt"></i>
@@ -119,16 +125,18 @@
                             <div class="col-12">
                                 <div class="d-flex align-items-center">
                                     <h3 class="font-weight-bold d-inline-block">Mes caractéristiques sur mon exploitation</h3>
-                                    <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
-                                        <a class="btn btn-outline-gray edit-btn mr-2">
-                                         <span class="material-icons text-dark-green">
-                                             edit
-                                        </span>
-                                        </a>
-                                        <a class="text-dark-green edit-link text-decoration-none">
-                                            Modifier
-                                        </a>
-                                    </div>
+                                    @if($edit)
+                                        <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
+                                            <a class="btn btn-outline-gray edit-btn mr-2">
+                                             <span class="material-icons text-dark-green">
+                                                 edit
+                                            </span>
+                                            </a>
+                                            <a class="text-dark-green edit-link text-decoration-none">
+                                                Modifier
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -158,16 +166,18 @@
                     <div class="col-md-6 editable exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">Mon exploitation, mes objectifs</h3>
-                            <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
-                                <a class="btn btn-outline-gray edit-btn mr-2">
-                             <span class="material-icons text-dark-green">
-                                 edit
-                            </span>
-                                </a>
-                                <a class="text-dark-green edit-link text-decoration-none">
-                                    Editer
-                                </a>
-                            </div>
+                            @if($edit)
+                                <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
+                                    <a class="btn btn-outline-gray edit-btn mr-2">
+                                     <span class="material-icons text-dark-green">
+                                         edit
+                                    </span>
+                                    </a>
+                                    <a class="text-dark-green edit-link text-decoration-none">
+                                        Editer
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <p class="empty d-none">
                             Présentez à la communauté votre exploitation, son histoire et vos objectifs.
@@ -220,7 +230,7 @@
                         </div>
                         @if(!empty($practises))
                             <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
-                                Afficher toutes mes pratiques
+                                @if($edit) Afficher toutes mes pratiques @else Afficher toutes ses pratiques @endif
                             </button>
                         @endif
                     </div>
@@ -361,12 +371,14 @@
         </div>
     </div>
 
-    @include('users.profile.modals.add-characteristics')
-    @include('users.profile.modals.farming-edit')
-    @include('users.profile.modals.header-edit')
-    @include('users.profile.modals.my-practices')
-    @include('users.profile.modals.characteristics-search')
-    @include('users.profile.modals.characteristic-add-link')
+    @if($edit)
+        @include('users.profile.modals.add-characteristics')
+        @include('users.profile.modals.farming-edit')
+        @include('users.profile.modals.header-edit')
+        @include('users.profile.modals.my-practices')
+        @include('users.profile.modals.characteristics-search')
+        @include('users.profile.modals.characteristic-add-link')
+    @endif
 @endsection
 
 
