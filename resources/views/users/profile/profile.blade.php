@@ -3,6 +3,8 @@
 @section('title', __('pages.profile'))
 
 @section('content')
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+
     <div class="container profile empty">
         <div class="row py-5">
             <div class="col-md-12">
@@ -55,6 +57,13 @@
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}</div>
                                 <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.ucfirst($context['structure']) : '' }}</div>
+                                @if(!empty($user['url_picture']))
+                                    <form action="{{ route('user.delete.avatar') }}" method="POST">
+                                        @csrf
+                                        <i id="btn-remove-avatar" class="far fa-trash-alt"></i>
+                                    </form>
+                                @endif
+
                                 <!--div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      <span class="material-icons mr-2">
