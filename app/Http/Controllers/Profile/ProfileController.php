@@ -68,8 +68,8 @@ class ProfileController extends Controller
     public function updateDescription(Request $request, UpdateDescription $updateDescription)
     {
         $description = $request->input('description', '');
-        $updateDescription->execute($description);
-        return $description;
+        $updateDescription->execute($descProcessed = nl2br($description));
+        return $descProcessed;
     }
 
     public function updateContext(Request $request, UpdateMainData $updateMainData)

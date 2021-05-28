@@ -14,7 +14,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                            <textarea name="description" rows="12" class="w-100">
-                                                {{ $context['description'] }}
+                                                {!! strip_tags($context['description']) !!}
                                            </textarea>
                                         </div>
                                     </div>
