@@ -17,6 +17,7 @@ use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
+use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -28,7 +29,11 @@ class ProfileController extends Controller
     public function show(ContextQueryByUser $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
-        $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        try {
+            $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        }catch (\Throwable $e){
+            return redirect()->route('wizard.profile');
+        }
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
@@ -67,8 +72,8 @@ class ProfileController extends Controller
     public function updateDescription(Request $request, UpdateDescription $updateDescription)
     {
         $description = $request->input('description', '');
-        $updateDescription->execute($description);
-        return $description;
+        $updateDescription->execute($descProcessed = nl2br($description));
+        return $descProcessed;
     }
 
     public function updateContext(Request $request, UpdateMainData $updateMainData)
@@ -131,6 +136,13 @@ class ProfileController extends Controller
     {
         $characteristics = $request->input('farming_type');
         $addCharacteristicsToContext->execute($characteristics);
+        return redirect()->back();
+    }
+
+    public function removeAvatar(RemoveAvatar $removeAvatar, AuthGateway $authGateway)
+    {
+        $currentUser = $authGateway->current();
+        $removeAvatar->execute($currentUser->id());
         return redirect()->back();
     }
 }

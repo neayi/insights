@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
 
 Route::group(['middleware' => ['auth']], function() {
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
     Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
     Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
     Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
