@@ -3,7 +3,6 @@
 @section('title', __('pages.register'))
 
 @section('content')
-
 <div class="pt-3">
     <div class="modal fade modal-bg show d-block " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
         <div class="modal-dialog modal-lg mx-0 mx-sm-auto" role="document">
@@ -44,6 +43,7 @@
                                     </div>
                                 </div>
                                 <form action="/register" method="POST">
+                                    {!! app('captcha')->render('fr'); !!}
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-10">
