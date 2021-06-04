@@ -17241,6 +17241,21 @@ a.text-dark:focus {
 .profile .editable .edit-link {
   opacity: 0;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.profile .editable .edit-link .edit-link-stylus {
+  border-radius: 4px;
+  border: solid 2px #e7e8ed;
+  padding: 4px;
+  margin-right: 6px;
+  display: inline-flex;
+}
+
+.profile .editable .edit-link .edit-link-label {
+  display: inline-flex;
+  font-weight: 600;
 }
 
 .profile .map img {
@@ -17256,7 +17271,7 @@ a.text-dark:focus {
 .profile .avatar-block .edit-btn {
   position: absolute;
   top: 0;
-  right: 41px;
+  right: -17px;
 }
 
 .profile .avatar {
@@ -17302,6 +17317,10 @@ a.text-dark:focus {
 
 .profile .empty-avatar:hover .add-avatar {
   display: block;
+}
+
+.profile .tab-pane {
+  min-height: 400px;
 }
 
 .exploitations-objectifs.edition .filled {
@@ -17396,59 +17415,6 @@ a.text-dark:focus {
   width: 17px;
   height: auto;
   margin-top: -3px;
-}
-
-.profile .avatar-block .edit-btn {
-  position: absolute;
-  top: 0;
-  right: 41px;
-}
-
-.profile .avatar {
-  width: 197px;
-  height: 197px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.exploitations-objectifs.edition .filled {
-  display: -webkit-box;
-  -webkit-line-clamp: 11;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pratiques.edition .filled {
-  display: -webkit-box;
-  -webkit-line-clamp: 11;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pratiques .filled {
-  font-size: 0.9rem;
-  line-height: 1.71;
-}
-
-.pratiques .filled .elements {
-  margin-left: -22px;
-}
-
-.pratiques .filled .elements li {
-  margin-top: 8px;
-}
-
-.pratiques .filled .elements li a {
-  font-size: 0.9rem;
-  color: #0645ad;
-  text-decoration: none;
-  line-height: 1.71;
-}
-
-.pratiques .filled .year {
-  font-weight: 600;
 }
 
 .modal-edit {
@@ -17646,6 +17612,161 @@ a.text-dark:focus {
 .interaction-bloc-mobile .interaction-links a {
   display: inline-block;
   line-height: 49px;
+}
+
+.navbar {
+  background-color: #e9ecef;
+}
+
+.navbar .navbar-collapse .nav-link {
+  color: #355B84;
+  text-transform: uppercase;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navbar .navbar-brand img {
+  height: 29px;
+  top: -2px;
+}
+
+@media (min-width: 1105px) {
+  .navbar {
+    padding: 0 0 0 16px;
+  }
+
+  .navbar .navbar-brand img {
+    height: 49px;
+    top: -8px;
+  }
+}
+
+.navbar .p-personal-tools #pt-notifications-alert,
+.navbar .p-personal-tools #pt-notifications-notice {
+  display: inherit;
+  height: 40px;
+  color: #212529;
+}
+
+.navbar .p-personal-tools #pt-notifications-alert .oo-ui-icon-bell,
+.navbar .p-personal-tools #pt-notifications-alert .mw-ui-icon-bell:before,
+.navbar .p-personal-tools #pt-notifications-alert .oo-ui-icon-tray,
+.navbar .p-personal-tools #pt-notifications-alert .oo-ui-icon-tray:before,
+.navbar .p-personal-tools #pt-notifications-notice .oo-ui-icon-bell,
+.navbar .p-personal-tools #pt-notifications-notice .mw-ui-icon-bell:before,
+.navbar .p-personal-tools #pt-notifications-notice .oo-ui-icon-tray,
+.navbar .p-personal-tools #pt-notifications-notice .oo-ui-icon-tray:before {
+  background-image: unset;
+}
+
+.navbar .p-personal-tools #pt-notifications-alert .mw-echo-notifications-badge,
+.navbar .p-personal-tools #pt-notifications-notice .mw-echo-notifications-badge {
+  color: inherit;
+  width: auto;
+  height: auto;
+  top: auto;
+  text-indent: unset;
+  margin: auto;
+  line-height: 34px;
+}
+
+.navbar .p-personal-tools #pt-notifications-alert .mw-echo-notifications-badge:after,
+.navbar .p-personal-tools #pt-notifications-notice .mw-echo-notifications-badge:after {
+  display: none;
+}
+
+.navbar .p-personal-tools #pt-notifications-alert .mw-echo-notifications-badge-dimmed,
+.navbar .p-personal-tools #pt-notifications-notice .mw-echo-notifications-badge-dimmed {
+  opacity: 1;
+}
+
+.navbar .p-personal-tools #pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read,
+.navbar .p-personal-tools #pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
+  opacity: 1;
+}
+
+.navbar .create-profile {
+  background-color: #15A072;
+  color: #fff;
+  width: 342px;
+  height: 88px;
+}
+
+.navbar .create-profile .neayi-avatar {
+  width: 72px;
+  height: 72px;
+  margin-left: 27px;
+  border-radius: 50%;
+}
+
+.navbar .create-profile a.neayi-username {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white !important;
+  text-transform: none;
+  letter-spacing: normal;
+  text-decoration: none;
+}
+
+.footer {
+  letter-spacing: 0.44px;
+  color: #404964;
+  font-size: 1rem;
+  max-width: 100%;
+  background-color: #e9ecef;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+}
+
+.footer li {
+  margin-top: 1em;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.footer li a {
+  color: #404964;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.footer p.footer-title {
+  font-weight: 600;
+}
+
+.footer img {
+  height: 46px;
+}
+
+@media (max-width: 768px) {
+  .footer .partners img {
+    width: auto;
+  }
+}
+
+.footer .social-links {
+  margin-left: 4px;
+}
+
+.footer .social-links a:hover {
+  text-decoration: none;
+}
+
+.footer .social-links a span {
+  display: inline-block;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 2px #404964;
+  font-size: 14px;
+  height: 25px;
+  width: 25px;
+  line-height: 27px;
+  margin: 0 3px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 @-webkit-keyframes bs-notify-fadeOut {
