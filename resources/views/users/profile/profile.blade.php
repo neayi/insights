@@ -271,26 +271,30 @@
                                     <!--followed page -->
                                     @if(isset($interactions['follow']) && !empty($interactions['follow']))
                                         @foreach($interactions['follow'] as $interaction)
-                                            <div class="col-lg-6 followed-page mb-3">
-                                                <div class="row align-items-center">
-                                                    @if(isset($interaction['picture']))
-                                                        <div class="col-lg-5">
-                                                            <img src="{{ $interaction['picture'] }}" class="followed-image mb-lg-0 mb-3">
+                                            <div class="col-lg-6 followed-page">
+                                                <div class="card mb-3">
+                                                    <div class="row no-gutters position-static">
+                                                        @if(isset($interaction['picture']))
+                                                            <div class="col-md-4 col-lg-5">
+                                                                <img src="{{ $interaction['picture'] }}" class="followed-image card-img">
+                                                            </div>
+                                                        @endif
+                                                        <div class="col-md-8 col-lg-7 position-static">
+                                                            <div class="card-body pb-1">
+                                                                <h4 class="card-title mb-0">
+                                                                    <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
+                                                                        {{ $interaction['title'] }}
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="card-text applause-count d-inline-block">
+                                                                    {{ $interaction['applause']}}
+                                                                    <img src="{{ asset('images/applause.png') }}">
+                                                                </div>
+                                                                <!--span class="badge badge-grey">
+                                                                    Bioagresseurs
+                                                                </span-->
+                                                            </div>
                                                         </div>
-                                                    @endif
-                                                    <div class="col-lg-7">
-                                                        <h4>
-                                                            <a style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
-                                                                {{ $interaction['title'] }}
-                                                            </a>
-                                                        </h4>
-                                                        <div class="applause-count d-inline-block">
-                                                            {{ $interaction['applause']}}
-                                                            <img src="{{ asset('images/applause.png') }}">
-                                                        </div>
-                                                        <!--span class="badge badge-grey">
-                                                            Bioagresseurs
-                                                        </span-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -311,26 +315,30 @@
                                     <!--followed page -->
                                     @if(isset($interactions['applause']) && !empty($interactions['applause']))
                                         @foreach($interactions['applause'] as $interaction)
-                                            <div class="col-lg-6 followed-page mb-3">
-                                                <div class="row align-items-center">
-                                                    @if(isset($interaction['picture']))
-                                                        <div class="col-lg-5">
-                                                            <img src="{{ $interaction['picture'] }}" class="followed-image mb-lg-0 mb-3">
+                                            <div class="col-lg-6 followed-page">
+                                                <div class="card mb-3">
+                                                    <div class="row no-gutters position-static">
+                                                        @if(isset($interaction['picture']))
+                                                            <div class="col-md-4 col-lg-5">
+                                                                <img src="{{ $interaction['picture'] }}" class="followed-image card-img">
+                                                            </div>
+                                                        @endif
+                                                        <div class="col-md-8 col-lg-7 position-static">
+                                                            <div class="card-body pb-1">
+                                                                <h4 class="card-title mb-0">
+                                                                    <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
+                                                                        {{ $interaction['title'] }}
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="card-text applause-count d-inline-block">
+                                                                    {{ $interaction['applause']}}
+                                                                    <img src="{{ asset('images/applause.png') }}">
+                                                                </div>
+                                                                <!--span class="badge badge-grey">
+                                                                    Bioagresseurs
+                                                                </span-->
+                                                            </div>
                                                         </div>
-                                                    @endif
-                                                    <div class="col-lg-7">
-                                                        <h4>
-                                                            <a style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
-                                                                {{ $interaction['title'] }}
-                                                            </a>
-                                                        </h4>
-                                                        <div class="applause-count d-inline-block">
-                                                            {{ $interaction['applause']}}
-                                                            <img src="{{ asset('images/applause.png') }}">
-                                                        </div>
-                                                        <!--span class="badge badge-grey">
-                                                            Bioagresseurs
-                                                        </span-->
                                                     </div>
                                                 </div>
                                             </div>

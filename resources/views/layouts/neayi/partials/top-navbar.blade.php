@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-  <a class="navbar-brand" href="{{config('wiki.wiki_root_url')}}"><img src="{{config('wiki.wiki_root_url')}}skins/skin-neayi/favicon/logo-triple-performance.svg" alt="Wiki Triple Performance"></a>
+  <a class="navbar-brand" href="{{config('neayi.wiki_url')}}/"><img src="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/logo-triple-performance.svg" alt="Wiki Triple Performance"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item"><a href="{{config('wiki.wiki_root_url')}}wiki/Accueil" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link">Accueil</a></li>
-      <li class="nav-item"><a href="{{config('wiki.wiki_root_url')}}wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
-      <li class="nav-item"><a href="{{config('wiki.wiki_root_url')}}wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
-      <li class="nav-item"><a href="{{config('wiki.wiki_root_url')}}wiki/Sp%C3%A9cial:BrowseData/Vid%C3%A9os" class="nav-link">Vidéos</a></li>
+      <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Accueil" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link">Accueil</a></li>
+      <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
+      <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
+      <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Vid%C3%A9os" class="nav-link">Vidéos</a></li>
     </ul>
     <div class="create-profile">
         <div class="row align-items-center" style="height: 100%; margin: 0">

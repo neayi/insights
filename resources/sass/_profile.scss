@@ -220,6 +220,14 @@
             display           : -webkit-box;
         }
 
+        .comment-extract {
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+        }
+
         .followed-image {
             object-fit: cover;
             width     : 100%;

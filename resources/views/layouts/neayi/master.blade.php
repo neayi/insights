@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,600,800">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="apple-touch-icon" href="{{config('wiki.wiki_root_url')}}skins/skin-neayi/favicon/apple-touch-icon.png"/>
-        <link rel="shortcut icon" href="{{config('wiki.wiki_root_url')}}skins/skin-neayi/favicon/favicon.ico"/>
+        <link rel="apple-touch-icon" href="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/favicon.ico"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <script src="{{ asset('js/neayi.js') }}" defer></script>
