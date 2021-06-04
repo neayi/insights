@@ -10,8 +10,8 @@
             <div class="col-md-12">
 
                 <!-- hero -->
-                <div class="row align-items-center">
-                    <div class="col-md-3 d-none d-md-block">
+                <div class="row">
+                    <div class="col-md-3 d-none d-md-block editable">
                     <input type="file" id="fileinput" name="picture" style="display: none;"/>
                     @if(empty($user['url_picture']))
                             <a href="#" class="text-decoration-none">
@@ -30,10 +30,17 @@
                         @else
                             <div class="avatar-block">
                                 <img src="{{ $user['url_picture'] }}" alt="Avatar auteur" class="rounded-circle avatar picture_upload">
-                                <a class="btn btn-outline-gray edit-btn mr-2">
-                                 <span class="material-icons text-dark-green picture_upload">
-                                     edit
-                                </span>
+                                <a class="btn btn-outline-gray edit-btn mr-2 edit-link">
+                                    <span class="edit-link-stylus material-icons text-dark-green picture_upload">
+                                        edit
+                                    </span>
+
+                                    <form action="{{ route('user.delete.avatar') }}" method="POST">
+                                        @csrf
+                                        <span class="edit-link-stylus material-icons text-dark-green picture_upload">
+                                            delete
+                                        </span>                                       
+                                    </form>
                                 </a>
                             </div>
                         @endif
@@ -45,24 +52,13 @@
                                 <div class="d-flex align-items-center">
                                     <h2 class="d-inline-block mb-0">{{$context['fullname']}}</h2>
                                     <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
-                                        <a class="btn btn-outline-gray edit-btn mr-2">
-                                         <span class="material-icons text-dark-green">
-                                             edit
-                                        </span>
-                                        </a>
                                         <a class="text-dark-green edit-link text-decoration-none">
-                                            Modifier
+                                           <span class="edit-link-stylus material-icons text-dark-green">edit</span> 
+                                           <span class="edit-link-label">Modifier</span>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}</div>
-                                <div class="rattachement">{{ !empty($context['structure']) ? 'Rattaché à '.ucfirst($context['structure']) : '' }}</div>
-                                @if(!empty($user['url_picture']))
-                                    <form action="{{ route('user.delete.avatar') }}" method="POST">
-                                        @csrf
-                                        <i id="btn-remove-avatar" class="far fa-trash-alt"></i>
-                                    </form>
-                                @endif
+                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }} {{ !empty($context['structure']) ? ' ('.ucfirst($context['structure']) .')' : '' }}</div>
 
                                 <!--div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -120,14 +116,10 @@
                                 <div class="d-flex align-items-center">
                                     <h3 class="font-weight-bold d-inline-block">Mes caractéristiques sur mon exploitation</h3>
                                     <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
-                                        <a class="btn btn-outline-gray edit-btn mr-2">
-                                         <span class="material-icons text-dark-green">
-                                             edit
-                                        </span>
-                                        </a>
-                                        <a class="text-dark-green edit-link text-decoration-none">
-                                            Modifier
-                                        </a>
+                                        <a class="edit-link btn btn-outline-gray edit-btn mr-2">
+                                            <span class="edit-link-stylus material-icons text-dark-green">edit</span>
+                                            <span class="edit-link-label text-dark-green">Modifier</span>     
+                                        </a>                                 
                                     </div>
                                 </div>
                             </div>
@@ -159,13 +151,9 @@
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">Mon exploitation, mes objectifs</h3>
                             <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
-                                <a class="btn btn-outline-gray edit-btn mr-2">
-                             <span class="material-icons text-dark-green">
-                                 edit
-                            </span>
-                                </a>
-                                <a class="text-dark-green edit-link text-decoration-none">
-                                    Editer
+                                <a class="edit-link btn btn-outline-gray edit-btn mr-2">
+                                    <span class="edit-link-stylus material-icons text-dark-green">edit</span>
+                                    <span class="edit-link-label text-dark-green">Modifier</span>   
                                 </a>
                             </div>
                         </div>

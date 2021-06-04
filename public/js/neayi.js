@@ -40826,7 +40826,7 @@ $('#btn-remove-avatar').click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/butterfly/www/neayi/tripleperformance_docker/insights/resources/js/neayi.js */"./resources/js/neayi.js");
+module.exports = __webpack_require__(/*! /home/bertrand/tripleperformance/insights/resources/js/neayi.js */"./resources/js/neayi.js");
 
 
 /***/ })
