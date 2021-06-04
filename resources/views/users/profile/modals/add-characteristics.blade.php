@@ -1,5 +1,5 @@
 <div class="modal fade caracteristiques-edit" id="caracteristiquesEdit" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-edit mx-0 mx-sm-auto" role="document">
+    <div class="modal-dialog modal-edit mx-0 mx-sm-auto" role="document">
         <div class="modal-content p-md-3 p-1">
             <button type="button" class="close text-right d-block" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="material-icons">close</span>
