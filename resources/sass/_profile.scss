@@ -219,6 +219,10 @@
             text-overflow     : ellipsis;
             display           : -webkit-box;
         }
+        
+        .comment-date {
+            font-size: 60%;
+        }
 
         .comment-extract {
             overflow: hidden;

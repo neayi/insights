@@ -17399,6 +17399,10 @@ a.text-dark:focus {
   display: -webkit-box;
 }
 
+.following .followed-page .comment-date {
+  font-size: 60%;
+}
+
 .following .followed-page .comment-extract {
   overflow: hidden;
   -webkit-line-clamp: 3;
