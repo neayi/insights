@@ -8,13 +8,13 @@ use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Carbon;
 
 class GetLastWikiUserComments
 {
     private $httpClient;
     private $userRepository;
-    private $commentsEndPoint = '?action=query&list=usercontribs&ucnamespace=844&format=json&ucuser=';
-    private $commentEndPoint = '?action=csquerycomment&format=json&pageid=';
+    private $commentsEndPoint = '?action=query&list=usercomments&format=json&ucuserguids=';
 
     public function __construct(UserRepository $userRepository)
     {
@@ -24,34 +24,28 @@ class GetLastWikiUserComments
 
     public function get(string $userId)
     {
-        $user = $this->userRepository->getById($userId);
-        $userData = $user->toArray();
-        $username = ucfirst($userData['firstname']).'_'.ucfirst($userData['lastname']);
-        $comments = Cache::get("comments_".$userId);
+       // $comments = Cache::get("comments_".$userId);
         if(isset($comments)){
             return json_decode($comments, true);
         }
 
-        $response = $this->httpClient->get(config('wiki.api_uri').$this->commentsEndPoint.$username);
+        $response = $this->httpClient->get(config('wiki.api_uri').$this->commentsEndPoint.$userId);
         $content = json_decode($response->getBody()->getContents(), true);
-        $comments = $content['query']['usercontribs'];
+        $comments = $content['query']['usercomments'];
 
         $commentsToRetrieved = [];
         foreach($comments as $comment){
             if(!isset($commentsToRetrieved[$comment['pageid']])) {
                 $commentsToRetrieved[$comment['pageid']] = $comment;
+
+                $realPageId = $comment['associatedid'];
+                $page = PageModel::where('page_id', $realPageId)->first();
+                $commentsToRetrieved[$comment['pageid']]['picture'] = $page['picture'];
+                $commentsToRetrieved[$comment['pageid']]['real_page_id'] = $realPageId;
+
+                $commentsToRetrieved[$comment['pageid']]['title'] = $comment['associated_page_title'];
+                $commentsToRetrieved[$comment['pageid']]['date'] = new Carbon($comment['timestamp']);
             }
-        }
-
-        foreach($commentsToRetrieved as $pageId => $commentToRetrieved){
-            $response = $this->httpClient->get(config('wiki.api_uri').$this->commentEndPoint.$pageId);
-            $content = json_decode($response->getBody()->getContents(), true);
-            $commentsToRetrieved[$pageId] = array_merge($commentsToRetrieved[$pageId], $content['csquerycomment']);
-
-            $realPageId = $content['csquerycomment']['associatedid'];
-            $page = PageModel::where('page_id', $realPageId)->first();
-            $commentsToRetrieved[$pageId]['picture'] = $page['picture'];
-            $commentsToRetrieved[$pageId]['real_page_id'] = $realPageId;
         }
 
         Cache::put("comments_".$userId, json_encode($commentsToRetrieved), 86400);
