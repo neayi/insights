@@ -40783,7 +40783,7 @@ $('#btn-show-practises').click(function () {
 
   if (action === 'show') {
     $(this).attr('action', 'hide');
-    $(this).html('Ne plus afficher');
+    $(this).html('Afficher moins');
     $(".pratiques.edition .filled").css('-webkit-line-clamp', 'unset');
     return;
   }
