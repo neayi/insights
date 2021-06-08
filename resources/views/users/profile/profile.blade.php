@@ -47,12 +47,12 @@
                     </div>
 
                     <div class="col-md-9 editable">
-                        <div class="row">
-                            <div class="col-md-8">
+                        <div class="row position-relative">
+                            <div class="col-md-8 position-static">
                                 <div class="d-flex align-items-center">
                                     <h2 class="d-inline-block mb-0">{{$context['fullname']}}</h2>
                                     <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
-                                        <a class="text-dark-green edit-link text-decoration-none">
+                                        <a class="text-dark-green stretched-link edit-link text-decoration-none">
                                            <span class="edit-link-stylus material-icons text-dark-green">edit</span> 
                                            <span class="edit-link-label">Modifier</span>
                                         </a>
@@ -111,12 +111,12 @@
                 <!-- caractéristiques -->
                 <div class="row mt-4">
                     <div class="col-md-12 editable">
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row position-relative">
+                            <div class="col-12 position-static">
                                 <div class="d-flex align-items-center">
                                     <h3 class="font-weight-bold d-inline-block">Mes caractéristiques sur mon exploitation</h3>
                                     <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
-                                        <a class="edit-link btn btn-outline-gray edit-btn mr-2">
+                                        <a class="edit-link stretched-link btn btn-outline-gray edit-btn mr-2">
                                             <span class="edit-link-stylus material-icons text-dark-green">edit</span>
                                             <span class="edit-link-label text-dark-green">Modifier</span>     
                                         </a>                                 
@@ -133,7 +133,7 @@
                                                 @php $characteristic = $characteristic->toArray() @endphp
                                                 <div class="caracteristique-exploitation">
                                                     <img src="{{ $characteristic['icon'] }}">
-                                                    <span>{{ $characteristic['caption'] }}</span>
+                                                    <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank"><span>{{ $characteristic['caption'] }}</span></a>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -273,7 +273,7 @@
                                         @foreach($interactions['follow'] as $interaction)
                                             <div class="col-lg-6 followed-page">
                                                 <div class="card mb-3">
-                                                    <div class="row no-gutters position-static">
+                                                    <div class="row no-gutters position-relative">
                                                         @if(isset($interaction['picture']))
                                                             <div class="col-md-4 col-lg-5">
                                                                 <img src="{{ $interaction['picture'] }}" class="followed-image card-img">
@@ -317,7 +317,7 @@
                                         @foreach($interactions['applause'] as $interaction)
                                             <div class="col-lg-6 followed-page">
                                                 <div class="card mb-3">
-                                                    <div class="row no-gutters position-static">
+                                                    <div class="row no-gutters position-relative">
                                                         @if(isset($interaction['picture']))
                                                             <div class="col-md-4 col-lg-5">
                                                                 <img src="{{ $interaction['picture'] }}" class="followed-image card-img">

@@ -175,7 +175,7 @@ $('#btn-show-practises').click(function (){
     var action = $(this).attr('action');
     if(action === 'show') {
         $(this).attr('action', 'hide');
-        $(this).html('Ne plus afficher');
+        $(this).html('Afficher moins');
         $(".pratiques.edition .filled").css('-webkit-line-clamp', 'unset');
         return;
     }
