@@ -18,7 +18,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "intervention/imagecache": "^2.5",
-        "jeroennoten/laravel-adminlte": "3.5.0",
+        "jeroennoten/laravel-adminlte": "3.6.0",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.9",
         "laravel/socialite": "^5.0",
