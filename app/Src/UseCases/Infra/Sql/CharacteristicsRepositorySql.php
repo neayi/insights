@@ -14,6 +14,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->where('main', $isMain)
+            ->where('visible', true)
             ->orderBy('priority')
             ->get();
         return $list->toArray();

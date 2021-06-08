@@ -49,56 +49,44 @@
         </div>
     </div>
     <div class="row mt-5 icon-checkboxes" id="select-farming">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-8 offset-lg-2" id="select-main-c">
             <div class="form-group">
                 <label class="label-big mb-3">Mes productions</label>
                 <div class="circle-row d-flex flex-wrap">
                 @foreach($farmingTypeMain as $farming)
-                        <div class="circle-item">
-                        @include('users.wizard-profile.icon-farming', [
-                                 'uuid' => $farming['uuid'],
-                                 'code' => $farming['code'],
-                                 'icon' => $farming['icon'],
-                                 'label' => $farming['pretty_page_label'],
-                             ])
-                        </div>
-                    @endforeach
-                    <div class="circle-item" id="more-main-production">
-                        <label for="myCheckbox23">
-                            <img src="{{asset('icons/More.svg')}}" class="rounded-circle mb-2" />
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8 offset-md-2" id="second-row-main-production" style="display: none;">
-            <div class="form-group">
-                <div class="circle-row d-flex flex-wrap">
-                    @foreach($farmingType as $farming)
-                        <div class="circle-item">
+                        <div class="icon-characteristics circle-item" style="@if(isset($farming['main']) && !$farming['main']) display:none; @endif">
                             @include('users.wizard-profile.icon-farming', [
                                  'uuid' => $farming['uuid'],
                                  'code' => $farming['code'],
                                  'icon' => $farming['icon'],
                                  'label' => $farming['pretty_page_label'],
+                                 'main' => $farming['main']
                              ])
                         </div>
                     @endforeach
+                    @if(!empty($farmingType))
+                        <div class="circle-item" id="more-main-production">
+                            <label for="myCheckbox23">
+                                <img src="{{asset('icons/More.svg')}}" class="rounded-circle mb-2" />
+                            </label>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-8 offset-lg-2" id="select-cdc">
             <div class="form-group">
                 <label class="label-big mb-3">Mon cahier des charges</label>
                 <div class="circle-row d-flex flex-wrap">
                 @foreach($croppingTypeMain as $farming)
-                        <div class="circle-item">
-                        @include('users.wizard-profile.icon-farming', [
-                                 'uuid' => $farming['uuid'],
-                                 'code' => $farming['code'],
-                                 'icon' => $farming['icon'],
-                                 'label' => $farming['pretty_page_label'],
-                             ])
+                        <div class="icon-characteristics circle-item" style="@if(isset($farming['main']) && !$farming['main']) display:none; @endif">
+                            @include('users.wizard-profile.icon-farming', [
+                                     'uuid' => $farming['uuid'],
+                                     'code' => $farming['code'],
+                                     'icon' => $farming['icon'],
+                                     'label' => $farming['pretty_page_label'],
+                                     'main' => $farming['main']
+                                 ])
                         </div>
                     @endforeach
                     @if(!empty($croppingType))
@@ -111,23 +99,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 offset-md-2" id="second-row-main-cropping" style="display: none;">
-            <div class="form-group">
-                <div class="circle-row d-flex flex-wrap">
-                    @foreach($croppingType as $farming)
-                        <div class="circle-item">
-                            @include('users.wizard-profile.icon-farming', [
-                                 'uuid' => $farming['uuid'],
-                                 'code' => $farming['code'],
-                                 'icon' => $farming['icon'],
-                                 'label' => $farming['pretty_page_label'],
-                             ])
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-
     </div>
     <div class="row">
         <div class="col-lg-3 offset-lg-2 col-md-4">

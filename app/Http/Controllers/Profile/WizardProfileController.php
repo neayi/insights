@@ -28,9 +28,9 @@ class WizardProfileController extends Controller
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
             'farmingType' => $farmingType[GetFarmingType::type]['others'],
-            'farmingTypeMain' => $farmingType[GetFarmingType::type]['main'],
+            'farmingTypeMain' => array_merge($farmingType[GetFarmingType::type]['main'], $farmingType[GetFarmingType::type]['others']),
             'croppingType' => $farmingType[GetFarmingType::typeSystem]['others'],
-            'croppingTypeMain' => $farmingType[GetFarmingType::typeSystem]['main'],
+            'croppingTypeMain' => array_merge($farmingType[GetFarmingType::typeSystem]['main'], $farmingType[GetFarmingType::typeSystem]['others']),
             'email' => $user['email']
         ]);
     }

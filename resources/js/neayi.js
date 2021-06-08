@@ -59,12 +59,12 @@ $('.input-identity').change(function (){
 
 $('#more-main-production').click(function (){
    $(this).fadeOut();
-   $('#second-row-main-production').slideDown();
+   $('#select-main-c .icon-characteristics').fadeIn();
 });
 
 $('#more-main-cropping').click(function (){
     $(this).fadeOut();
-    $('#second-row-main-cropping').slideDown();
+    $('#select-cdc .icon-characteristics').fadeIn();
 });
 
 function succeedState(elem) {
