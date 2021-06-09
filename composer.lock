@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b09c68e4eeafa79fa528bf3c0c7ea41",
+    "content-hash": "e75ed776a668858becaebb812159f0ee",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -6077,16 +6077,16 @@
         },
         {
             "name": "knuckleswtf/scribe",
-            "version": "2.7.6",
+            "version": "2.7.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knuckleswtf/scribe.git",
-                "reference": "2fa414b656594f3b9d0b6c6b9704d55cde892c28"
+                "reference": "69a5211bf1087f286823caafa98b2c32055d9001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/2fa414b656594f3b9d0b6c6b9704d55cde892c28",
-                "reference": "2fa414b656594f3b9d0b6c6b9704d55cde892c28",
+                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/69a5211bf1087f286823caafa98b2c32055d9001",
+                "reference": "69a5211bf1087f286823caafa98b2c32055d9001",
                 "shasum": ""
             },
             "require": {
@@ -6162,7 +6162,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-05-27T18:30:12+00:00"
+            "time": "2021-06-08T09:25:10+00:00"
         },
         {
             "name": "mnapoli/front-yaml",
