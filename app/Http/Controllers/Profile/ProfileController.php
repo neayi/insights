@@ -32,13 +32,14 @@ class ProfileController extends Controller
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
+            dd($e);
             return redirect()->route('wizard.profile');
         }
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
         $interactions = app(InteractionsQueryByUser::class)->get(Auth::user()->uuid);
-        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
+        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics'], $context['characteristicsDepartement']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
 

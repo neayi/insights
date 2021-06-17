@@ -26,6 +26,10 @@ class CharacteristicsModel extends Model
         'visible',
     ];
 
+    protected $casts = [
+        'opt' => 'array'
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class)
@@ -43,7 +47,8 @@ class CharacteristicsModel extends Model
             $this->page_label,
             $this->type,
             $icon,
-            $this->pretty_page_label
+            $this->pretty_page_label,
+            $this->opt ?? []
         );
     }
 

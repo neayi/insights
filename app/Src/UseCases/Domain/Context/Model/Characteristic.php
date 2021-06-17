@@ -12,6 +12,7 @@ class Characteristic implements HasMemento
 {
     const FARMING_TYPE = 'farming';
     const CROPPING_SYSTEM = 'croppingSystem';
+    const DEPARTMENT = 'department';
 
     private $title;
     private $type;
