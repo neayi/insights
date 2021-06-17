@@ -1,6 +1,6 @@
 @extends('layouts.neayi.master')
 
-@section('title', __('pages.profile'))
+@section('title', __('pages.profile_visitor', ['user' => $context['fullname']]))
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
