@@ -3,7 +3,6 @@
 @section('title', __('pages.register'))
 
 @section('content')
-
 <div class="pt-3">
     <div class="modal fade modal-bg show d-block " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
         <div class="modal-dialog modal-lg mx-0 mx-sm-auto" role="document">
@@ -21,10 +20,10 @@
                                 <div class="row mt-2 mb-4">
                                     <div class="col-md-12 login-with-rs pr-0">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-lg-6 col-sm-12">
                                                 <h5 class="text-dark-purple font-weight-bold d-inline-block mr-1">Avec un réseau social</h5>
                                             </div>
-                                            <div class="col-md-6 social-buttons text-md-right col-sm-12 text-center">
+                                            <div class="col-lg-6 social-buttons text-lg-right col-sm-12 text-center">
                                                 <a href="{{ route('register.auth.provider', ['provider' => 'facebook']) }}">
                                                     <img src="images/facebook-logo.png" alt="S'inscrire avec Facebook" class="d-inline-block d-inline-block mr-1 mr-md-2">
                                                 </a>
@@ -44,6 +43,7 @@
                                     </div>
                                 </div>
                                 <form action="/register" method="POST">
+                                    {!! app('captcha')->render('fr'); !!}
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-10">

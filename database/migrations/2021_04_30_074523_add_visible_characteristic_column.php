@@ -15,7 +15,7 @@ class AddVisibleCharacteristicColumn extends Migration
 
     public function down()
     {
-        Schema::table('contexts', function (Blueprint $table){
+        Schema::table('characteristics', function (Blueprint $table){
             $table->dropColumn('visible');
         });
     }

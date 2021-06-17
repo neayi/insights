@@ -10,7 +10,7 @@ class AddStructureContextColumn extends Migration
     {
         Schema::table('contexts', function (Blueprint $table){
             $table->string('structure', 255)->nullable()->default(null);
-            $table->integer('structure_id');
+            $table->integer('structure_id')->nullable();
             $table->timestamps();
         });
     }

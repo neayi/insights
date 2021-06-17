@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
@@ -60,10 +61,14 @@ class ImportCharacteristicsFromWiki extends Command
                 $picturesInfo = $content['query']['pages'];
                 foreach($picturesInfo as $picture) {
                     if (isset(last($picture['imageinfo'])['url'])) {
-                        $response = $this->httpClient->get(last($picture['imageinfo'])['url']);
-                        $content = $response->getBody()->getContents();
-                        $path = 'public/characteristics/'.$uuid .'.png';
-                        Storage::put('public/characteristics/' . $uuid . '.png', $content);
+                        try {
+                            $response = $this->httpClient->get(last($picture['imageinfo'])['url']);
+                            $content = $response->getBody()->getContents();
+                            $path = 'public/characteristics/' . $uuid . '.png';
+                            Storage::put('public/characteristics/' . $uuid . '.png', $content);
+                        }catch (ClientException $e){
+                            $path = '';
+                        }
                     }
                 }
             }

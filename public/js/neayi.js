@@ -40686,11 +40686,11 @@ $('.input-identity').change(function () {
 });
 $('#more-main-production').click(function () {
   $(this).fadeOut();
-  $('#second-row-main-production').slideDown();
+  $('#select-main-c .icon-characteristics').fadeIn();
 });
 $('#more-main-cropping').click(function () {
   $(this).fadeOut();
-  $('#second-row-main-cropping').slideDown();
+  $('#select-cdc .icon-characteristics').fadeIn();
 });
 
 function succeedState(elem) {
@@ -40720,6 +40720,10 @@ $("#fileinput").change(function () {
       processData: false,
       success: function success(response) {
         if (response != 0) {
+          if ($(".avatar-block img").length === 0) {
+            location.reload();
+          }
+
           $(".avatar-block img").attr("src", response);
         }
       }
@@ -40783,7 +40787,7 @@ $('#btn-show-practises').click(function () {
 
   if (action === 'show') {
     $(this).attr('action', 'hide');
-    $(this).html('Ne plus afficher');
+    $(this).html('Afficher moins');
     $(".pratiques.edition .filled").css('-webkit-line-clamp', 'unset');
     return;
   }
@@ -40793,7 +40797,7 @@ $('#btn-show-practises').click(function () {
   $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
 });
 $('.structure-auto-complete').autoComplete();
-$('#search-characteristics').change(function () {
+$('#search-characteristics').on("keyup change", function () {
   var elem = $(this);
   var type = $(this).attr('data-type');
   var search = $(this).val();

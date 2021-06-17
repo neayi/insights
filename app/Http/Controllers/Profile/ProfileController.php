@@ -32,7 +32,11 @@ class ProfileController extends Controller
     public function showEdit(ContextQueryByUser $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
-        $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        try {
+            $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
+        }catch (\Throwable $e){
+            return redirect()->route('wizard.profile');
+        }
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
@@ -101,7 +105,7 @@ class ProfileController extends Controller
     public function updateDescription(Request $request, UpdateDescription $updateDescription)
     {
         $description = $request->input('description', '');
-        $updateDescription->execute($descProcessed = nl2br($description));
+        $updateDescription->execute($descProcessed = nl2br(htmlspecialchars($description)));
         return $descProcessed;
     }
 

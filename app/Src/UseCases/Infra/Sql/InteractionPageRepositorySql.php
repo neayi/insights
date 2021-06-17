@@ -12,6 +12,7 @@ use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\User;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class InteractionPageRepositorySql implements InteractionRepository
 {
@@ -113,5 +114,17 @@ class InteractionPageRepositorySql implements InteractionRepository
         return $practises ?? [];
     }
 
-
+    public function getFollowersPage(int $pageId): Paginator
+    {
+        return  InteractionModel::query()
+            ->with('user.context')
+            ->where('follow', true)
+            ->where('page_id', $pageId)
+            ->whereNotNull('user_id')
+            ->paginate()
+            ->through(function ($item){
+                return $item->user->context->toDto();
+            })
+        ;
+    }
 }
