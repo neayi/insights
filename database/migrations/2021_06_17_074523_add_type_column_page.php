@@ -9,14 +9,16 @@ class AddTypeColumnPage extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table){
-            $table->boolean('type')->nullable();
+            $table->string('type')->nullable();
+            $table->string('icon')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('pages', function (Blueprint $table){
-            $table->dropColumn('type')->nullable();
+            $table->dropColumn('type');
+            $table->dropColumn('icon');
         });
     }
 }
