@@ -24,7 +24,7 @@ class GetLastWikiUserComments
 
     public function get(string $userId)
     {
-       // $comments = Cache::get("comments_".$userId);
+        $comments = Cache::get("comments_".$userId);
         if(isset($comments)){
             return json_decode($comments, true);
         }
