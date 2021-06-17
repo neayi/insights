@@ -13,7 +13,6 @@ use Illuminate\Support\Carbon;
 class GetLastWikiUserComments
 {
     private $httpClient;
-    private $userRepository;
     private $commentsEndPoint = '?action=query&list=usercomments&format=json&ucuserguids=';
 
     public function __construct(UserRepository $userRepository)

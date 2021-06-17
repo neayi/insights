@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
