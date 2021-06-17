@@ -40720,6 +40720,10 @@ $("#fileinput").change(function () {
       processData: false,
       success: function success(response) {
         if (response != 0) {
+          if ($(".avatar-block img").length === 0) {
+            location.reload();
+          }
+
           $(".avatar-block img").attr("src", response);
         }
       }
@@ -40793,7 +40797,7 @@ $('#btn-show-practises').click(function () {
   $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
 });
 $('.structure-auto-complete').autoComplete();
-$('#search-characteristics').change(function () {
+$('#search-characteristics').on("keyup change", function () {
   var elem = $(this);
   var type = $(this).attr('data-type');
   var search = $(this).val();
@@ -40826,7 +40830,7 @@ $('#btn-remove-avatar').click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/bertrand/tripleperformance/insights/resources/js/neayi.js */"./resources/js/neayi.js");
+module.exports = __webpack_require__(/*! /home/butterfly/www/neayi/tripleperformance_docker/insights/resources/js/neayi.js */"./resources/js/neayi.js");
 
 
 /***/ })

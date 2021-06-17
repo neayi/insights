@@ -15,12 +15,6 @@
                                      search
                                     </span>
                                     <strong>la recherche</strong>
-                                    ou à
-                                    <span class="material-icons circle-icon mx-1">
-                                    add
-                                    </span>
-                                    <strong>ajouter vous-même</strong>
-                                    ce qui vous caractérise le mieux.
                                 </p>
                             </div>
                         </div>
@@ -32,10 +26,6 @@
                                     <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis principalement en"
                                        data-toggle="modal" data-type="farming" data-target="#caracteristiqueSearch">
                                         search
-                                    </a>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis principalement en"
-                                       href="#" data-toggle="modal" data-type="farming" data-target="#caracteristiqueAdd">
-                                        add
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                     @foreach($farmingType as $farming)
@@ -61,10 +51,6 @@
                                     <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis en"
                                        href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueSearch">
                                         search
-                                    </a>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis en"
-                                       href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueAdd">
-                                        add
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                         @foreach($croppingType as $farming)

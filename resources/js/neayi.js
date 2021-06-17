@@ -106,6 +106,9 @@ $("#fileinput").change(function(){
             processData: false,
             success: function(response){
                 if(response != 0){
+                    if( $(".avatar-block img").length === 0) {
+                        location.reload();
+                    }
                     $(".avatar-block img").attr("src", response);
                 }
             },
@@ -187,7 +190,7 @@ $('#btn-show-practises').click(function (){
 
 $('.structure-auto-complete').autoComplete();
 
-$('#search-characteristics').change(function(){
+$('#search-characteristics').on("keyup change", function(){
     var elem = $(this);
     var type = $(this).attr('data-type');
     var search = $(this).val();

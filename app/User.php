@@ -4,6 +4,7 @@ namespace App;
 
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -74,5 +75,10 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             'characteristic_id'
         )
             ->using(UserCharacteristicsModel::class);
+    }
+
+    public function context()
+    {
+        return $this->hasOne(ContextModel::class, 'id', 'context_id');
     }
 }

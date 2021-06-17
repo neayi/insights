@@ -37,9 +37,9 @@
 
                                     <form action="{{ route('user.delete.avatar') }}" method="POST">
                                         @csrf
-                                        <span class="edit-link-stylus material-icons text-dark-green picture_upload">
+                                        <span id="btn-remove-avatar" class="edit-link-stylus material-icons text-dark-green">
                                             delete
-                                        </span>                                       
+                                        </span>
                                     </form>
                                 </a>
                             </div>
@@ -53,7 +53,7 @@
                                     <h2 class="d-inline-block mb-0">{{$context['fullname']}}</h2>
                                     <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
                                         <a class="text-dark-green stretched-link edit-link text-decoration-none">
-                                           <span class="edit-link-stylus material-icons text-dark-green">edit</span> 
+                                           <span class="edit-link-stylus material-icons text-dark-green">edit</span>
                                            <span class="edit-link-label">Modifier</span>
                                         </a>
                                     </div>
@@ -118,8 +118,8 @@
                                     <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
                                         <a class="edit-link stretched-link btn btn-outline-gray edit-btn mr-2">
                                             <span class="edit-link-stylus material-icons text-dark-green">edit</span>
-                                            <span class="edit-link-label text-dark-green">Modifier</span>     
-                                        </a>                                 
+                                            <span class="edit-link-label text-dark-green">Modifier</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                             <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
                                 <a class="edit-link btn btn-outline-gray edit-btn mr-2">
                                     <span class="edit-link-stylus material-icons text-dark-green">edit</span>
-                                    <span class="edit-link-label text-dark-green">Modifier</span>   
+                                    <span class="edit-link-label text-dark-green">Modifier</span>
                                 </a>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                     '<a target="_blank" href="$1">$1</a>',
                                     $context['description']);
                             @endphp
-                            {!! $description !!}
+                            {!! ($description) !!}
                         </p>
                     </div>
                     <div class="col-md-6 editable pratiques edition">
@@ -270,35 +270,7 @@
                                 <div class="row mt-4">
                                     <!--followed page -->
                                     @if(isset($interactions['follow']) && !empty($interactions['follow']))
-                                        @foreach($interactions['follow'] as $interaction)
-                                            <div class="col-lg-6 followed-page">
-                                                <div class="card mb-3">
-                                                    <div class="row no-gutters position-relative">
-                                                        @if(isset($interaction['picture']))
-                                                            <div class="col-md-4 col-lg-5">
-                                                                <img src="{{ $interaction['picture'] }}" class="followed-image card-img">
-                                                            </div>
-                                                        @endif
-                                                        <div class="col-md-8 col-lg-7 position-static">
-                                                            <div class="card-body pb-1">
-                                                                <h4 class="card-title mb-0">
-                                                                    <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
-                                                                        {{ $interaction['title'] }}
-                                                                    </a>
-                                                                </h4>
-                                                                <div class="card-text applause-count d-inline-block">
-                                                                    {{ $interaction['applause']}}
-                                                                    <img src="{{ asset('images/applause.png') }}">
-                                                                </div>
-                                                                <!--span class="badge badge-grey">
-                                                                    Bioagresseurs
-                                                                </span-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                        @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['follow']])
                                     @else
                                         <div class="alert alert-info">
                                             Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
@@ -314,35 +286,7 @@
                                 <div class="row mt-4">
                                     <!--followed page -->
                                     @if(isset($interactions['applause']) && !empty($interactions['applause']))
-                                        @foreach($interactions['applause'] as $interaction)
-                                            <div class="col-lg-6 followed-page">
-                                                <div class="card mb-3">
-                                                    <div class="row no-gutters position-relative">
-                                                        @if(isset($interaction['picture']))
-                                                            <div class="col-md-4 col-lg-5">
-                                                                <img src="{{ $interaction['picture'] }}" class="followed-image card-img">
-                                                            </div>
-                                                        @endif
-                                                        <div class="col-md-8 col-lg-7 position-static">
-                                                            <div class="card-body pb-1">
-                                                                <h4 class="card-title mb-0">
-                                                                    <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
-                                                                        {{ $interaction['title'] }}
-                                                                    </a>
-                                                                </h4>
-                                                                <div class="card-text applause-count d-inline-block">
-                                                                    {{ $interaction['applause']}}
-                                                                    <img src="{{ asset('images/applause.png') }}">
-                                                                </div>
-                                                                <!--span class="badge badge-grey">
-                                                                    Bioagresseurs
-                                                                </span-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                        @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['applause']])
                                     @else
                                         <div class="alert alert-info">
                                             Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
