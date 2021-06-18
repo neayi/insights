@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h3 class="font-weight-bold">
-                                    Rechercher parmis "<span class="span-type"></span>"
+                                    <span class="span-type"></span>
                                 </h3>
                             </div>
                         </div>
