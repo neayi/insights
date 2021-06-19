@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\System;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Agricultural\Model\RegisteredUser;
+use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
+use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 

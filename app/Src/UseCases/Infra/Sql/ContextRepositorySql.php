@@ -4,8 +4,9 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\UseCases\Domain\Context\Model\PostalCode;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
@@ -21,7 +22,14 @@ class ContextRepositorySql implements ContextRepository
         if($context == null){
             return null;
         }
-        return new Context($context->uuid, $context->postal_code, $user->characteristics()->pluck('uuid')->toArray());
+        return new Context(
+            $context->uuid,
+            $context->postal_code,
+            $user->characteristics()->pluck('uuid')->toArray(),
+            $context->description,
+            $context->sector,
+            $context->structure,
+        );
     }
 
     public function add(Context $context, string $userId)
@@ -36,7 +44,6 @@ class ContextRepositorySql implements ContextRepository
         }
 
         $contextId = DB::table('contexts')->insertGetId($contextData->except('farmings')->toArray());
-
         $user->context_id = $contextId;
         $user->save();
     }
@@ -54,6 +61,49 @@ class ContextRepositorySql implements ContextRepository
         $characteristics = $user->characteristics()->get()->transform(function(CharacteristicsModel $item){
             return $item->toDto();
         });
-        return new ContextDto($user->firstname, $user->lastname, $context->postal_code, $characteristics->toArray());
+
+        $numberDepartment = (new PostalCode($context->postal_code))->department();
+        $characteristicDepartment = CharacteristicsModel::query()->where('code', $numberDepartment)->first();
+
+        if(isset($characteristicDepartment)){
+            $characteristics->push($characteristicDepartment->toDto());
+        }
+
+        return new ContextDto(
+            $user->firstname,
+            $user->lastname,
+            $context->postal_code,
+            $characteristics->toArray(),
+            $context->description,
+            $context->sector ?? '',
+            $context->structure ?? ''
+        );
     }
+
+    public function update(Context $context, string $userId)
+    {
+        $user = User::where('uuid', $userId)->first();
+        if($user == null){
+            return null;
+        }
+
+        $contextModel = ContextModel::where('uuid', $context->id())->first();
+        if($contextModel == null){
+            return null;
+        }
+        $contextData = collect($context->toArray());
+        $contextModel->fill($contextData->except('farmings')->toArray());
+
+        $farmings = $contextData->get('farmings');
+        $characteristics = [];
+        foreach($farmings as $farming){
+            $characteristicModel = CharacteristicsModel::where('uuid', (string)$farming)->first();
+            $characteristics[] = isset($characteristicModel) ? $characteristicModel->id : '';
+        }
+        $user->characteristics()->sync($characteristics);
+
+        $contextModel->save();
+    }
+
+
 }

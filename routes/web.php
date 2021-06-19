@@ -18,12 +18,34 @@ Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProvid
 Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('profile', 'Profile\ProfileController@show')->name('show.profile');
+});
+
 Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function() {
     Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
+    Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
+    Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
+    Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
+
+    Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
+    Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
+    Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
+    Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
+    Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
+});
+
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
+
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
     Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
     Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');
