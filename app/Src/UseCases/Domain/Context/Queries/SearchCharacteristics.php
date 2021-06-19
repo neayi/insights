@@ -4,19 +4,19 @@
 namespace App\Src\UseCases\Domain\Context\Queries;
 
 
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
+use App\Src\UseCases\Domain\Ports\PageRepository;
 
 class SearchCharacteristics
 {
-    private $characteristicsRepository;
+    private $pageRepository;
 
-    public function __construct(CharacteristicsRepository $characteristicsRepository)
+    public function __construct(PageRepository $pageRepository)
     {
-        $this->characteristicsRepository = $characteristicsRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     public function execute(string $type, string $search):array
     {
-        return $this->characteristicsRepository->search($type, $search);
+        return $this->pageRepository->search($search);
     }
 }

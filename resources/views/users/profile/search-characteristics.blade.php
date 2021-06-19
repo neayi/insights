@@ -1,16 +1,16 @@
 <div class="row mt-1 align-items-center icon-checkboxes">
     <div class="col-md-12">
-        @if(!empty($characteristics))
+        @if(!empty($pages))
             <form action="{{ route('profile.characteristic.add') }}" method="POST">
                 @csrf
-                @foreach($characteristics as $farming)
+                @foreach($pages as $page)
                     <div class="form-group">
-                        <input id="sc-{{$farming['uuid']}}" type="checkbox" name="farming_type[]" value="{{$farming['uuid']}}"/>
-                        <label for="sc-{{$farming['uuid']}}" class="d-flex align-items-center">
-                            @if($farming['icon'] !== null)
-                                <img src="{{asset('storage/'.str_replace('public/', '', $farming['icon']))}}" class="rounded-circle mb-2"/>
+                        <input id="sc-{{$page['page_id']}}" type="checkbox" name="farming_type[]" value="{{$page['page_id']}}"/>
+                        <label for="sc-{{$page['page_id']}}" class="d-flex align-items-center">
+                            @if($page['icon'] !== null)
+                                <img src="{{asset('storage/'.str_replace('public/', '', $page['icon']))}}" class="rounded-circle mb-2"/>
                             @endif
-                            <span class="d-block ml-4"> {{ $farming['pretty_page_label'] }} </span>
+                            <span class="d-block ml-4"> {{ $page['title'] }} </span>
                         </label>
                     </div>
                 @endforeach

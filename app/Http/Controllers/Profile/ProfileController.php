@@ -118,7 +118,7 @@ class ProfileController extends Controller
         $search = $request->input('search', '');
         $type = $request->input('type', '');
         return view('users.profile.search-characteristics', [
-            'characteristics' => $searchCharacteristics->execute($type, $search),
+            'pages' => $searchCharacteristics->execute($type, $search),
             'search' => $search,
             'type' => $type,
         ]);

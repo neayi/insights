@@ -6,6 +6,7 @@ namespace App\Src\UseCases\Infra\Sql;
 
 use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 
 class PageRepositorySql implements PageRepository
@@ -28,6 +29,18 @@ class PageRepositorySql implements PageRepository
         $pageModel->page_id = $page->pageId();
         $pageModel->fill($page->toArray());
         $pageModel->save();
+    }
+
+    public function search(string $search):array
+    {
+        $pageModel = PageModel::query()
+            ->where('title','LIKE', '%'.$search.'%')
+            ->get();
+
+        if(!isset($pageModel)){
+            return [];
+        }
+        return $pageModel->toArray();
     }
 
 }
