@@ -18,9 +18,9 @@
                             {{ $interaction['applause']}}
                             <img src="{{ asset('images/applause.png') }}">
                         </div>
-                        <!--span class="badge badge-grey">
-                            Bioagresseurs
-                        </span-->
+                        <span class="badge badge-grey">
+                            {{$interaction['type']}}
+                        </span>
                     </div>
                 </div>
             </div>
