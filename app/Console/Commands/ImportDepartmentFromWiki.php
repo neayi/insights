@@ -20,6 +20,8 @@ class ImportDepartmentFromWiki extends Command
     private $queryPage2 = "?action=ask&api_version=3&query=[[A un numéro de département::%2B]] |?A un numéro de département |?A un nom |?A un climat |?A une icone|offset=50&format=json";
     private $queryPage3 = "?action=ask&api_version=3&query=[[A un numéro de département::%2B]] |?A un numéro de département |?A un nom |?A un climat |?A une icone|offset=100&format=json";
 
+    private $queryPictures = '?action=query&titles=:file:&prop=imageinfo&iiprop=url&format=json';
+
 
     public function __construct()
     {
@@ -54,7 +56,7 @@ class ImportDepartmentFromWiki extends Command
             $climat = last($department['A un climat'])['fulltext'];
             $number = last($department['A un numéro de département']);
             $name = last($department['A un nom']);
-            $iconUrl = last($department['A une icone'])['fullurl'];
+            $iconUrlApi = str_replace(':file:', last($department['A une icone'])['fulltext'], $this->queryPictures);
 
             $characteristicModel = CharacteristicsModel::query()->where('code', $number)->first();
             if(!isset($characteristicModel)){
@@ -67,19 +69,32 @@ class ImportDepartmentFromWiki extends Command
             $characteristicModel->pretty_page_label = $name;
             $characteristicModel->type = Characteristic::DEPARTMENT;
             $characteristicModel->code = $number;
-            $characteristicModel->opt = json_encode([
+            $characteristicModel->opt = [
                 'number' => $number,
                 'climat' => $climat,
                 'url' => 'wiki/'.str_replace(' ', '_', $climat)
-            ]);
+            ];
 
-            try {
-                $response = $this->httpClient->get($iconUrl);
-                $content = $response->getBody()->getContents();
-                $path = 'public/characteristics/' . $uuid . '.png';
-                Storage::put('public/characteristics/' . $uuid . '.png', $content);
-            }catch (ClientException $e){
-                $path = '';
+
+            $response = $this->httpClient->get(config('wiki.api_uri').$iconUrlApi);
+            $content = json_decode($response->getBody()->getContents(), true);
+            $picturesInfo = $content['query']['pages'];
+            foreach($picturesInfo as $picture) {
+                if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
+                    $characteristicModel->page_id = $picture['pageid'];
+                    try {
+                        $response = $this->httpClient->get(last($picture['imageinfo'])['url']);
+                        $content = $response->getBody()->getContents();
+                        $path = 'public/characteristics/' . $uuid . '.png';
+                        Storage::put('public/characteristics/' . $uuid . '.png', $content);
+                    }catch (ClientException $e){
+                        $this->info('No icon for department : '.$number);
+                        $path = '';
+                    }
+                }else{
+                    $this->info('No icon for department : '.$number);
+                    $path = '';
+                }
             }
 
             $characteristicModel->icon = $path;

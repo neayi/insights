@@ -32,7 +32,6 @@ class ProfileController extends Controller
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
-            dd($e);
             return redirect()->route('wizard.profile');
         }
         $user = app(AuthGateway::class)->current()->toArray();
