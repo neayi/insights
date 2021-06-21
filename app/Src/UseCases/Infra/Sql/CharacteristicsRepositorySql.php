@@ -32,6 +32,17 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $list->toArray();
     }
 
+    public function getByPageId(string $pageId):?Characteristic
+    {
+        $c = CharacteristicsModel::query()
+            ->where('page_id', $pageId)
+            ->first();
+        if(!isset($c)){
+            return null;
+        }
+        return $c->toDomain();
+    }
+
 
     /**
      * only used for ti test
@@ -66,7 +77,8 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel = CharacteristicsModel::query()
             ->when(isset($conditions['type']), function ($query) use($conditions){
                 $query->where('type', $conditions['type']);
-            })->when(isset($conditions['title']), function ($query) use($conditions){
+            })
+            ->when(isset($conditions['title']), function ($query) use($conditions){
                 $query->where('code', $conditions['title']);
             })
             ->first();

@@ -35,4 +35,9 @@ class Characteristic implements HasMemento
     {
         return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible);
     }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
 }

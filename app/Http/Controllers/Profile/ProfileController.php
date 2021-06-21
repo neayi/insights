@@ -22,6 +22,7 @@ use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 
 class ProfileController extends Controller
@@ -32,6 +33,7 @@ class ProfileController extends Controller
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
+            Log::emergency($e->getMessage().' '.$e->getLine().' '.$e->getFile().' '.$e->getTraceAsString());
             return redirect()->route('wizard.profile');
         }
         $user = app(AuthGateway::class)->current()->toArray();

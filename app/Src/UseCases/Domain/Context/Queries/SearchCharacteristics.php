@@ -17,6 +17,12 @@ class SearchCharacteristics
 
     public function execute(string $type, string $search):array
     {
-        return $this->pageRepository->search($search);
+        if($type === 'farming') {
+            $type = 'culture';
+        }
+        if($type === 'croppingSystem') {
+            $type = 'label';
+        }
+        return $this->pageRepository->search($type, $search);
     }
 }
