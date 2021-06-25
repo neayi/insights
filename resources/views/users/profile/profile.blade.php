@@ -229,8 +229,8 @@
                                     </ul>
                                 @endforeach
                             @else
-                                <div class="alert alert-info">
-                                    Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                <div class="alert alert-light small">
+                                    L'historique de l'exploitation est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
                                 </div>
                             @endif
                         </div>
@@ -302,8 +302,8 @@
                                     @if(isset($interactions['follow']) && !empty($interactions['follow']))
                                         @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['follow']])
                                     @else
-                                        <div class="alert alert-info">
-                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        <div class="alert alert-light small">
+                                            Aucune page suivie encore !
                                         </div>
                                     @endif
                                 </div>
@@ -318,8 +318,8 @@
                                     @if(isset($interactions['applause']) && !empty($interactions['applause']))
                                         @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['applause']])
                                     @else
-                                        <div class="alert alert-info">
-                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        <div class="alert alert-light small">
+                                            Aucune page applaudie encore ! ¯\_(ツ)_/¯
                                         </div>
                                     @endif
                                 </div>
