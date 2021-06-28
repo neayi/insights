@@ -24,7 +24,7 @@
                     <form action="{{ route('profile.characteristic.create') }}" method="POST">
                         @csrf
                         <p>
-                            Malheuresement aucun résultat ne correspond à votre recherche 1
+                            Malheuresement aucun résultat ne correspond à votre recherche !<br/>
                             Vous pouvez créer la caractéristique, elle sera automatique associée à votre profil
                         </p>
                         <input type="hidden" name="type" id="i-type" value="{{$type}}">
