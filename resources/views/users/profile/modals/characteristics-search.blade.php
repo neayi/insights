@@ -27,7 +27,8 @@
                                            data-type=""
                                            type="text" data-action="{{ route('profile.characteristics.search') }}"
                                            placeholder="Rechercher : une pratique, une culture, un matériel…"
-                                           class="form-control pb-2 first-input">
+                                           class="form-control pb-2 first-input"
+                                           autocomplete="off">
                                 </div>
                             </div>
                         </div>
