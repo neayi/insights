@@ -16,5 +16,5 @@ interface InteractionRepository
     public function getCountInteractionsOnPage(int $pageId):array;
     public function getInteractionsByUser(string $userId):array;
     public function getDoneByUser(string $userId):array;
-    public function getFollowersPage(int $pageId):Paginator;
+    public function getFollowersPage(int $pageId, string $type = 'follow'):Paginator;
 }

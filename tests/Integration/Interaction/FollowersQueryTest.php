@@ -77,8 +77,8 @@ class FollowersQueryTest extends TestCase
         $user->save();
 
         $user2 = new User();
-        $user2->firstname = 'g';
-        $user2->lastname = 'g';
+        $user2->firstname = 'g2';
+        $user2->lastname = 'g2';
         $user2->uuid = 'abcd';
         $user2->email = 'abcd@gmail.com';
         $user2->save();
@@ -101,7 +101,7 @@ class FollowersQueryTest extends TestCase
         $interaction = new Interaction($pageId, true, false, false);
         $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
 
-        $interaction = new Interaction($pageId, true, false, true);
+        $interaction = new Interaction($pageId, false, false, true);
         $this->interactionRepository->save(new RegisteredUser('abcd'), $interaction);
 
         $context = new Context('abcd', '83220', ['abc'], '');
@@ -110,10 +110,9 @@ class FollowersQueryTest extends TestCase
         $context2 = new Context('abcde', '83220', ['abc'], '');
         $this->contextRepository->add($context2, 'abcd');
 
-        $type = '';
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, $type);
+        $followers = app(GetFollowersOfPage::class)->execute($pageId, $type = "do");
 
-        $contextDtoExpected = new ContextDto('g', 'g', $postalCode = '83220', [$characteristic1->toDto()], '', '', '');
+        $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '83220', [$characteristic1->toDto()], '', '', '');
         self::assertEquals($contextDtoExpected, $followers[0]);
     }
 }
