@@ -131,7 +131,7 @@ class ProfileController extends Controller
 
     public function updateCharacteristics(Request $request, UpdateCharacteristics $updateCharacteristics)
     {
-        $characteristics = $request->input('farming_type');
+        $characteristics = $request->input('farming_type', []);
         $updateCharacteristics->execute($characteristics);
         return [];
     }
