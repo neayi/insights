@@ -6,13 +6,14 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Queries\GetLastWikiUserComments;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function showComments(?string $userId)
+    public function showComments(Request $request)
     {
-        $userId = isset($userId) ? $userId : Auth::user()->uuid;
+        $userId = $request->input('user_id', Auth::user()->uuid);
         $comments = app(GetLastWikiUserComments::class)->get($userId);
         return view('users.profile.comments', [
             'comments' => $comments,
