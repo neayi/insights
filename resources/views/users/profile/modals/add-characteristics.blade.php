@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="info">
-                                    Vous pouvez utiliser le bouton 
+                                    Vous pouvez utiliser le bouton
                                     <span class="material-icons circle-icon mx-1">
                                      add
                                     </span>
@@ -29,15 +29,18 @@
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                     @foreach($farmingType as $farming)
-                                        <div class="circle-item">
-                                            @include('users.wizard-profile.icon-farming', [
-                                                     'uuid' => $farming['uuid'],
-                                                     'code' => $farming['code'],
-                                                     'icon' => $farming['icon'],
-                                                     'label' => $farming['pretty_page_label'],
-                                                     'checked' => in_array($farming['uuid'], $uuidsUserCharacteristics)
-                                                 ])
-                                        </div>
+                                            @if($farming['visible'] === 1 || in_array($farming['uuid'], $uuidsUserCharacteristics))
+                                                <div class="circle-item">
+                                                    @include('users.wizard-profile.icon-farming', [
+                                                             'uuid' => $farming['uuid'],
+                                                             'code' => $farming['code'],
+                                                             'icon' => $farming['icon'],
+                                                             'label' => $farming['pretty_page_label'],
+                                                             'visible' => $farming['visible'],
+                                                             'checked' => in_array($farming['uuid'], $uuidsUserCharacteristics)
+                                                         ])
+                                                </div>
+                                            @endif
                                     @endforeach
                                     </div>
                                 </div>
@@ -54,15 +57,18 @@
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                         @foreach($croppingType as $farming)
-                                            <div class="circle-item">
-                                                @include('users.wizard-profile.icon-farming', [
-                                                         'uuid' => $farming['uuid'],
-                                                         'code' => $farming['code'],
-                                                         'icon' => $farming['icon'],
-                                                         'label' => $farming['pretty_page_label'],
-                                                         'checked' => in_array($farming['uuid'], $uuidsUserCharacteristics)
-                                                     ])
-                                            </div>
+                                            @if($farming['visible'] === 1 || in_array($farming['uuid'], $uuidsUserCharacteristics))
+                                                <div class="circle-item">
+                                                    @include('users.wizard-profile.icon-farming', [
+                                                             'uuid' => $farming['uuid'],
+                                                             'code' => $farming['code'],
+                                                             'icon' => $farming['icon'],
+                                                             'label' => $farming['pretty_page_label'],
+                                                             'visible' => $farming['visible'],
+                                                             'checked' => in_array($farming['uuid'], $uuidsUserCharacteristics)
+                                                         ])
+                                                </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>

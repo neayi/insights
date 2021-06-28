@@ -41,7 +41,7 @@ class AddCharacteristicsToContext
         foreach ($pages as $page){
             $characteristic = $this->characteristicsRepository->getByPageId($page->pageId());
             if(!isset($characteristic)){
-                $type = $page->type() === 'culture' ? Characteristic::FARMING_TYPE : Characteristic::CROPPING_SYSTEM;
+                $type = $page->type() === 'Culture' ? Characteristic::FARMING_TYPE : Characteristic::CROPPING_SYSTEM;
                 $characteristic = new Characteristic(
                     Uuid::uuid4(),
                     $type,
