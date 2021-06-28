@@ -7,7 +7,6 @@ namespace App\Src\UseCases\Infra\Sql;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
-use Ramsey\Uuid\Uuid;
 
 class CharacteristicsRepositorySql implements CharacteristicsRepository
 {
@@ -70,6 +69,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->type = $memento->type();
         $characteristicModel->visible = $memento->visible();
         $characteristicModel->icon = $memento->icon();
+        $characteristicModel->page_id = $memento->pageId();
         $characteristicModel->save();
     }
 

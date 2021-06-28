@@ -40,7 +40,7 @@ class Characteristic implements HasMemento
 
     public function memento(): Memento
     {
-        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon);
+        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon, $this->pageId);
     }
 
     public function id(): string

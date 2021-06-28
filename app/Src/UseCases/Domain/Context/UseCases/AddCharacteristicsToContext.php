@@ -46,7 +46,8 @@ class AddCharacteristicsToContext
                     Uuid::uuid4(),
                     $type,
                     $page->title(),
-                    false
+                    false,
+                    $page->pageId()
                 );
                 $characteristic->create($page->icon());
             }

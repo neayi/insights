@@ -89,7 +89,9 @@ class ContextRepositorySql implements ContextRepository
         $characteristics = [];
         foreach($farmings as $farming){
             $characteristicModel = CharacteristicsModel::where('uuid', (string)$farming)->first();
-            $characteristics[] = isset($characteristicModel) ? $characteristicModel->id : '';
+            if(isset($characteristicModel)) {
+                $characteristics[] = $characteristicModel->id;
+            }
         }
         $user->characteristics()->sync($characteristics);
 
