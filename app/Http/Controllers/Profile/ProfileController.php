@@ -24,6 +24,7 @@ use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -35,6 +36,7 @@ class ProfileController extends Controller
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
+            Log::emergency($e->getMessage().' '.$e->getLine().' '.$e->getFile().' '.$e->getTraceAsString());
             return redirect()->route('wizard.profile');
         }
         $user = app(AuthGateway::class)->current()->toArray();
@@ -151,7 +153,7 @@ class ProfileController extends Controller
         $search = $request->input('search', '');
         $type = $request->input('type', '');
         return view('users.profile.search-characteristics', [
-            'characteristics' => $searchCharacteristics->execute($type, $search),
+            'pages' => $searchCharacteristics->execute($type, $search),
             'search' => $search,
             'type' => $type,
         ]);

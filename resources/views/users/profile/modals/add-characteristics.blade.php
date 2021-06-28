@@ -10,11 +10,11 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="info">
-                                    Pensez à utiliser
+                                    Vous pouvez utiliser le bouton 
                                     <span class="material-icons circle-icon mx-1">
-                                     search
+                                     add
                                     </span>
-                                    <strong>la recherche</strong>
+                                    pour ajouter des productions ou caractéristiques
                                 </p>
                             </div>
                         </div>
@@ -23,9 +23,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis principalement en</label>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis principalement en"
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Ajouter des productions :"
                                        data-toggle="modal" data-type="farming" data-target="#caracteristiqueSearch">
-                                        search
+                                        add
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                     @foreach($farmingType as $farming)
@@ -48,9 +48,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="label-big mb-3 mr-3">Je suis en</label>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Je suis en"
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Ajouter des caractéristiques à mon système :"
                                        href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueSearch">
-                                        search
+                                        add
                                     </a>
                                     <div class="circle-row d-flex flex-wrap">
                                         @foreach($croppingType as $farming)

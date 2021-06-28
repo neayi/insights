@@ -20,4 +20,17 @@ class InMemoryPageRepository implements PageRepository
     {
         $this->pages[$page->pageId()] = $page;
     }
+
+    public function getByIds(array $pagesId): array
+    {
+        $pages = [];
+        foreach ($this->pages as $page){
+            if(in_array($page->pageId(), $pagesId)) {
+                $pages[] = $page;
+            }
+        }
+        return $pages;
+    }
+
+
 }

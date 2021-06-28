@@ -12,13 +12,17 @@ class CharacteristicMemento implements Memento
     private $type;
     private $title;
     private $visible;
+    private $icon;
+    private $pageId;
 
-    public function __construct(string $id, string $type, string $title, bool $visible)
+    public function __construct(string $id, string $type, string $title, bool $visible, ?string $icon = null, ?int $pageId = null)
     {
         $this->id = $id;
         $this->type = $type;
         $this->title = $title;
         $this->visible = $visible;
+        $this->icon = $icon;
+        $this->pageId = $pageId;
     }
 
     public function id(): string
@@ -39,5 +43,15 @@ class CharacteristicMemento implements Memento
     public function visible(): bool
     {
         return $this->visible;
+    }
+
+    public function icon():? string
+    {
+        return $this->icon;
+    }
+
+    public function pageId():? int
+    {
+        return $this->pageId;
     }
 }
