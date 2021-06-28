@@ -11,7 +11,7 @@
 
                 <!-- hero -->
                 <div class="row">
-                    <div class="col-md-3 d-none d-md-block editable">
+                    <div class="col-md-3 d-none d-md-block @if($edit) editable @endif">
                     <input type="file" id="fileinput" name="picture" style="display: none;"/>
                     @if(empty($user['url_picture']))
                             <a href="#" class="text-decoration-none">
@@ -50,7 +50,7 @@
                         @endif
                     </div>
 
-                    <div class="col-md-9 editable">
+                    <div class="col-md-9 @if($edit) editable @endif">
                         <div class="row position-relative">
                             <div class="col-md-8 position-static">
                                 <div class="d-flex align-items-center">
@@ -120,7 +120,7 @@
 
                 <!-- caractéristiques -->
                 <div class="row mt-4">
-                    <div class="col-md-12 editable">
+                    <div class="col-md-12 @if($edit) editable @endif">
                         <div class="row position-relative">
                             <div class="col-12 position-static">
                                 <div class="d-flex align-items-center">
@@ -165,7 +165,7 @@
 
                 <!-- mes exploitations -->
                 <div class="row mt-4">
-                    <div class="col-md-6 editable exploitations-objectifs edition">
+                    <div class="col-md-6 @if($edit) editable @endif exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">
                                 @include('users.profile.title.title-description', ['edit' => $edit])
@@ -195,7 +195,7 @@
                             {!! $description !!}
                         </p>
                     </div>
-                    <div class="col-md-6 editable pratiques edition">
+                    <div class="col-md-6 @if($edit) editable @endif pratiques edition">
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">
                                 @include('users.profile.title.title-practises', ['edit' => $edit])

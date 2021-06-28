@@ -23,9 +23,10 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
+Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
-    Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
     Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
     Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
