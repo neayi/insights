@@ -309,7 +309,7 @@
                                 </div>
 
                             </div>
-                            <div show-async="{{ route('profile.comments.show') }}"
+                            <div show-async="{{ $routeComment }}"
                                  class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                             </div>
                             <div class="tab-pane fade following" id="third" role="tabpanel" aria-labelledby="third-tab">

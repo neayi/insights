@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
     Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
 
-    Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
+    Route::get('comments/{userId?}', 'Profile\CommentsController@showComments')->name('profile.comments.show');
     Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
     Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
     Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');

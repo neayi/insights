@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function showComments()
+    public function showComments(?string $userId)
     {
-        $comments = app(GetLastWikiUserComments::class)->get(Auth::user()->uuid);
+        $userId = isset($userId) ? $userId : Auth::user()->uuid;
+        $comments = app(GetLastWikiUserComments::class)->get($userId);
         return view('users.profile.comments', [
             'comments' => $comments,
             'picture' => Auth::user()->adminlte_image()

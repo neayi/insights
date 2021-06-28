@@ -46,6 +46,7 @@ class ProfileController extends Controller
         $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
+        $routeComment = route('profile.comments.show');
 
         return view('users.profile.profile', [
             'edit' => true,
@@ -58,7 +59,8 @@ class ProfileController extends Controller
             'farmingType' => $allCharacteristics[GetAllCharacteristics::type],
             'croppingType' => $allCharacteristics[GetAllCharacteristics::typeSystem],
             'practises' => $practises,
-            'interactions' => $interactions
+            'interactions' => $interactions,
+            'routeComment' => $routeComment
         ]);
     }
 
@@ -70,6 +72,7 @@ class ProfileController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $routeComment = route('profile.comments.show', ['user_id' => $userId]);
         $context = $contextQueryByUser->execute($userId)->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get($userId);
@@ -87,7 +90,8 @@ class ProfileController extends Controller
             'characteristics' => $usersCharacteristics,
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'practises' => $practises,
-            'interactions' => $interactions
+            'interactions' => $interactions,
+            'routeComment' => $routeComment
         ]);
     }
 
