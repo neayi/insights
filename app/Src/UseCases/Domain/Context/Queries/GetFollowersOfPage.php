@@ -16,8 +16,8 @@ class GetFollowersOfPage
         $this->interactionRepository = $interactionRepository;
     }
 
-    public function execute(int $pageId, string $type = 'follow'):Paginator
+    public function execute(int $pageId, string $type = 'follow', ?string $cp = null):Paginator
     {
-        return $this->interactionRepository->getFollowersPage($pageId, $type);
+        return $this->interactionRepository->getFollowersPage($pageId, $type, $cp);
     }
 }

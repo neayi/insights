@@ -115,4 +115,56 @@ class FollowersQueryTest extends TestCase
         $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '83220', [$characteristic1->toDto()], '', '', '');
         self::assertEquals($contextDtoExpected, $followers[0]);
     }
+
+    /**
+     * @test
+     */
+    public function shouldGetWithDepartment()
+    {
+        $user = new User();
+        $user->firstname = 'g';
+        $user->lastname = 'g';
+        $user->uuid = 'abc';
+        $user->email = 'abc@gmail.com';
+        $user->save();
+
+        $user2 = new User();
+        $user2->firstname = 'g2';
+        $user2->lastname = 'g2';
+        $user2->uuid = 'abcd';
+        $user2->email = 'abcd@gmail.com';
+        $user2->save();
+
+        $characteristic1 = new CharacteristicsModel();
+        $characteristic1->fill([
+            'uuid' => 'abc',
+            'main' => true,
+            'priority' => 0,
+            'icon' => '',
+            'page_label' => 'label',
+            'pretty_page_label' => 'label pretty',
+            'page_id' => 1,
+            'type' => 'prod',
+            'code' => uniqid(),
+        ]);
+        $characteristic1->save();
+
+        $pageId = 1;
+        $interaction = new Interaction($pageId, true, false, false);
+        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+
+        $interaction = new Interaction($pageId, true, false, true);
+        $this->interactionRepository->save(new RegisteredUser('abcd'), $interaction);
+
+        $context = new Context('abcd', '83220', ['abc'], '');
+        $this->contextRepository->add($context, 'abc');
+
+        $context2 = new Context('abcde', '06000', ['abc'], '');
+        $this->contextRepository->add($context2, 'abcd');
+
+        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06000');
+
+        $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '06000', [$characteristic1->toDto()], '', '', '');
+        self::assertEquals($contextDtoExpected, $followers[0]);
+    }
 }

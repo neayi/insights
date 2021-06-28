@@ -114,7 +114,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         return $practises ?? [];
     }
 
-    public function getFollowersPage(int $pageId, string $type = 'follow'): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $cp = null): Paginator
     {
         return  InteractionModel::query()
             ->with('user.context')
@@ -123,6 +123,11 @@ class InteractionPageRepositorySql implements InteractionRepository
             })
             ->when($type == 'do', function ($query) {
                 $query->where('done', true);
+            })
+            ->when($cp !== null, function ($query) use($cp) {
+                $query->join('users', 'users.id', 'interactions.user_id')
+                    ->join('contexts', 'users.context_id', 'contexts.id')
+                    ->where('contexts.postal_code', $cp);
             })
             ->where('page_id', $pageId)
             ->whereNotNull('user_id')
