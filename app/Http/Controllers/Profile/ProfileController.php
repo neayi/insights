@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Profile;
 
 
+use App\Exceptions\Domain\UserNotFound;
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
@@ -17,6 +18,7 @@ use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
+use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use GuzzleHttp\Client;
@@ -24,10 +26,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfileController extends Controller
 {
-    public function show(ContextQueryByUser $contextQueryByUser)
+    public function showEdit(ContextQueryByUser $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
         try {
@@ -45,6 +48,7 @@ class ProfileController extends Controller
         $role = last($user['roles']);
 
         return view('users.profile.profile', [
+            'edit' => true,
             'context' => $context,
             'userRoles' => $roles,
             'role' => $role,
@@ -53,6 +57,35 @@ class ProfileController extends Controller
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'farmingType' => $allCharacteristics[GetAllCharacteristics::type],
             'croppingType' => $allCharacteristics[GetAllCharacteristics::typeSystem],
+            'practises' => $practises,
+            'interactions' => $interactions
+        ]);
+    }
+
+    public function show(string $username, string $userId, ContextQueryByUser $contextQueryByUser)
+    {
+        try {
+            $user = app(GetUser::class)->get($userId)->toArray();
+        }catch (UserNotFound $e){
+            throw new NotFoundHttpException();
+        }
+
+        $context = $contextQueryByUser->execute($userId)->toArray();
+        $roles = app(GetUserRole::class)->get()->toArray();
+        $practises = app(GetUserPractises::class)->get($userId);
+        $interactions = app(InteractionsQueryByUser::class)->get($userId);
+        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
+        $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
+        $role = last($user['roles']);
+
+        return view('users.profile.profile', [
+            'edit' => false,
+            'context' => $context,
+            'userRoles' => $roles,
+            'role' => $role,
+            'user' => $user,
+            'characteristics' => $usersCharacteristics,
+            'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'practises' => $practises,
             'interactions' => $interactions
         ]);

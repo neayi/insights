@@ -18,17 +18,15 @@ Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProvid
 Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
-
-Route::group(['middleware' => ['auth']], function() {
-    Route::get('profile', 'Profile\ProfileController@show')->name('show.profile');
-});
-
 Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function() {
     Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
+Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
+
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
     Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
     Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');

@@ -1,6 +1,6 @@
 @extends('layouts.neayi.master')
 
-@section('title', __('pages.profile'))
+@section('title', __('pages.profile_visitor', ['user' => $context['fullname']]))
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
@@ -11,7 +11,7 @@
 
                 <!-- hero -->
                 <div class="row">
-                    <div class="col-md-3 d-none d-md-block editable">
+                    <div class="col-md-3 d-none d-md-block @if($edit) editable @endif">
                     <input type="file" id="fileinput" name="picture" style="display: none;"/>
                     @if(empty($user['url_picture']))
                             <a href="#" class="text-decoration-none">
@@ -19,44 +19,54 @@
                                     <div class="initials">
                                         {{ strtoupper(substr($user['firstname'], 0, 1).substr($user['lastname'], 0, 1)) }}
                                     </div>
-                                    <span class="material-icons text-dark-green">
-                                        add
-                                    </span>
-                                    <span class="add-avatar picture_upload">
-                                        Ajouter une photo
-                                    </span>
+                                    @if($edit)
+                                        <span class="material-icons text-dark-green">
+                                            add
+                                        </span>
+                                        <span class="add-avatar picture_upload">
+                                            Ajouter une photo
+                                        </span>
+                                    @endif
                                 </div>
                             </a>
                         @else
                             <div class="avatar-block">
                                 <img src="{{ $user['url_picture'] }}" alt="Avatar auteur" class="rounded-circle avatar picture_upload">
-                                <a class="btn btn-outline-gray edit-btn mr-2 edit-link">
-                                    <span class="edit-link-stylus material-icons text-dark-green picture_upload">
-                                        edit
-                                    </span>
-
-                                    <form action="{{ route('user.delete.avatar') }}" method="POST">
-                                        @csrf
-                                        <span id="btn-remove-avatar" class="edit-link-stylus material-icons text-dark-green">
-                                            delete
+                                @if($edit)
+                                    <a class="btn btn-outline-gray edit-btn mr-2 edit-link">
+                                        <span class="edit-link-stylus material-icons text-dark-green picture_upload">
+                                            edit
                                         </span>
-                                    </form>
-                                </a>
+
+                                        <form action="{{ route('user.delete.avatar') }}" method="POST">
+                                            @csrf
+                                            <span id="btn-remove-avatar" class="edit-link-stylus material-icons text-dark-green">
+                                                delete
+                                            </span>
+                                        </form>
+                                    </a>
+                                @endif
                             </div>
                         @endif
                     </div>
 
-                    <div class="col-md-9 editable">
+                    <div class="col-md-9 @if($edit) editable @endif">
                         <div class="row position-relative">
                             <div class="col-md-8 position-static">
                                 <div class="d-flex align-items-center">
                                     <h2 class="d-inline-block mb-0">{{$context['fullname']}}</h2>
-                                    <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
-                                        <a class="text-dark-green stretched-link edit-link text-decoration-none">
-                                           <span class="edit-link-stylus material-icons text-dark-green">edit</span>
-                                           <span class="edit-link-label">Modifier</span>
-                                        </a>
-                                    </div>
+                                    @if($edit)
+                                        <div class="edit d-inline-block ml-4 mt-1" data-toggle="modal" data-target="#headerEdit">
+                                            <a class="btn btn-outline-gray edit-btn mr-2">
+                                                 <span class="material-icons text-dark-green">
+                                                     edit
+                                                </span>
+                                            </a>
+                                            <a class="text-dark-green edit-link text-decoration-none">
+                                                Modifier
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }} {{ !empty($context['structure']) ? ' ('.ucfirst($context['structure']) .')' : '' }}</div>
 
@@ -110,17 +120,25 @@
 
                 <!-- caractéristiques -->
                 <div class="row mt-4">
-                    <div class="col-md-12 editable">
+                    <div class="col-md-12 @if($edit) editable @endif">
                         <div class="row position-relative">
                             <div class="col-12 position-static">
                                 <div class="d-flex align-items-center">
-                                    <h3 class="font-weight-bold d-inline-block">Mes caractéristiques sur mon exploitation</h3>
-                                    <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
-                                        <a class="edit-link stretched-link btn btn-outline-gray edit-btn mr-2">
-                                            <span class="edit-link-stylus material-icons text-dark-green">edit</span>
-                                            <span class="edit-link-label text-dark-green">Modifier</span>
-                                        </a>
-                                    </div>
+                                    <h3 class="font-weight-bold d-inline-block">
+                                        @include('users.profile.title.title-characteristics', ['edit' => $edit])
+                                    </h3>
+                                    @if($edit)
+                                        <div class="edit d-inline-block ml-4 mb-1" data-toggle="modal" data-target="#caracteristiquesEdit">
+                                            <a class="btn btn-outline-gray edit-btn mr-2">
+                                             <span class="material-icons text-dark-green">
+                                                 edit
+                                            </span>
+                                            </a>
+                                            <a class="text-dark-green edit-link text-decoration-none">
+                                                Modifier
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -147,15 +165,23 @@
 
                 <!-- mes exploitations -->
                 <div class="row mt-4">
-                    <div class="col-md-6 editable exploitations-objectifs edition">
+                    <div class="col-md-6 @if($edit) editable @endif exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
-                            <h3 class="font-weight-bold d-inline-block">Mon exploitation, mes objectifs</h3>
-                            <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
-                                <a class="edit-link btn btn-outline-gray edit-btn mr-2">
-                                    <span class="edit-link-stylus material-icons text-dark-green">edit</span>
-                                    <span class="edit-link-label text-dark-green">Modifier</span>
-                                </a>
-                            </div>
+                            <h3 class="font-weight-bold d-inline-block">
+                                @include('users.profile.title.title-description', ['edit' => $edit])
+                            </h3>
+                            @if($edit)
+                                <div class="edit d-inline-block ml-4 mb-1"  data-toggle="modal" data-target="#exploitationsEdit">
+                                    <a class="btn btn-outline-gray edit-btn mr-2">
+                                     <span class="material-icons text-dark-green">
+                                         edit
+                                    </span>
+                                    </a>
+                                    <a class="text-dark-green edit-link text-decoration-none">
+                                        Editer
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <p class="empty d-none">
                             Présentez à la communauté votre exploitation, son histoire et vos objectifs.
@@ -166,12 +192,14 @@
                                     '<a target="_blank" href="$1">$1</a>',
                                     $context['description']);
                             @endphp
-                            {!! ($description) !!}
+                            {!! $description !!}
                         </p>
                     </div>
-                    <div class="col-md-6 editable pratiques edition">
+                    <div class="col-md-6 @if($edit) editable @endif pratiques edition">
                         <div class="d-flex align-items-center">
-                            <h3 class="font-weight-bold d-inline-block">Mes pratiques</h3>
+                            <h3 class="font-weight-bold d-inline-block">
+                                @include('users.profile.title.title-practises', ['edit' => $edit])
+                            </h3>
                             <!--div class="edit d-inline-block ml-4 mb-1">
                                 <a class="btn btn-outline-gray edit-btn mr-2" data-toggle="modal" data-target="#pratiquesEdit">
                              <span class="material-icons text-dark-green">
@@ -201,14 +229,14 @@
                                     </ul>
                                 @endforeach
                             @else
-                                <div class="alert alert-info">
-                                    Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                <div class="alert alert-light small">
+                                    L'historique de l'exploitation est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
                                 </div>
                             @endif
                         </div>
                         @if(!empty($practises))
                             <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
-                                Afficher toutes mes pratiques
+                                @if($edit) Afficher toutes mes pratiques @else Afficher toutes ses pratiques @endif
                             </button>
                         @endif
                     </div>
@@ -217,7 +245,9 @@
                 <!-- mon activité -->
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        <h3 class="font-weight-bold mb-3">Mon activité</h3>
+                        <h3 class="font-weight-bold mb-3">
+                            @include('users.profile.title.title-activity', ['edit' => $edit])
+                        </h3>
                     </div>
                 </div>
                 <div class="row">
@@ -272,8 +302,8 @@
                                     @if(isset($interactions['follow']) && !empty($interactions['follow']))
                                         @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['follow']])
                                     @else
-                                        <div class="alert alert-info">
-                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        <div class="alert alert-light small">
+                                            Aucune page suivie encore !
                                         </div>
                                     @endif
                                 </div>
@@ -288,8 +318,8 @@
                                     @if(isset($interactions['applause']) && !empty($interactions['applause']))
                                         @include('users.profile.partials.interactions', ['interactionsPages' => $interactions['applause']])
                                     @else
-                                        <div class="alert alert-info">
-                                            Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+                                        <div class="alert alert-light small">
+                                            Aucune page applaudie encore ! ¯\_(ツ)_/¯
                                         </div>
                                     @endif
                                 </div>
@@ -301,9 +331,14 @@
         </div>
     </div>
 
-    @include('users.profile.modals.add-characteristics')
-    @include('users.profile.modals.farming-edit')
-    @include('users.profile.modals.header-edit')
-    @include('users.profile.modals.my-practices')
-    @include('users.profile.modals.characteristics-search')
+    @if($edit)
+        @include('users.profile.modals.add-characteristics')
+        @include('users.profile.modals.farming-edit')
+        @include('users.profile.modals.header-edit')
+        @include('users.profile.modals.my-practices')
+        @include('users.profile.modals.characteristics-search')
+        @include('users.profile.modals.characteristic-add-link')
+    @endif
 @endsection
+
+
