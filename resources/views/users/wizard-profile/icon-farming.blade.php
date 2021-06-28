@@ -9,6 +9,8 @@ if(in_array($uuid, old('farming_type', [])) || (isset($checked) && $checked == t
 <label for="c-{{$uuid}}">
     @if(isset($icon))
         <img src="{{asset('storage/'.str_replace('public/', '', $icon))}}" class="rounded-circle mb-2"/>
+    @else
+        <img src="{{asset('images/phblanc.png')}}" class="rounded-circle mb-2"/>
     @endif
     <span class="d-block">{{$label}}</span>
 </label>
