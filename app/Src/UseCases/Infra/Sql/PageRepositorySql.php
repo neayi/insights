@@ -26,7 +26,13 @@ class PageRepositorySql implements PageRepository
             ->whereIn('page_id', $pagesIds)
             ->get();
         foreach ($pageModels as $pageModel) {
-            $pages[] = new Page($pageModel->page_id, $pageModel->dry, $pageModel->title, $pageModel->type);
+            $pages[] = new Page(
+                $pageModel->page_id,
+                $pageModel->dry,
+                $pageModel->title,
+                $pageModel->type,
+                $pageModel->icon
+            );
         }
         return $pages ?? [];
     }
@@ -48,7 +54,6 @@ class PageRepositorySql implements PageRepository
             ->where('title','LIKE', '%'.$search.'%')
             ->where('type', $type)
             ->get();
-
         if(!isset($pageModel)){
             return [];
         }

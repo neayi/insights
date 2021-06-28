@@ -32,7 +32,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $list->toArray();
     }
 
-    public function getByPageId(string $pageId):?Characteristic
+    public function getByPageId(int $pageId):?Characteristic
     {
         $c = CharacteristicsModel::query()
             ->where('page_id', $pageId)
@@ -69,6 +69,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->code = $memento->title();
         $characteristicModel->type = $memento->type();
         $characteristicModel->visible = $memento->visible();
+        $characteristicModel->icon = $memento->icon();
         $characteristicModel->save();
     }
 

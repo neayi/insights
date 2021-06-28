@@ -52,5 +52,12 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
         return [];
     }
 
-
+    public function getByPageId(int $pageId): Characteristic
+    {
+        foreach($this->characteristics as $characteristic){
+            if($characteristic->pageId() === $pageId){
+                return $characteristic;
+            }
+        }
+    }
 }
