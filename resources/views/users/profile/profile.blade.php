@@ -337,7 +337,6 @@
         @include('users.profile.modals.header-edit')
         @include('users.profile.modals.my-practices')
         @include('users.profile.modals.characteristics-search')
-        @include('users.profile.modals.characteristic-add-link')
     @endif
 @endsection
 
