@@ -43,7 +43,7 @@ class GetLastWikiUserComments
                 $commentsToRetrieved[$comment['pageid']]['real_page_id'] = $realPageId;
 
                 $commentsToRetrieved[$comment['pageid']]['title'] = $comment['associated_page_title'];
-                $commentsToRetrieved[$comment['pageid']]['date'] = new Carbon($comment['timestamp']);
+                $commentsToRetrieved[$comment['pageid']]['date'] = (new Carbon($comment['timestamp']))->translatedFormat('l j F Y - h:i');
             }
         }
 

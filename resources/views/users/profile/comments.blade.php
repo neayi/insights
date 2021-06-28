@@ -43,7 +43,7 @@
                                     <h4 class="card-title mb-0">
                                         <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$comment['real_page_id']}}#cs-comments">{{ $comment['title'] }}</a>
                                     </h4>
-                                    <div class="card-text muted comment-date">{!! $comment['date']->translatedFormat('l j F Y - h:i') !!}</div>
+                                    <div class="card-text muted comment-date">{!! $comment['date'] !!}</div>
                                     <div class="card-text muted comment-extract">{!! $comment['html'] !!}</div>
                                 </div>
                             </div>
