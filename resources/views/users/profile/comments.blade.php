@@ -52,8 +52,8 @@
                 </div>
             @endforeach
         @else
-            <div class="alert alert-info">
-                Cliquez ici pour accéder à la liste des pratiques Triple Performance, et trouver celles qui conviennent à votre système !
+            <div class="alert alert-light small">
+                Pas encore de commentaires ni de questions !
             </div>
         @endif
     </div>
