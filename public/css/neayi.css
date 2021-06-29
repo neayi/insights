@@ -17631,6 +17631,41 @@ a.text-dark:focus {
   background-color: #e9ecef;
 }
 
+@media (min-width: 992px) {
+  .navbar .neayi-additional-mobile-menus {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar #neayi-nav-other {
+    display: none;
+  }
+}
+
+.navbar #neayi-nav-other a.dropdown-item {
+  color: #404964;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.navbar #neayi-nav-other a.dropdown-item:hover {
+  background-color: #d0d5e6;
+}
+
+.navbar #neayi-nav-other .dropdown-menu {
+  border: none;
+  box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  line-height: 2.5rem;
+  color: #404964;
+  position: absolute;
+  transform: translate3d(0px, 46px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
+
 .navbar .navbar-collapse .nav-link {
   color: #355B84;
   text-transform: uppercase;
@@ -17640,6 +17675,10 @@ a.text-dark:focus {
   letter-spacing: 2px;
   text-decoration: none;
   padding: 0.5rem 1rem;
+}
+
+.navbar .navbar-collapse .nav-link .fa {
+  margin-right: 3px;
 }
 
 .navbar .navbar-brand img {

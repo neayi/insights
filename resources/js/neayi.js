@@ -183,7 +183,7 @@ $('#btn-show-practises').click(function (){
         return;
     }
     $(this).attr('action', 'show');
-    $(this).html('Afficher toutes mes pratiques');
+    $(this).html("Afficher tout l'historique");
     $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
 });
 

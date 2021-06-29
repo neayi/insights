@@ -40793,7 +40793,7 @@ $('#btn-show-practises').click(function () {
   }
 
   $(this).attr('action', 'show');
-  $(this).html('Afficher toutes mes pratiques');
+  $(this).html("Afficher tout l'historique");
   $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
 });
 $('.structure-auto-complete').autoComplete();
@@ -40830,7 +40830,7 @@ $('#btn-remove-avatar').click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/butterfly/www/neayi/tripleperformance_docker/insights/resources/js/neayi.js */"./resources/js/neayi.js");
+module.exports = __webpack_require__(/*! /home/bertrand/tripleperformance/insights/resources/js/neayi.js */"./resources/js/neayi.js");
 
 
 /***/ })
