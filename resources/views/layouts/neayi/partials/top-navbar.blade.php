@@ -6,10 +6,29 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Accueil" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link">Accueil</a></li>
-          <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
-          <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
-          <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Vid%C3%A9os" class="nav-link">Vidéos</a></li>
+            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Accueil" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a></li>
+            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
+            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
+            <li class="nav-item dropdown " id="neayi-nav-other">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Autres</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start">
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Vidéos" title="Spécial:BrowseData/Vidéos">Vidéos</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Cultures" title="Cultures">Cultures</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Bioagresseur" title="Bioagresseur">Bioagresseurs</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Auxiliaires" title="Auxiliaires">Auxiliaires</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Matériels" title="Matériels">Matériel et machines agricoles</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Outils_d%27aide" title="Outils d'aide">Outils d'aide à la décision</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Labels" title="Labels">Labels</a>
+                </div>
+            </li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Vidéos" title="Spécial:BrowseData/Vidéos">Vidéos</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Cultures" title="Cultures">Cultures</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Bioagresseur" title="Bioagresseurs">Bioagresseurs</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Auxiliaires" title="Auxiliaires">Auxiliaires</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Matériels" title="Matériels">Matériel et machines agricoles</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Outils_d%27aide" title="Outils d'aide">Outils d'aide à la décision</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Labels" title="Labels">Labels</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Aide:Créer_une_page">Ajouter une page</a></li>
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)
             <div class="create-profile">

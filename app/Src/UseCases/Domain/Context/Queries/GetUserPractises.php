@@ -23,6 +23,9 @@ class GetUserPractises
             $year = $practise->doneAt()->format('Y');
             $practisesToReturn[$year][] = $practise->toArray();
         }
+
+        krsort($practisesToReturn, SORT_NUMERIC);
+
         return $practisesToReturn;
     }
 }
