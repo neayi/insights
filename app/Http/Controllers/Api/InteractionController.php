@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Agricultural\Queries\CountInteractionsOnPageQuery;
-use App\Src\UseCases\Domain\Agricultural\Queries\InteractionsQueryByPageAndUser;
+use App\Src\UseCases\Domain\Context\Queries\CountInteractionsOnPageQuery;
+use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
+use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByPageAndUser;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Http\Request;
 
@@ -24,10 +25,12 @@ class InteractionController extends Controller
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      * @bodyParam interactions string[] required The user's interactions on the page. Example: unapplause, done
      */
-    public function handle($pageId, Request $request,
-                           HandleInteractions $handleInteractions,
-                           InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
-                           CountInteractionsOnPageQuery $countInteractionsOnPage
+    public function handle(
+        $pageId,
+        Request $request,
+        HandleInteractions $handleInteractions,
+        InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+        CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {
         $interactions = $request->input('interactions');
@@ -57,9 +60,10 @@ class InteractionController extends Controller
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      */
-    public function getInteractionsOnPageByUser($pageId,
-                                                InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
-                                                CountInteractionsOnPageQuery $countInteractionsOnPage
+    public function getInteractionsOnPageByUser(
+        $pageId,
+        InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+        CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {
         $interaction = $interactionsQueryByPageAndUser->execute($pageId);
@@ -68,5 +72,22 @@ class InteractionController extends Controller
             'state' => isset($interaction) ? $interaction->toArray() : [],
             'counts' => $counts
         ];
+    }
+
+    /**
+     * Get the followers of the page
+     * @urlParam pageId integer required The wiki page id Example:1
+     * @queryParam type string The type of interactions Example:follow,do
+     * @queryParam cp string The user's postal code. Example: 83220
+     * @queryParam farming_id string The uuid of a farming characteristic
+     * @queryParam cropping_id string The uuid of a cropping characteristic
+     */
+    public function followersOfPage($pageId, Request $request, GetFollowersOfPage $getFollowersOfPage)
+    {
+        $type = $request->input('type', 'follow');
+        $cp = $request->input('cp', null);
+        $farmingId = $request->input('farming_id', null);
+        $croppingId = $request->input('cropping_id', null);
+        return $getFollowersOfPage->execute($pageId, $type, $cp, $farmingId, $croppingId);
     }
 }

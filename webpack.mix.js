@@ -15,4 +15,8 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.js('resources/js/neayi.js', 'public/js')
-    .sass('resources/sass/neayi.scss', 'public/css');
+    .sass('resources/sass/neayi.scss', 'public/css')
+    .copy(
+        'node_modules/@fortawesome/fontawesome-free/webfonts',
+        'public/webfonts'
+    );
