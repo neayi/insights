@@ -68,7 +68,10 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role) {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }} {{ !empty($context['structure']) ? ' ('.ucfirst($context['structure']) .')' : '' }}</div>
+                                <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role)
+                                     {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}
+                                     {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.ucfirst($context['structure']).'">'.ucfirst($context['structure']) .'</a>)' : '' !!}
+                                </div>
 
                                 <!--div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
