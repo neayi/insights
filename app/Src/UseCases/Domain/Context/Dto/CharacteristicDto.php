@@ -11,14 +11,16 @@ class CharacteristicDto implements \JsonSerializable
     public $prettyLabel;
     public $type;
     public $icon;
+    public $opt;
 
-    public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel)
+    public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel, array $opt = [])
     {
         $this->uuid = $uuid;
         $this->label = $label;
         $this->type = $type;
         $this->icon = $icon;
         $this->prettyLabel = $prettyLabel;
+        $this->opt = $opt;
     }
 
     public function type():string
@@ -36,7 +38,8 @@ class CharacteristicDto implements \JsonSerializable
         return [
             'page' => $this->label,
             'icon' => $this->icon,
-            'caption' => $this->prettyLabel
+            'caption' => $this->prettyLabel,
+            'opt' => $this->opt
         ];
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Domain\Context\Dto;
 
 
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\PostalCode;
 
 class ContextDto implements \JsonSerializable
@@ -56,6 +57,7 @@ class ContextDto implements \JsonSerializable
             'fullname' => $this->fullname(),
             'productions' => $this->characteristicsByType[GetFarmingType::type] ?? [],
             'characteristics' => $this->characteristicsByType[GetFarmingType::typeSystem] ?? [],
+            'characteristicsDepartement' => $this->characteristicsByType[Characteristic::DEPARTMENT] ?? [],
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,

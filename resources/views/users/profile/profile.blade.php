@@ -148,10 +148,18 @@
                                     <div class="resume-exploitation-container border-0">
                                         <div class="d-flex flex-wrap">
                                             @foreach($characteristics as $characteristic)
-                                                @php $characteristic = $characteristic->toArray() @endphp
+                                                @php
+                                                    $characteristic = $characteristic->toArray();
+                                                    $secondLine = null;
+                                                    if(isset($characteristic['opt']) && isset($characteristic['opt']['climat'])){
+                                                        $secondLine = '<br/>'.$characteristic['opt']['climat'];
+                                                    }
+                                                @endphp
                                                 <div class="caracteristique-exploitation">
                                                     <img src="{{ $characteristic['icon'] }}">
-                                                    <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank"><span>{{ $characteristic['caption'] }}</span></a>
+                                                    <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank">
+                                                        <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
+                                                    </a>
                                                 </div>
                                             @endforeach
                                         </div>
