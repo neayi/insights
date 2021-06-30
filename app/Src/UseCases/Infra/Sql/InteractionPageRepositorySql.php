@@ -9,6 +9,7 @@ use App\Src\UseCases\Domain\Context\Model\CanInteract;
 use App\Src\UseCases\Domain\Context\Model\Interaction;
 use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\User;
@@ -114,13 +115,58 @@ class InteractionPageRepositorySql implements InteractionRepository
         return $practises ?? [];
     }
 
-    public function getFollowersPage(int $pageId): Paginator
+
+    /**
+     * @param int $pageId
+     * @param string $type
+     * @param string|null $cp
+     * @param string|null $characteristicId
+     * @param string|null $characteristicIdCroppingSystem
+     * @return Paginator
+     *
+     *
+     * select * from `interactions`
+     * inner join `user_characteristics` on `user_characteristics`.`user_id` = `interactions`.`user_id`
+     * where `follow` = true and EXIST (SELECT * FROM user_characteristics where characteristic_id = 161 and user_id = 2)
+     */
+
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $cp = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
         return  InteractionModel::query()
             ->with('user.context')
-            ->where('follow', true)
+            ->when($type == 'follow', function ($query) {
+                $query->where('follow', true);
+            })
+            ->when($type == 'do', function ($query) {
+                $query->where('done', true);
+            })
+            ->when($characteristicId !== null, function ($query) use($characteristicId) {
+                $characteristic = CharacteristicsModel::query()->where('uuid', $characteristicId)->first();
+                if(!isset($characteristic)){
+                    return;
+                }
+                $query->whereRaw(
+                    'exists( SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
+                    $characteristic->id
+                );
+            })
+            ->when($characteristicIdCroppingSystem !== null, function ($query) use($characteristicIdCroppingSystem) {
+                $characteristic = CharacteristicsModel::query()->where('uuid', $characteristicIdCroppingSystem)->first();
+                if(!isset($characteristic)){
+                    return;
+                }
+                $query->whereRaw(
+                    'exists( SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
+                    $characteristic->id
+                );
+            })
+            ->when($cp !== null, function ($query) use($cp) {
+                $query->join('users', 'users.id', 'interactions.user_id')
+                    ->join('contexts', 'users.context_id', 'contexts.id')
+                    ->where('contexts.postal_code', $cp);
+            })
             ->where('page_id', $pageId)
-            ->whereNotNull('user_id')
+            ->whereNotNull('interactions.user_id')
             ->paginate()
             ->through(function ($item){
                 return $item->user->context->toDto();
