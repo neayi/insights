@@ -16,6 +16,7 @@ Route::middleware(['wiki.session.id', 'auth:sanctum'])->group(function () {
 });
 
 Route::get('page/{pageId}/followers', 'Api\InteractionController@followersOfPage');
+Route::get('page/{pageId}/stats', 'Api\InteractionController@getStatsDepartment');
 
 
 

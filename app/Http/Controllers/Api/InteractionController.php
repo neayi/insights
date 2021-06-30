@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Queries\CountInteractionsOnPageQuery;
 use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
+use App\Src\UseCases\Domain\Context\Queries\GetStatsByDepartment;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByPageAndUser;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Http\Request;
@@ -89,5 +90,11 @@ class InteractionController extends Controller
         $farmingId = $request->input('farming_id', null);
         $croppingId = $request->input('cropping_id', null);
         return $getFollowersOfPage->execute($pageId, $type, $cp, $farmingId, $croppingId);
+    }
+
+    public function getStatsDepartment($pageId, Request $request, GetStatsByDepartment $getStatsByDepartment)
+    {
+        $type = $request->input('type', 'follow');
+        return $getStatsByDepartment->execute($pageId, $type);
     }
 }
