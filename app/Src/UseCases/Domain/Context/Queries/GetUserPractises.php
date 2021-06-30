@@ -20,7 +20,7 @@ class GetUserPractises
         $practisesToReturn = [];
         $practises = $this->interactionsRepository->getDoneByUser($userId);
         foreach ($practises as $practise){
-            $year = $practise->doneAt()->format('Y');
+            $year = $practise->doneAt() !== null ? $practise->doneAt()->format('Y') : 'Non datée';
             $practisesToReturn[$year][] = $practise->toArray();
         }
 
