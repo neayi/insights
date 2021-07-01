@@ -4,11 +4,11 @@
 namespace Tests\Unit\Users\Interactions;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
-use App\Src\UseCases\Domain\Agricultural\Model\RegisteredUser;
-use App\Src\UseCases\Domain\Agricultural\Queries\InteractionsQueryByPageAndUser;
+use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
+use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
+use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByPageAndUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 

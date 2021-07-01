@@ -4,7 +4,7 @@
 namespace Tests\Integration\Repositories;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use Tests\TestCase;
 
 class PageRepositoryTest extends TestCase

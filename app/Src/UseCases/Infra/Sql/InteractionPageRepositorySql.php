@@ -4,11 +4,15 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\CanInteract;
-use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Dto\PractiseVo;
+use App\Src\UseCases\Domain\Context\Model\CanInteract;
+use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
+use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\User;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class InteractionPageRepositorySql implements InteractionRepository
 {
@@ -70,5 +74,57 @@ class InteractionPageRepositorySql implements InteractionRepository
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
     }
 
+    public function getInteractionsByUser(string $userId): array
+    {
+        $user = User::query()->where('uuid', $userId)->first();
+        $interactionsModel = InteractionModel::query()
+            ->where('user_id', $user->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
+        foreach($interactionsModel as $interaction) {
+            $page = PageModel::query()->where('page_id', $interaction->page_id)->first();
+            $applause = InteractionModel::query()->where('page_id', $interaction->page_id)->where('applause', true)->count();
+            if ($interaction->follow) {
+                $interactions['follow'][] = array_merge($page->toArray(), ['applause' => $applause]);
+            }
+            if ($interaction->applause) {
+                $interactions['applause'][] = array_merge($page->toArray(), ['applause' => $applause]);
+            }
+        }
+        return $interactions ?? [];
+    }
+
+
+    public function getDoneByUser(string $userId): array
+    {
+        $user = User::query()->where('uuid', $userId)->first();
+        $records = InteractionModel::query()
+            ->with('page')
+            ->where('user_id', $user->id)
+            ->where('done', true)
+            ->get();
+        foreach ($records as $record){
+            $practises[] = new PractiseVo(
+                $record->page_id,
+                $record->page->title ?? '',
+                $record->start_done_at ?? new \DateTime()
+            );
+        }
+        return $practises ?? [];
+    }
+
+    public function getFollowersPage(int $pageId): Paginator
+    {
+        return  InteractionModel::query()
+            ->with('user.context')
+            ->where('follow', true)
+            ->where('page_id', $pageId)
+            ->whereNotNull('user_id')
+            ->paginate()
+            ->through(function ($item){
+                return $item->user->context->toDto();
+            })
+        ;
+    }
 }

@@ -4,7 +4,7 @@
 namespace Tests\Unit\System;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\System\SetPageDryState;
 use Tests\TestCase;
 

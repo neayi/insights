@@ -15,4 +15,7 @@ Route::middleware(['wiki.session.id', 'auth:sanctum'])->group(function () {
     Route::post('page/{pageId}', 'Api\InteractionController@handle');
 });
 
+Route::get('page/{pageId}/followers', 'Api\InteractionController@followersOfPage');
+
+
 
