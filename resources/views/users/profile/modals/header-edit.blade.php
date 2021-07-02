@@ -22,7 +22,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <input name="sector" type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="[secteur, spécialité, ect.]" value="{{$context['sector'] ?? ''}}">
+                                            <input name="sector" type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="Titre, fonction, poste, ..." value="{{$context['sector'] ?? ''}}">
                                         </div>
                                     </div>
                                     <small class="form-text text-muted font-weight-semibold mt-2">
