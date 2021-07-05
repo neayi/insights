@@ -34,6 +34,14 @@ class SyncDryPagesFromWiki extends Command
 
             foreach($wikiPages as $page){
                 $pageModel = PageModel::query()->where('page_id', $page['pageid'])->first();
+
+                if (!isset($page['title']))
+                {
+                    // The page has been deleted from the wiki, we remove it on our side too
+                    $pageModel->delete();
+                    continue;
+                }
+
                 $pageModel->dry = false;
                 $pageModel->title = $page['title'];
                 $pageModel->last_sync = (new \DateTime());
