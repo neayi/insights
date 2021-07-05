@@ -69,7 +69,9 @@ class ReportingCharacteristicSql
         foreach($characteristicsCount as $characteristicCount){
             $characteristic = CharacteristicsModel::query()->find($characteristicCount->characteristic_id);
             $characteristic->count = $characteristicCount->count;
-            $characteristicsToReturn[] = $characteristic->toArray();
+            $c = $characteristic->toArray();
+            $c['pretty_page_label'] = str_replace('Catégorie:', '', $c['pretty_page_label']);
+            $characteristicsToReturn[] = $c;
         }
         return $characteristicsToReturn;
     }

@@ -19,7 +19,7 @@ class CharacteristicDto implements \JsonSerializable
         $this->label = $label;
         $this->type = $type;
         $this->icon = $icon;
-        $this->prettyLabel = $prettyLabel;
+        $this->prettyLabel = str_replace('Catégorie:', '', $prettyLabel);
         $this->opt = $opt;
     }
 
