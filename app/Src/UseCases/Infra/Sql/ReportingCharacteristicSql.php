@@ -33,6 +33,7 @@ class ReportingCharacteristicSql
         $interactionsToReturn = [];
         foreach($interactions as $interaction){
             $characteristicsModel = CharacteristicsModel::query()->where('code', $interaction->department)->first();
+            $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
             $interaction->departmentData = $characteristicsModel;
             $interactionsToReturn[] = $interaction->toArray();
         }
@@ -71,6 +72,7 @@ class ReportingCharacteristicSql
             $characteristic->count = $characteristicCount->count;
             $c = $characteristic->toArray();
             $c['pretty_page_label'] = str_replace('Catégorie:', '', $c['pretty_page_label']);
+            $c['icon'] = route('api.icon.serve', ['id' => $c['uuid']]);
             $characteristicsToReturn[] = $c;
         }
         return $characteristicsToReturn;
