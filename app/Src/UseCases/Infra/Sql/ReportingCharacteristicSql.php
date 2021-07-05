@@ -13,8 +13,8 @@ class ReportingCharacteristicSql
     {
         $interactions = InteractionModel::query()
             ->selectRaw('
-                count(*),
-                IF(SUBSTR(contexts.postal_code, 1, 2) >= 97, SUBSTR(contexts.postal_code, 1, 3), SUBSTR(contexts.postal_code, 1, 2)) as department
+                count(*) AS count,
+                IF(SUBSTR(contexts.postal_code, 1, 2) >= 97, SUBSTR(contexts.postal_code, 1, 3), SUBSTR(contexts.postal_code, 1, 2)) AS department
             ')
             ->join('users', 'users.id', 'interactions.user_id')
             ->join('contexts', 'users.context_id', 'contexts.id')
