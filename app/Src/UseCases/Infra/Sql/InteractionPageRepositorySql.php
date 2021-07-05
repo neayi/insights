@@ -126,7 +126,7 @@ class InteractionPageRepositorySql implements InteractionRepository
      *
     */
 
-    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $cp = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
         return  InteractionModel::query()
             ->with('user.context')
@@ -142,7 +142,7 @@ class InteractionPageRepositorySql implements InteractionRepository
                     return;
                 }
                 $query->whereRaw(
-                    'exists( SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
+                    'exists(SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
                     $characteristic->id
                 );
             })
@@ -152,20 +152,21 @@ class InteractionPageRepositorySql implements InteractionRepository
                     return;
                 }
                 $query->whereRaw(
-                    'exists( SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
+                    'exists(SELECT * FROM user_characteristics where characteristic_id = ? AND user_characteristics.user_id = interactions.user_id)',
                     $characteristic->id
                 );
             })
-            ->when($cp !== null, function ($query) use($cp) {
-                $query->join('users', 'users.id', 'interactions.user_id')
+            ->when($departmentNumber !== null, function ($query) use($departmentNumber) {
+                $query
+                    ->join('users', 'users.id', 'interactions.user_id')
                     ->join('contexts', 'users.context_id', 'contexts.id')
-                    ->where('contexts.postal_code', $cp);
+                    ->where('contexts.postal_code', 'LIKE', $departmentNumber.'%');
             })
             ->where('page_id', $pageId)
             ->whereNotNull('interactions.user_id')
             ->paginate()
             ->through(function ($item){
-                return $item->user->context->toDto();
+                return $item->user->context->toDto($item->user->uuid, $item->start_done_at ? $item->start_done_at->format('Y-m-d') : $item->done);
             })
         ;
     }

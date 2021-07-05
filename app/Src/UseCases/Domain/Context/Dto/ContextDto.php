@@ -18,6 +18,8 @@ class ContextDto implements \JsonSerializable
     public $description;
     public $sector;
     public $structure;
+    public $userUuid;
+    public $hasDone;
 
     public function __construct(
         string $firstname,
@@ -26,7 +28,9 @@ class ContextDto implements \JsonSerializable
         array $characteristics,
         ?string $description,
         ?string $sector,
-        ?string $structure
+        ?string $structure,
+        ?string $userUuid = null,
+        $hasDone = false
     )
     {
         $this->firstname = $firstname;
@@ -40,6 +44,9 @@ class ContextDto implements \JsonSerializable
         $this->description = $description;
         $this->sector = $sector;
         $this->structure = $structure;
+        $this->userUuid = $userUuid;
+        $this->userUuid = $userUuid;
+        $this->hasDone = $hasDone;
     }
 
     private function fullname():string
@@ -61,6 +68,8 @@ class ContextDto implements \JsonSerializable
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,
+            'userGuid' => $this->userUuid,
+            'hasDone' => $this->hasDone,
         ];
     }
 
