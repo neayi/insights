@@ -13,13 +13,14 @@ class ReportingCharacteristicSql
     {
         $interactions = InteractionModel::query()
             ->selectRaw('
-                count(*),
+                count(*) as count,
                 IF(SUBSTR(contexts.postal_code, 1, 2) >= 97, SUBSTR(contexts.postal_code, 1, 3), SUBSTR(contexts.postal_code, 1, 2)) as department
             ')
             ->join('users', 'users.id', 'interactions.user_id')
             ->join('contexts', 'users.context_id', 'contexts.id')
             ->when($type === 'follow', function ($query) {
                 $query->where('follow', true);
+                $query->orWhere('done', true);
             })
             ->when($type === 'do', function ($query) {
                 $query->where('done', true);
@@ -51,6 +52,7 @@ class ReportingCharacteristicSql
             ->join('characteristics', 'characteristics.id', 'user_characteristics.characteristic_id')
             ->when($type === 'follow', function ($query) {
                 $query->where('follow', true);
+                $query->orWhere('done', true);
             })
             ->when($type === 'do', function ($query) {
                 $query->where('done', true);
