@@ -124,11 +124,7 @@ class InteractionPageRepositorySql implements InteractionRepository
      * @param string|null $characteristicIdCroppingSystem
      * @return Paginator
      *
-     *
-     * select * from `interactions`
-     * inner join `user_characteristics` on `user_characteristics`.`user_id` = `interactions`.`user_id`
-     * where `follow` = true and EXIST (SELECT * FROM user_characteristics where characteristic_id = 161 and user_id = 2)
-     */
+    */
 
     public function getFollowersPage(int $pageId, string $type = 'follow', ?string $cp = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
