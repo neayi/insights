@@ -163,7 +163,7 @@ class FollowersQueryTest extends TestCase
         $context2 = new Context('abcde', '06000', ['abc'], '');
         $this->contextRepository->add($context2, 'abcd');
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06000');
+        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06');
 
         $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '06000', [$characteristic1->toDto()], '', '', '');
         self::assertEquals($contextDtoExpected, $followers[0]);

@@ -21,7 +21,7 @@ interface InteractionRepository
     public function getFollowersPage(
         int $pageId,
         string $type = 'follow',
-        ?string $cp = null,
+        ?string $dept = null,
         ?string $characteristicId = null,
         ?string $characteristicIdCroppingSystem = null
     ):Paginator;
