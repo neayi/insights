@@ -159,7 +159,7 @@
                                                     }
                                                 @endphp
                                                 <div class="caracteristique-exploitation">
-                                                    <img src="{{ $characteristic['icon'] }}">
+                                                    <img src="{{ $characteristic['icon'] }}/100">
                                                     <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank">
                                                         <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
                                                     </a>
