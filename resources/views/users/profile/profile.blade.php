@@ -178,7 +178,7 @@
                 </div>
 
 
-                <!-- mes exploitations -->
+                <!-- ma ferme -->
                 <div class="row mt-4">
                     <div class="col-md-6 @if($edit) editable @endif exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
@@ -199,7 +199,7 @@
                             @endif
                         </div>
                         <p class="empty d-none">
-                            Présentez à la communauté votre exploitation, son histoire et vos objectifs.
+                            Présentez à la communauté votre ferme, son histoire et vos objectifs.
                         </p>
                         <p class="filled" id="dev-description">
                             @php
@@ -226,7 +226,7 @@
                                 </a>
                             </div-->
                         </div>
-                        <p class="empty d-none">Renseignez les pratiques misent en œuvre sur votre exploitation.</p>
+                        <p class="empty d-none">Renseignez les pratiques mises en œuvre sur votre ferme.</p>
                         <div class="timeline filled">
                             @php $count = 0; @endphp
                             @if(!empty($practises))
@@ -245,7 +245,7 @@
                                 @endforeach
                             @else
                                 <div class="alert alert-light small">
-                                    L'historique de l'exploitation est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
+                                    L'historique de la ferme est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
                                 </div>
                             @endif
                         </div>
