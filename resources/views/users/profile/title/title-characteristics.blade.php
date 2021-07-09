@@ -1,5 +1,5 @@
 @if($edit)
-    Mes caractéristiques sur mon exploitation
+    Mes caractéristiques sur ma ferme
 @else
-    Les caractéristiques de son exploitation
+    Les caractéristiques de sa ferme
 @endif
