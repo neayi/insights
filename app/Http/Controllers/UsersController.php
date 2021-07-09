@@ -35,7 +35,7 @@ class UsersController extends Controller
             $user = $user->toArray();
             $list[] = [
                 '',
-                ucfirst($user['firstname']).' '.ucfirst($user['lastname']),
+                $user['firstname'].' '.$user['lastname'],
                 $user['email'],
                 $user['state'] == false ? __('users.table.invitation_send') : __('users.table.state_active'),
                 isset($user['last_login_at']) ?  __('users.table.last_login_occ').(new \DateTime())->setTimestamp(strtotime($user['last_login_at']))->format('Y-m-d H:i:s') : __('common.never'),

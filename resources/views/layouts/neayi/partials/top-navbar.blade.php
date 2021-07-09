@@ -39,11 +39,9 @@
                             <div id="pt-userpage"><a href="/profile" dir="auto" title="Votre page d’utilisateur [alt-shift-.]" accesskey=".">{{\Illuminate\Support\Facades\Auth::user()->fullname()}}</a></div>
                             <div id="pt-notifications-alert"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:Notifications" class="mw-echo-notifications-badge mw-echo-notification-badge-nojs oo-ui-icon-bell mw-echo-unseen-notifications" data-counter-num="7" data-counter-text="7" title="Vos alertes">Alertes (7)</a></div>
                             <div id="pt-notifications-notice"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:Notifications" class="mw-echo-notifications-badge mw-echo-notification-badge-nojs oo-ui-icon-tray mw-echo-unseen-notifications" data-counter-num="4" data-counter-text="4" title="Vos notifications">Notifications (4)</a></div>
-                            <div id="pt-mytalk"><a href="{{config('neayi.wiki_url')}}/wiki/Discussion_utilisateur:Bertrand_Gorge" class="new" title="Votre page de discussion (page inexistante) [alt-shift-n]" accesskey="n">Discussion</a></div>
                             <div id="pt-adminlinks"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:AdminLinks">Liens d’administration</a></div>
                             <div id="pt-preferences"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:Pr%C3%A9f%C3%A9rences" title="Vos préférences">Préférences</a></div>
                             <div id="pt-watchlist"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:Liste_de_suivi" title="Une liste des pages dont vous suivez les modifications [alt-shift-l]" accesskey="l">Liste de suivi</a></div>
-                            <div id="pt-mycontris"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:Contributions/Bertrand_Gorge" title="La liste de vos contributions [alt-shift-y]" accesskey="y">Contributions</a></div>
                             <div id="pt-logout"><a href="{{config('neayi.wiki_url')}}/index.php?title=Sp%C3%A9cial:D%C3%A9connexion&amp;returnto=%C3%80+propos" data-mw="interface" title="Se déconnecter">Se déconnecter</a></div>
                             </div>
                         </div>

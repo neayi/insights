@@ -51,7 +51,7 @@ class ContextDto implements \JsonSerializable
 
     private function fullname():string
     {
-        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        return $this->firstname.' '.$this->lastname;
     }
 
     public function toArray()

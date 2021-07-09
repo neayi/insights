@@ -11,7 +11,7 @@
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture'] !== null ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img')}}">
                         </div>
-                        <h3 class="profile-username text-center">{{ ucfirst($user['firstname']).' '.ucfirst($user['lastname']) }}</h3>
+                        <h3 class="profile-username text-center">{{ $user['firstname'].' '.$user['lastname'] }}</h3>
                         <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             @if(in_array('admin', $user['roles']))
