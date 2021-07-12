@@ -7,6 +7,7 @@ namespace App\Src\UseCases\Domain\Context\UseCases;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 
 class UpdateMainData
 {
@@ -33,10 +34,15 @@ class UpdateMainData
         $user = $this->userRepository->getById($currentUser->id());
         $user->update($email, $firstname, $lastname);
         $user->updateRole($role);
+
+        $geoData = app(GetDepartmentFromPostalCode::class)->execute($postalCode);
+
         $context->update([
             'postal_code' => $postalCode,
             'sector' => $sector,
             'structure' => $structure,
+            'coordinates' => $geoData['coordinates'],
+            'department_number' => $geoData['department_number'],
         ], $currentUser->id());
     }
 }

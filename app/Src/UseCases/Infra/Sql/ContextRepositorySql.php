@@ -43,8 +43,9 @@ class ContextRepositorySql implements ContextRepository
             $user->characteristics()->save($characteristic);
         }
 
-        $contextId = DB::table('contexts')->insertGetId($contextData->except('farmings')->toArray());
-        $user->context_id = $contextId;
+        $contextModel = (new ContextModel())->fill($contextData->except('farmings')->toArray());
+        $contextModel->save();
+        $user->context_id = $contextModel->id;
         $user->save();
     }
 
@@ -83,12 +84,12 @@ class ContextRepositorySql implements ContextRepository
     public function update(Context $context, string $userId)
     {
         $user = User::where('uuid', $userId)->first();
-        if($user == null){
+        if($user === null){
             return null;
         }
 
         $contextModel = ContextModel::where('uuid', $context->id())->first();
-        if($contextModel == null){
+        if($contextModel === null){
             return null;
         }
         $contextData = collect($context->toArray());

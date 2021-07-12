@@ -7,6 +7,7 @@ namespace App\Src\UseCases\Domain\Users\Profile;
 use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 use Illuminate\Support\Facades\Validator;
 
 class FillWikiUserProfile
@@ -38,7 +39,19 @@ class FillWikiUserProfile
         $user->addRole($role);
 
         $exploitationId = $this->identityProvider->id();
-        $context = new Context($exploitationId, $postcode, $farmingType);
+
+        $geoData = app(GetDepartmentFromPostalCode::class)->execute($postcode);
+
+        $context = new Context(
+            $exploitationId,
+            $postcode,
+            $farmingType,
+            null,
+            null,
+            null,
+            $geoData['department_number'] ?? null,
+            $geoData['coordinates'] ?? []
+        );
         $context->create($userId);
     }
 

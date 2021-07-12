@@ -16,6 +16,8 @@ use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use App\Src\UseCases\Domain\Shared\Provider\IdentityProviderImpl;
+use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
+use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCodeImpl;
 use App\Src\UseCases\Infra\Gateway\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
@@ -36,6 +38,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Tests\Adapters\Gateway\InMemoryAuthGateway;
 use Tests\Adapters\Gateway\InMemoryFileStorage;
+use Tests\Adapters\Gateway\InMemoryGetDepartmentsFromPostalCode;
 use Tests\Adapters\Gateway\InMemoryPictureHandler;
 use Tests\Adapters\Gateway\InMemorySocialiteGateway;
 use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
@@ -98,6 +101,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
         $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
+        $this->app->singleton(GetDepartmentFromPostalCode::class, GetDepartmentFromPostalCodeImpl::class);
     }
 
     private function tuBinding(): void
@@ -116,6 +120,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
         $this->app->singleton(PageRepository::class, InMemoryPageRepository::class);
         $this->app->singleton(InteractionRepository::class, InMemoryInteractionRepository::class);
+        $this->app->singleton(GetDepartmentFromPostalCode::class, InMemoryGetDepartmentsFromPostalCode::class);
     }
 
     private function tiBinding(): void
@@ -133,5 +138,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
         $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
+        $this->app->singleton(GetDepartmentFromPostalCode::class, InMemoryGetDepartmentsFromPostalCode::class);
     }
 }

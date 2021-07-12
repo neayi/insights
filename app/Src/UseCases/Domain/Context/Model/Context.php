@@ -15,6 +15,8 @@ class Context
     private $sector;
     private $structure;
     private $contextRepository;
+    private $departmentNumber;
+    private $coordinates;
 
     public function __construct(
         string $id,
@@ -22,7 +24,9 @@ class Context
         array $characteristics = [],
         string $description = null,
         string $sector = null,
-        string $structure = null
+        string $structure = null,
+        string $departmentNumber = null,
+        array $coordinates = []
     )
     {
         $this->uid = $id;
@@ -31,6 +35,8 @@ class Context
         $this->description = $description;
         $this->sector = $sector;
         $this->structure = $structure;
+        $this->departmentNumber = $departmentNumber;
+        $this->coordinates = $coordinates;
         $this->contextRepository = app(ContextRepository::class);
     }
 
@@ -51,6 +57,8 @@ class Context
         $this->characteristics = $params['characteristics'] ?? $this->characteristics;
         $this->sector = $params['sector'] ?? $this->sector;
         $this->structure = $params['structure'] ?? $this->structure;
+        $this->departmentNumber = $params['department_number'] ?? $this->departmentNumber;
+        $this->coordinates = $params['coordinates'] ?? $this->coordinates;
         $this->contextRepository->update($this, $userId);
     }
 
@@ -69,6 +77,8 @@ class Context
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,
+            'coordinates' => $this->coordinates,
+            'department_number' => $this->departmentNumber,
         ];
     }
 }

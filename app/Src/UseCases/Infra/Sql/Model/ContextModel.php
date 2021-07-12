@@ -13,8 +13,11 @@ class ContextModel extends Model
 {
     protected $table = 'contexts';
 
-    protected $fillable = ['description', 'postal_code', 'structure', 'sector'];
+    protected $fillable = ['description', 'postal_code', 'structure', 'sector', 'department_number', 'coordinates', 'uuid'];
 
+    protected $casts = [
+        'coordinates' => 'array'
+    ];
 
     public function user()
     {

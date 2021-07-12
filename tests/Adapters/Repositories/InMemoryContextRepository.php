@@ -22,7 +22,7 @@ class InMemoryContextRepository implements ContextRepository
         $this->contexts[$userId] = $context;
     }
 
-    public function getByUser(string $userId)
+    public function getByUser(string $userId):?Context
     {
         return $this->contexts[$userId] ?? null;
     }

@@ -30,7 +30,17 @@ class UpdateMainDataTest  extends TestCase
 
         app(UpdateMainData::class)->execute('83130', 'sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer');
 
-        $contextExpected = new Context('abc', '83130', ['abc', 'bcd', 'cdf'], 'test', 'sector', 'structure');
+        $coordinates = [43, 117];
+        $contextExpected = new Context(
+            'abc',
+            '83130',
+            ['abc', 'bcd', 'cdf'],
+            'test',
+            'sector',
+            'structure',
+            83,
+            $coordinates
+        );
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);
 

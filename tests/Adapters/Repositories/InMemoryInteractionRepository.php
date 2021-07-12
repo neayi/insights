@@ -47,9 +47,8 @@ class InMemoryInteractionRepository implements InteractionRepository
         return [];
     }
 
-    public function getFollowersPage(int $pageId): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $dept = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
         // TODO: Implement getFollowersPage() method.
     }
-
 }

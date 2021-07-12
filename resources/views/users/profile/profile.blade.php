@@ -117,8 +117,10 @@
                             <div class="col-md-4 map">
                                 <div><img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}"></div>
                                 <div class="profile-dept-detail">
-                                    <span class="dept-name">{{ $context['characteristicsDepartement'][0]->label }}</span><br> 
-                                    {{ $context['characteristicsDepartement'][0]->opt['climat'] }}
+                                    @if(isset($context['characteristicsDepartement'][0]))
+                                        <span class="dept-name">{{ $context['characteristicsDepartement'][0]->label }}</span><br>
+                                        {{ $context['characteristicsDepartement'][0]->opt['climat'] }}
+                                    @endif
                                 </div>
                             </div>
                         </div>
