@@ -38,12 +38,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
     Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
     Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
-});
-
-Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
 
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
 
+});
+
+Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
     Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');
     Route::get('/organization/add/form', 'OrganizationsController@showAddForm')->name('organization.add.form');
