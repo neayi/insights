@@ -18,12 +18,14 @@ class ReportingCharacteristicSql
             ')
             ->join('users', 'users.id', 'interactions.user_id')
             ->join('contexts', 'users.context_id', 'contexts.id')
-            ->when($type === 'follow', function ($query) {
-                $query->where('follow', true);
-                $query->orWhere('done', true);
-            })
-            ->when($type === 'do', function ($query) {
-                $query->where('done', true);
+            ->where(function ($query) use ($type){
+                $query->when($type === 'follow', function ($query) {
+                    $query->where('follow', true);
+                    $query->orWhere('done', true);
+                })
+                        ->when($type === 'do', function ($query) {
+                            $query->where('done', true);
+                        });
             })
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')
@@ -33,7 +35,12 @@ class ReportingCharacteristicSql
         $interactionsToReturn = [];
         foreach($interactions as $interaction){
             $characteristicsModel = CharacteristicsModel::query()->where('code', $interaction->department)->first();
-            $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
+
+            // FIXME : This test is only necessary because corsica breaks the line above. When corsica is correctly handled,
+            // we should remove the test for emptyness.
+            if (!empty($characteristicsModel))
+                $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
+
             $interaction->departmentData = $characteristicsModel;
             $interactionsToReturn[] = $interaction->toArray();
         }
@@ -51,12 +58,14 @@ class ReportingCharacteristicSql
             ->join('contexts', 'users.context_id', 'contexts.id')
             ->join('user_characteristics', 'user_characteristics.user_id', 'users.id')
             ->join('characteristics', 'characteristics.id', 'user_characteristics.characteristic_id')
-            ->when($type === 'follow', function ($query) {
-                $query->where('follow', true);
-                $query->orWhere('done', true);
-            })
-            ->when($type === 'do', function ($query) {
-                $query->where('done', true);
+            ->where(function ($query) use ($type){
+                $query->when($type === 'follow', function ($query) {
+                    $query->where('follow', true);
+                    $query->orWhere('done', true);
+                })
+                        ->when($type === 'do', function ($query) {
+                            $query->where('done', true);
+                        });
             })
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')

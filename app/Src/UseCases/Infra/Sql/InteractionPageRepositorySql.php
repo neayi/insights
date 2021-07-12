@@ -131,13 +131,21 @@ class InteractionPageRepositorySql implements InteractionRepository
 
     public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
+        // Handle Corsica differently:
+        if (strtolower($departmentNumber) == '2a' ||
+            strtolower($departmentNumber) == '2b')
+            $departmentNumber = '20';
+
         return  InteractionModel::query()
             ->with('user.context')
-            ->when($type == 'follow', function ($query) {
-                $query->where('follow', true);
-            })
-            ->when($type == 'do', function ($query) {
-                $query->where('done', true);
+            ->where(function ($query) use ($type){
+                $query->when($type === 'follow', function ($query) {
+                    $query->where('follow', true);
+                    $query->orWhere('done', true);
+                })
+                ->when($type === 'do', function ($query) {
+                    $query->where('done', true);
+                });
             })
             ->when($characteristicId !== null, function ($query) use($characteristicId) {
                 $characteristic = CharacteristicsModel::query()->where('uuid', $characteristicId)->first();
@@ -167,6 +175,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             })
             ->where('page_id', $pageId)
             ->whereNotNull('interactions.user_id')
+            ->orderBy('interactions.updated_at', 'desc')
             ->paginate()
             ->through(function ($item){
                 return $item->user->context->toDto($item->user->uuid, $item->start_done_at ? $item->start_done_at->format('Y-m-d') : $item->done);

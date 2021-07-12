@@ -17258,9 +17258,24 @@ a.text-dark:focus {
   font-weight: 600;
 }
 
+.profile .map {
+  text-align: center;
+}
+
 .profile .map img {
   width: 200px;
   height: auto;
+  margin-right: 30px;
+}
+
+.profile .map .profile-dept-detail {
+  font-size: 12px;
+  line-height: 1rem;
+}
+
+.profile .map .profile-dept-detail .dept-name {
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .profile .btn .material-icons {

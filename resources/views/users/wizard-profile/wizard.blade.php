@@ -20,7 +20,7 @@
                 <span class="font-weight-bold text-dark-green text-big d-block mb-4">Merci !</span>
                 <p class="mb-4">
                     Pour vous aider à trouver des retours d’expériences ou des pratiques pouvant s’appliquer
-                    à votre exploitation et aider la communauté à vous comprendre, présentez-vous,
+                    à votre ferme et aider la communauté à vous comprendre, présentez-vous,
                 </p>
             </div>
         @endif

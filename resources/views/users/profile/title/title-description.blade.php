@@ -1,5 +1,5 @@
 @if($edit)
-    Mon exploitation, mes objectifs
+    Ma ferme, mes objectifs
 @else
-    Son exploitation, ses objectifs
+    Sa ferme, ses objectifs
 @endif

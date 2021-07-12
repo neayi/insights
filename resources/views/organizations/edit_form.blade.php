@@ -11,7 +11,7 @@
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle" src="{{$organization['url_picture']}}">
                         </div>
-                        <h3 class="profile-username text-center">{{ ucfirst($organization['name']) }}</h3>
+                        <h3 class="profile-username text-center">{{ $organization['name'] }}</h3>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>Followers</b> <a class="float-right">1,322</a>

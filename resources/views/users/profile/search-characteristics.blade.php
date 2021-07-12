@@ -33,7 +33,7 @@
                         <input type="hidden" name="type" id="i-type" value="{{$type}}">
                         <input type="hidden" name="title" id="i-title" value="{{$search}}">
                         <button type="submit" class="btn btn-dark-green text-white">
-                            Ajouter la caractéristique {{ ucfirst($search) }}
+                            Ajouter la caractéristique {{ $search }}
                         </button>
                     </form>
                 </div>

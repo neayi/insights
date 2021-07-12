@@ -44,7 +44,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function adminlte_desc()
     {
-        $desc = ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        $desc = $this->firstname.' '.$this->lastname;
         if($this->organization_id !== null){
             $organization = app(OrganizationRepository::class)->get($this->organization_id);
             $desc .= ' - organisme : '.$organization->name();
@@ -59,7 +59,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function fullname()
     {
-        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        return $this->firstname.' '.$this->lastname;
     }
 
     public function sendEmailVerificationNotification()

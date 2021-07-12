@@ -51,9 +51,23 @@
     }
 
     .map {
+        text-align: center;
+
         img {
-            width : 200px;
-            height: auto;
+            width       : 200px;
+            height      : auto;
+            // slightly move the image to the left in order to compensate France lack of balance
+            margin-right: 30px;
+        }
+
+        .profile-dept-detail {
+            font-size  : 12px;
+            line-height: 1rem;
+
+            .dept-name {
+                font-weight: bold;
+                font-size  : 120%;
+            }
         }
     }
 
@@ -219,17 +233,17 @@
             text-overflow     : ellipsis;
             display           : -webkit-box;
         }
-        
+
         .comment-date {
             font-size: 60%;
         }
 
         .comment-extract {
-            overflow: hidden;
+            overflow          : hidden;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            display: -webkit-box;
+            text-overflow     : ellipsis;
+            display           : -webkit-box;
         }
 
         .followed-image {

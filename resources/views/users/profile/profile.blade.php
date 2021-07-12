@@ -69,8 +69,8 @@
                                     @endif
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role)
-                                     {{ !empty($context['sector']) ? '- '.ucfirst($context['sector']) : '' }}
-                                     {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.ucfirst($context['structure']).'">'.ucfirst($context['structure']) .'</a>)' : '' !!}
+                                     {{ !empty($context['sector']) ? '- '.$context['sector'] : '' }}
+                                     {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
                                 </div>
 
                                 <!--div class="dropdown mt-3">
@@ -115,7 +115,11 @@
                                 </div-->
                             </div>
                             <div class="col-md-4 map">
-                                <img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}">
+                                <div><img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}"></div>
+                                <div class="profile-dept-detail">
+                                    <span class="dept-name">{{ $context['characteristicsDepartement'][0]->label }}</span><br> 
+                                    {{ $context['characteristicsDepartement'][0]->opt['climat'] }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,7 +163,7 @@
                                                     }
                                                 @endphp
                                                 <div class="caracteristique-exploitation">
-                                                    <img src="{{ $characteristic['icon'] }}">
+                                                    <img src="{{ $characteristic['icon'] }}/100">
                                                     <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank">
                                                         <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
                                                     </a>
@@ -174,7 +178,7 @@
                 </div>
 
 
-                <!-- mes exploitations -->
+                <!-- ma ferme -->
                 <div class="row mt-4">
                     <div class="col-md-6 @if($edit) editable @endif exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
@@ -195,7 +199,7 @@
                             @endif
                         </div>
                         <p class="empty d-none">
-                            Présentez à la communauté votre exploitation, son histoire et vos objectifs.
+                            Présentez à la communauté votre ferme, son histoire et vos objectifs.
                         </p>
                         <p class="filled" id="dev-description">
                             @php
@@ -222,7 +226,7 @@
                                 </a>
                             </div-->
                         </div>
-                        <p class="empty d-none">Renseignez les pratiques misent en œuvre sur votre exploitation.</p>
+                        <p class="empty d-none">Renseignez les pratiques mises en œuvre sur votre ferme.</p>
                         <div class="timeline filled">
                             @php $count = 0; @endphp
                             @if(!empty($practises))
@@ -241,7 +245,7 @@
                                 @endforeach
                             @else
                                 <div class="alert alert-light small">
-                                    L'historique de l'exploitation est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
+                                    L'historique de la ferme est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
                                 </div>
                             @endif
                         </div>

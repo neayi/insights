@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3">Mon exploitation, mes objectifs</label>
+                                    <label class="label-big mb-3">Ma ferme, mes objectifs</label>
                                     <div class="row">
                                         <div class="col-md-12">
                                            <textarea name="description" rows="12" class="w-100">{!! strip_tags($context['description']) !!}</textarea>

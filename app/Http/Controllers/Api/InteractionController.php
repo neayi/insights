@@ -79,17 +79,17 @@ class InteractionController extends Controller
      * Get the followers of the page
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam type string The type of interactions Example:follow,do
-     * @queryParam cp string The user's postal code. Example: 83220
+     * @queryParam dept string The user's postal code. Example: 83220
      * @queryParam farming_id string The uuid of a farming characteristic
      * @queryParam cropping_id string The uuid of a cropping characteristic
      */
     public function followersOfPage($pageId, Request $request, GetFollowersOfPage $getFollowersOfPage)
     {
         $type = $request->input('type', 'follow');
-        $cp = $request->input('cp', null);
+        $dept = $request->input('dept', null);
         $farmingId = $request->input('farming_id', null);
         $croppingId = $request->input('cropping_id', null);
-        return $getFollowersOfPage->execute($pageId, $type, $cp, $farmingId, $croppingId);
+        return $getFollowersOfPage->execute($pageId, $type, $dept, $farmingId, $croppingId);
     }
 
     public function getStatsDepartment($pageId, Request $request, GetStatsByDepartment $getStatsByDepartment)
