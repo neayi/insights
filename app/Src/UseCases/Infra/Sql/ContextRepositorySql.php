@@ -63,7 +63,11 @@ class ContextRepositorySql implements ContextRepository
             return $item->toDto();
         });
 
-        $numberDepartment = (new PostalCode($context->postal_code))->department();
+        if(!isset($context->department_number)) {
+            $numberDepartment = (new PostalCode($context->postal_code))->department();
+        }else{
+            $numberDepartment = $context->department_number;
+        }
         $characteristicDepartment = CharacteristicsModel::query()->where('code', $numberDepartment)->first();
 
         if(isset($characteristicDepartment)){
@@ -77,7 +81,10 @@ class ContextRepositorySql implements ContextRepository
             $characteristics->toArray(),
             $context->description,
             $context->sector ?? '',
-            $context->structure ?? ''
+            $context->structure ?? '',
+            $user->uuid,
+            false,
+            $numberDepartment ?? '',
         );
     }
 

@@ -5,7 +5,6 @@ namespace App\Src\UseCases\Domain\Context\Dto;
 
 
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use App\Src\UseCases\Domain\Context\Model\PostalCode;
 
 class ContextDto implements \JsonSerializable
 {
@@ -30,13 +29,14 @@ class ContextDto implements \JsonSerializable
         ?string $sector,
         ?string $structure,
         ?string $userUuid = null,
-        $hasDone = false
+        $hasDone = false,
+        string $departmentNumber = null
     )
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->postalCode = $postalCode;
-        $this->department = (new PostalCode($postalCode))->department();
+        $this->department = $departmentNumber;
         $this->characteristics = $characteristics;
         foreach($this->characteristics as $characteristic){
             $this->characteristicsByType[$characteristic->type()][] = $characteristic;

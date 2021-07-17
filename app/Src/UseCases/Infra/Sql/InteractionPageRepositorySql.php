@@ -7,7 +7,6 @@ namespace App\Src\UseCases\Infra\Sql;
 use App\Src\UseCases\Domain\Context\Dto\PractiseVo;
 use App\Src\UseCases\Domain\Context\Model\CanInteract;
 use App\Src\UseCases\Domain\Context\Model\Interaction;
-use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
@@ -128,14 +127,8 @@ class InteractionPageRepositorySql implements InteractionRepository
      * @return Paginator
      *
     */
-
     public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
     {
-        // Handle Corsica differently:
-        if (strtolower($departmentNumber) == '2a' ||
-            strtolower($departmentNumber) == '2b')
-            $departmentNumber = '20';
-
         return  InteractionModel::query()
             ->with('user.context')
             ->where(function ($query) use ($type){
@@ -171,7 +164,7 @@ class InteractionPageRepositorySql implements InteractionRepository
                 $query
                     ->join('users', 'users.id', 'interactions.user_id')
                     ->join('contexts', 'users.context_id', 'contexts.id')
-                    ->where('contexts.postal_code', 'LIKE', $departmentNumber.'%');
+                    ->where('contexts.department_number', $departmentNumber);
             })
             ->where('page_id', $pageId)
             ->whereNotNull('interactions.user_id')

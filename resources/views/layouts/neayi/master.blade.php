@@ -23,5 +23,7 @@
         @include('layouts.neayi.partials.footer')
         @include('users.modals.register')
     </div>
+
+    @include('layouts.neayi.partials.google-analitycs')
 </body>
 </html>

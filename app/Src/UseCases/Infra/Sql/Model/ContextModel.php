@@ -46,7 +46,8 @@ class ContextModel extends Model
             $this->sector ?? '',
             $this->structure ?? '',
             $userUid,
-            $hasDone
+            $hasDone,
+            $this->department_number
         );
     }
 }
