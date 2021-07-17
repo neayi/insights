@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Profile;
 
 use App\Exceptions\Domain\UserNotFound;
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
 use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;

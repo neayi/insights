@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Profile;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;

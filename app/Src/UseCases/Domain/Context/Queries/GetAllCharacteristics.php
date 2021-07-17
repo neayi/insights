@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Dto;
+namespace App\Src\UseCases\Domain\Context\Queries;
 
 
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
