@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
@@ -27,10 +28,10 @@ class WizardProfileController extends Controller
             'userRoles' => $roles,
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
-            'farmingType' => $farmingType[GetFarmingType::type]['others'],
-            'farmingTypeMain' => array_merge($farmingType[GetFarmingType::type]['main'], $farmingType[GetFarmingType::type]['others']),
-            'croppingType' => $farmingType[GetFarmingType::typeSystem]['others'],
-            'croppingTypeMain' => array_merge($farmingType[GetFarmingType::typeSystem]['main'], $farmingType[GetFarmingType::typeSystem]['others']),
+            'farmingType' => $farmingType[Characteristic::FARMING_TYPE]['others'],
+            'farmingTypeMain' => array_merge($farmingType[Characteristic::FARMING_TYPE]['main'], $farmingType[Characteristic::FARMING_TYPE]['others']),
+            'croppingType' => $farmingType[Characteristic::CROPPING_SYSTEM]['others'],
+            'croppingTypeMain' => array_merge($farmingType[Characteristic::CROPPING_SYSTEM]['main'], $farmingType[Characteristic::CROPPING_SYSTEM]['others']),
             'email' => $user['email']
         ]);
     }

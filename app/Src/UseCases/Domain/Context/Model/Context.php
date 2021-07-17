@@ -14,9 +14,10 @@ class Context
     private $description;
     private $sector;
     private $structure;
-    private $contextRepository;
     private $departmentNumber;
     private $coordinates;
+
+    private $contextRepository;
 
     public function __construct(
         string $id,
@@ -73,7 +74,7 @@ class Context
         return [
             'uuid' => $this->uid,
             'postal_code' => $this->postalCode,
-            'farmings' => $this->characteristics,
+            'characteristics' => $this->characteristics,
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,

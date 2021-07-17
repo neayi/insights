@@ -54,6 +54,25 @@ class ContextRepositoryTest extends TestCase
     /**
      * @test
      */
+    public function shouldAddContext()
+    {
+        $characteristic1 = CharacteristicsModel::factory()->create();
+        $characteristic2 = CharacteristicsModel::factory()->create();
+        $characteristic3 = CharacteristicsModel::factory()->create();
+
+        $user = new User('abc', 'g@gmail.com', 'f', 'l');
+        $this->userRepository->add($user);
+
+        $contextExpected = new Context('abc', '83220', [$characteristic1->uuid, $characteristic2->uuid, $characteristic3->uuid], '');
+        $this->contextRepository->add($contextExpected, 'abc');
+
+        $contextSaved = $this->contextRepository->getByUser('abc');
+        self::assertEquals($contextExpected, $contextSaved);
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnEmptyContext()
     {
         $user = new User('abc', 'g@gmail.com', 'f', 'l');
@@ -62,5 +81,8 @@ class ContextRepositoryTest extends TestCase
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertNull($contextSaved);
     }
+
+
+
 
 }

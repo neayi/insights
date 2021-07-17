@@ -82,4 +82,26 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     {
         return $this->hasOne(ContextModel::class, 'id', 'context_id');
     }
+
+    public function addCharacteristics(array $characteristics)
+    {
+        foreach($characteristics as $characteristicUuid){
+            $characteristic = CharacteristicsModel::where('uuid', (string)$characteristicUuid)->first();
+            if(isset($characteristic)) {
+                $this->characteristics()->save($characteristic);
+            }
+        }
+    }
+
+    public function syncCharacteristics(array $characteristics)
+    {
+        $characteristicsToSync = [];
+        foreach($characteristics as $characteristicUuid){
+            $characteristicModel = CharacteristicsModel::where('uuid', (string)$characteristicUuid)->first();
+            if(isset($characteristicModel)) {
+                $characteristicsToSync[] = $characteristicModel->id;
+            }
+        }
+        $this->characteristics()->sync($characteristicsToSync);
+    }
 }

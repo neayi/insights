@@ -10,8 +10,6 @@ use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 class GetFarmingType
 {
     private $characteristicsRepository;
-    const type = 'farming';
-    const typeSystem = 'croppingSystem';
 
     public function __construct(CharacteristicsRepository $characteristicsRepository)
     {
