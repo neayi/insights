@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Profile;
 use App\Exceptions\Domain\UserNotFound;
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
@@ -56,8 +57,8 @@ class ProfileController extends Controller
             'user' => $user,
             'characteristics' => $usersCharacteristics,
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
-            'farmingType' => $allCharacteristics[GetAllCharacteristics::type],
-            'croppingType' => $allCharacteristics[GetAllCharacteristics::typeSystem],
+            'farmingType' => $allCharacteristics[Characteristic::FARMING_TYPE],
+            'croppingType' => $allCharacteristics[Characteristic::CROPPING_SYSTEM],
             'practises' => $practises,
             'interactions' => $interactions,
             'routeComment' => $routeComment

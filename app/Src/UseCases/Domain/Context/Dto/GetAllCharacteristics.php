@@ -4,13 +4,12 @@
 namespace App\Src\UseCases\Domain\Context\Dto;
 
 
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
 class GetAllCharacteristics
 {
     private $characteristicsRepository;
-    const type = 'farming';
-    const typeSystem = 'croppingSystem';
 
     public function __construct(CharacteristicsRepository $characteristicsRepository)
     {
@@ -19,12 +18,12 @@ class GetAllCharacteristics
 
     public function get()
     {
-        $mains = $this->characteristicsRepository->getAllByType(self::type);
-        $mainsTs = $this->characteristicsRepository->getAllByType(self::typeSystem);
+        $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE);
+        $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM);
 
         return [
-            self::type => $mains,
-            self::typeSystem => $mainsTs,
+            Characteristic::FARMING_TYPE => $mains,
+            Characteristic::CROPPING_SYSTEM => $mainsTs,
         ];
     }
 }

@@ -6,6 +6,9 @@ namespace App\Src\UseCases\Domain\Context\Queries;
 
 use App\Src\UseCases\Domain\Ports\PageRepository;
 
+/**
+ * Search characteristics in the wiki pages
+ */
 class SearchCharacteristics
 {
     private $pageRepository;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Profile;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Dto\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
@@ -20,7 +20,7 @@ class WizardProfileController extends Controller
 {
     public function showWizard()
     {
-        $farmingType = app(GetFarmingType::class)->get();
+        $characteristics = app(GetAllCharacteristics::class)->get();
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
 
@@ -28,10 +28,8 @@ class WizardProfileController extends Controller
             'userRoles' => $roles,
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
-            'farmingType' => $farmingType[Characteristic::FARMING_TYPE]['others'],
-            'farmingTypeMain' => array_merge($farmingType[Characteristic::FARMING_TYPE]['main'], $farmingType[Characteristic::FARMING_TYPE]['others']),
-            'croppingType' => $farmingType[Characteristic::CROPPING_SYSTEM]['others'],
-            'croppingTypeMain' => array_merge($farmingType[Characteristic::CROPPING_SYSTEM]['main'], $farmingType[Characteristic::CROPPING_SYSTEM]['others']),
+            'farmingTypeMain' => $characteristics[Characteristic::FARMING_TYPE],
+            'croppingTypeMain' => $characteristics[Characteristic::CROPPING_SYSTEM],
             'email' => $user['email']
         ]);
     }
@@ -47,12 +45,17 @@ class WizardProfileController extends Controller
 
         $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $postalCode, $farmingType);
         if(session()->has('wiki_callback')){
-            $user = Auth::user();
-            $user->wiki_token = session()->get('wiki_token');
-            $user->save();
-            $callback = urldecode(session()->get('wiki_callback'));
-            return redirect($callback);
+            return $this->redirectToWiki();
         }
         return redirect(config('neayi.wiki_url'));
+    }
+
+    private function redirectToWiki()
+    {
+        $user = Auth::user();
+        $user->wiki_token = session()->get('wiki_token');
+        $user->save();
+        $callback = urldecode(session()->get('wiki_callback'));
+        return redirect($callback);
     }
 }

@@ -53,7 +53,13 @@
             <div class="form-group">
                 <label class="label-big mb-3">Mes productions</label>
                 <div class="circle-row d-flex flex-wrap">
-                @foreach($farmingTypeMain as $farming)
+                    @php $displayMore = false; @endphp
+                    @foreach($farmingTypeMain as $farming)
+                        @php
+                            if(isset($farming['main']) && !$farming['main']){
+                                $displayMore = true;
+                            }
+                        @endphp
                         <div class="icon-characteristics circle-item" style="@if(isset($farming['main']) && !$farming['main']) display:none; @endif">
                             @include('users.wizard-profile.icon-farming', [
                                  'uuid' => $farming['uuid'],
@@ -64,7 +70,7 @@
                              ])
                         </div>
                     @endforeach
-                    @if(!empty($farmingType))
+                    @if($displayMore)
                         <div class="circle-item" id="more-main-production">
                             <label for="myCheckbox23">
                                 <img src="{{asset('icons/More.svg')}}" class="rounded-circle mb-2" />
@@ -78,7 +84,13 @@
             <div class="form-group">
                 <label class="label-big mb-3">Mon cahier des charges</label>
                 <div class="circle-row d-flex flex-wrap">
+                @php $displayMore = false; @endphp
                 @foreach($croppingTypeMain as $farming)
+                        @php
+                            if(isset($farming['main']) && !$farming['main']){
+                                $displayMore = true;
+                            }
+                        @endphp
                         <div class="icon-characteristics circle-item" style="@if(isset($farming['main']) && !$farming['main']) display:none; @endif">
                             @include('users.wizard-profile.icon-farming', [
                                      'uuid' => $farming['uuid'],
@@ -89,7 +101,7 @@
                                  ])
                         </div>
                     @endforeach
-                    @if(!empty($croppingType))
+                    @if($displayMore)
                         <div class="circle-item" id="more-main-cropping">
                             <label for="myCheckbox23">
                                 <img src="{{asset('icons/More.svg')}}" class="rounded-circle mb-2" />

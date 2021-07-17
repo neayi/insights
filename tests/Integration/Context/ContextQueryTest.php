@@ -6,7 +6,6 @@ namespace Tests\Integration\Context;
 
 use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Context\Dto\GetFarmingType;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
