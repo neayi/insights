@@ -7,6 +7,7 @@ use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVerifyEmail
 {
-    use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens;
+    use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens, HasFactory;
 
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"

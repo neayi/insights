@@ -18,15 +18,10 @@ class InteractionRepositoryTest extends TestCase
     public function shouldSaveInteractions()
     {
         $pageId = 1;
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
 
         $interaction = new Interaction($pageId, true, true, true, ['start_at' => '2020-03-23']);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
 
         self::assertDatabaseHas('interactions', ['page_id' => 1, 'user_id' => $user->id, 'start_done_at' => '2020-03-23']);
@@ -38,18 +33,13 @@ class InteractionRepositoryTest extends TestCase
     public function shouldUpdateInteractions()
     {
         $pageId = 1;
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
 
         $interaction = new Interaction($pageId, true, true, true, ['start_at' => '2020-03-23']);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
         $interaction = new Interaction($pageId, false, false, false);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
         self::assertDatabaseHas('interactions', [
             'page_id' => 1,
@@ -76,13 +66,6 @@ class InteractionRepositoryTest extends TestCase
     public function shouldGetInteractions()
     {
         $pageId = 1;
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abcde';
-        $user->email = 'abc@gmail.com';
-        $user->save();
-
         $interaction = new Interaction($pageId, true, true, true, ['start_at' => '2020-03-23']);
         $this->interactionRepository->save(new AnonymousUser('abc'), $interaction);
 
@@ -98,17 +81,12 @@ class InteractionRepositoryTest extends TestCase
     public function shouldTransferInteractions()
     {
         $pageId = 1;
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abcde';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
 
         $interaction = new Interaction($pageId, true, true, true, ['start_at' => '2020-03-23']);
         $this->interactionRepository->save($anonymous = new AnonymousUser('abc'), $interaction);
 
-        $this->interactionRepository->transfer($anonymous, $registeredUser = new RegisteredUser('abcde'));
+        $this->interactionRepository->transfer($anonymous, $registeredUser = new RegisteredUser($user->uuid));
 
         $interactionUpdated = $this->interactionRepository->getByInteractUser($registeredUser, 1);
         self::assertEquals($interaction, $interactionUpdated);
