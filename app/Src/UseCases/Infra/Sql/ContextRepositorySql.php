@@ -6,7 +6,6 @@ namespace App\Src\UseCases\Infra\Sql;
 
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Context\Model\PostalCode;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
@@ -63,13 +62,8 @@ class ContextRepositorySql implements ContextRepository
             return $item->toDto();
         });
 
-        if(!isset($context->department_number)) {
-            $numberDepartment = (new PostalCode($context->postal_code))->department();
-        }else{
-            $numberDepartment = $context->department_number;
-        }
+        $numberDepartment = $context->department_number;
         $characteristicDepartment = CharacteristicsModel::query()->where('code', $numberDepartment)->first();
-
         if(isset($characteristicDepartment)){
             $characteristics->push($characteristicDepartment->toDto());
         }
