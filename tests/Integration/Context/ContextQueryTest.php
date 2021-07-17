@@ -27,7 +27,7 @@ class ContextQueryTest extends TestCase
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last', $postalCode = 83220,  [], 'desc', '', '', $userId1,false, 83);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 83220,  [], 'desc', '', '', $userId1, 83);
         self::assertEquals($contextExpected, $context);
     }
 
@@ -42,7 +42,7 @@ class ContextQueryTest extends TestCase
 
         $context = app(ContextQueryByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last', $postalCode = 97400,  [], 'desc', '', '', $userId1,false, 974);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 97400,  [], 'desc', '', '', $userId1, 974);
         self::assertEquals($contextExpected, $context);
     }
 
@@ -71,7 +71,7 @@ class ContextQueryTest extends TestCase
         $charDto = new CharacteristicDto($characteristic1->uuid, $characteristic1->page_label, Characteristic::FARMING_TYPE, $icon, $characteristic1->pretty_page_label);
         $char2Dto = new CharacteristicDto($characteristic2->uuid, $characteristic2->page_label, Characteristic::CROPPING_SYSTEM, $icon2, $characteristic2->pretty_page_label);
 
-        $contextExpected = new ContextDto('first', 'last', $postalCode = 83400, [$charDto, $char2Dto], 'description', null, null, $userId1, false, 83);
+        $contextExpected = new ContextDto('first', 'last', $postalCode = 83400, [$charDto, $char2Dto], 'description', null, null, $userId1, 83);
 
         self::assertEquals($contextExpected, $context);
     }

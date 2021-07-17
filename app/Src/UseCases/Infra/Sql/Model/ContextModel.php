@@ -24,7 +24,7 @@ class ContextModel extends Model
         return $this->belongsTo(User::class, 'id', 'context_id');
     }
 
-    public function toDto(?string $userUid = null, $hasDone = false):ContextDto
+    public function toDto():ContextDto
     {
         $characteristics = $this->user->characteristics()->get()->transform(function(CharacteristicsModel $item){
             return $item->toDto();
@@ -43,8 +43,7 @@ class ContextModel extends Model
             $this->description,
             $this->sector ?? '',
             $this->structure ?? '',
-            $userUid,
-            $hasDone,
+            $this->user->uuid,
             $this->department_number
         );
     }

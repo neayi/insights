@@ -40,6 +40,7 @@ class ProfileController extends Controller
             Log::emergency($e->getMessage().' '.$e->getLine().' '.$e->getFile().' '.$e->getTraceAsString());
             return redirect()->route('wizard.profile');
         }
+
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);

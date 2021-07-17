@@ -5,6 +5,9 @@ namespace Tests\Integration\Interaction;
 
 
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Dto\FollowerDto;
+use App\Src\UseCases\Domain\Context\Dto\InteractionDto;
+use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\Model\Interaction;
@@ -42,8 +45,13 @@ class FollowersQueryTest extends TestCase
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId);
 
-        $contextDtoExpected = new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid, false);
-        self::assertEquals($contextDtoExpected, $followers[0]);
+        $followerDtoExpected = new FollowerDto(
+           new UserDto($user->uuid, $user->firstname, $user->lastname),
+           new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid),
+           new InteractionDto($pageId, true, false, false)
+        );
+
+        self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
     /**
@@ -71,8 +79,12 @@ class FollowersQueryTest extends TestCase
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, $type = "do");
 
-        $contextDtoExpected = new ContextDto($user2->firstname, $user2->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid, true);
-        self::assertEquals($contextDtoExpected, $followers[0]);
+        $followerDtoExpected = new FollowerDto(
+            new UserDto($user2->uuid, $user2->firstname, $user2->lastname),
+            new ContextDto($user2->firstname, $user2->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid),
+            new InteractionDto($pageId, false, true, false)
+        );
+        self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
     /**
@@ -100,8 +112,12 @@ class FollowersQueryTest extends TestCase
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06');
 
-        $contextDtoExpected = new ContextDto($user2->firstname, $user2->lastname, '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid, true, '06');
-        self::assertEquals($contextDtoExpected, $followers[0]);
+        $followerDtoExpected = new FollowerDto(
+            new UserDto($user2->uuid, $user2->firstname, $user2->lastname),
+            new ContextDto($user2->firstname, $user2->lastname, '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid,'06'),
+            new InteractionDto($pageId, true, true, false)
+        );
+        self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
     /**
@@ -134,8 +150,13 @@ class FollowersQueryTest extends TestCase
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', null, null, $characteristic2->uuid);
 
-        $contextDtoExpected = new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid, false);
-        self::assertEquals($contextDtoExpected, $followers[0]);
+        $followerDtoExpected = new FollowerDto(
+            new UserDto($user->uuid, $user->firstname, $user->lastname),
+            new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid),
+            new InteractionDto($pageId, true, false, false)
+        );
+
+        self::assertEquals($followerDtoExpected, $followers[0]);
         self::assertCount(1, $followers);
     }
 }

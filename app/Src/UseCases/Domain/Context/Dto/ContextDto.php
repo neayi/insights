@@ -5,20 +5,22 @@ namespace App\Src\UseCases\Domain\Context\Dto;
 
 
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\UseCases\Domain\Shared\Model\Dto;
 
-class ContextDto implements \JsonSerializable
+class ContextDto extends Dto
 {
     public $firstname;
     public $lastname;
     public $postalCode;
     public $department;
     public $characteristics;
-    public $characteristicsByType;
+    public $productions;
+    public $characteristicsDepartement;
     public $description;
     public $sector;
     public $structure;
     public $userUuid;
-    public $hasDone;
+    public $fullname;
 
     public function __construct(
         string $firstname,
@@ -29,7 +31,6 @@ class ContextDto implements \JsonSerializable
         ?string $sector,
         ?string $structure,
         ?string $userUuid = null,
-        $hasDone = false,
         string $departmentNumber = null
     )
     {
@@ -37,16 +38,20 @@ class ContextDto implements \JsonSerializable
         $this->lastname = $lastname;
         $this->postalCode = $postalCode;
         $this->department = $departmentNumber;
-        $this->characteristics = $characteristics;
-        foreach($this->characteristics as $characteristic){
-            $this->characteristicsByType[$characteristic->type()][] = $characteristic;
+        $this->fullname = $this->fullname();
+        $characteristicsByType = [];
+        foreach($characteristics as $characteristic){
+            $characteristicsByType[$characteristic->type()][] = $characteristic;
         }
+
+        $this->characteristicsDepartement = $characteristicsByType[Characteristic::DEPARTMENT] ?? [];
+        $this->characteristics = $characteristicsByType[Characteristic::CROPPING_SYSTEM] ?? [];
+        $this->productions = $characteristicsByType[Characteristic::FARMING_TYPE] ?? [];
+
         $this->description = $description;
         $this->sector = $sector;
         $this->structure = $structure;
         $this->userUuid = $userUuid;
-        $this->userUuid = $userUuid;
-        $this->hasDone = $hasDone;
     }
 
     private function fullname():string
@@ -54,27 +59,4 @@ class ContextDto implements \JsonSerializable
         return $this->firstname.' '.$this->lastname;
     }
 
-    public function toArray()
-    {
-        return [
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'postal_code' => $this->postalCode,
-            'department' => $this->department,
-            'fullname' => $this->fullname(),
-            'productions' => $this->characteristicsByType[Characteristic::FARMING_TYPE] ?? [],
-            'characteristics' => $this->characteristicsByType[Characteristic::CROPPING_SYSTEM] ?? [],
-            'characteristicsDepartement' => $this->characteristicsByType[Characteristic::DEPARTMENT] ?? [],
-            'description' => $this->description,
-            'sector' => $this->sector,
-            'structure' => $this->structure,
-            'userGuid' => $this->userUuid,
-            'hasDone' => $this->hasDone,
-        ];
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
 }

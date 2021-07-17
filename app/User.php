@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
@@ -9,7 +10,6 @@ use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
@@ -103,5 +103,10 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             }
         }
         $this->characteristics()->sync($characteristicsToSync);
+    }
+
+    public function toDto():UserDto
+    {
+        return new UserDto($this->uuid, $this->firstname, $this->lastname);
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\UseCases\Domain\Context\Dto\FollowerDto;
 use App\Src\UseCases\Domain\Context\Dto\PractiseVo;
 use App\Src\UseCases\Domain\Context\Model\CanInteract;
 use App\Src\UseCases\Domain\Context\Model\Interaction;
@@ -21,17 +22,17 @@ class InteractionPageRepositorySql implements InteractionRepository
         $user = User::query()->where('uuid', $canInteract->identifier())->first();
 
         $interactionModel = InteractionModel::query()
-            ->where($canInteract->key(), isset($user->id) ? $user->id : $canInteract->identifier())
+            ->where($canInteract->key(), $user->id ?? $canInteract->identifier())
             ->where('page_id', $interaction->pageId())
             ->first();
 
         if($interactionModel === null) {
             $interactionModel = new InteractionModel();
-            $interactionModel->{$canInteract->key()} = isset($user->id) ? $user->id : $canInteract->identifier();
+            $interactionModel->{$canInteract->key()} = $user->id ?? $canInteract->identifier();
         }
 
         $interactionModel->fill($interaction->toArray());
-        $interactionModel->start_done_at = isset($interaction->toArray()['value']['start_at']) ? $interaction->toArray()['value']['start_at'] : null;
+        $interactionModel->start_done_at = $interaction->toArray()['value']['start_at'] ?? null;
         $interactionModel->save();
     }
 
@@ -42,7 +43,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         }
 
         $interactionModel = InteractionModel::query()
-            ->where($canInteract->key(), isset($user->id) ? $user->id : $canInteract->identifier())
+            ->where($canInteract->key(), $user->id ?? $canInteract->identifier())
             ->where('page_id', $pageId)
             ->first();
 
@@ -171,7 +172,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->orderBy('interactions.updated_at', 'desc')
             ->paginate()
             ->through(function ($item){
-                return $item->user->context->toDto($item->user->uuid, $item->start_done_at ? $item->start_done_at->format('Y-m-d') : $item->done);
+                return new FollowerDto($item->user->toDto(), $item->user->context->toDto(), $item->toDto());
             })
         ;
     }
