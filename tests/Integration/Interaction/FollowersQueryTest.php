@@ -12,7 +12,6 @@ use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
 class FollowersQueryTest extends TestCase
@@ -31,37 +30,19 @@ class FollowersQueryTest extends TestCase
      */
     public function shouldGetFollowers()
     {
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
-
-        $characteristic1 = new CharacteristicsModel();
-        $characteristic1->fill([
-            'uuid' => 'abc',
-            'main' => true,
-            'priority' => 0,
-            'icon' => '',
-            'page_label' => 'label',
-            'pretty_page_label' => 'label pretty',
-            'page_id' => 1,
-            'type' => 'prod',
-            'code' => uniqid(),
-        ]);
-        $characteristic1->save();
+        $user = User::factory()->create();
+        $characteristic1 = CharacteristicsModel::factory()->create();
 
         $pageId = 1;
         $interaction = new Interaction($pageId, true, false, false);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', ['abc'], '');
-        $this->contextRepository->add($context, 'abc');
+        $context = new Context('abcd', '83220', [$characteristic1->uuid], '');
+        $this->contextRepository->add($context, $user->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId);
 
-        $contextDtoExpected = new ContextDto('g', 'g', $postalCode = '83220', [$characteristic1->toDto()], '', '', '');
+        $contextDtoExpected = new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid, false);
         self::assertEquals($contextDtoExpected, $followers[0]);
     }
 
@@ -70,50 +51,27 @@ class FollowersQueryTest extends TestCase
      */
     public function shouldGetDoers()
     {
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
 
-        $user2 = new User();
-        $user2->firstname = 'g2';
-        $user2->lastname = 'g2';
-        $user2->uuid = 'abcd';
-        $user2->email = 'abcd@gmail.com';
-        $user2->save();
-
-        $characteristic1 = new CharacteristicsModel();
-        $characteristic1->fill([
-            'uuid' => 'abc',
-            'main' => true,
-            'priority' => 0,
-            'icon' => '',
-            'page_label' => 'label',
-            'pretty_page_label' => 'label pretty',
-            'page_id' => 1,
-            'type' => 'prod',
-            'code' => uniqid(),
-        ]);
-        $characteristic1->save();
+        $characteristic1 = CharacteristicsModel::factory()->create();
 
         $pageId = 1;
         $interaction = new Interaction($pageId, true, false, false);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
         $interaction = new Interaction($pageId, false, false, true);
-        $this->interactionRepository->save(new RegisteredUser('abcd'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', ['abc'], '');
-        $this->contextRepository->add($context, 'abc');
+        $context = new Context('abcd', '83220', [$characteristic1->uuid], '');
+        $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '83220', ['abc'], '');
-        $this->contextRepository->add($context2, 'abcd');
+        $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
+        $this->contextRepository->add($context2, $user2->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, $type = "do");
 
-        $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '83220', [$characteristic1->toDto()], '', '', '');
+        $contextDtoExpected = new ContextDto($user2->firstname, $user2->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid, true);
         self::assertEquals($contextDtoExpected, $followers[0]);
     }
 
@@ -122,50 +80,27 @@ class FollowersQueryTest extends TestCase
      */
     public function shouldGetWithDepartment()
     {
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
 
-        $user2 = new User();
-        $user2->firstname = 'g2';
-        $user2->lastname = 'g2';
-        $user2->uuid = 'abcd';
-        $user2->email = 'abcd@gmail.com';
-        $user2->save();
-
-        $characteristic1 = new CharacteristicsModel();
-        $characteristic1->fill([
-            'uuid' => 'abc',
-            'main' => true,
-            'priority' => 0,
-            'icon' => '',
-            'page_label' => 'label',
-            'pretty_page_label' => 'label pretty',
-            'page_id' => 1,
-            'type' => 'prod',
-            'code' => uniqid(),
-        ]);
-        $characteristic1->save();
+        $characteristic1 = CharacteristicsModel::factory()->create();
 
         $pageId = 1;
         $interaction = new Interaction($pageId, true, false, false);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
         $interaction = new Interaction($pageId, true, false, true);
-        $this->interactionRepository->save(new RegisteredUser('abcd'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', ['abc'], '');
-        $this->contextRepository->add($context, 'abc');
+        $context = new Context('abcd', '83220', [$characteristic1->uuid], '',  null, null, '83');
+        $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '06000', ['abc'], '');
-        $this->contextRepository->add($context2, 'abcd');
+        $context2 = new Context('abcde', '06000', [$characteristic1->uuid], '', null, null, '06');
+        $this->contextRepository->add($context2, $user2->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06');
 
-        $contextDtoExpected = new ContextDto('g2', 'g2', $postalCode = '06000', [$characteristic1->toDto()], '', '', '');
+        $contextDtoExpected = new ContextDto($user2->firstname, $user2->lastname, '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid, true, '06');
         self::assertEquals($contextDtoExpected, $followers[0]);
     }
 
@@ -174,64 +109,32 @@ class FollowersQueryTest extends TestCase
      */
     public function shouldGetWithFarmingType()
     {
-        $user = new User();
-        $user->firstname = 'g';
-        $user->lastname = 'g';
-        $user->uuid = 'abc';
-        $user->email = 'abc@gmail.com';
-        $user->save();
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
 
-        $user2 = new User();
-        $user2->firstname = 'g2';
-        $user2->lastname = 'g2';
-        $user2->uuid = 'abcd';
-        $user2->email = 'abcd@gmail.com';
-        $user2->save();
-
-        $characteristic1 = new CharacteristicsModel();
-        $characteristic1->fill([
-            'uuid' => 'abc',
-            'main' => true,
-            'priority' => 0,
-            'icon' => '',
-            'page_label' => 'label',
-            'pretty_page_label' => 'label pretty',
-            'page_id' => 1,
-            'type' => Characteristic::FARMING_TYPE,
-            'code' => uniqid(),
+        $characteristic1 = CharacteristicsModel::factory()->create([
+            'type' => Characteristic::FARMING_TYPE
         ]);
-        $characteristic1->save();
-
-        $characteristic2 = new CharacteristicsModel();
-        $characteristic2->fill([
-            'uuid' => 'abcd',
-            'main' => true,
-            'priority' => 0,
-            'icon' => '',
-            'page_label' => 'label',
-            'pretty_page_label' => 'label pretty',
-            'page_id' => 1,
+        $characteristic2 = CharacteristicsModel::factory()->create([
             'type' => Characteristic::CROPPING_SYSTEM,
-            'code' => uniqid(),
         ]);
-        $characteristic2->save();
 
         $pageId = 1;
         $interaction = new Interaction($pageId, true, false, false);
-        $this->interactionRepository->save(new RegisteredUser('abc'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
         $interaction = new Interaction($pageId, true, false, true);
-        $this->interactionRepository->save(new RegisteredUser('abcd'), $interaction);
+        $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', ['abcd'], '');
-        $this->contextRepository->add($context, 'abc');
+        $context = new Context('abcd', '83220', [$characteristic2->uuid], '');
+        $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '83220', ['abc'], '');
-        $this->contextRepository->add($context2, 'abcd');
+        $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
+        $this->contextRepository->add($context2, $user2->uuid);
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', null, null, 'abcd');
+        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', null, null, $characteristic2->uuid);
 
-        $contextDtoExpected = new ContextDto('g', 'g', $postalCode = '83220', [$characteristic2->toDto()], '', '', '');
+        $contextDtoExpected = new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid, false);
         self::assertEquals($contextDtoExpected, $followers[0]);
         self::assertCount(1, $followers);
     }

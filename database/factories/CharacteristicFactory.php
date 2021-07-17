@@ -13,10 +13,10 @@ class CharacteristicFactory extends Factory
     public function definition()
     {
         return [
-            'uuid' => uniqid(),
+            'uuid' => $uuid = uniqid(),
             'main' => true,
             'priority' => 0,
-            'icon' => '',
+            'icon' => 'public/characteristics/'.$uuid.'.png',
             'page_label' => $this->faker->word(),
             'pretty_page_label' => $this->faker->word(),
             'page_id' => 1,

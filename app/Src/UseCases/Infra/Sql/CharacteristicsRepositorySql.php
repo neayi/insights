@@ -41,20 +41,6 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $c->toDomain();
     }
 
-
-    /**
-     * only used for ti test
-     * @param array $cs
-     */
-    public function add(array $cs)
-    {
-        foreach ($cs as $c){
-            $cModel = new CharacteristicsModel();
-            $cModel->fill($c);
-            $cModel->save();
-        }
-    }
-
     public function save(Characteristic $c)
     {
         $memento = $c->memento();
