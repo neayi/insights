@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Infra\Sql\Model;
 
 
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +46,20 @@ class ContextModel extends Model
             $userUid,
             $hasDone,
             $this->department_number
+        );
+    }
+
+    public function toDomain()
+    {
+        return new Context(
+            $this->uuid,
+            $this->postal_code,
+            $this->user->characteristics()->pluck('uuid')->toArray(),
+            $this->description,
+            $this->sector,
+            $this->structure,
+            $this->department_number,
+            $this->coordinates
         );
     }
 }

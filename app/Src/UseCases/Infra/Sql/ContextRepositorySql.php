@@ -10,25 +10,13 @@ use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\User;
-use Illuminate\Support\Facades\DB;
 
 class ContextRepositorySql implements ContextRepository
 {
     public function getByUser(string $userId):?Context
     {
         $user = User::where('uuid', $userId)->first();
-        $context = DB::table('contexts')->where('id', $user->context_id)->first();
-        if($context == null){
-            return null;
-        }
-        return new Context(
-            $context->uuid,
-            $context->postal_code,
-            $user->characteristics()->pluck('uuid')->toArray(),
-            $context->description,
-            $context->sector,
-            $context->structure,
-        );
+        return $user->context !== null ? $user->context->toDomain() : null;
     }
 
     public function add(Context $context, string $userId)
