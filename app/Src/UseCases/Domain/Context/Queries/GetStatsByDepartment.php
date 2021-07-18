@@ -16,10 +16,7 @@ class GetStatsByDepartment
         $this->reportingCharacteristicsRepository = $reportingCharacteristicSql;
     }
 
-    public function execute(
-        int $pageId,
-        string $type = 'follow'
-    )
+    public function execute(int $pageId, string $type = 'follow'):array
     {
         $stats = $this->reportingCharacteristicsRepository->getStatsByDepartment($pageId, $type);
         $farming = $this->reportingCharacteristicsRepository->getCharacteristicsByUserPage($pageId, $type, Characteristic::FARMING_TYPE);

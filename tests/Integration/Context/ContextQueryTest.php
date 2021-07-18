@@ -8,7 +8,7 @@ use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use Ramsey\Uuid\Uuid;
@@ -25,7 +25,7 @@ class ContextQueryTest extends TestCase
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
         $this->contextRepository->add(new Context(Uuid::uuid4(), 83220, [], 'desc', null, null, 83), $userId1);
 
-        $context = app(ContextQueryByUser::class)->execute($userId1);
+        $context = app(GetContextByUser::class)->execute($userId1);
 
         $contextExpected = new ContextDto('first', 'last', $postalCode = 83220,  [], 'desc', '', '', $userId1, 83);
         self::assertEquals($contextExpected, $context);
@@ -40,7 +40,7 @@ class ContextQueryTest extends TestCase
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
         $this->contextRepository->add(new Context(Uuid::uuid4(), 97400, [], 'desc', '', '', 974), $userId1);
 
-        $context = app(ContextQueryByUser::class)->execute($userId1);
+        $context = app(GetContextByUser::class)->execute($userId1);
 
         $contextExpected = new ContextDto('first', 'last', $postalCode = 97400,  [], 'desc', '', '', $userId1, 974);
         self::assertEquals($contextExpected, $context);
@@ -64,7 +64,7 @@ class ContextQueryTest extends TestCase
         ]);
 
         $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$characteristic1->uuid, $characteristic2->uuid], 'description', null, null, 83), $userId1);
-        $context = app(ContextQueryByUser::class)->execute($userId1);
+        $context = app(GetContextByUser::class)->execute($userId1);
 
         $icon = route('api.icon.serve', ['id' => $characteristic1->uuid]);
         $icon2 = route('api.icon.serve', ['id' => $characteristic2->uuid]);

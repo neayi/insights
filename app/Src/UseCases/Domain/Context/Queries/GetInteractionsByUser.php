@@ -11,13 +11,11 @@ use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
-class InteractionsQueryByUser
+class GetInteractionsByUser
 {
     private $interactionRepository;
 
-    public function __construct(
-        InteractionRepository $interactionRepository
-    )
+    public function __construct(InteractionRepository $interactionRepository)
     {
         $this->interactionRepository = $interactionRepository;
     }

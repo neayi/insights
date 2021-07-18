@@ -20,9 +20,9 @@ class ReportingCharacteristicSql
                     $query->where('follow', true);
                     $query->orWhere('done', true);
                 })
-                        ->when($type === 'do', function ($query) {
-                            $query->where('done', true);
-                        });
+                ->when($type === 'do', function ($query) {
+                    $query->where('done', true);
+                });
             })
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')

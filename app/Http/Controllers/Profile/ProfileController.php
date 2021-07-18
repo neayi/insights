@@ -3,15 +3,14 @@
 
 namespace App\Http\Controllers\Profile;
 
-
-use App\Exceptions\Domain\UserNotFound;
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use App\Src\UseCases\Domain\Context\Queries\ContextQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
-use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByUser;
 use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
+use App\Src\UseCases\Domain\Context\Queries\SearchStructure;
 use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
 use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
@@ -27,11 +26,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfileController extends Controller
 {
-    public function showEdit(ContextQueryByUser $contextQueryByUser)
+    public function showEdit(GetContextByUser $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
         try {
@@ -44,8 +42,8 @@ class ProfileController extends Controller
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
-        $interactions = app(InteractionsQueryByUser::class)->get(Auth::user()->uuid);
-        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics'], $context['characteristicsDepartement']);
+        $interactions = app(GetInteractionsByUser::class)->get(Auth::user()->uuid);
+        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics'], $context['characteristics_departement']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
         $routeComment = route('profile.comments.show');
@@ -66,19 +64,14 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show(string $username, string $userId, ContextQueryByUser $contextQueryByUser)
+    public function show(string $username, string $userId, GetContextByUser $contextQueryByUser)
     {
-        try {
-            $user = app(GetUser::class)->get($userId)->toArray();
-        }catch (UserNotFound $e){
-            throw new NotFoundHttpException();
-        }
-
+        $user = app(GetUser::class)->get($userId)->toArray();
         $routeComment = route('profile.comments.show', ['user_id' => $userId]);
         $context = $contextQueryByUser->execute($userId)->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get($userId);
-        $interactions = app(InteractionsQueryByUser::class)->get($userId);
+        $interactions = app(GetInteractionsByUser::class)->get($userId);
         $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
@@ -138,20 +131,10 @@ class ProfileController extends Controller
         return [];
     }
 
-    public function autoCompleteStructure(Request $request)
+    public function autoCompleteStructure(Request $request, SearchStructure $searchStructure)
     {
         $qry = $request->input('q');
-        $client = new Client();
-        $uri = config('wiki.api_uri').'?action=query&list=search&srwhat=text&srsearch='.$qry.'&srqiprofile=classic_noboostlinks&srnamespace=3000&format=json';
-        $response = $client->get($uri);
-        $content = json_decode($response->getBody()->getContents(), true);
-        if(isset($content['query']['search'])){
-            $results = array_column($content['query']['search'], 'title');
-            return array_map(function ($item){
-                return str_replace('Structure:', '', $item);
-            }, $results);
-        }
-        return ['results' => []];
+        return $searchStructure->execute($qry);
     }
 
     public function searchCharacteristics(Request $request, SearchCharacteristics $searchCharacteristics)

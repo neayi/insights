@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Queries\CountInteractionsOnPageQuery;
 use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
 use App\Src\UseCases\Domain\Context\Queries\GetStatsByDepartment;
-use App\Src\UseCases\Domain\Context\Queries\InteractionsQueryByPageAndUser;
+use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByPageAndUser;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Http\Request;
 
@@ -30,7 +30,7 @@ class InteractionController extends Controller
         $pageId,
         Request $request,
         HandleInteractions $handleInteractions,
-        InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+        GetInteractionsByPageAndUser $interactionsQueryByPageAndUser,
         CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {
@@ -63,7 +63,7 @@ class InteractionController extends Controller
      */
     public function getInteractionsOnPageByUser(
         $pageId,
-        InteractionsQueryByPageAndUser $interactionsQueryByPageAndUser,
+        GetInteractionsByPageAndUser $interactionsQueryByPageAndUser,
         CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {

@@ -11,7 +11,7 @@ use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
-class InteractionsQueryByPageAndUser
+class GetInteractionsByPageAndUser
 {
     private $interactionRepository;
     private $authGateway;

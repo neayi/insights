@@ -15,7 +15,7 @@ class GetUserPractises
         $this->interactionsRepository = $interactionRepository;
     }
 
-    public function get(string $userId)
+    public function get(string $userId):array
     {
         $practisesToReturn = [];
         $practises = $this->interactionsRepository->getDoneByUser($userId);

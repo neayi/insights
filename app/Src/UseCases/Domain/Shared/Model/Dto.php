@@ -8,14 +8,14 @@ abstract class Dto implements \JsonSerializable
 {
     public function jsonSerialize()
     {
-        return $this->toArray(get_object_vars($this));
+        return $this->serialize(get_object_vars($this));
     }
 
-    private function toArray(array $properties)
+    private function serialize(array $properties)
     {
         foreach ($properties as $key => $property){
             if(is_object($property)){
-                $params[$this->camelToSnake($key)] = $this->toArray(get_object_vars($property));
+                $params[$this->camelToSnake($key)] = $this->serialize(get_object_vars($property));
             }else {
                 $params[$this->camelToSnake($key)] = $property;
             }
@@ -26,5 +26,10 @@ abstract class Dto implements \JsonSerializable
     private function camelToSnake($input)
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
+    }
+
+    public function toArray():array
+    {
+        return $this->serialize(get_object_vars($this));
     }
 }

@@ -64,8 +64,6 @@ class FillUserWikiProfileTest extends TestCase
         $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
 
-        $this->characteristicRepository->add([$ft1, $ft2]);
-
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
