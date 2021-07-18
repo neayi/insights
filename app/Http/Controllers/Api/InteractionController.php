@@ -79,7 +79,7 @@ class InteractionController extends Controller
      * Get the followers of the page
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam type string The type of interactions Example:follow,do
-     * @queryParam dept string The user's postal code. Example: 83220
+     * @queryParam dept string A department number. Example: 83, 2A
      * @queryParam farming_id string The uuid of a farming characteristic
      * @queryParam cropping_id string The uuid of a cropping characteristic
      */
