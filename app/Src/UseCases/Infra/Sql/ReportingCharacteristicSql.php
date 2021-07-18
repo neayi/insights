@@ -12,10 +12,7 @@ class ReportingCharacteristicSql
     public function getStatsByDepartment(int $pageId, string $type = 'follow')
     {
         $interactions = InteractionModel::query()
-            ->selectRaw('
-                count(*) AS count,
-                IF(SUBSTR(contexts.postal_code, 1, 2) >= 97, SUBSTR(contexts.postal_code, 1, 3), SUBSTR(contexts.postal_code, 1, 2)) AS department
-            ')
+            ->selectRaw('count(*) AS count, contexts.department_number as department_number')
             ->join('users', 'users.id', 'interactions.user_id')
             ->join('contexts', 'users.context_id', 'contexts.id')
             ->where(function ($query) use ($type){
@@ -29,18 +26,13 @@ class ReportingCharacteristicSql
             })
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')
-            ->groupBy('department')
+            ->groupBy('department_number')
             ->get();
 
         $interactionsToReturn = [];
         foreach($interactions as $interaction){
-            $characteristicsModel = CharacteristicsModel::query()->where('code', $interaction->department)->first();
-
-            // FIXME : This test is only necessary because corsica breaks the line above. When corsica is correctly handled,
-            // we should remove the test for emptyness.
-            if (!empty($characteristicsModel))
-                $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
-
+            $characteristicsModel = CharacteristicsModel::query()->where('code', $interaction->department_number)->first();
+            $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
             $interaction->departmentData = $characteristicsModel;
             $interactionsToReturn[] = $interaction->toArray();
         }
@@ -63,9 +55,9 @@ class ReportingCharacteristicSql
                     $query->where('follow', true);
                     $query->orWhere('done', true);
                 })
-                        ->when($type === 'do', function ($query) {
-                            $query->where('done', true);
-                        });
+                ->when($type === 'do', function ($query) {
+                    $query->where('done', true);
+                });
             })
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')

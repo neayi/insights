@@ -16,11 +16,6 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
         throw new \Exception('not implemented');
     }
 
-    public function add(array $cs)
-    {
-        // do nothing
-    }
-
     public function getAllByType(string $type): array
     {
         // TODO: Implement getAllByType() method.
@@ -45,11 +40,6 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
             }
         }
         return null;
-    }
-
-    public function search(string $type, string $search): array
-    {
-        return [];
     }
 
     public function getByPageId(int $pageId): Characteristic

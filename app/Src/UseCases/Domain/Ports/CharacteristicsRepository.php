@@ -12,6 +12,5 @@ interface CharacteristicsRepository
     public function getAllByType(string $type):array;
     public function save(Characteristic $c);
     public function getBy(array $conditions):?Characteristic;
-    public function search(string $type, string $search):array;
     public function getByPageId(int $pageId):?Characteristic;
 }

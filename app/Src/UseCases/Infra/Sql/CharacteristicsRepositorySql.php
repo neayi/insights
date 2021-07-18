@@ -74,20 +74,4 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         }
         return $characteristicModel->toDomain();
     }
-
-    public function search(string $type, string $search): array
-    {
-        $characteristicModel = CharacteristicsModel::query()
-            ->where('type', $type)
-            ->where('pretty_page_label','LIKE', '%'.$search.'%')
-            ->get();
-
-        if(!isset($characteristicModel)){
-            return [];
-        }
-        foreach ($characteristicModel as $characteristic){
-            $characteristics[] = $characteristic->toArray();
-        }
-        return $characteristics ?? [];
-    }
 }

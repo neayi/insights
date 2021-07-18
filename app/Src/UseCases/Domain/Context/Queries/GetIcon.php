@@ -4,8 +4,6 @@
 namespace App\Src\UseCases\Domain\Context\Queries;
 
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\User;
 use Intervention\Image\Facades\Image;
 
 class GetIcon
@@ -32,7 +30,7 @@ class GetIcon
                     $constraint->upsize();
                 });
             }
-        }, 3600, true);
+        }, 86400, true);
         return $img->response();
     }
 
