@@ -4,7 +4,9 @@
 namespace App\Exceptions\Domain;
 
 
-class UserNotFound extends DomainException
+use App\Src\UseCases\Domain\Exceptions\NotFound;
+
+class UserNotFound extends NotFound
 {
 
 }

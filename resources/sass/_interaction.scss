@@ -1,0 +1,115 @@
+
+.interaction-bloc {
+
+    width           : 342px;
+    background-color: #CCF1E5;
+    position        : sticky;
+    top             : 0px;
+    margin-top      : -47px;
+    margin-right    : -15px;
+
+    .interaction-top {
+        padding: 24px 23px 16px 24px;
+
+        font-size  : 24px;
+        font-weight: bold;
+        line-height: 1.33;
+        color      : #000000;
+
+        .interaction-buttons {
+            font-size  : 14px;
+            font-weight: 600;
+            text-align : center;
+            color      : #0a6a4a;
+
+            button {
+                height       : 50px;
+                margin-top   : 23px;
+                margin-bottom: 5px;
+            }
+
+        }
+    }
+
+    .interaction-links {
+
+        button,
+        a {
+            height: 64px;
+
+            font-family   : Raleway;
+            font-size     : 16px;
+            font-weight   : bold;
+            letter-spacing: normal;
+            text-align    : center;
+            color         : #ffffff;
+            border-radius : 0;
+
+            &.menu {
+                width: 64px;
+            }
+        }
+
+        a {
+            display    : inline-block;
+            line-height: 49px;
+        }
+    }
+
+
+}
+
+.interaction-bloc-mobile {
+    background-color: #CCF1E5;
+    margin          : -47px -15px 15px -30px;
+
+    .interaction-top {
+        padding: 0px 23px 16px 24px;
+
+        font-family: Raleway;
+        font-size  : 24px;
+        font-weight: bold;
+        line-height: 1.33;
+        color      : #000000;
+
+        .interaction-buttons {
+            font-size  : 14px;
+            font-weight: 600;
+            text-align : center;
+            color      : #0a6a4a;
+
+            button {
+                height       : 50px;
+                margin-top   : 23px;
+                margin-bottom: 5px;
+            }
+
+        }
+    }
+
+    .interaction-links {
+
+        button,
+        a {
+            height: 64px;
+
+            font-size     : 16px;
+            font-weight   : bold;
+            letter-spacing: normal;
+            text-align    : center;
+            color         : #ffffff;
+            border-radius : 0;
+
+            &.menu {
+                width: 64px;
+            }
+        }
+
+
+        a {
+            display    : inline-block;
+            line-height: 49px;
+        }
+    }
+
+}

@@ -4,9 +4,10 @@
 namespace Tests\Adapters\Repositories;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\CanInteract;
-use App\Src\UseCases\Domain\Agricultural\Model\Interaction;
+use App\Src\UseCases\Domain\Context\Model\CanInteract;
+use App\Src\UseCases\Domain\Context\Model\Interaction;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class InMemoryInteractionRepository implements InteractionRepository
 {
@@ -34,5 +35,20 @@ class InMemoryInteractionRepository implements InteractionRepository
     public function getCountInteractionsOnPage(int $pageId): array
     {
         return [];
+    }
+
+    public function getDoneByUser(string $userId): array
+    {
+        return [];
+    }
+
+    public function getInteractionsByUser(string $userId): array
+    {
+        return [];
+    }
+
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $dept = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
+    {
+        // TODO: Implement getFollowersPage() method.
     }
 }

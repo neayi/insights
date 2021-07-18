@@ -23,6 +23,26 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
+Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
+    Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
+    Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
+    Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
+
+    Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
+    Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
+    Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
+    Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
+    Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
+
+    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+
+});
+
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
     Route::get('/organizations', 'OrganizationsController@list')->name('organization.list');
     Route::post('/organizations', 'OrganizationsController@listOrganizations')->name('organization.list.datatable');

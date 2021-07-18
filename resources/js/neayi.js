@@ -1,5 +1,13 @@
 require('./bootstrap');
 require('bootstrap-select');
+require('bootstrap-autocomplete');
+
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
 // modal login
 $("#show_hide_password a.eye").on('click', function(event) {
@@ -76,3 +84,131 @@ function failedState(elem) {
     elem.addClass('required');
     elem.removeClass('success');
 }
+
+
+$('.picture_upload').click(function(){
+    $('#fileinput').trigger('click');
+});
+
+
+$("#fileinput").change(function(){
+    var fd = new FormData();
+    var files = $('#fileinput')[0].files;
+
+    if(files.length > 0 ){
+        fd.append('file',files[0]);
+
+        $.ajax({
+            url: '/update-avatar',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                    if( $(".avatar-block img").length === 0) {
+                        location.reload();
+                    }
+                    $(".avatar-block img").attr("src", response);
+                }
+            },
+        });
+    }
+});
+
+$( "#form-update-description-btn" ).click(function() {
+    $( "#form-update-description" ).submit();
+});
+
+$('#form-update-description').submit(function () {
+    var form = $(this);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(response){
+            $('#dev-description').html(response);
+            $('#exploitationsEdit').modal('hide');
+        }
+    })
+    return false;
+});
+
+$('#form-update-main-data').submit(function () {
+    var form = $(this);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(response){
+            $('#headerEdit').modal('hide');
+            location.reload();
+        }
+    })
+    return false;
+});
+
+
+$('#form-update-characteristics').submit(function () {
+    var form = $(this);
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(response){
+            $('#caracteristiquesEdit').modal('hide');
+            location.reload();
+        }
+    })
+    return false;
+});
+
+var loadAsyncDivs = $('[show-async]');
+loadAsyncDivs.each(function (key, item){
+    $.ajax({
+       url: $(item).attr('show-async'),
+       type: 'GET',
+       success: function (html){
+           $(item).html(html);
+       }
+    });
+});
+
+$('#btn-show-practises').click(function (){
+    var action = $(this).attr('action');
+    if(action === 'show') {
+        $(this).attr('action', 'hide');
+        $(this).html('Afficher moins');
+        $(".pratiques.edition .filled").css('-webkit-line-clamp', 'unset');
+        return;
+    }
+    $(this).attr('action', 'show');
+    $(this).html("Afficher tout l'historique");
+    $(".pratiques.edition .filled").css('-webkit-line-clamp', '11');
+});
+
+
+$('.structure-auto-complete').autoComplete();
+
+$('#search-characteristics').on("keyup change", function(){
+    var elem = $(this);
+    var type = $(this).attr('data-type');
+    var search = $(this).val();
+    $.ajax({
+        url : elem.attr('data-action'),
+        data: {type:type, search:search},
+        success:function (data){
+            $('#result-row').html(data);
+        }
+    });
+});
+
+$('.search-type-c').click(function(){
+    $('#search-characteristics').attr('data-type', $(this).attr('data-type'));
+    $('.input-type').val($(this).attr('data-type'));
+    $('.span-type').html($(this).attr('data-type-pretty'));
+});
+
+$('#btn-remove-avatar').click(function (){
+    $(this).parents('form').submit();
+});

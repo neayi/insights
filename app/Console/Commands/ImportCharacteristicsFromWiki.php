@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -33,8 +33,8 @@ class ImportCharacteristicsFromWiki extends Command
 
     public function handle()
     {
-        $this->importCharacteristics($this->queryFarming, GetFarmingType::type);
-        $this->importCharacteristics($this->queryCroppingSystem, GetFarmingType::typeSystem);
+        $this->importCharacteristics($this->queryFarming, Characteristic::FARMING_TYPE);
+        $this->importCharacteristics($this->queryCroppingSystem, Characteristic::CROPPING_SYSTEM);
     }
 
     public function importCharacteristics(string $query, string $type)

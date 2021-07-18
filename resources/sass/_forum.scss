@@ -1,0 +1,221 @@
+.hero-forum{
+  height: 384px;
+  background-size:cover;
+  background-image:  url('../assets/background-forum.jpg');
+  background-position:bottom;
+  position: relative;
+
+  @media (max-width: 1000px){
+    height: auto;
+  }
+
+
+  h1{
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  }
+
+  p, span:not(.badge){
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+    font-size: 1.4rem;
+  }
+
+  .avatar{
+
+    &.big{
+      width: 244px;
+      height: 244px;
+      @media (max-width: 1060px){
+        width: 100px;
+        height: 100px;
+      }
+    }
+    &.small{
+      width: 72px;
+      height: 72px;
+      @media (max-width: 1060px){
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+
+  span.grey-bg{
+    text-shadow:none;
+    width: 72px;
+    height: 72px;
+    vertical-align: bottom;
+    line-height: 69px;
+    @media (max-width: 1060px){
+      width: 50px;
+      height: 50px;
+      line-height: 48px;
+    }
+  }
+  .social{
+    position: absolute;
+    right: 1rem;
+    top: 24%;
+
+    img{
+      width: 40px;
+      height:40px;
+    }
+  }
+}
+
+
+// Original CS style helper. To remove !
+
+.cs-avatar {
+  padding:5px;
+
+  width: 48px;
+  height: 48px;
+  
+  object-fit: cover;  
+}
+
+.cs-hidden{display:none}#cs-comments{margin-top:10px;font-family:sans-serif}.cs-stream{margin-top:5px;margin-bottom:5px}.cs-reply-comment{margin-top:10px;margin-left:30px}.cs-head-comment > .cs-comment-header{border-top:1px solid #00a7d8}.cs-target-comment .cs-comment-header{border:2px solid green}.cs-expanded .cs-comment-header{background-color:#e4f1ff}.cs-collapsed .cs-comment-header{background-color:#eeeeee;margin-bottom:10px}.cs-reply-comment > .cs-comment-header{background-color:#f5faff}.cs-comment-header{padding-top:2px;padding-bottom:2px}.cs-comment-header-left{display:inline-block;vertical-align:middle}.cs-comment-header-center{display:inline-block;vertical-align:middle;padding-left:5px}.cs-comment-header-right{display:inline-block;float:right}.cs-comment-title{font-size:16px;font-weight:bold}.cs-comment-author{padding-right:5px;font-size:12px}.cs-comment-author-anonymous{font-style:italic;opacity:0.8;color:#555555}.cs-comment-author a{color:#00a7d8;font-weight:bold}.cs-comment-body{margin-bottom:5px;font-size:14px}.cs-comment-details{color:#555555;opacity:0.8;font-size:12px;padding-right:5px;padding-left:5px}.cs-comment-button-label{padding-left:5px}.cs-button{background-color:transparent;border:none;font-family:sans-serif;font-weight:bold;text-decoration:none;padding-left:5px;padding-right:5px;box-shadow:none}.cs-button:enabled:active{opacity:0.5}.cs-button:enabled:hover{color:#4b5254}.cs-button:disabled{color:#95a5a6;opacity:0.2}.cs-moderator-button{color:#ff0000}.cs-moderator-button:enabled:hover{color:#ff5555}.cs-toggle-button{border:none;border-style:none}.cs-vote-upcount,.cs-vote-downcount{color:#555555;padding-left:3px}.cs-link-button{border:none;border-style:none}#cs-add-button,.cs-reply-button{font-size:14px;padding-left:0}#cs-edit-box{position:relative;background-color:#e4f1ff;padding:5px 5px 5px 5px;margin-bottom:7px}.cs-reply-edit-box{margin-left:30px}#cs-title-edit-field{border-radius:2px;border-width:1px;border-color:#00a7d8;box-style:content-box;-webkit-box-sizing:content-box;width:80%;min-width:400px;padding:5px 5px 5px 5px;margin-bottom:5px;font-family:sans-serif;font-size:16px;font-weight:bold}#cs-body-edit-field{border-radius:2px;border-width:1px;border-color:#00a7d8;width:100%;padding:5px 5px 5px 5px;margin-bottom:5px;font-family:sans-serif;font-size:14px} .ve-area-wrapper,.ve-ce-documentNode{width:auto !important}.ve-area-wrapper{z-index:100}div.ve-ce-branchNode{border:1px solid #00a7d8;background:white;margin-bottom:5px} div#cs-comments{background-color:white;padding:5px}.cs-comment{overflow:visible}.cs-expanded div.cs-comment-header{background-color:#f2f3f6;border-top:none;padding:0;margin-bottom:5px}div.cs-comment-header > div{border-left:2px solid white;background-color:#f2f3f6;color:#878c9e;height:55px;padding:5px}.cs-comment-header-center{line-height:115%}.cs-comment-header-left .cs-avatar{float:right;border-radius:50%}div.cs-comment-header div.cs-comment-header-reply{text-align:center;width:130px;float:right}div.cs-comment-header div.cs-comment-header-reply button{color:#878c9e;width:100%;height:100%}div.cs-comment-header div.cs-comment-header-reply button img{display:none}div.cs-comment-header div.cs-head-comment-div-menu{width:40px}div.cs-comment-header div.cs-head-comment-div-menu button{height:100%;width:100%;color:#878c9e}div.cs-comment-header div.cs-comment-header-right{width:52px;text-align:center}div.cs-comment-header span.cs-voting-span button.cs-vote-button,div.cs-comment-header span.cs-voting-span button.cs-vote-button span{color:#878c9e}div.cs-comment-header span.cs-voting-span button.cs-vote-button{display:block;width:45px;padding:0px}div.cs-comment-header span.cs-voting-span button.cs-vote-button img{display:none}div.cs-comment-header div.cs-head-comment-total-div{width:60px;border:1px solid #f2f3f6;background-color:white;padding-top:3px}div.cs-comment-header div.cs-head-comment-total-div div{line-height:100%;text-align:center}div.cs-comment-header div.cs-head-comment-total-div div.count{font-size:26px;font-weight:bold}div.cs-comment-header div.cs-head-comment-total-div div.votes{font-size:16px;font-weight:bold}.cs-stream-footer{height:30px}div.cs-add-div{border:1px solid #12a073;padding:30px 40px;text-align:center;margin-bottom:20px}#cs-add-button{background:#12a073;color:white;padding:15px}
+.ve-activated .ve-init-mw-desktopArticleTarget-editableContent #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators,.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-deactivating .ve-ui-surface,.ve-active .ve-init-mw-desktopArticleTarget-editableContent,.ve-active .ve-init-mw-tempWikitextEditorWidget{display:none} .ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading #content > :not(.ve-init-mw-desktopArticleTarget-loading-overlay), .ve-activated .ve-init-mw-desktopArticleTarget-uneditableContent{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated #firstHeading{ -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;pointer-events:auto;cursor:text}.ve-activated #firstHeading a{ pointer-events:none}.ve-activated #catlinks{cursor:pointer}.ve-activated #catlinks a{opacity:1}.ve-activated #content{position:relative} .ve-init-mw-desktopArticleTarget-loading-overlay{position:absolute;top:1.25em;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{transition:height 250ms ease;height:0; } .oo-ui-element-hidden{display:none !important; }  .mw-editsection{ unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection:before{content:'\200B'}.mw-editsection a{white-space:nowrap}.mw-editsection-divider{color:#54595d}  .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{border-bottom:1px solid #c8ccd1;box-shadow:0 1px 1px 0 rgba(0,0,0,0.1)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open{height:42px}
+
+
+
+// end Original CS style helper. To remove !
+
+
+#cs-comments{
+  font-family:'Raleway', Helvetica, Arial, sans-serif;
+  .cs-comment-author{
+    font-weight: bold;
+    color: $darkPurple;
+    font-size:1rem;
+    line-height: initial;
+  }
+  div.cs-comment-header{
+    > div{
+      border:none;
+    }
+  }
+
+  .btn{
+    font-size:14px;
+    .material-icons{
+      font-size: 20px;
+      vertical-align: bottom;
+    }
+  }
+
+  .cs-comment-body{
+    font-family: 'Merriweather', serif;
+    line-height: 1.71;
+    color: $dark;
+
+    .cs-comment-details{
+      font-size: 12px;
+      font-family: 'Raleway', Helvetica, Arial, sans-serif;
+      color: $darkPurple;
+      padding-left: 0;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      display:inline-block;
+
+    }
+  }
+
+  
+  .cs-head-comment{
+    .avatar{
+      width:40px;
+      height: 40px;
+      margin-right:4px;
+      padding: 5px;
+      object-fit: cover;      
+    }
+
+  }
+
+  .cs-comment-header > div{
+    height:auto;
+  }
+  .cs-comment-header-left{
+    width: 50px;
+  }
+  .cs-comment-header-center{
+    height:auto;
+    width: 185px;
+    padding: 15px 7px 15px 7px;
+  }
+  .cs-comment-header{
+    height: 72px;
+    overflow: hidden;
+    &.expanded{
+      height:auto;
+      overflow: auto;
+    }
+  }
+
+  .cs-comment-header-right{
+    span{
+      font-size:0.8rem;
+      font-weight: bold;
+      color: $darkPurple;
+      margin-left: -9px;
+    }
+  }
+  
+  .cs-comment{
+      position:auto;
+      overflow:auto;
+    }
+
+  .cs-reply-comment{
+    margin-left: 102px;
+    margin-top:29px;
+
+    .avatar{
+      width:40px;
+      height: 40px;
+
+      object-fit: cover;         
+    }
+    .cs-comment-header-center{
+      height:auto;
+      padding: 15px 7px 15px 7px;
+    }
+  }
+  .cs-edit-box{
+    background:transparent;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .cs-head-comment > .cs-comment-header {
+    border-top: none;
+    padding-top: 0;
+    padding-bottom:0;
+    background:#f2f3f6;
+  }
+  #cs-body-edit-field{
+    border-color: #e7e8ed;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    outline:none;
+    box-shadow:none;
+    font-family: 'Merriweather', serif;
+    color: $darkPurple;
+
+    &:hover, &:focus{
+      border-color: #b5bacb;
+    }
+    &::placeholder{
+      font-size: 0.8rem;
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      color: #9e9e9e;
+    }
+  }
+}
