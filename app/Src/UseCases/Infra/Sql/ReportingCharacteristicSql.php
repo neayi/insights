@@ -32,6 +32,9 @@ class ReportingCharacteristicSql
         $interactionsToReturn = [];
         foreach($interactions as $interaction){
             $characteristicsModel = CharacteristicsModel::query()->where('code', $interaction->department_number)->first();
+            if(!isset($characteristicsModel)){
+                continue;
+            }
             $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
             $interaction->departmentData = $characteristicsModel;
             $interactionsToReturn[] = $interaction->toArray();
