@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVerifyEmail
 {
-    use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens;
+    use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens, HasFactory;
 
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"
@@ -43,7 +45,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function adminlte_desc()
     {
-        $desc = ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        $desc = $this->firstname.' '.$this->lastname;
         if($this->organization_id !== null){
             $organization = app(OrganizationRepository::class)->get($this->organization_id);
             $desc .= ' - organisme : '.$organization->name();
@@ -58,7 +60,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function fullname()
     {
-        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        return $this->firstname.' '.$this->lastname;
     }
 
     public function sendEmailVerificationNotification()
@@ -74,5 +76,37 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             'characteristic_id'
         )
             ->using(UserCharacteristicsModel::class);
+    }
+
+    public function context()
+    {
+        return $this->hasOne(ContextModel::class, 'id', 'context_id');
+    }
+
+    public function addCharacteristics(array $characteristics)
+    {
+        foreach($characteristics as $characteristicUuid){
+            $characteristic = CharacteristicsModel::where('uuid', (string)$characteristicUuid)->first();
+            if(isset($characteristic)) {
+                $this->characteristics()->save($characteristic);
+            }
+        }
+    }
+
+    public function syncCharacteristics(array $characteristics)
+    {
+        $characteristicsToSync = [];
+        foreach($characteristics as $characteristicUuid){
+            $characteristicModel = CharacteristicsModel::where('uuid', (string)$characteristicUuid)->first();
+            if(isset($characteristicModel)) {
+                $characteristicsToSync[] = $characteristicModel->id;
+            }
+        }
+        $this->characteristics()->sync($characteristicsToSync);
+    }
+
+    public function toDto():UserDto
+    {
+        return new UserDto($this->uuid, $this->firstname, $this->lastname);
     }
 }

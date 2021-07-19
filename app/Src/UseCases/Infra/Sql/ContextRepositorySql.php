@@ -4,24 +4,18 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\User;
-use Illuminate\Support\Facades\DB;
 
 class ContextRepositorySql implements ContextRepository
 {
     public function getByUser(string $userId):?Context
     {
         $user = User::where('uuid', $userId)->first();
-        $context = DB::table('contexts')->where('id', $user->context_id)->first();
-        if($context == null){
-            return null;
-        }
-        return new Context($context->uuid, $context->postal_code, $user->characteristics()->pluck('uuid')->toArray());
+        return $user->context !== null ? $user->context->toDomain() : null;
     }
 
     public function add(Context $context, string $userId)
@@ -29,31 +23,40 @@ class ContextRepositorySql implements ContextRepository
         $contextData = collect($context->toArray());
         $user = User::where('uuid', $userId)->first();
 
-        $farmings = $contextData->get('farmings');
-        foreach($farmings as $farming){
-            $characteristic = CharacteristicsModel::where('uuid', (string)$farming)->first();
-            $user->characteristics()->save($characteristic);
-        }
+        $characteristics = $contextData->get('characteristics');
+        $user->addCharacteristics($characteristics);
 
-        $contextId = DB::table('contexts')->insertGetId($contextData->except('farmings')->toArray());
-
-        $user->context_id = $contextId;
+        $contextModel = (new ContextModel())->fill($contextData->except('characteristics')->toArray());
+        $contextModel->save();
+        $user->context_id = $contextModel->id;
         $user->save();
     }
 
     public function getByUserDto(string $userId): ?ContextDto
     {
         $user = User::where('uuid', $userId)->first();
-        if($user == null){
+        if($user === null){
             return null;
         }
-        $context = ContextModel::find($user->context_id);
-        if($context == null){
+        return $user->context !== null ? $user->context->toDto($user->uuid) : null;
+    }
+
+    public function update(Context $context, string $userId)
+    {
+        $user = User::where('uuid', $userId)->first();
+        if($user === null){
             return null;
         }
-        $characteristics = $user->characteristics()->get()->transform(function(CharacteristicsModel $item){
-            return $item->toDto();
-        });
-        return new ContextDto($user->firstname, $user->lastname, $context->postal_code, $characteristics->toArray());
+
+        $contextModel = $user->context;
+        if($contextModel === null){
+            return null;
+        }
+        $contextData = collect($context->toArray());
+        $contextModel->fill($contextData->except('characteristics')->toArray());
+        $contextModel->save();
+
+        $characteristics = $contextData->get('characteristics');
+        $user->syncCharacteristics($characteristics);
     }
 }

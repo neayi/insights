@@ -1,13 +1,14 @@
 <!doctype html>
 <html class="no-js" lang="fr">
     <head>
-        <title>@yield('title')</title>
+        <title>@yield('title') - Triple Performance</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,600,800">
-        <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="apple-touch-icon" href="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/apple-touch-icon.png"/>
+        <link rel="shortcut icon" href="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/favicon.ico"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <script src="{{ asset('js/neayi.js') }}" defer></script>
@@ -22,5 +23,7 @@
         @include('layouts.neayi.partials.footer')
         @include('users.modals.register')
     </div>
+
+    @include('layouts.neayi.partials.google-analitycs')
 </body>
 </html>

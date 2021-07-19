@@ -4,12 +4,17 @@
 namespace App\Src\UseCases\Infra\Sql\Model;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\CharacteristicDto;
+use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\User;
+use Database\Factories\CharacteristicFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CharacteristicsModel extends Model
 {
+    use HasFactory;
+
     protected $table = 'characteristics';
 
     protected $fillable = [
@@ -22,6 +27,11 @@ class CharacteristicsModel extends Model
         'page_id',
         'type',
         'code',
+        'visible',
+    ];
+
+    protected $casts = [
+        'opt' => 'array'
     ];
 
     public function users()
@@ -41,7 +51,18 @@ class CharacteristicsModel extends Model
             $this->page_label,
             $this->type,
             $icon,
-            $this->pretty_page_label
+            $this->pretty_page_label,
+            $this->opt ?? []
         );
+    }
+
+    public function toDomain()
+    {
+        return new Characteristic($this->uuid, $this->type, $this->code, $this->attributes['visible']);
+    }
+
+    protected static function newFactory()
+    {
+        return CharacteristicFactory::new();
     }
 }

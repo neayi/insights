@@ -58,7 +58,7 @@ class User
 
     public function fullname():string
     {
-        return ucfirst($this->firstname).' '.ucfirst($this->lastname);
+        return $this->firstname.' '.$this->lastname;
     }
 
     public function organizationId():?string
@@ -125,7 +125,7 @@ class User
         return in_array('admin', $this->roles);
     }
 
-    public function update(string $email, string $firstname, string $lastname, string $pathPicture, string $ext = 'jpg')
+    public function update(string $email, string $firstname, string $lastname, string $pathPicture = "", string $ext = 'jpg')
     {
         $this->email = $email;
         $this->firstname = $firstname;
@@ -136,6 +136,17 @@ class User
             $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
         }
         app(UserRepository::class)->update($this);
+    }
+
+    public function updateAvatar(string $pathPicture, string $ext = 'jpg')
+    {
+        if($pathPicture !== "") {
+            $picture = new Picture($pathPicture);
+            $picture->resize('app/public/users/' . $this->id . '.' . $ext);
+            $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
+        }
+        app(UserRepository::class)->update($this);
+        return $this->pathPicture;
     }
 
     public function delete()
@@ -154,6 +165,12 @@ class User
     public function addRole(string $role)
     {
         $this->roles[] = $role;
+        app(UserRepository::class)->update($this);
+    }
+
+    public function updateRole(string $role)
+    {
+        $this->roles = [$role];
         app(UserRepository::class)->update($this);
     }
 

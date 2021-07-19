@@ -4,12 +4,13 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
 
 interface ContextRepository
 {
-    public function getByUser(string $userId);
-    public function add(Context $exploitation, string $userId);
+    public function getByUser(string $userId):?Context;
+    public function add(Context $context, string $userId);
+    public function update(Context $context, string $userId);
     public function getByUserDto(string $userId):?ContextDto;
 }

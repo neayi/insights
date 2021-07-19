@@ -4,8 +4,9 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Page;
+use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 
 class PageRepositorySql implements PageRepository
@@ -19,6 +20,23 @@ class PageRepositorySql implements PageRepository
         return new Page($pageModel->page_id, $pageModel->dry);
     }
 
+    public function getByIds(array $pagesIds): array
+    {
+        $pageModels = PageModel::query()
+            ->whereIn('page_id', $pagesIds)
+            ->get();
+        foreach ($pageModels as $pageModel) {
+            $pages[] = new Page(
+                $pageModel->page_id,
+                $pageModel->dry,
+                $pageModel->title,
+                $pageModel->type,
+                $pageModel->icon
+            );
+        }
+        return $pages ?? [];
+    }
+
     public function save(Page $page)
     {
         $pageModel = PageModel::where('page_id', $page->pageId())->first();
@@ -28,6 +46,18 @@ class PageRepositorySql implements PageRepository
         $pageModel->page_id = $page->pageId();
         $pageModel->fill($page->toArray());
         $pageModel->save();
+    }
+
+    public function search(string $type, string $search):array
+    {
+        $pageModel = PageModel::query()
+            ->where('title','LIKE', '%'.$search.'%')
+            ->where('type', $type)
+            ->get();
+        if(!isset($pageModel)){
+            return [];
+        }
+        return $pageModel->toArray();
     }
 
 }

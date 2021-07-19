@@ -28,8 +28,8 @@ class OAuthController extends BaseController
 
         return [
             'id' => $user->uuid,
-            'name' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
-            'realname' => ucfirst($user->firstname).' '.ucfirst($user->lastname),
+            'name' => $user->firstname.' '.$user->lastname,
+            'realname' => $user->firstname.' '.$user->lastname,
             'email' => $user->email,
             'avatar' => $user->adminlte_image(),
             'token' => $token->plainTextToken

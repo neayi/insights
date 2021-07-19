@@ -1,8 +1,19 @@
+// Font awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
 @import '~bootstrap/scss/bootstrap';
 
 @import 'variables_neayi';
 @import 'modals';
+@import 'profile';
+@import 'caracteristiques_exploitation';
+@import 'toc';
+@import 'interaction';
+@import 'headerfooter';
+
 @import "~bootstrap-select/sass/bootstrap-select";
+
 // General
 
 body{
@@ -338,34 +349,6 @@ h3{
     }
 }
 
-.footer{
-    font-weight:600;
-    letter-spacing: 0.44px;
-    color: $darkPurple;
-    font-size: 1rem;
-    a{
-        color: $darkPurple;
-        font-size: 1rem;
-    }
-    img{
-        height:46px;
-    }
-    .rs-line{
-        img{
-            height: 46px;
-        }
-    }
-    small{
-        font-size: 16px;
-        font-weight:normal;
-    }
-    @media (max-width:768px){
-        .partners img{
-            width: auto;
-        }
-    }
-}
-
 button:focus{
     outline:none;
 }
@@ -456,6 +439,8 @@ body.login{
             img{
                 width:98px;
                 height: auto;
+                image-rendering: crisp-edges;
+                image-rendering: -webkit-optimize-contrast;
             }
 
             @media (min-width:500px){
@@ -508,6 +493,20 @@ body.login{
 
 }
 
+.circle-icon, a.circle-icon{
+    border: 1px solid #9198a3;
+    border-radius: 50px;
+    padding: 3px;
+    color: $darkPurple;
+    text-decoration: none;
+    font-weight: normal;
+    cursor:pointer;
+}
+
 body{
     overflow-x: hidden;
 }
+
+
+
+

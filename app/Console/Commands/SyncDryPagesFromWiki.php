@@ -13,7 +13,8 @@ class SyncDryPagesFromWiki extends Command
 
     protected $description = 'Sync the pages from the wiki';
 
-    private $queryPages = '?action=query&redirects=true&prop=info&format=json&pageids=';
+    private $queryPages = '?action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=';
+
     public function __construct()
     {
         parent::__construct();
@@ -33,13 +34,20 @@ class SyncDryPagesFromWiki extends Command
 
             foreach($wikiPages as $page){
                 $pageModel = PageModel::query()->where('page_id', $page['pageid'])->first();
+
+                if (!isset($page['title']))
+                {
+                    // The page has been deleted from the wiki, we remove it on our side too
+                    $pageModel->delete();
+                    continue;
+                }
+
                 $pageModel->dry = false;
                 $pageModel->title = $page['title'];
                 $pageModel->last_sync = (new \DateTime());
+                $pageModel->picture = $page['thumbnail']['source'] ?? null;
                 $pageModel->save();
             }
         });
-
-
     }
 }

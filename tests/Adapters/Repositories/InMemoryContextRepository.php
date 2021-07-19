@@ -4,22 +4,27 @@
 namespace Tests\Adapters\Repositories;
 
 
-use App\Src\UseCases\Domain\Agricultural\Dto\ContextDto;
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class InMemoryContextRepository implements ContextRepository
 {
-    private $exploitations = [];
+    private $contexts = [];
 
-    public function add(Context $exploitation, string $userId)
+    public function add(Context $context, string $userId)
     {
-        $this->exploitations[$userId] = $exploitation;
+        $this->contexts[$userId] = $context;
     }
 
-    public function getByUser(string $userId)
+    public function update(Context $context, string $userId)
     {
-        return $this->exploitations[$userId] ?? null;
+        $this->contexts[$userId] = $context;
+    }
+
+    public function getByUser(string $userId):?Context
+    {
+        return $this->contexts[$userId] ?? null;
     }
 
     public function getByUserDto(string $userId): ?ContextDto

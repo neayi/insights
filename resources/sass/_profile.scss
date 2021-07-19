@@ -1,0 +1,270 @@
+.profile {
+
+    h2 {
+        font-weight: 700;
+        font-size  : 3rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size  : 0.9rem;
+        line-height: 1.71;
+        font-family: 'Merriweather', serif;
+    }
+
+    .editable {
+        border        : 1px solid #fff;
+        cursor        : pointer;
+        padding-top   : 20px;
+        padding-bottom: 20px;
+
+        &:hover {
+            border: 1px solid #e7e8ed;
+
+            .edit-link {
+                opacity: 1;
+            }
+        }
+
+        .edit-link {
+            opacity    : 0;
+            font-size  : 1rem;
+            display    : flex;
+            align-items: center;
+
+            .edit-link-stylus {
+                border-radius: 4px;
+                border       : solid 2px #e7e8ed;
+                padding      : 4px;
+                margin-right : 6px;
+                display      : inline-flex;
+            }
+
+            .edit-link-label {
+                display    : inline-flex;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .map {
+        text-align: center;
+
+        img {
+            width       : 200px;
+            height      : auto;
+            // slightly move the image to the left in order to compensate France lack of balance
+            margin-right: 30px;
+        }
+
+        .profile-dept-detail {
+            font-size  : 12px;
+            line-height: 1rem;
+
+            .dept-name {
+                font-weight: bold;
+                font-size  : 120%;
+            }
+        }
+    }
+
+    .btn .material-icons {
+        font-size     : 20px;
+        vertical-align: sub;
+    }
+
+    .avatar-block {
+        .edit-btn {
+            position: absolute;
+            top     : 0;
+            right   : -17px;
+        }
+    }
+
+    .avatar {
+        width     : 197px;
+        height    : 197px;
+        object-fit: cover;
+    }
+
+    .empty-avatar {
+        width          : 197px;
+        height         : 197px;
+        text-align     : center;
+        align-items    : center;
+        display        : flex;
+        justify-content: center;
+        position       : relative;
+
+        .initials {
+            color      : #9198a3;
+            font-size  : 6rem;
+            font-weight: 700;
+            opacity    : 0.2;
+        }
+
+        .material-icons {
+            position : absolute;
+            font-size: 2.3rem;
+            left     : calc(50% - 18px);
+            top      : calc(50% - 18px);
+        }
+
+        .add-avatar {
+            display  : none;
+            position : absolute;
+            font-size: 1rem;
+        }
+
+        &:hover {
+            .material-icons {
+                display: none;
+            }
+
+            .add-avatar {
+                display: block;
+            }
+        }
+    }
+
+    .tab-pane {
+        min-height: 400px;
+    }
+}
+
+.exploitations-objectifs {
+    &.edition {
+        .filled {
+            display           : -webkit-box;
+            -webkit-line-clamp: 11;
+            -webkit-box-orient: vertical;
+            overflow          : hidden;
+            text-overflow     : ellipsis;
+        }
+    }
+}
+
+.pratiques {
+    &.edition {
+        .filled {
+            display           : -webkit-box;
+            -webkit-line-clamp: 11;
+            -webkit-box-orient: vertical;
+            overflow          : hidden;
+            text-overflow     : ellipsis;
+        }
+    }
+
+    .filled {
+        font-size  : 0.9rem;
+        line-height: 1.71;
+
+        .elements {
+            margin-left: -22px;
+
+            li {
+                margin-top: 8px;
+
+                a {
+                    font-size      : 0.9rem;
+                    color          : #0645ad;
+                    text-decoration: none;
+                    line-height    : 1.71;
+                }
+            }
+        }
+
+        .year {
+            font-weight: 600;
+        }
+    }
+}
+
+
+// Tabs
+.nav-tabs {
+    .nav-item {
+        font-size: 1rem;
+
+        .nav-link {
+            text-decoration: none;
+            color          : $dark;
+            background     : #f2f3f6;
+
+            &.active {
+                color      : $darkGreen;
+                font-weight: 700;
+                background : white;
+            }
+        }
+    }
+
+    .nav-item {
+
+
+        .show .nav-link {}
+    }
+}
+
+.following {
+
+    &:hover {
+        .edit-link {
+            opacity: 1;
+        }
+    }
+
+    .edit-link {
+        opacity  : 0;
+        font-size: 1rem;
+        cursor   : pointer;
+    }
+
+    .followed-page {
+        h4 {
+            font-weight       : bold;
+            font-size         : 1rem;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow          : hidden;
+            text-overflow     : ellipsis;
+            display           : -webkit-box;
+        }
+
+        .comment-date {
+            font-size: 60%;
+        }
+
+        .comment-extract {
+            overflow          : hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            text-overflow     : ellipsis;
+            display           : -webkit-box;
+        }
+
+        .followed-image {
+            object-fit: cover;
+            width     : 100%;
+            height    : 130px;
+        }
+
+        .applause-count {
+            font-size: 0.8rem;
+
+            img {
+                display   : inline-block;
+                width     : 17px;
+                height    : auto;
+                margin-top: -3px;
+            }
+        }
+    }
+}
+
+.modal-edit {
+    max-width: 1196px;
+}

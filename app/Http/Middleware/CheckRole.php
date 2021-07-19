@@ -17,7 +17,7 @@ class CheckRole
     public function handle($request, Closure $next)
     {
         /*if(Auth::user() !== null && !Auth::user()->hasRole('admin')){
-            return redirect(config('neayi.wiki_url'));
+            return redirect()->route('show.profile');
         }*/
         return $next($request);
     }

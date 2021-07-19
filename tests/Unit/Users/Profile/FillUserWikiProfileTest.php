@@ -4,7 +4,7 @@
 namespace Tests\Unit\Users\Profile;
 
 
-use App\Src\UseCases\Domain\Agricultural\Model\Context;
+use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
@@ -49,9 +49,10 @@ class FillUserWikiProfileTest extends TestCase
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
 
-        $exploitationExpected = new Context($exploitationId, $postcode, []);
-        $exploitationSaved = $this->contextRepository->getByUser($this->userId);
-        self::assertEquals($exploitationExpected, $exploitationSaved);
+        $coordinates = [43, 117];
+        $contextExpected = new Context($exploitationId, $postcode, [], null, null, null, '83', $coordinates);
+        $contextSaved = $this->contextRepository->getByUser($this->userId);
+        self::assertEquals($contextExpected, $contextSaved);
     }
 
     public function test_ShouldUpdateContextWithFarmingType()
@@ -63,14 +64,13 @@ class FillUserWikiProfileTest extends TestCase
         $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
 
-        $this->characteristicRepository->add([$ft1, $ft2]);
-
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode, $farmingType);
 
-        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType);
+        $coordinates = [43, 117];
+        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType, null, null, null, '83', $coordinates);
         $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }

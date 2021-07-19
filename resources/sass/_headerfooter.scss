@@ -1,0 +1,201 @@
+.navbar {
+    background-color: #e9ecef;
+
+    .neayi-additional-mobile-menus {
+        @media (min-width: 992px) {
+            display: none;
+        }
+    }
+
+    #neayi-nav-other {
+        @media (max-width: 992px) {
+            display: none;
+        }
+
+        a.dropdown-item {
+            color          : #404964;
+            text-decoration: none;
+            font-weight    : 700;
+
+            &:hover {
+                background-color: #d0d5e6;
+            }
+        }
+
+        .dropdown-menu {
+            border       : none;
+            box-shadow   : 0 0 48px 0 rgb(0 0 0 / 30%);
+            border-radius: 4px;
+            line-height  : 2.5rem;
+            color        : #404964;
+            position     : absolute;
+            transform    : translate3d(0px, 46px, 0px);
+            top          : 0px;
+            left         : 0px;
+            will-change  : transform;
+        }
+    }
+
+    .navbar-collapse {
+        .nav-link {
+            color          : #355B84;
+            text-transform : uppercase;
+            font-family    : $font-family-base;
+            font-size      : 14px;
+            font-weight    : bold;
+            letter-spacing : 2px;
+            text-decoration: none;
+            padding        : 0.5rem 1rem;
+
+            .fa {
+                margin-right: 3px;
+            }
+        }
+    }
+
+    .navbar-brand {
+
+        img {
+            height: 29px;
+            top   : -2px;
+        }
+    }
+
+    // When in desktop mode
+    @media (min-width: 1105px) {
+        padding: 0 0 0 16px;
+
+        .navbar-brand {
+            img {
+
+                height: 49px;
+                top   : -8px;
+            }
+        }
+    }
+
+    // Override the personnal menu
+    .p-personal-tools {
+
+        #pt-notifications-alert,
+        #pt-notifications-notice {
+            display: inherit;
+
+            height: 40px;
+            color : #212529;
+
+            .oo-ui-icon-bell,
+            .mw-ui-icon-bell:before,
+            .oo-ui-icon-tray,
+            .oo-ui-icon-tray:before {
+                background-image: unset;
+            }
+
+            .mw-echo-notifications-badge {
+                color      : inherit;
+                width      : auto;
+                height     : auto;
+                top        : auto;
+                text-indent: unset;
+                margin     : auto;
+                line-height: 34px;
+
+                &:after {
+                    display: none;
+                }
+
+                &-dimmed {
+                    opacity: 1;
+                }
+
+                &.mw-echo-notifications-badge-all-read {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .create-profile {
+        background-color: $brand-primary;
+        color           : $body-bg;
+        width           : 342px;
+        height          : 88px;
+
+        .neayi-avatar {
+            width        : 72px;
+            height       : 72px;
+            margin-left  : 27px;
+            border-radius: 50%;
+        }
+
+        a.neayi-username {
+            font-family    : $font-family-base;
+            font-size      : 16px;
+            font-weight    : bold;
+            color          : white !important;
+            text-transform : none;
+            letter-spacing : normal;
+            text-decoration: none;
+        }
+    }
+}
+
+
+
+.footer {
+    letter-spacing  : 0.44px;
+    color           : $darkPurple;
+    font-size       : 1rem;
+    max-width       : 100%;
+    background-color: #e9ecef;
+    font-family     : $font-family-base;
+
+    li {
+        margin-top : 1em;
+        font-size  : 14px;
+        line-height: 21px;
+
+        a {
+            color          : $darkPurple;
+            text-decoration: none;
+            font-weight    : 400;
+        }
+    }
+
+    p.footer-title {
+        font-weight: 600;
+    }
+
+    img {
+        height: 46px;
+    }
+
+    @media (max-width: 768px) {
+        .partners img {
+            width: auto;
+        }
+    }
+
+    .social-links {
+        margin-left: 4px;
+
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+
+            span {
+                display       : inline-block;
+                border-radius : 50%;
+                box-shadow    : 0px 0px 0px 2px #404964;
+                font-size     : 14px;
+                height        : 25px;
+                width         : 25px;
+                line-height   : 27px;
+                margin        : 0 3px;
+                text-align    : center;
+                vertical-align: middle;
+            }
+        }
+    }
+}

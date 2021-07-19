@@ -26,13 +26,14 @@ class ImportAllPagesFromWiki extends Command
         $queryPages = '?action=query&generator=allpages&gaplimit=500&gapfilterredir=nonredirects&format=json';
 
         $pagesApiUri = config('wiki.api_uri').$queryPages;
+
         $response = $httpClient->get($pagesApiUri);
         $content = json_decode($response->getBody()->getContents(), true);
 
         $pages = $content['query']['pages'];
 
         $this->handlePages($pages);
-        $continue = $content['continue']['gapcontinue'];
+        $continue = $content['continue']['gapcontinue'] ?? null;
 
         while($continue !== null && $continue !== ''){
             $this->info($continue);
@@ -57,6 +58,7 @@ class ImportAllPagesFromWiki extends Command
             $pageModel->page_id = $page['pageid'];
             $pageModel->dry = true;
             $pageModel->title = $page['title'];
+            $pageModel->picture = $page['thumbnail']['source'] ?? null;
             $pageModel->save();
         }
     }

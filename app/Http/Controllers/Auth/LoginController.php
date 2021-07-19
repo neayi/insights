@@ -93,7 +93,7 @@ class LoginController extends Controller
                 ? new Response('', 204)
                 : redirect($link);
         }
-        return redirect()->route('home');
+        return redirect()->route('show.profile');
     }
 
     public function redirectToProvider(string $provider)
