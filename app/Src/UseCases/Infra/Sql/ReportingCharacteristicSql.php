@@ -25,6 +25,7 @@ class ReportingCharacteristicSql
                 });
             })
             ->where('interactions.page_id', $pageId)
+            ->where('users.email', 'NOT LIKE', '%@neayi.com')
             ->whereNotNull('interactions.user_id')
             ->groupBy('department_number')
             ->get();
@@ -65,6 +66,7 @@ class ReportingCharacteristicSql
             ->where('interactions.page_id', $pageId)
             ->whereNotNull('interactions.user_id')
             ->where('characteristics.type', $characteristicType)
+            ->where('users.email', 'NOT LIKE', '%@neayi.com')
             ->groupBy('user_characteristics.characteristic_id')
             ->orderBy('count', 'desc')
             ->limit(10)

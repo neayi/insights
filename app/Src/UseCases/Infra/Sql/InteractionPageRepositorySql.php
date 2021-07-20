@@ -68,9 +68,25 @@ class InteractionPageRepositorySql implements InteractionRepository
 
     public function getCountInteractionsOnPage(int $pageId):array
     {
-        $follow = InteractionModel::query()->where('page_id', $pageId)->where('follow', true)->count();
-        $done = InteractionModel::query()->where('page_id', $pageId)->where('done', true)->count();
-        $applause = InteractionModel::query()->where('page_id', $pageId)->where('applause', true)->count();
+        $applause = InteractionModel::query()
+            ->where('page_id', $pageId)
+            ->where('applause', true)
+            ->count();
+
+        // For follows and done, don't include Neayi people - we tend to spoil the results with our faces
+        $follow = InteractionModel::query()
+            ->where('page_id', $pageId)
+            ->where('follow', true)
+            ->join('users', 'users.id', 'interactions.user_id')
+            ->where('users.email', 'NOT LIKE', '%@neayi.com')
+            ->count();
+
+        $done = InteractionModel::query()
+            ->where('page_id', $pageId)
+            ->where('done', true)
+            ->join('users', 'users.id', 'interactions.user_id')
+            ->where('users.email', 'NOT LIKE', '%@neayi.com')
+            ->count();
 
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
     }
