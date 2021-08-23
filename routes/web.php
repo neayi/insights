@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
 });
 
 Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
+Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
@@ -33,7 +34,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
     Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
 
-    Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
     Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
     Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
     Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');

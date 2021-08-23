@@ -13,11 +13,13 @@ class CommentsController extends Controller
 {
     public function showComments(Request $request)
     {
-        $userId = $request->input('user_id', Auth::user()->uuid);
+        $userId = $request->input('user_id');
+        if (empty($userId))
+            $userId = Auth::user()->uuid;
+
         $comments = app(GetLastWikiUserComments::class)->get($userId);
         return view('users.profile.comments', [
-            'comments' => $comments,
-            'picture' => Auth::user()->adminlte_image()
+            'comments' => $comments
         ]);
     }
 }
