@@ -4,7 +4,7 @@
             <div class="col-md-10 offset-md-1">
                 <div class="row align-items-center">
                     <div class="col-md-12 pb-4">
-                        <img src="images/logo-triple-performance.svg" class="img-fluid mb-md-0 mb-3">
+                        <img src="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/logo-triple-performance.svg" class="img-fluid mb-md-0 mb-3">
                     </div>
                 </div>
                 <div class="row">
