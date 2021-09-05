@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b09c68e4eeafa79fa528bf3c0c7ea41",
+    "content-hash": "a0982cc95ae1bc66d6188f7884267e50",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -207,6 +207,55 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "cviebrock/discourse-php",
+            "version": "0.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/discourse-php.git",
+                "reference": "9a56e2afec067ee7441663eb82db3d4446c25bc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/discourse-php/zipball/9a56e2afec067ee7441663eb82db3d4446c25bc2",
+                "reference": "9a56e2afec067ee7441663eb82db3d4446c25bc2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cviebrock\\DiscoursePHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                },
+                {
+                    "name": "Johan Jatko",
+                    "homepage": "https://xr.gs/"
+                }
+            ],
+            "description": "Helper class for building a single sign-on source for Discourse forums",
+            "homepage": "https://github.com/cviebrock/discourse-php",
+            "keywords": [
+                "discourse",
+                "forum"
+            ],
+            "support": {
+                "issues": "https://github.com/cviebrock/discourse-php/issues",
+                "source": "https://github.com/cviebrock/discourse-php"
+            },
+            "time": "2017-07-07T16:02:16+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -3457,6 +3506,78 @@
                 }
             ],
             "time": "2020-11-09T14:08:36+00:00"
+        },
+        {
+            "name": "spinen/laravel-discourse-sso",
+            "version": "2.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spinen/laravel-discourse-sso.git",
+                "reference": "2ebb313025a57984840e7c230ae9c5ccd1a9154a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spinen/laravel-discourse-sso/zipball/2ebb313025a57984840e7c230ae9c5ccd1a9154a",
+                "reference": "2ebb313025a57984840e7c230ae9c5ccd1a9154a",
+                "shasum": ""
+            },
+            "require": {
+                "cviebrock/discourse-php": "^0.9.3",
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.4|^7.0.1",
+                "illuminate/auth": "~5.5|~6|~7|~8",
+                "illuminate/routing": "~5.5|~6|~7|~8",
+                "illuminate/support": "~5.5|~6|~7|~8",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "phpunit/phpunit": "^8.4|^9.0",
+                "psy/psysh": "^0.10",
+                "symfony/thanks": "^1.1",
+                "symfony/var-dumper": "~3.0|^4.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spinen\\Discourse\\SsoServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spinen\\Discourse\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jimmy Puckett",
+                    "email": "jimmy.puckett@spinen.com"
+                },
+                {
+                    "name": "Stephen Finney",
+                    "email": "stephen.finney@spinen.com"
+                }
+            ],
+            "description": "Integrate Discourse SSO into Laravel.",
+            "keywords": [
+                "SSO",
+                "discourse",
+                "laravel",
+                "library",
+                "single sign on",
+                "spinen"
+            ],
+            "support": {
+                "issues": "https://github.com/spinen/laravel-discourse-sso/issues",
+                "source": "https://github.com/spinen/laravel-discourse-sso/tree/2.5.3"
+            },
+            "time": "2020-09-16T03:02:23+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -8496,5 +8617,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }

@@ -27,6 +27,11 @@ class LoginController extends Controller
         if($request->session()->has('should_attach_to_organization')) {
             session()->reflash();
         }
+        if($request->has('sso')){
+            session()->flash('sso', $request->input('sso'));
+            session()->flash('sig', $request->input('sig'));
+        }
+
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
@@ -80,12 +85,20 @@ class LoginController extends Controller
             return redirect()->route('wizard.profile');
         }
 
+        if($request->session()->has('sso')){
+            $sso = $request->session()->get('sso');
+            $sig = $request->session()->get('sig');
+            return redirect('discourse/sso?sso='.$sso.'&sig='.$sig);
+        }
+
+
         if($request->session()->has('wiki_callback')){
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
         }
+
         if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){
             $token = $request->session()->get('should_attach_to_organization_token');
             $link = route('organization.invite.show').'?&token='.$token;

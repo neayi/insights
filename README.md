@@ -38,3 +38,9 @@ Via le helper config(neayi.) et non env('WIKI_URL')
 #Vocabulaire métier : 
 
 Context : Correspond au contexte dans lequel l'utilisateur (chercheur, agriculteur, étudiant...) prend la parole
+
+#Discourse :  
+
+Mettre comme url dans discourse (discourse connect url) :
+
+`https://insights.dev.tripleperformance.fr/discourse/sso` 
