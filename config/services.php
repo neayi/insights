@@ -89,10 +89,10 @@ return [
             'admin' => null,
 
             // Full path to user's avatar image
-            'avatar_url' => null,
+            'avatar_url' => 'avatar_url',
 
             // The avatar is cached, so this triggers an update
-            'avatar_force_update' => false,
+            'avatar_force_update' => true,
 
             // Content of the user's bio
             'bio' => null,
