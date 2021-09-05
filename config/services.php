@@ -72,6 +72,7 @@ return [
         'api' => [
             'key' => env('DISCOURSE_API_KEY'),
             'user' => env('DISCOURSE_API_USER'),
+            'url' => env('DISCOURSE_API')
         ],
 
         // User-specific items
