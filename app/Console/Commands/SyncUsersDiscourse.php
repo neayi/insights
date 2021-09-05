@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 
 
 use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -57,7 +58,7 @@ class SyncUsersDiscourse extends Command
         });
     }
 
-    private function createUserOnDiscourse(Client $httpClient, $user)
+    private function createUserOnDiscourse(Client $httpClient, User $user)
     {
         $apiKey = config('services.discourse.api.key');
 
@@ -72,6 +73,39 @@ class SyncUsersDiscourse extends Command
                 'username' => $user->fullname(),
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
+            ]
+        ]);
+    }
+
+    private function uploadAvatar(Client $httpClient, User $user)
+    {
+        $apiKey = config('services.discourse.api.key');
+
+        $result = $httpClient->post('uploads.json', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'type' => 'avatar',
+                'user_id' => $user->id,
+                'synchronous' => true,
+                'file' => $user->getAvatarUrlAttribute(),
+            ]
+        ]);
+
+
+        $uri = 'u/'.$user->fullname().'/preferences/avatar/pick.json';
+        $httpClient->put($uri, [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'upload_id' => $result['upload_id'],
+                'type' => 'uploaded',
             ]
         ]);
     }
