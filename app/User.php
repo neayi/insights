@@ -53,6 +53,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $desc;
     }
 
+    public function getAvatarUrlAttribute()
+    {
+        return $this->adminlte_image();
+    }
+
     public function adminlte_profile_url()
     {
         return 'user/edit/profile';
