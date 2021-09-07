@@ -43,7 +43,6 @@
                                     </div>
                                 </div>
                                 <form action="/register" method="POST">
-                                    {!! app('captcha')->render('fr'); !!}
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-10">

@@ -182,4 +182,15 @@ class UserRepositorySql implements UserRepository
             $record->providers ?? []
         );
     }
+
+    public function verifyEmail(string $userId)
+    {
+        $user = \App\User::where('uuid', $userId)->first();
+        if(!isset($user)){
+           return;
+        }
+        $user->markEmailAsVerified();
+    }
+
+
 }

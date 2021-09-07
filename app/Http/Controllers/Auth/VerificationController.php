@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -27,7 +28,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'profile';
 
     /**
      * Create a new controller instance.
@@ -49,6 +50,48 @@ class VerificationController extends Controller
      */
     protected function verified(Request $request)
     {
-        return view('public.auth.verified');
+        $callback = '';
+        if($request->session()->has('wiki_callback')){
+            $user = Auth::user();
+            $user->wiki_token = $request->session()->get('wiki_token');
+            $user->save();
+            $callback = urldecode($request->session()->get('wiki_callback'));
+            session()->remove('wiki_callback');
+            session()->remove('wiki_token');
+        }
+
+        if($request->session()->has('sso')){
+            $sso = $request->session()->get('sso');
+            $sig = $request->session()->get('sig');
+            $callback = url('discourse/sso?sso='.$sso.'&sig='.$sig);
+        }
+
+        return view('public.auth.verified', ['callback' => $callback]);
+    }
+
+    /**
+     * Show the email verification notice.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function show(Request $request)
+    {
+        if(session()->has('wiki_callback')){
+            session()->put(
+                [
+                    'wiki_callback' => session()->get('wiki_callback'),
+                    'wiki_token' => session()->get('wiki_token')
+                ]
+            );
+        }
+
+        if(session()->has('sso')){
+            session()->put('sso', $request->input('sso'));
+            session()->put('sig', $request->input('sig'));
+        }
+
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : view('public.auth.verify');
     }
 }

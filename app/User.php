@@ -58,6 +58,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->adminlte_image();
     }
 
+    public function getBioAttribute()
+    {
+        return $this->context->description;
+    }
+
     public function adminlte_profile_url()
     {
         return 'user/edit/profile';

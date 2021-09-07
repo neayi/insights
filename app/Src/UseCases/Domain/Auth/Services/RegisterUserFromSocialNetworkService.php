@@ -86,9 +86,12 @@ class RegisterUserFromSocialNetworkService
         $user = new User($id = Uuid::uuid4(), $socialiteUser->email(), $socialiteUser->firstname(), $socialiteUser->lastname(), null, '', [], [$provider => $socialiteUser->providerId()]);
         $picture = $this->handlePicture($socialiteUser);
         $user->create(null, $picture);
+
+        $this->userRepository->verifyEmail($id);
         return [
             'user_id' => $id,
             'provider_id' => $socialiteUser->providerId(),
         ];
+
     }
 }
