@@ -14,7 +14,7 @@
                                 <div class="row mb-4 mt-4">
                                     Merci, votre email a bien été vérifié.<br/>
 
-                                    @if(isset($callback))
+                                    @if(isset($callback) && $callback !== "")
                                         Vous allez être redirigés d'ici quelques secondes
                                     @else
                                         <a href="{{ config('neayi.wiki_url') }}">Consulter le wiki</a>
