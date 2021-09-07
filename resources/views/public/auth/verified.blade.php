@@ -13,7 +13,12 @@
                             <div class="col-lg-6 offset-lg-2 bg-white-mobile">
                                 <div class="row mb-4 mt-4">
                                     Merci, votre email a bien été vérifié.<br/>
-                                    <a href="{{ config('neayi.wiki_url') }}">Consulter le wiki</a>
+
+                                    @if(isset($callback))
+                                        Vous allez être redirigés d'ici quelques secondes
+                                    @else
+                                        <a href="{{ config('neayi.wiki_url') }}">Consulter le wiki</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -22,4 +27,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var callback = '{{ $callback }}';
+        if(callback !== ''){
+            document.location.href = callback;
+        }
+    </script>
 @endsection
+
+

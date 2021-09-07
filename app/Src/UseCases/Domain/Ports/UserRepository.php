@@ -20,4 +20,5 @@ interface UserRepository
     public function getAdminOfOrganization(string $organizationId):array;
     public function getStats(string $userId):Stats;
     public function addStats(string $userId, Stats $stats);
+    public function verifyEmail(string $userId);
 }

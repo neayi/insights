@@ -94,7 +94,7 @@ return [
             'avatar_force_update' => true,
 
             // Content of the user's bio
-            'bio' => null,
+            'bio' => 'bio',
 
             // Verified email address (see "require_activation" if not verified)
             'email' => 'email',

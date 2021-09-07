@@ -6,8 +6,6 @@ use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\FlashWikiCallback;
 use App\Http\Middleware\IsWizardProfileAvailable;
 use App\Http\Middleware\SetWikiSessionId;
-use App\Http\Middleware\TransformRequestLoginProvider;
-use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
@@ -72,7 +70,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'transform.request.login' => TransformRequestLoginProvider::class,
         'auth.check.role' => CheckRole::class,
         'flash.wiki' => FlashWikiCallback::class,
         'is.wizard.profile.available' => IsWizardProfileAvailable::class,
