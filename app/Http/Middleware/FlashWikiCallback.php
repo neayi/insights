@@ -20,9 +20,9 @@ class FlashWikiCallback
         }
 
         if($request->has('sso')){
-            session()->keep(['sso', 'sig']);
+            session()->put('sso', $request->get('sso'));
+            session()->put('sig', $request->get('sig'));
         }
-
         return $next($request);
     }
 }

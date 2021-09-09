@@ -16,10 +16,12 @@ class VerifyEmail extends Mailable
     use Queueable, SerializesModels;
 
     private $user;
+    private $callback;
 
-    public function __construct($user)
+    public function __construct($user, string $callback = null)
     {
         $this->user = $user;
+        $this->callback = $callback;
     }
 
     public function build()
@@ -30,6 +32,7 @@ class VerifyEmail extends Mailable
             [
                 'id' => $this->user->getKey(),
                 'hash' => sha1($this->user->getEmailForVerification()),
+                'callback' => $this->callback
             ]
         );
 
