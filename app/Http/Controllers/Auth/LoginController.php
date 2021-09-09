@@ -27,10 +27,6 @@ class LoginController extends Controller
         if($request->session()->has('should_attach_to_organization')) {
             session()->reflash();
         }
-        if($request->has('sso')){
-            session()->flash('sso', $request->input('sso'));
-            session()->flash('sig', $request->input('sig'));
-        }
 
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));

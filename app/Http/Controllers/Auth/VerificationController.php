@@ -50,22 +50,7 @@ class VerificationController extends Controller
      */
     protected function verified(Request $request)
     {
-        $callback = '';
-        if($request->session()->has('wiki_callback')){
-            $user = Auth::user();
-            $user->wiki_token = $request->session()->get('wiki_token');
-            $user->save();
-            $callback = urldecode($request->session()->get('wiki_callback'));
-            session()->remove('wiki_callback');
-            session()->remove('wiki_token');
-        }
-
-        if($request->session()->has('sso')){
-            $sso = $request->session()->get('sso');
-            $sig = $request->session()->get('sig');
-            $callback = url('discourse/sso?sso='.$sso.'&sig='.$sig);
-        }
-
+        $callback = base64_decode($request->get('callback', ''));
         return view('public.auth.verified', ['callback' => $callback]);
     }
 
@@ -76,20 +61,6 @@ class VerificationController extends Controller
      */
     public function show(Request $request)
     {
-        if(session()->has('wiki_callback')){
-            session()->put(
-                [
-                    'wiki_callback' => session()->get('wiki_callback'),
-                    'wiki_token' => session()->get('wiki_token')
-                ]
-            );
-        }
-
-        if(session()->has('sso')){
-            session()->put('sso', $request->input('sso'));
-            session()->put('sig', $request->input('sig'));
-        }
-
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
             : view('public.auth.verify');
