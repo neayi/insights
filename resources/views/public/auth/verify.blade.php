@@ -11,7 +11,7 @@
     @endif
 
     <div class="col-lg-8 offset-lg-2 col-12 mt-lg-5" id="msg-err">
-        <p class="mb-4  text-center " style="font-weight: bold">
+        <p class="mb-4 text-center" style="font-weight: bold">
             {{ __('adminlte::adminlte.verify_check_your_email') }}
         </p>
         

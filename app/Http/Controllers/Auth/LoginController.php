@@ -82,11 +82,14 @@ class LoginController extends Controller
         }
 
         if($request->session()->has('sso')){
+            if(!$user->hasVerifiedEmail()){
+                $request->session()->flash('from_forum', true);
+                return redirect()->route('email.verify');
+            }
             $sso = $request->session()->get('sso');
             $sig = $request->session()->get('sig');
             return redirect('discourse/sso?sso='.$sso.'&sig='.$sig);
         }
-
 
         if($request->session()->has('wiki_callback')){
             $user->wiki_token = $request->session()->get('wiki_token');
