@@ -51,13 +51,19 @@ class UserRepositorySql implements UserRepository
     public function update(User $u)
     {
         $userModel = \App\User::where('uuid', $u->id())->first();
+        $oldEmail = $userModel->email;
+
         $data = $u->toArray();
         $roles = $data['roles'];
         unset($data['url_picture']);
         unset($data['roles']);
         $userModel->fill($data);
-        $userModel->save();
 
+        if($oldEmail !== $data['email']){
+            $userModel->email_verified_at = null;
+            $userModel->sendEmailVerificationNotification();
+        }
+        $userModel->save();
         $userModel->syncRoles($roles);
     }
 
@@ -68,7 +74,6 @@ class UserRepositorySql implements UserRepository
         $userModel->providers = $providers;
         $userModel->save();
     }
-
 
     public function search(string $organizationId, int $page, int $perPage = 10): array
     {
@@ -182,4 +187,15 @@ class UserRepositorySql implements UserRepository
             $record->providers ?? []
         );
     }
+
+    public function verifyEmail(string $userId)
+    {
+        $user = \App\User::where('uuid', $userId)->first();
+        if(!isset($user)){
+           return;
+        }
+        $user->markEmailAsVerified();
+    }
+
+
 }

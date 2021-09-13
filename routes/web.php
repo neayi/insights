@@ -13,8 +13,8 @@ Route::get('user/logout', 'Api\OAuthController@logout');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('auth.provider');
 Route::get('register/{provider}', 'Auth\RegisterController@redirectToProvider')->name('register.auth.provider');
-Route::any('login/callback/{provider}', 'Auth\LoginController@handleProviderCallback')->middleware('transform.request.login')->name('auth.provider.callback');
-Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProviderCallback')->middleware('transform.request.login')->name('auth.provider.register_callback');
+Route::any('login/callback/{provider}', 'Auth\LoginController@handleProviderCallback')->name('auth.provider.callback');
+Route::any('register/callback/{provider}', 'Auth\RegisterController@handleProviderCallback')->name('auth.provider.register_callback');
 Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRegisterFormSocialNetwork')->name('register-social-network');
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
 Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
 Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
     Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
@@ -40,7 +40,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
 
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
-
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {

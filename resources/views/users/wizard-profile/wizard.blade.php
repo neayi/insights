@@ -6,14 +6,6 @@
 
 <form class="form" role="form" method="post" action="{{ route('wizard.profile.process') }}">
 @csrf
-    <div class="row cta-fixed-bar fixed-top grey-bg py-3 align-items-center mw-100">
-        <div class="col-lg-3 offset-lg-2 col-md-4">
-            <button type="button" class="btn btn-dark-green text-white px-5 py-2 mr-2 w-100 mb-2 mb-md-0 ml-3">Valider</button>
-        </div>
-        <!--div class="col-lg-5 col-md-6">
-            <button type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 w-100 ml-3">Valider et continuer de se présenter</button>
-        </div-->
-    </div>
     <div class="row py-5">
         @if(empty($errors->any()))
             <div class="col-lg-8 offset-lg-2 col-12" id="msg">
@@ -113,12 +105,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 offset-lg-2 col-md-4">
+        <div class="col-lg-3 offset-lg-2 col-md-4 mb-5">
             <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2">Valider</button>
         </div>
-        <!--div class="col-lg-5 col-md-6">
-            <button type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 w-100">Valider et continuer de se présenter</button>
-        <div-->
     </div>
 </form>
 @endsection

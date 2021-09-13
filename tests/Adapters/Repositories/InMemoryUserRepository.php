@@ -110,4 +110,11 @@ class InMemoryUserRepository implements UserRepository
     {
         $this->stats[$userId] = $stats;
     }
+
+    public function verifyEmail(string $userId)
+    {
+
+    }
+
+
 }

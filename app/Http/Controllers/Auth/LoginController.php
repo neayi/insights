@@ -15,7 +15,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'profile';
 
     public function __construct()
     {
@@ -26,10 +26,6 @@ class LoginController extends Controller
     {
         if($request->session()->has('should_attach_to_organization')) {
             session()->reflash();
-        }
-        if($request->has('sso')){
-            session()->flash('sso', $request->input('sso'));
-            session()->flash('sig', $request->input('sig'));
         }
 
         if($request->has('wiki_callback')){
@@ -86,11 +82,14 @@ class LoginController extends Controller
         }
 
         if($request->session()->has('sso')){
+            if(!$user->hasVerifiedEmail()){
+                $request->session()->flash('from_forum', true);
+                return redirect()->route('email.verify');
+            }
             $sso = $request->session()->get('sso');
             $sig = $request->session()->get('sig');
             return redirect('discourse/sso?sso='.$sso.'&sig='.$sig);
         }
-
 
         if($request->session()->has('wiki_callback')){
             $user->wiki_token = $request->session()->get('wiki_token');

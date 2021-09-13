@@ -6,27 +6,19 @@ namespace App\Src\UseCases\Domain\Auth;
 
 use App\Exceptions\Domain\ProviderNotSupported;
 use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
-use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 
 class RegisterUserFromSocialNetwork
 {
     private $allowedProviders = ['facebook', 'twitter', 'google'];
 
-    private $userRepository;
     private $socialiteGateway;
-    private $fileStorage;
 
     public function __construct(
-        UserRepository $userRepository,
-        SocialiteGateway $socialiteGateway,
-        FileStorage $fileStorage
+        SocialiteGateway $socialiteGateway
     )
     {
-        $this->userRepository = $userRepository;
         $this->socialiteGateway = $socialiteGateway;
-        $this->fileStorage = $fileStorage;
     }
 
     /**

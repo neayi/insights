@@ -59,6 +59,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->adminlte_image();
     }
 
+    public function getBioAttribute()
+    {
+        return $this->context->description;
+    }
+
     public function adminlte_profile_url()
     {
         return 'user/edit/profile';
@@ -71,7 +76,17 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function sendEmailVerificationNotification()
     {
-        Mail::to($this->email)->send(new \App\Mail\Auth\VerifyEmail($this));
+        $callback = '';
+        if(session()->has('wiki_callback')){
+            $callback = base64_encode(urldecode(session()->get('wiki_callback')));
+        }
+
+        if(session()->has('sso')){
+            $sso = session()->get('sso');
+            $sig = session()->get('sig');
+            $callback = base64_encode(url('discourse/sso?sso='.$sso.'&sig='.$sig));
+        }
+        Mail::to($this->email)->send(new \App\Mail\Auth\VerifyEmail($this, $callback));
     }
 
     public function characteristics():BelongsToMany
