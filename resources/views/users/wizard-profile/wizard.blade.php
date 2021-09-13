@@ -105,7 +105,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 offset-lg-2 col-md-4">
+        <div class="col-lg-3 offset-lg-2 col-md-4 mb-5">
             <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2">Valider</button>
         </div>
     </div>
