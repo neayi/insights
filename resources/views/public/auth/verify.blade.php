@@ -12,8 +12,12 @@
 
     <div class="col-lg-8 offset-lg-2 col-12 mt-lg-5" id="msg-err">
         <p class="mb-4" style="color: red;">
-            {{ __('adminlte::adminlte.verify_check_your_email') }}
-            {{ __('adminlte::adminlte.verify_if_not_recieved') }}
+            @if(session()->has('from_forum'))
+                {{ __('common.verify_from_forum') }}
+            @else
+                {{ __('adminlte::adminlte.verify_check_your_email') }}
+                {{ __('adminlte::adminlte.verify_if_not_recieved') }}
+            @endif
         </p>
     </div>
 
