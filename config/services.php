@@ -50,7 +50,7 @@ return [
 
     'discourse' => [
         // Middleware for the SSO login route to use
-        'middleware' => ['web', 'auth'],
+        'middleware' => ['web', 'auth', 'check.email.verified'],
 
         // The route's URI that acts as the entry point for Discourse to start the SSO process.
         // Used by Discourse to route incoming logins.

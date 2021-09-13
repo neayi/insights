@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckEmailVerified;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\FlashWikiCallback;
 use App\Http\Middleware\IsWizardProfileAvailable;
@@ -75,5 +76,6 @@ class Kernel extends HttpKernel
         'is.wizard.profile.available' => IsWizardProfileAvailable::class,
         'wiki.session.id' => SetWikiSessionId::class,
         'is.stateful' => EnsureFrontendRequestsAreStateful::class,
+        'check.email.verified' => CheckEmailVerified::class,
     ];
 }

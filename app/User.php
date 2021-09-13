@@ -77,7 +77,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     {
         $callback = '';
         if(session()->has('wiki_callback')){
-            $callback = urldecode(session()->get('wiki_callback'));
+            $callback = base64_encode(urldecode(session()->get('wiki_callback')));
         }
 
         if(session()->has('sso')){

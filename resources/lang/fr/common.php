@@ -14,5 +14,5 @@ return [
   'warning' => 'Attention !',
   'avatar' => 'Avatar',
 
-  'password' => 'Mot de passe',
+  'password' => 'Mot de passe'
 ];
