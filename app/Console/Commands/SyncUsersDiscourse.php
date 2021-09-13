@@ -62,7 +62,7 @@ class SyncUsersDiscourse extends Command
     {
         $apiKey = config('services.discourse.api.key');
 
-        $httpClient->post('users.json', [
+        $result = $httpClient->post('users.json', [
             'headers' => [
                 'Api-Key' => $apiKey,
                 'Api-Username' => 'system',
@@ -75,6 +75,7 @@ class SyncUsersDiscourse extends Command
                 'email' => $user->email,
             ]
         ]);
+        dd($result);
     }
 
     private function uploadAvatar(Client $httpClient, User $user)
