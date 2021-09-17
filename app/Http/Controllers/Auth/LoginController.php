@@ -83,7 +83,7 @@ class LoginController extends Controller
 
         if($request->session()->has('sso')){
             if(!$user->hasVerifiedEmail()){
-                return redirect()->route('email.notice');
+                return redirect()->route('verification.notice');
             }
             $sso = $request->session()->get('sso');
             $sig = $request->session()->get('sig');
@@ -95,7 +95,7 @@ class LoginController extends Controller
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
             if(!$user->hasVerifiedEmail()){
-                return redirect()->route('email.notice');
+                return redirect()->route('verification.notice');
             }
             return redirect($callback);
         }

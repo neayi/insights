@@ -44,6 +44,23 @@ class WizardProfileController extends Controller
         $farmingType = $request->input('farming_type') !== null ? $request->input('farming_type') : [];
 
         $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $postalCode, $farmingType);
+
+        if(Auth::user()->hasVerifiedEmail()) {
+            $user = Auth::user();
+            if ($request->has('wiki_callback')) {
+                $user->wiki_token = $request->session()->get('wiki_token');
+                $user->save();
+                $callback = urldecode($request->session()->get('wiki_callback'));
+                return redirect($callback);
+            }
+
+            if($request->session()->has('sso')){
+                $sso = $request->session()->get('sso');
+                $sig = $request->session()->get('sig');
+                return redirect('discourse/sso?sso='.$sso.'&sig='.$sig);
+            }
+        }
+
         return redirect()->route('verification.notice');
     }
 }
