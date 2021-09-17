@@ -5,7 +5,7 @@
 @section('content')
 
     @if(session('resent'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success mx-auto my-4 text-center font-weight-bold" role="alert" style="max-width: 400px;">
             {{ __('adminlte::adminlte.verify_email_sent') }}
         </div>
     @endif
