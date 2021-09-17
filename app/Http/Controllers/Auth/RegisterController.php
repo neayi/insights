@@ -59,7 +59,7 @@ class RegisterController extends Controller
             session()->reflash();
         }
         return Validator::make($data, [
-            //'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => 'required|min:8|max:255|confirmed'
         ], [
