@@ -86,15 +86,19 @@ class RegisterController extends Controller
         }
         $user = Auth::user();
 
+        if($user->context_id === null) {
+            $user->wiki_token = $request->session()->get('wiki_token');
+            $user->save();
+            $callback = urldecode($request->session()->get('wiki_callback'));
+            return redirect()->route('wizard.profile');
+        }
+
+
         if($request->session()->has('wiki_callback')){
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
-        }
-
-        if($user->context_id === null) {
-            return redirect()->route('wizard.profile');
         }
 
         return redirect()->route('wizard.profile');
