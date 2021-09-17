@@ -87,6 +87,8 @@ class RegisterController extends Controller
         $user = Auth::user();
 
         if($user->context_id === null) {
+            $user->wiki_token = $request->session()->get('wiki_token');
+            $user->save();
             return redirect()->route('wizard.profile');
         }
 
