@@ -6,7 +6,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Accueil" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a></li>
+            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Triple_Performance" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i>Accueil</a></li>
             <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
             <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
             <li class="nav-item dropdown " id="neayi-nav-other">

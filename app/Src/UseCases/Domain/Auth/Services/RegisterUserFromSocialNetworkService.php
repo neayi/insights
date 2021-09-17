@@ -87,7 +87,11 @@ class RegisterUserFromSocialNetworkService
         $picture = $this->handlePicture($socialiteUser);
         $user->create(null, $picture);
 
-        $this->userRepository->verifyEmail($id);
+        // If the user has an email, we take it for granted that Google or Facebook has already verified it:
+        $email = $socialiteUser->email();
+        if (!empty($email))
+            $this->userRepository->verifyEmail($id);
+
         return [
             'user_id' => $id,
             'provider_id' => $socialiteUser->providerId(),

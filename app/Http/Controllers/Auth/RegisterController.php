@@ -87,6 +87,10 @@ class RegisterController extends Controller
         $user = Auth::user();
 
         if($user->context_id === null) {
+            if($request->session()->has('wiki_token')) {
+                $user->wiki_token = $request->session()->get('wiki_token');
+                $user->save();
+            }
             return redirect()->route('wizard.profile');
         }
 
@@ -106,6 +110,9 @@ class RegisterController extends Controller
 
     public function redirectToProvider(string $provider)
     {
+        if(request()->session()->has('wiki_token')) {
+            session()->reflash();
+        }
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK')]);
         if($provider === 'twitter'){
             return Socialite::driver($provider)->redirect();

@@ -17769,7 +17769,7 @@ a.text-dark:focus {
 }
 
 .navbar .navbar-collapse .nav-link .fa {
-  margin-right: 3px;
+  margin-right: 0.5rem;
 }
 
 .navbar .navbar-brand img {
