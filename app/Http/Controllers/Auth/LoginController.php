@@ -15,7 +15,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'profile';
 
     public function __construct()
     {
@@ -27,6 +27,7 @@ class LoginController extends Controller
         if($request->session()->has('should_attach_to_organization')) {
             session()->reflash();
         }
+
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
@@ -80,12 +81,23 @@ class LoginController extends Controller
             return redirect()->route('wizard.profile');
         }
 
+        if($request->session()->has('sso')){
+            if(!$user->hasVerifiedEmail()){
+                $request->session()->flash('from_forum', true);
+                return redirect()->route('email.verify');
+            }
+            $sso = $request->session()->get('sso');
+            $sig = $request->session()->get('sig');
+            return redirect('discourse/sso?sso='.$sso.'&sig='.$sig);
+        }
+
         if($request->session()->has('wiki_callback')){
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
             return redirect($callback);
         }
+
         if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){
             $token = $request->session()->get('should_attach_to_organization_token');
             $link = route('organization.invite.show').'?&token='.$token;

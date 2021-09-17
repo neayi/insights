@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -27,7 +28,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'profile';
 
     /**
      * Create a new controller instance.
@@ -49,6 +50,19 @@ class VerificationController extends Controller
      */
     protected function verified(Request $request)
     {
-        return view('public.auth.verified');
+        $callback = base64_decode($request->get('callback', ''));
+        return view('public.auth.verified', ['callback' => $callback]);
+    }
+
+    /**
+     * Show the email verification notice.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function show(Request $request)
+    {
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : view('public.auth.verify');
     }
 }

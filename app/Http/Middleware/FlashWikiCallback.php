@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 class FlashWikiCallback
 {
@@ -18,6 +17,11 @@ class FlashWikiCallback
     {
         if(session()->has('wiki_callback')){
             session()->keep(['wiki_callback', 'wiki_token']);
+        }
+
+        if($request->has('sso')){
+            session()->put('sso', $request->get('sso'));
+            session()->put('sig', $request->get('sig'));
         }
         return $next($request);
     }

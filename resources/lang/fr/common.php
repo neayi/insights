@@ -15,4 +15,5 @@ return [
   'avatar' => 'Avatar',
 
   'password' => 'Mot de passe',
+  'verify_from_forum'           => 'Pour accéder au forum vous devez impérativement valider votre email'
 ];
