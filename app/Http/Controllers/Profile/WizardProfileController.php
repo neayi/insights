@@ -47,7 +47,7 @@ class WizardProfileController extends Controller
 
         if(Auth::user()->hasVerifiedEmail()) {
             $user = Auth::user();
-            if ($request->has('wiki_callback')) {
+            if ($request->session()->has('wiki_callback')) {
                 $user->wiki_token = $request->session()->get('wiki_token');
                 $user->save();
                 $callback = urldecode($request->session()->get('wiki_callback'));
