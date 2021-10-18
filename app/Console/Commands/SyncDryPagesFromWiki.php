@@ -35,6 +35,10 @@ class SyncDryPagesFromWiki extends Command
             foreach($wikiPages as $page){
                 $pageModel = PageModel::query()->where('page_id', $page['pageid'])->first();
 
+                if(!isset($pageModel)){
+                    continue;
+                }
+
                 if (!isset($page['title']))
                 {
                     // The page has been deleted from the wiki, we remove it on our side too
