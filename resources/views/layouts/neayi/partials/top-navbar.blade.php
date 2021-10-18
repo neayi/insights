@@ -7,28 +7,79 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Triple_Performance" title="Accueil général [alt-shift-z]" accesskey="z" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i>Accueil</a></li>
-            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Pratiques_agro-%C3%A9cologiques" class="nav-link">Pratiques</a></li>
-            <li class="nav-item"><a href="{{config('neayi.wiki_url')}}/wiki/Sp%C3%A9cial:BrowseData/Exemples_de_mise_en_%C5%93uvre" class="nav-link">Retours d'expérience</a></li>
-            <li class="nav-item dropdown " id="neayi-nav-other">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Autres</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start">
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Vidéos" title="Spécial:BrowseData/Vidéos">Vidéos</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Cultures" title="Cultures">Cultures</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Bioagresseur" title="Bioagresseur">Bioagresseurs</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Auxiliaires" title="Auxiliaires">Auxiliaires</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Matériels" title="Matériels">Matériel et machines agricoles</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Outils_d%27aide" title="Outils d'aide">Outils d'aide à la décision</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Labels" title="Labels">Labels</a>
+
+            <li class="nav-item dropdown" id="neayi-nav-other">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Productions</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Grandes cultures" title="Grandes cultures">Grandes cultures</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Polyculture-élevage" title="Polyculture-élevage">Polyculture-élevage</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Viticulture" title="Viticulture">Viticulture</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/PPAM" title="PPAM">PPAM</a>
                 </div>
             </li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Vidéos" title="Spécial:BrowseData/Vidéos">Vidéos</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Cultures" title="Cultures">Cultures</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Spécial:BrowseData/Bioagresseur" title="Bioagresseurs">Bioagresseurs</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Auxiliaires" title="Auxiliaires">Auxiliaires</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Matériels" title="Matériels">Matériel et machines agricoles</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Outils_d%27aide" title="Outils d'aide">Outils d'aide à la décision</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Catégorie:Labels" title="Labels">Labels</a></li>
+
+            <li class="nav-item neayi-additional-mobile-menus"><b>Productions</b></li>
+
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Grandes cultures" title="Grandes cultures">Grandes cultures</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Polyculture-élevage" title="Polyculture-élevage">Polyculture-élevage</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Viticulture" title="Viticulture">Viticulture</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/PPAM" title="PPAM">PPAM</a></li>
+
+            <li class="nav-item dropdown" id="neayi-nav-other">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thématiques</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Agriculture de précision" title="Agriculture de précision">Agriculture de précision</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Agroforesterie" title="Agroforesterie">Agroforesterie</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Bioagresseurs" title="Bioagresseurs">Bioagresseurs</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Biodiversité" title="Biodiversité">Biodiversité</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Collaboration et coopération en agriculture" title="Collaboration et coopération en agriculture">Collaboration et coopération en agriculture</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Couverture des sols" title="Couverts végétaux">Couverts végétaux</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Cycle du carbone et GES" title="Cycle du carbone et GES">Cycle du carbone et GES</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Desherbage" title="Desherbage">Desherbage</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Diagnostique et performance d'une ferme" title="Diagnostique et performance">Diagnostique et performance</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Gestion de l’eau" title="Gestion de l’eau">Gestion de l’eau</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Matériel et machines agricoles" title="Matériel et machines agricoles">Matériel et machines agricoles</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Organisation du travail" title="Organisation du travail">Organisation du travail</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Outils de mesure et d’observation" title="Outils de mesure et d’observation">Outils de mesure et d’observation</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Production énergétique" title="Production énergétique">Production énergétique</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Protection intégrée des cultures" title="Protection intégrée des cultures">Protection intégrée des cultures</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Résilience climatique" title="Résilience climatique">Résilience climatique</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/S'installer en agriculture" title="S'installer">S'installer</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Agronomie des sols vivants" title="Sols vivants">Sols vivants</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Valorisation de la production" title="Valorisation de la production">Valorisation de la production</a>
+                </div>
+            </li>
+
+            <li class="nav-item neayi-additional-mobile-menus"><b>Thématiques</b></li>
+
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agriculture de précision" title="Agriculture de précision">Agriculture de précision</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agroforesterie" title="Agroforesterie">Agroforesterie</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Bioagresseurs" title="Bioagresseurs">Bioagresseurs</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Biodiversité" title="Biodiversité">Biodiversité</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Collaboration et coopération en agriculture" title="Collaboration et coopération en agriculture">Collaboration et coopération en agriculture</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Couverture des sols" title="Couverts végétaux">Couverts végétaux</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Cycle du carbone et GES" title="Cycle du carbone et GES">Cycle du carbone et GES</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Desherbage" title="Desherbage">Desherbage</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Diagnostique et performance d'une ferme" title="Diagnostique et performance">Diagnostique et performance</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Gestion de l’eau" title="Gestion de l’eau">Gestion de l’eau</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Matériel et machines agricoles" title="Matériel et machines agricoles">Matériel et machines agricoles</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Organisation du travail" title="Organisation du travail">Organisation du travail</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Outils de mesure et d’observation" title="Outils de mesure et d’observation">Outils de mesure et d’observation</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Production énergétique" title="Production énergétique">Production énergétique</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Protection intégrée des cultures" title="Protection intégrée des cultures">Protection intégrée des cultures</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Résilience climatique" title="Résilience climatique">Résilience climatique</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/S'installer en agriculture" title="S'installer">S'installer</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agronomie des sols vivants" title="Sols vivants">Sols vivants</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Valorisation de la production" title="Valorisation de la production">Valorisation de la production</a></li>
+
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Aide:Créer_une_page">Ajouter une page</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="{{config('neayi.forum_url')}}" title="Forum">Forum</a></li>
+
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)
             <div class="create-profile">
