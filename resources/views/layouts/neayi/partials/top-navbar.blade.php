@@ -20,14 +20,6 @@
                 </div>
             </li>
 
-            <li class="nav-item neayi-additional-mobile-menus"><b>Productions</b></li>
-
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Grandes cultures" title="Grandes cultures">Grandes cultures</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Polyculture-élevage" title="Polyculture-élevage">Polyculture-élevage</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Viticulture" title="Viticulture">Viticulture</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/PPAM" title="PPAM">PPAM</a></li>
 
             <li class="nav-item dropdown" id="neayi-nav-other">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thématiques</a>
@@ -54,32 +46,13 @@
                 </div>
             </li>
 
-            <li class="nav-item neayi-additional-mobile-menus"><b>Thématiques</b></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Productions" title="Productions">Productions</a></li>
 
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agriculture de précision" title="Agriculture de précision">Agriculture de précision</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agroforesterie" title="Agroforesterie">Agroforesterie</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Bioagresseurs" title="Bioagresseurs">Bioagresseurs</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Biodiversité" title="Biodiversité">Biodiversité</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Collaboration et coopération en agriculture" title="Collaboration et coopération en agriculture">Collaboration et coopération en agriculture</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Couverture des sols" title="Couverts végétaux">Couverts végétaux</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Cycle du carbone et GES" title="Cycle du carbone et GES">Cycle du carbone et GES</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Desherbage" title="Desherbage">Desherbage</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Diagnostique et performance d'une ferme" title="Diagnostique et performance">Diagnostique et performance</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Gestion de l’eau" title="Gestion de l’eau">Gestion de l’eau</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Matériel et machines agricoles" title="Matériel et machines agricoles">Matériel et machines agricoles</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Organisation du travail" title="Organisation du travail">Organisation du travail</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Outils de mesure et d’observation" title="Outils de mesure et d’observation">Outils de mesure et d’observation</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Production énergétique" title="Production énergétique">Production énergétique</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Protection intégrée des cultures" title="Protection intégrée des cultures">Protection intégrée des cultures</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Résilience climatique" title="Résilience climatique">Résilience climatique</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/S'installer en agriculture" title="S'installer">S'installer</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Agronomie des sols vivants" title="Sols vivants">Sols vivants</a></li>
-            <li class="nav-item neayi-additional-mobile-menus"><a href="{{config('neayi.wiki_url')}}/wiki/Valorisation de la production" title="Valorisation de la production">Valorisation de la production</a></li>
-
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Aide:Créer_une_page">Ajouter une page</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Thématiques" title="Thématiques">Thématiques</a></li>
 
             <li class="nav-item"><a class="nav-link" href="{{config('neayi.forum_url')}}" title="Forum">Forum</a></li>
 
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{config('neayi.wiki_url')}}/wiki/Aide:Créer_une_page">Ajouter une page</a></li>
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)
             <div class="create-profile">
