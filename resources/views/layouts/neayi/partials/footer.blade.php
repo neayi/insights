@@ -47,8 +47,8 @@
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Collaboration et coopération en agriculture" title="Collaboration et coopération en agriculture">Collaboration et coopération en agriculture</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Couverture des sols" title="Couverts végétaux">Couverts végétaux</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Cycle du carbone et GES" title="Cycle du carbone et GES">Cycle du carbone et GES</a></li>
-                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Desherbage" title="Desherbage">Desherbage</a></li>
-                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Diagnostique et performance d'une ferme" title="Diagnostique et performance">Diagnostique et performance</a></li>
+                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Désherbage" title="Désherbage">Désherbage</a></li>
+                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Diagnostic et performance d'une ferme" title="Diagnostic et performance">Diagnostic et performance</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Gestion de l’eau" title="Gestion de l’eau">Gestion de l’eau</a></li>
                         </ul>
                     </div>
