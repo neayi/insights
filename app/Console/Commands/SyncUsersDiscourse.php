@@ -29,7 +29,7 @@ class SyncUsersDiscourse extends Command
         $httpClient = new Client(['base_uri' => $hostname]);
 
         UserSyncDiscourseModel::query()
-            //->where('sync', false)
+            ->where('sync', false)
             ->chunkById(50, function ($items) use ($httpClient) {
             foreach($items as $userSync) {
                 $user = $userSync->user;
