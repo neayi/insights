@@ -67,11 +67,10 @@ return [
         'url' => env('DISCOURSE_URL'),
 
         // Api-specific items
-        // For logging out of Discourse directly, generate an API key as an "All user key" and put the key & user here.
+        // For logging out of Discourse directly, generate an API key as an "All user key" and put the key here.
         // @see https://meta.discourse.org/t/how-to-create-an-api-key-on-the-admin-panel/87383
         'api' => [
             'key' => env('DISCOURSE_API_KEY'),
-            'user' => env('DISCOURSE_API_USER'),
             'url' => env('DISCOURSE_API')
         ],
 
