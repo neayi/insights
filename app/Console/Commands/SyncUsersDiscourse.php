@@ -59,7 +59,7 @@ class SyncUsersDiscourse extends Command
                 'Content-Type' => 'application/json'
             ],
             'json' => [
-                'username' => $this->user = substr(Str::of($user->fullname())->slug('-'), 0, 20),
+                'username' => $this->user = trim(substr(Str::of($user->fullname())->slug('.'), 0, 20), '.'),
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
             ]
