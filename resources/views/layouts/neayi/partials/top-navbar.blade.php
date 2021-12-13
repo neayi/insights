@@ -12,7 +12,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Productions</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Grandes cultures" title="Grandes cultures">Grandes cultures</a>
-                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Polyculture-élevage" title="Polyculture-élevage">Polyculture-élevage</a>
+                    <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Élevage" title="Élevage">Élevage</a>
                     <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Viticulture" title="Viticulture">Viticulture</a>
                     <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a>
                     <a class="dropdown-item" href="{{config('neayi.wiki_url')}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a>

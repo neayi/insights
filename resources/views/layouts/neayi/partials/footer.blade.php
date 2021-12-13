@@ -19,7 +19,7 @@
 
                         <p class="footer-title">Communauté</p>
                         <ul class="list-unstyled">
-                            <li><a href="{{config('neayi.wiki_url')}}/index.php?title=Special:Login">Créer un compte ou se connecter</a></li>
+                            <li><a rel="nofollow" href="{{config('neayi.wiki_url')}}/index.php?title=Special:Login">Créer un compte ou se connecter</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Aide:Bienvenue">Contribuer&nbsp;? Ça commence ici&nbsp;!</a></li>
                             <li><a href="{{config('neayi.forum_url')}}">Accéder au forum</a></li>
                         </ul>
@@ -29,7 +29,7 @@
                         <p class="footer-title">Productions</p>
                         <ul class="list-unstyled">
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Grandes cultures" title="Grandes cultures">Grandes cultures</a></li>
-                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Polyculture-élevage" title="Polyculture-élevage">Polyculture-élevage</a></li>
+                            <li><a href="{{config('neayi.wiki_url')}}/wiki/Élevage" title="Élevage">Élevage</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Viticulture" title="Viticulture">Viticulture</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a></li>
                             <li><a href="{{config('neayi.wiki_url')}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a></li>
