@@ -1,4 +1,4 @@
-@extends('layouts.neayi.master-no-menus')
+@extends('layouts.neayi.login')
 
 @section('title', __('pages.register'))
 
