@@ -22,6 +22,9 @@ class GetDepartmentFromPostalCodeImpl implements GetDepartmentFromPostalCode
         $response = $this->httpClient->get($this->api.$postalCode);
         $content = json_decode($response->getBody()->getContents(), true);
 
+        $coordinates = null;
+        $departmentNumber = null;
+
         $features = $content['features'];
         if(isset($features) && !empty($features)){
             $feature = $features[0];
