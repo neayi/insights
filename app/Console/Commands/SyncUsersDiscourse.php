@@ -28,7 +28,7 @@ class SyncUsersDiscourse extends Command
         $httpClient = new Client(['base_uri' => $hostname]);
 
         UserSyncDiscourseModel::query()
-            ->where('sync', false)
+            //->where('sync', false)
             ->chunkById(50, function ($items) use ($httpClient) {
             foreach($items as $userSync) {
                 $user = $userSync->user;
@@ -61,7 +61,7 @@ class SyncUsersDiscourse extends Command
                 'Content-Type' => 'application/json'
             ],
             'json' => [
-                'username' => $this->user = trim(substr(Str::of($user->fullname())->slug('.'), 0, 20), '.'),
+                'username' => $this->username = trim(substr(Str::of($user->fullname())->slug('.'), 0, 20), '.'),
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
             ]
@@ -71,6 +71,7 @@ class SyncUsersDiscourse extends Command
             throw new \Exception($result['message']);
         }
         $user->discourse_id = $result['user_id'];
+        $user->discourse_username = $this->username;
         $user->save();
         $this->info('User created on discourse with id : '.$user->discourse_id);
         return $result['user_id'];
@@ -88,9 +89,9 @@ class SyncUsersDiscourse extends Command
         ]);
 
         $result = json_decode($result->getBody()->getContents(), true);
-        $username = $result['username'];
+        $this->username = $result['username'];
         try {
-            $result = $httpClient->put('u/' . $username . '/preferences/email.json', [
+            $result = $httpClient->put('u/' . $this->username . '/preferences/email.json', [
                 'headers' => [
                     'Api-Key' => $apiKey,
                     'Api-Username' => 'system',
@@ -145,19 +146,7 @@ class SyncUsersDiscourse extends Command
 
         $uploadId = $result['id'];
 
-        $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->get('/admin/users/'.$user->discourse_id.'.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
-        $username = $result['username'];
-
-        $uri = 'u/'.$username.'/preferences/avatar/pick.json';
+        $uri = 'u/'.$this->username.'/preferences/avatar/pick.json';
         $httpClient->put($uri, [
             'headers' => [
                 'Api-Key' => $apiKey,

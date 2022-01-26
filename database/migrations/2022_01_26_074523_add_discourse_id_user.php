@@ -10,6 +10,7 @@ class AddDiscourseIdUser extends Migration
     {
         Schema::table('users', function (Blueprint $table){
             $table->string('discourse_id')->nullable();
+            $table->string('discourse_username')->nullable();
         });
     }
 
@@ -17,6 +18,7 @@ class AddDiscourseIdUser extends Migration
     {
         Schema::table('users', function (Blueprint $table){
             $table->dropColumn('discourse_id');
+            $table->dropColumn('discourse_username');
         });
     }
 }
