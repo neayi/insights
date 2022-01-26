@@ -21,6 +21,7 @@ use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +87,8 @@ class ProfileController extends Controller
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'practises' => $practises,
             'interactions' => $interactions,
-            'routeComment' => $routeComment
+            'routeComment' => $routeComment,
+            'more' => User::query()->where('uuid', $userId)->first()->toArray()
         ]);
     }
 
