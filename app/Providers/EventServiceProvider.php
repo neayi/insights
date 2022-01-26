@@ -35,9 +35,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         Verified::class => [
             SetUserToSyncOnDiscourse::class
-        ],
-        UserUpdated::class => [
-            SetUserToSyncOnDiscourseWithId::class
         ]
     ];
 

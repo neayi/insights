@@ -136,7 +136,6 @@ class User
             $picture->resize('app/public/users/' . $this->id . '.' . $ext);
             $this->pathPicture = 'app/public/users/' . $this->id . '.' . $ext;
         }
-        event(new UserUpdated($this->id));
         app(UserRepository::class)->update($this);
     }
 
