@@ -14,6 +14,9 @@ class SetUserToSyncOnDiscourse
     {
         try {
             $user = $verified->user;
+            if(empty($user->firstname) || empty($user->lastname)){
+                return;
+            }
             $sync = UserSyncDiscourseModel::where('user_id', $user->id)->first();
             if(!isset($sync)) {
                 $sync = new UserSyncDiscourseModel();
@@ -24,7 +27,7 @@ class SetUserToSyncOnDiscourse
             $sync->save();
         }catch (\Throwable $e){
             Log::emergency('Error when sync asking for user : '.$user->id);
-            report($e);
+            \Sentry\captureException($e);
         }
     }
 }

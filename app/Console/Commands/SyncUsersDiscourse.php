@@ -8,7 +8,6 @@ use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
@@ -34,7 +33,11 @@ class SyncUsersDiscourse extends Command
             foreach($items as $userSync) {
                 $user = $userSync->user;
                 try {
-                    $id = $this->createUserOnDiscourse($httpClient, $user);
+                    if(!isset($user->discourse_id)) {
+                        $id = $this->createUserOnDiscourse($httpClient, $user);
+                    }else{
+                        $id = $this->updateUserOnDiscourse($httpClient, $user);
+                    }
                     $userSync->sync = true;
                     $userSync->sync_at = (new \DateTime())->format('Y-m-d H:i:s');
                     $userSync->save();
@@ -42,8 +45,7 @@ class SyncUsersDiscourse extends Command
                 }catch (\Throwable $e){
                     $message = 'Discourse sync failed for user : '.$user->uuid. ' '.$e->getMessage();
                     $this->error($message);
-                    Log::emergency($message);
-                    report($e);
+                    \Sentry\captureException($e);
                 }
             }
         });
@@ -68,7 +70,47 @@ class SyncUsersDiscourse extends Command
         if($result['success'] === false){
             throw new \Exception($result['message']);
         }
+        $user->discourse_id = $result['user_id'];
+        $user->save();
+        $this->info('User created on discourse with id : '.$user->discourse_id);
         return $result['user_id'];
+    }
+
+    private function updateUserOnDiscourse(Client $httpClient, User $user)
+    {
+        $apiKey = config('services.discourse.api.key');
+        $result = $httpClient->get('/admin/users/'.$user->discourse_id.'.json', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $result = json_decode($result->getBody()->getContents(), true);
+        $username = $result['username'];
+        try {
+            $result = $httpClient->put('u/' . $username . '/preferences/email.json', [
+                'headers' => [
+                    'Api-Key' => $apiKey,
+                    'Api-Username' => 'system',
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => [
+                    'email' => $user->email,
+                ]
+            ]);
+            $result = json_decode($result->getBody()->getContents(), true);
+            if($result['success'] === false){
+                throw new \Exception($result['message']);
+            }
+        }catch (\Throwable $e){
+            // pas besoin d'update l'email
+        }
+
+
+        $this->info('User updated on discourse with id : '.$user->discourse_id);
+        return $user->discourse_id;
     }
 
     private function uploadAvatar(Client $httpClient, User $user, $id)
@@ -102,7 +144,20 @@ class SyncUsersDiscourse extends Command
         $result = json_decode($result->getBody()->getContents(), true);
 
         $uploadId = $result['id'];
-        $uri = 'u/'.$this->user.'/preferences/avatar/pick.json';
+
+        $apiKey = config('services.discourse.api.key');
+        $result = $httpClient->get('/admin/users/'.$user->discourse_id.'.json', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $result = json_decode($result->getBody()->getContents(), true);
+        $username = $result['username'];
+
+        $uri = 'u/'.$username.'/preferences/avatar/pick.json';
         $httpClient->put($uri, [
             'headers' => [
                 'Api-Key' => $apiKey,
