@@ -19,27 +19,27 @@ Route::get('register-social-network/error', 'Auth\RegisterController@showErrorRe
 Route::post('register-social-network/error', 'Auth\RegisterController@registerAfterError')->name('auth.register-social-network');
 
 Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function() {
-    Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
-    Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
+    Route::get('profile-wizard', 'FrontOffice\WizardProfileController@showWizard')->name('wizard.profile');
+    Route::post('profile-wizard', 'FrontOffice\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
-Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
-Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
+Route::get('tp/{username}/{uuid}', 'FrontOffice\ProfileController@show')->name('show.profile.logged-visitor');
+Route::get('comments', 'FrontOffice\CommentsController@showComments')->name('profile.comments.show');
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
-    Route::get('profile', 'Profile\ProfileController@showEdit')->name('show.profile');
-    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
-    Route::post('delete-avatar', 'Profile\ProfileController@removeAvatar')->name('user.delete.avatar');
-    Route::post('context/update/description', 'Profile\ProfileController@updateDescription')->name('context.update.description');
-    Route::post('context/update', 'Profile\ProfileController@updateContext')->name('context.update');
-    Route::post('context/update/characteristics', 'Profile\ProfileController@updateCharacteristics')->name('context.update.characteristics');
+    Route::get('profile', 'FrontOffice\ProfileController@showEdit')->name('show.profile');
+    Route::post('update-avatar', 'FrontOffice\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('delete-avatar', 'FrontOffice\ProfileController@removeAvatar')->name('user.delete.avatar');
+    Route::post('context/update/description', 'FrontOffice\ProfileController@updateDescription')->name('context.update.description');
+    Route::post('context/update', 'FrontOffice\ProfileController@updateContext')->name('context.update');
+    Route::post('context/update/characteristics', 'FrontOffice\ProfileController@updateCharacteristics')->name('context.update.characteristics');
 
-    Route::get('structures', 'Profile\ProfileController@autoCompleteStructure')->name('profile.structure.search');
-    Route::get('context/search-characteristics', 'Profile\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
-    Route::post('context/characteristic', 'Profile\ProfileController@createCharacteristic')->name('profile.characteristic.create');
-    Route::post('context/characteristic/add', 'Profile\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
+    Route::get('structures', 'FrontOffice\ProfileController@autoCompleteStructure')->name('profile.structure.search');
+    Route::get('context/search-characteristics', 'FrontOffice\ProfileController@searchCharacteristics')->name('profile.characteristics.search');
+    Route::post('context/characteristic', 'FrontOffice\ProfileController@createCharacteristic')->name('profile.characteristic.create');
+    Route::post('context/characteristic/add', 'FrontOffice\ProfileController@addCharacteristicsToContext')->name('profile.characteristic.add');
 
-    Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
+    Route::post('update-avatar', 'FrontOffice\ProfileController@updateProfilePicture')->name('user.update.avatar');
 });
 
 Route::group(['middleware' => ['auth', 'auth.check.role']], function() {

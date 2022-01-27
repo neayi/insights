@@ -4,8 +4,9 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Context\Model\CanInteract;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
+
+use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
 use Illuminate\Contracts\Pagination\Paginator;
 
 interface InteractionRepository

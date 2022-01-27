@@ -44,6 +44,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $urlPicture;
     }
 
+    public function pictureUrl():?string
+    {
+        return $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
+    }
+
     public function adminlte_desc()
     {
         $desc = $this->firstname.' '.$this->lastname;
@@ -128,7 +133,18 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function toDto():UserDto
     {
-        return new UserDto($this->uuid, $this->firstname, $this->lastname);
+        return new UserDto(
+            $this->uuid,
+            $this->firstname,
+            $this->lastname,
+            $this->email,
+            $this->roles()->pluck('name')->toArray(),
+            $this->pictureUrl(),
+            [
+                'discourse_id' => $this->discourse_id,
+                'discourse_username' => $this->discourse_username
+            ],
+        );
     }
 
     public function askDiscourseSync()

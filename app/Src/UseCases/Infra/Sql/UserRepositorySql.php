@@ -3,11 +3,11 @@
 
 namespace App\Src\UseCases\Infra\Sql;
 
+use App\Src\Insights\Users\Domain\Stats;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Identity;
 use App\Src\UseCases\Domain\Users\State;
-use App\Src\UseCases\Domain\Users\Stats;
 use App\Src\UseCases\Domain\Users\UserDto;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;

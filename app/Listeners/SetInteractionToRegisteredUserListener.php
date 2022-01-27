@@ -4,12 +4,13 @@
 namespace App\Listeners;
 
 
-use App\Src\UseCases\Domain\System\SetInteractionToRegisteredUser;
+
+use App\Src\Insights\Insights\Application\UseCase\Interactions\TransferInteractionFromAnonymousUserToRegisteredUser;
 
 class SetInteractionToRegisteredUserListener
 {
     public function handle($event)
     {
-        app(SetInteractionToRegisteredUser::class)->execute();
+        app(TransferInteractionFromAnonymousUserToRegisteredUser::class)->execute();
     }
 }

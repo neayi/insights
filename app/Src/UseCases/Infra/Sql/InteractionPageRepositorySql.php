@@ -4,10 +4,10 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
 use App\Src\UseCases\Domain\Context\Dto\FollowerDto;
 use App\Src\UseCases\Domain\Context\Dto\PractiseVo;
-use App\Src\UseCases\Domain\Context\Model\CanInteract;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;

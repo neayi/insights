@@ -5,8 +5,9 @@ namespace Tests\Unit\Users;
 
 
 use App\Events\UserDeleted;
+use App\Exceptions\Domain\UserNotFound;
+use App\Src\Insights\Users\Application\UseCase\DeleteUser;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\DeleteUser;
 use Illuminate\Support\Facades\Event;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -25,5 +26,11 @@ class DeleteUserTest extends TestCase
         self::assertNull($userDeleted);
 
         Event::assertDispatched(UserDeleted::class);
+    }
+
+    public function testShouldNotDeleteUserWhenDoesNotExist()
+    {
+        self::expectException(UserNotFound::class);
+        app(DeleteUser::class)->delete($userId = 'abc');
     }
 }

@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
+use App\Src\Insights\Users\Domain\Stats;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\Stats;
 
 interface UserRepository
 {

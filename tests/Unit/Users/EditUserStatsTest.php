@@ -4,8 +4,8 @@
 namespace Tests\Unit\Users;
 
 
+use App\Src\Insights\Users\Application\UseCase\EditUserStats;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\EditUserStats;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

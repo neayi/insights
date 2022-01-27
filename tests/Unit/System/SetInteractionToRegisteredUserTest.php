@@ -3,12 +3,11 @@
 
 namespace Tests\Unit\System;
 
-
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\Insights\Insights\Application\UseCase\Interactions\TransferInteractionFromAnonymousUserToRegisteredUser;
+use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
-use App\Src\UseCases\Domain\System\SetInteractionToRegisteredUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 
@@ -33,7 +32,7 @@ class SetInteractionToRegisteredUserTest extends TestCase
         $this->userRepository->add($user);
         $this->authGateway->log($user);
 
-        app(SetInteractionToRegisteredUser::class)->execute();
+        app(TransferInteractionFromAnonymousUserToRegisteredUser::class)->execute();
 
         $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1);
         $interactionExpected = clone $interaction;
@@ -56,7 +55,7 @@ class SetInteractionToRegisteredUserTest extends TestCase
         $interaction = new Interaction(1, true, false, false);
         $this->interactionRepository->save($anonymousUser, $interaction);
 
-        $state = app(SetInteractionToRegisteredUser::class)->execute();
+        $state = app(TransferInteractionFromAnonymousUserToRegisteredUser::class)->execute();
         self::assertEquals('nothing_to_do', $state);
     }
 }

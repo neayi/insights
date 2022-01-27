@@ -4,10 +4,10 @@
 namespace Tests\Unit\Users\Interactions;
 
 
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByPageAndUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;

@@ -5,13 +5,12 @@ namespace Tests\Unit\Users\Interactions;
 
 
 use App\Events\InteractionOnPage;
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\Insights\Insights\Application\UseCase\Interactions\HandleInteractionsOnPage;
+use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
-use App\Src\UseCases\Domain\Exceptions\PageNotFound;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
@@ -34,7 +33,7 @@ class AddInteractionTest extends TestCase
 
         self::expectException(\Exception::class);
         self::expectExceptionMessage('interaction_not_allowed');
-        app(HandleInteractions::class)->execute($pageId, $interaction);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction);
     }
 
 
@@ -51,7 +50,7 @@ class AddInteractionTest extends TestCase
         $this->userRepository->add($user);
         $this->authGateway->log($user);
 
-        app(HandleInteractions::class)->execute($pageId, $interaction);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction);
 
         $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), $pageId);
         self::assertEquals($expected, $interactionSaved);
@@ -88,7 +87,7 @@ class AddInteractionTest extends TestCase
         $registeredUser = new RegisteredUser($userId);
         $this->interactionRepository->save($registeredUser, new Interaction(1,false, true, false));
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction);
 
         $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId);
         $expected = new Interaction(1,true, true, true);
@@ -111,7 +110,7 @@ class AddInteractionTest extends TestCase
         $registeredUser = new RegisteredUser($userId);
 
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction, ['start_at' => '2020-10-23']);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction, ['start_at' => '2020-10-23']);
 
         $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId);
         $expected = new Interaction(1,true, false, true, $doneValue = ['start_at' => '2020-10-23']);
@@ -127,7 +126,7 @@ class AddInteractionTest extends TestCase
         $this->pageRepository->save(new Page($pageId));
 
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction);
 
         $interactionSaved = $this->interactionRepository->getByInteractUser(new AnonymousUser('session_id'), $pageId);
         $expected = new Interaction(1,true, false, true);
@@ -147,7 +146,7 @@ class AddInteractionTest extends TestCase
         $anonymousUser = new AnonymousUser('session_id');
         $this->interactionRepository->save($anonymousUser, new Interaction(1,false, true, false));
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction);
+        app(HandleInteractionsOnPage::class)->execute($pageId, $interaction);
 
         $interactionSaved = $this->interactionRepository->getByInteractUser($anonymousUser, $pageId);
         $expected = new Interaction(1,true, true, true);

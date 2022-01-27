@@ -10,7 +10,6 @@ use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Ports\UserRoleRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
@@ -29,7 +28,6 @@ use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\PageRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
-use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
 use App\Src\Utils\Hash\HashGen;
 use App\Src\Utils\Hash\HashGenReal;
 use App\Src\Utils\Hash\InMemoryHashGen;
@@ -48,7 +46,6 @@ use Tests\Adapters\Repositories\InMemoryInvitationRepository;
 use Tests\Adapters\Repositories\InMemoryOrganizationRepository;
 use Tests\Adapters\Repositories\InMemoryPageRepository;
 use Tests\Adapters\Repositories\InMemoryUserRepository;
-use Tests\Adapters\Repositories\InMemoryUserRoleRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -96,7 +93,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FileStorage::class, FsFileStorage::class);
         $this->app->singleton(SocialiteGateway::class, SocialiteGatewayImpl::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
-        $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
@@ -115,7 +111,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
-        $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
         $this->app->singleton(PageRepository::class, InMemoryPageRepository::class);

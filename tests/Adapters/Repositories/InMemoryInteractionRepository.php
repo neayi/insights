@@ -4,8 +4,8 @@
 namespace Tests\Adapters\Repositories;
 
 
-use App\Src\UseCases\Domain\Context\Model\CanInteract;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
+use App\Src\Insights\Insights\Domain\Interactions\Interaction;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 

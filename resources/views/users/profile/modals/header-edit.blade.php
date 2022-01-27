@@ -14,7 +14,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <select name="role" id="input-role" title="-" class="selectpicker w-100">
-                                                @foreach($userRoles as $roleAllowed)
+                                                @foreach($roles as $roleAllowed)
                                                     <option @if($roleAllowed['role'] === $role) selected @endif value="{{$roleAllowed['role']}}">
                                                         @lang('wiki_profile.'.$roleAllowed['role'])
                                                     </option>
