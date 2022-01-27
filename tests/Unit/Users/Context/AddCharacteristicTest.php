@@ -4,10 +4,10 @@
 namespace Tests\Unit\Users\Context;
 
 
+use App\Src\Insights\Insights\Application\UseCase\Context\AddCharacteristicsToContext;
 use App\Src\Insights\Insights\Domain\Context\Characteristic;
 use App\Src\Insights\Insights\Domain\Context\Context;
 use App\Src\Insights\Insights\Domain\Interactions\Page;
-use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 

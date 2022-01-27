@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\UseCases;
+namespace App\Src\Insights\Insights\Application\UseCase\Context;
 
 
 use App\Src\UseCases\Domain\Ports\ContextRepository;

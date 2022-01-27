@@ -5,14 +5,14 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Common\Form\OrganizationForm;
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Organizations\CreateOrganization;
-use App\Src\UseCases\Domain\Organizations\EditOrganization;
-use App\Src\UseCases\Domain\Organizations\GetOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\AttachUserToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\InviteUsersInOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\PrepareInvitationUsersInOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\RespondInvitationToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\ListOrganizations;
+use App\Src\Insights\Insights\Application\Read\Organizations\GetOrganization;
+use App\Src\Insights\Insights\Application\Read\Organizations\ListOrganizations;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\CreateOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\EditOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\AttachUserToAnOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\InviteUsersInOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\PrepareInvitationUsersInOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\RespondInvitationToAnOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

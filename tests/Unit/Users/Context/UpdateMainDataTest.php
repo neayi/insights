@@ -4,8 +4,8 @@
 namespace Tests\Unit\Users\Context;
 
 
+use App\Src\Insights\Insights\Application\UseCase\Context\UpdateMainData;
 use App\Src\Insights\Insights\Domain\Context\Context;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 

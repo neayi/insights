@@ -4,19 +4,19 @@
 namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
+use App\Src\Insights\Insights\Application\UseCase\Context\AddCharacteristicsToContext;
+use App\Src\Insights\Insights\Application\UseCase\Context\CreateCharacteristic;
+use App\Src\Insights\Insights\Application\UseCase\Context\UpdateCharacteristicsInContext;
+use App\Src\Insights\Insights\Application\UseCase\Context\UpdateDescription;
+use App\Src\Insights\Insights\Application\UseCase\Context\UpdateMainData;
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
 use App\Src\Insights\Users\Application\UseCase\RemoveAvatar;
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByUser;
 use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\SearchStructure;
-use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
-use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristicsInContext;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetRoles;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;

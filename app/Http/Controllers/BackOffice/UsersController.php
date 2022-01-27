@@ -6,14 +6,14 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Common\Form\UserForm;
 use App\Http\Controllers\Controller;
+use App\Src\Insights\Insights\Application\Read\Organizations\GetOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\GrantUserAsAdminOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\DeleteUserFromOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\RevokeUserAsAdminOrganization;
 use App\Src\Insights\Users\Application\Read\GetUserStats;
 use App\Src\Insights\Users\Application\Read\ListUsers;
 use App\Src\Insights\Users\Application\UseCase\DeleteUser;
 use App\Src\Insights\Users\Application\UseCase\EditUser;
-use App\Src\UseCases\Domain\Organizations\GetOrganization;
-use App\Src\UseCases\Domain\Organizations\GrantUserAsAdminOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\DeleteUserFromOrganization;
-use App\Src\UseCases\Domain\Organizations\RevokeUserAsAdminOrganization;
 use App\Src\UseCases\Domain\Users\GetUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
