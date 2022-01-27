@@ -4,8 +4,8 @@
 namespace Tests\Unit\System;
 
 
+use App\Src\Insights\Insights\Application\UseCase\Interactions\SetPageDryState;
 use App\Src\Insights\Insights\Domain\Interactions\Page;
-use App\Src\UseCases\Domain\System\SetPageDryState;
 use Tests\TestCase;
 
 class SetPageDryTest extends TestCase
