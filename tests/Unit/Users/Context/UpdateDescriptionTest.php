@@ -4,7 +4,7 @@
 namespace Tests\Unit\Users\Context;
 
 
-use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\Insights\Insights\Domain\Context\Context;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;

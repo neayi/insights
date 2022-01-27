@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Context\UseCases;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;

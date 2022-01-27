@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Repositories;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
 class InMemoryCharacteristicRepository implements CharacteristicsRepository
@@ -34,8 +34,8 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
     public function getBy(array $conditions): ?Characteristic
     {
         foreach($this->characteristics as $characteristic){
-            $memento = $characteristic->memento();
-            if($memento->type() === $conditions['type'] && $memento->title() === $conditions['title']){
+            $memento = $characteristic->toArray();
+            if($memento['type'] === $conditions['type'] && $memento['title'] === $conditions['title']){
                 return $characteristic;
             }
         }

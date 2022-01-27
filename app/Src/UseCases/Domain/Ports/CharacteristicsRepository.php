@@ -4,7 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
 
 interface CharacteristicsRepository
 {

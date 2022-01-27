@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Model;
+namespace App\Src\Insights\Insights\Domain\Context;
 
 
 class PostalCode

@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
+use App\Src\Insights\Insights\Domain\Context\Context;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Context\Model\Context;
 
 interface ContextRepository
 {
