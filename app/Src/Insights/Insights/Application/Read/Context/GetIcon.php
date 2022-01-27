@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Queries;
+namespace App\Src\Insights\Insights\Application\Read\Context;
 
 
 use Intervention\Image\Facades\Image;

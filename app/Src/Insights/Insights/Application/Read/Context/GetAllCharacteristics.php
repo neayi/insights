@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Queries;
+namespace App\Src\Insights\Insights\Application\Read\Context;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
 class GetAllCharacteristics
