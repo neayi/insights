@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Model;
+namespace App\Src\Insights\Insights\Domain\Interactions;
 
 
 use App\Src\UseCases\Domain\Ports\PageRepository;

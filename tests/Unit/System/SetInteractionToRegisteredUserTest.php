@@ -6,8 +6,8 @@ namespace Tests\Unit\System;
 use App\Src\Insights\Insights\Application\UseCase\Interactions\TransferInteractionFromAnonymousUserToRegisteredUser;
 use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
 use App\Src\Insights\Insights\Domain\Interactions\Interaction;
+use App\Src\Insights\Insights\Domain\Interactions\Page;
 use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
-use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 

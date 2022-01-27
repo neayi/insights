@@ -4,9 +4,9 @@
 namespace Tests\Unit\Users\Context;
 
 
+use App\Src\Insights\Insights\Domain\Interactions\Page;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Context\Model\Page;
 use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;

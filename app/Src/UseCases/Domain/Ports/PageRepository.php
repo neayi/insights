@@ -4,7 +4,8 @@
 namespace App\Src\UseCases\Domain\Ports;
 
 
-use App\Src\UseCases\Domain\Context\Model\Page;
+
+use App\Src\Insights\Insights\Domain\Interactions\Page;
 
 interface PageRepository
 {

@@ -4,9 +4,8 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Context\Model\Page;
+use App\Src\Insights\Insights\Domain\Interactions\Page;
 use App\Src\UseCases\Domain\Ports\PageRepository;
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 
 class PageRepositorySql implements PageRepository
