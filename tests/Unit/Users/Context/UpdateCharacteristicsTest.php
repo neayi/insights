@@ -5,7 +5,7 @@ namespace Tests\Unit\Users\Context;
 
 
 use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristicsInContext;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 
@@ -26,7 +26,7 @@ class UpdateCharacteristicsTest  extends TestCase
         $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], '');
         $this->contextRepository->add($context, 'abc');
 
-        app(UpdateCharacteristics::class)->execute(['abc', 'def']);
+        app(UpdateCharacteristicsInContext::class)->execute(['abc', 'def']);
 
         $contextExpected = new Context('abc', '83220', ['abc', 'def'], '');
         $contextSaved = $this->contextRepository->getByUser('abc');

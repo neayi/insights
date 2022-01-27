@@ -7,7 +7,7 @@ namespace App\Src\UseCases\Domain\Context\UseCases;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
-class UpdateCharacteristics
+class UpdateCharacteristicsInContext
 {
     private $contextRepository;
     private $authGateway;

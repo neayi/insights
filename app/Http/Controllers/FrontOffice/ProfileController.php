@@ -14,7 +14,7 @@ use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\SearchStructure;
 use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
 use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
+use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristicsInContext;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
@@ -120,7 +120,7 @@ class ProfileController extends Controller
         return [];
     }
 
-    public function updateCharacteristics(Request $request, UpdateCharacteristics $updateCharacteristics)
+    public function updateCharacteristics(Request $request, UpdateCharacteristicsInContext $updateCharacteristics)
     {
         $characteristics = $request->input('farming_type', []);
         $updateCharacteristics->execute($characteristics);

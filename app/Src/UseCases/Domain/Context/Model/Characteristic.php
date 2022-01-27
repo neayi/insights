@@ -5,10 +5,9 @@ namespace App\Src\UseCases\Domain\Context\Model;
 
 
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Shared\Model\HasMemento;
-use App\Src\UseCases\Domain\Shared\Model\Memento;
 
-class Characteristic implements HasMemento
+
+class Characteristic
 {
     const FARMING_TYPE = 'farming';
     const CROPPING_SYSTEM = 'croppingSystem';
@@ -39,9 +38,17 @@ class Characteristic implements HasMemento
         app(CharacteristicsRepository::class)->save($this);
     }
 
-    public function memento(): Memento
+
+    public function toArray()
     {
-        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon, $this->pageId);
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'title' => $this->title,
+            'visible' => $this->visible,
+            'icon' => $this->icon,
+            'page_id' => $this->pageId,
+        ];
     }
 
     public function id(): string

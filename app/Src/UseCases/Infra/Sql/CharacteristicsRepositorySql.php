@@ -44,18 +44,18 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
 
     public function save(Characteristic $c)
     {
-        $memento = $c->memento();
+        $memento = $c->toArray();
         $characteristicModel = new CharacteristicsModel();
-        $characteristicModel->page_label = $memento->title();
-        $characteristicModel->pretty_page_label = $memento->title();
+        $characteristicModel->page_label = $memento['title'];
+        $characteristicModel->pretty_page_label = $memento['title'];
         $characteristicModel->main = false;
         $characteristicModel->priority = 100000;
-        $characteristicModel->uuid = $memento->id();
-        $characteristicModel->code = $memento->title();
-        $characteristicModel->type = $memento->type();
-        $characteristicModel->visible = $memento->visible();
-        $characteristicModel->icon = $memento->icon();
-        $characteristicModel->page_id = $memento->pageId();
+        $characteristicModel->uuid = $memento['id'];
+        $characteristicModel->code = $memento['title'];
+        $characteristicModel->type = $memento['type'];
+        $characteristicModel->visible = $memento['visible'];
+        $characteristicModel->icon = $memento['icon'];
+        $characteristicModel->page_id = $memento['page_id'];
         $characteristicModel->save();
     }
 
