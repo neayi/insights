@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations;
+namespace App\Src\Insights\Insights\Application\UseCase\Organizations;
 
 
 use App\Exceptions\Domain\UserGrantAdminException;

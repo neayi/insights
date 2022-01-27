@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations;
+namespace App\Src\Insights\Insights\Application\UseCase\Organizations;
 
 use App\Exceptions\Domain\OrganizationNotFound;
-use App\Src\UseCases\Domain\Organizations\Model\Address;
+use App\Src\Insights\Insights\Domain\Organizations\Address;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use Illuminate\Support\Facades\Validator;
 

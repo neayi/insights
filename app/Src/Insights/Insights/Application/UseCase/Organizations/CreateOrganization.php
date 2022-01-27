@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Src\UseCases\Domain\Organizations;
+namespace App\Src\Insights\Insights\Application\UseCase\Organizations;
 
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
+use App\Src\Insights\Insights\Domain\Organizations\Address;
+use App\Src\Insights\Insights\Domain\Organizations\Organization;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 

@@ -5,10 +5,10 @@ namespace Tests\Unit\Organization;
 
 
 use App\Mail\InvitationLinkToOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\InviteUsersInOrganization;
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Invitation;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\InviteUsersInOrganization;
+use App\Src\Insights\Insights\Domain\Organizations\Address;
+use App\Src\Insights\Insights\Domain\Organizations\Invitation;
+use App\Src\Insights\Insights\Domain\Organizations\Organization;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
+use App\Src\Insights\Insights\Domain\Organizations\Address;
+use App\Src\Insights\Insights\Domain\Organizations\Organization;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use Illuminate\Support\Facades\DB;
 

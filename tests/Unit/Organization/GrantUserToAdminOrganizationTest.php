@@ -5,8 +5,8 @@ namespace Tests\Unit\Organization;
 
 
 use App\Exceptions\Domain\UserGrantAdminException;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\GrantUserAsAdminOrganization;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Organizations\GrantUserAsAdminOrganization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

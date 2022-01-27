@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations\Invitation;
+namespace App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation;
 
 
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
+use App\Src\Insights\Insights\Domain\Organizations\Organization;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;

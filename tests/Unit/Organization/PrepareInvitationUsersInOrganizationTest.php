@@ -4,7 +4,7 @@
 namespace Tests\Unit\Organization;
 
 
-use App\Src\UseCases\Domain\Organizations\Invitation\PrepareInvitationUsersInOrganization;
+use App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation\PrepareInvitationUsersInOrganization;
 use App\Src\UseCases\Domain\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

@@ -4,9 +4,9 @@
 namespace Tests\Unit\Organization;
 
 
-use App\Src\UseCases\Domain\Organizations\ListOrganizations;
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
+use App\Src\Insights\Insights\Application\Read\Organizations\ListOrganizations;
+use App\Src\Insights\Insights\Domain\Organizations\Address;
+use App\Src\Insights\Insights\Domain\Organizations\Organization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

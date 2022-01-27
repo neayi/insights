@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations\Model;
+namespace App\Src\Insights\Insights\Domain\Organizations;
 
 
 class Address

@@ -1,12 +1,11 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations;
-
+namespace App\Src\Insights\Insights\Application\Read\Organizations;
 
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 
-class ListOrganizations
+class GetOrganization
 {
     private $organizationRepository;
 
@@ -15,8 +14,8 @@ class ListOrganizations
         $this->organizationRepository = $organizationRepository;
     }
 
-    public function list(int $page, int $perPage = 10)
+    public function get(string $organizationId)
     {
-        return $this->organizationRepository->search($page, $perPage);
+        return $this->organizationRepository->get($organizationId);
     }
 }

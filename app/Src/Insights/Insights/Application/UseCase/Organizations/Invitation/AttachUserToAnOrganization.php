@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Organizations\Invitation;
+namespace App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation;
 
 
 use App\Mail\UserJoinsOrganizationToAdmin;

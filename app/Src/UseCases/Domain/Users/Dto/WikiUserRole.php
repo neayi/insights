@@ -6,7 +6,7 @@ namespace App\Src\UseCases\Domain\Users\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class WikiUserRole implements Role, Arrayable
+class WikiUserRole implements Arrayable
 {
     public $role;
 

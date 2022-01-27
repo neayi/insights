@@ -4,8 +4,8 @@
 namespace Tests\Unit\Organization;
 
 
+use App\Src\Insights\Insights\Application\UseCase\Organizations\RevokeUserAsAdminOrganization;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Organizations\RevokeUserAsAdminOrganization;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
