@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Exceptions;
+namespace App\Src\Insights\Insights\Domain\Exceptions;
 
 
 class PageNotFound extends NotFound
