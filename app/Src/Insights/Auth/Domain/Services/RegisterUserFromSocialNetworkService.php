@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Auth\Services;
+namespace App\Src\Insights\Auth\Domain\Services;
 
 
 use App\Src\Insights\Auth\Domain\SocialiteUser;
