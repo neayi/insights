@@ -7,7 +7,6 @@ use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
 use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
 use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
 use App\Src\Insights\Insights\Domain\Ports\InteractionRepository;
-use App\Src\UseCases\Domain\Exceptions\PageNotFound;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use Exception;
 
@@ -33,7 +32,7 @@ class HandleInteractionsOnPage
      * @param string $pageId
      * @param array $interactions
      * @param array $doneValue
-     * @throws PageNotFound
+     * @throws \App\Src\Insights\Insights\Domain\Exceptions\PageNotFound
      * @throws Exception
      */
     public function execute(string $pageId, array $interactions, array $doneValue = []):void

@@ -5,8 +5,8 @@ namespace Tests\Unit\Auth;
 
 
 use App\Exceptions\Domain\ProviderNotSupported;
-use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
-use App\Src\UseCases\Domain\Auth\SocialiteUser;
+use App\Src\Insights\Auth\Application\UseCase\RegisterUserFromSocialNetwork;
+use App\Src\Insights\Auth\Domain\SocialiteUser;
 use App\Src\UseCases\Domain\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

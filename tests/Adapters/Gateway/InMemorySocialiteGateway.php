@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Gateway;
 
 
-use App\Src\UseCases\Domain\Auth\SocialiteUser;
+use App\Src\Insights\Auth\Domain\SocialiteUser;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 
 class InMemorySocialiteGateway implements SocialiteGateway

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Auth;
+namespace App\Src\Insights\Auth\Domain;
 
 
 class SocialiteUser

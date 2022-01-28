@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Auth\Services;
 
 
+use App\Src\Insights\Auth\Domain\SocialiteUser;
 use App\Src\Insights\Insights\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Auth\SocialiteUser;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\User;

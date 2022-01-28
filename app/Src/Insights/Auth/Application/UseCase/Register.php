@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Auth;
+namespace App\Src\Insights\Auth\Application\UseCase;
 
 
 use App\Src\UseCases\Domain\User;

@@ -1,32 +1,29 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Auth;
+namespace App\Src\Insights\Auth\Application\UseCase;
 
 
 use App\Exceptions\Domain\ProviderMissing;
 use App\Exceptions\Domain\ProviderNotSupported;
+use App\Src\Insights\Auth\Domain\SocialiteUser;
 use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
-use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 
 class RegisterUserAfterErrorWithSocialNetwork
 {
     private $allowedProviders = ['facebook', 'twitter', 'google'];
 
     private $userRepository;
-    private $fileStorage;
     private $authGateway;
 
     public function __construct(
         UserRepository $userRepository,
-        FileStorage $fileStorage,
         AuthGateway $authGateway
     )
     {
         $this->userRepository = $userRepository;
-        $this->fileStorage = $fileStorage;
         $this->authGateway = $authGateway;
     }
 
