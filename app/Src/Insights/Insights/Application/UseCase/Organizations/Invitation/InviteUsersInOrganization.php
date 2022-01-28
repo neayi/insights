@@ -6,8 +6,8 @@ namespace App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation
 
 use App\Mail\InvitationLinkToOrganization;
 use App\Src\Insights\Insights\Domain\Organizations\Invitation;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\Insights\Insights\Domain\Ports\InvitationRepository;
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
 use Illuminate\Support\Facades\Mail;
 
 class InviteUsersInOrganization

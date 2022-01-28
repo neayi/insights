@@ -4,7 +4,8 @@
 namespace App\Src\Insights\Insights\Application\Read\Organizations;
 
 
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
 
 class ListOrganizations
 {

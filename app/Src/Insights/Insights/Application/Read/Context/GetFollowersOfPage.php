@@ -4,7 +4,7 @@
 namespace App\Src\Insights\Insights\Application\Read\Context;
 
 
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use App\Src\Insights\Insights\Domain\Ports\InteractionRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 
 class GetFollowersOfPage

@@ -5,7 +5,7 @@ namespace App\Src\Insights\Insights\Application\UseCase\Organizations;
 
 
 use App\Exceptions\Domain\UserGrantAdminException;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 
 class RevokeUserAsAdminOrganization
 {

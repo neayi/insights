@@ -14,9 +14,7 @@ class RegisterUserFromSocialNetwork
 
     private $socialiteGateway;
 
-    public function __construct(
-        SocialiteGateway $socialiteGateway
-    )
+    public function __construct(SocialiteGateway $socialiteGateway)
     {
         $this->socialiteGateway = $socialiteGateway;
     }

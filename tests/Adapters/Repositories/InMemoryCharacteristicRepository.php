@@ -5,7 +5,7 @@ namespace Tests\Adapters\Repositories;
 
 
 use App\Src\Insights\Insights\Domain\Context\Characteristic;
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
+use App\Src\Insights\Insights\Domain\Ports\CharacteristicsRepository;
 
 class InMemoryCharacteristicRepository implements CharacteristicsRepository
 {

@@ -5,7 +5,7 @@ namespace App\Src\Insights\Insights\Application\UseCase\Interactions;
 
 
 use App\Src\Insights\Insights\Domain\Interactions\Page;
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Insights\Insights\Domain\Ports\PageRepository;
 
 class SetPageDryState
 {

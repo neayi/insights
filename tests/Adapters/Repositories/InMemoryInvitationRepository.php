@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Repositories;
 
 use App\Src\Insights\Insights\Domain\Organizations\Invitation;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
+use App\Src\Insights\Insights\Domain\Ports\InvitationRepository;
 
 class InMemoryInvitationRepository implements InvitationRepository
 {

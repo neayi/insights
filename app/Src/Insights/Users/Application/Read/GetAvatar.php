@@ -3,7 +3,7 @@
 
 namespace App\Src\Insights\Users\Application\Read;
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use Intervention\Image\Facades\Image;
 

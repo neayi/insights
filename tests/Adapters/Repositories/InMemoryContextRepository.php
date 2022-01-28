@@ -5,8 +5,8 @@ namespace Tests\Adapters\Repositories;
 
 
 use App\Src\Insights\Insights\Domain\Context\Context;
+use App\Src\Insights\Insights\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class InMemoryContextRepository implements ContextRepository
 {

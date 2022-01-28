@@ -6,7 +6,7 @@ namespace Tests\Adapters\Repositories;
 
 use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
 use App\Src\Insights\Insights\Domain\Interactions\Interaction;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use App\Src\Insights\Insights\Domain\Ports\InteractionRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 
 class InMemoryInteractionRepository implements InteractionRepository

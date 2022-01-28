@@ -4,7 +4,7 @@
 namespace App\Src\Insights\Insights\Application\Read\Context;
 
 
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Insights\Insights\Domain\Ports\PageRepository;
 
 /**
  * Search characteristics in the wiki pages

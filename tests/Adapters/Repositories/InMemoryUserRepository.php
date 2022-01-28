@@ -3,8 +3,8 @@
 
 namespace Tests\Adapters\Repositories;
 
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\Insights\Users\Domain\Stats;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 
 class InMemoryUserRepository implements UserRepository

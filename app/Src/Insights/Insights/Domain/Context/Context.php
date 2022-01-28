@@ -4,7 +4,8 @@
 namespace App\Src\Insights\Insights\Domain\Context;
 
 
-use App\Src\UseCases\Domain\Ports\ContextRepository;
+
+use App\Src\Insights\Insights\Domain\Ports\ContextRepository;
 
 class Context
 {

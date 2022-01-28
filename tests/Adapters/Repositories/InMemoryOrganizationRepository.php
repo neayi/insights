@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Repositories;
 
 use App\Src\Insights\Insights\Domain\Organizations\Organization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
 
 class InMemoryOrganizationRepository implements OrganizationRepository
 {

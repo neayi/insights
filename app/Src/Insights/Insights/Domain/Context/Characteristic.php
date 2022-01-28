@@ -4,8 +4,9 @@
 namespace App\Src\Insights\Insights\Domain\Context;
 
 
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
+
+use App\Src\Insights\Insights\Domain\Ports\CharacteristicsRepository;
 
 class Characteristic
 {

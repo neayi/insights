@@ -6,8 +6,8 @@ namespace App\Src\Insights\Insights\Application\UseCase\Interactions;
 use App\Src\Insights\Insights\Domain\Interactions\AnonymousUser;
 use App\Src\Insights\Insights\Domain\Interactions\CanInteract;
 use App\Src\Insights\Insights\Domain\Interactions\RegisteredUser;
+use App\Src\Insights\Insights\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Exceptions\PageNotFound;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use Exception;
 

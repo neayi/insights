@@ -4,9 +4,9 @@
 namespace App\Src\Insights\Insights\Application\UseCase\Context;
 
 
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Insights\Insights\Domain\Ports\CharacteristicsRepository;
+use App\Src\Insights\Insights\Domain\Ports\ContextRepository;
+use App\Src\Insights\Insights\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
 class AddCharacteristicsToContext

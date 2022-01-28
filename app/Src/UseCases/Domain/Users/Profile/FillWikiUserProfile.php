@@ -5,8 +5,8 @@ namespace App\Src\UseCases\Domain\Users\Profile;
 
 
 use App\Src\Insights\Insights\Domain\Context\Context;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\Insights\Insights\Domain\Service\GetDepartmentFromPostalCode;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use Illuminate\Support\Facades\Validator;
 
 class FillWikiUserProfile

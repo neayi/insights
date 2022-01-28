@@ -4,7 +4,7 @@
 namespace App\Src\Insights\Insights\Domain\Organizations;
 
 
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 
 class Organization

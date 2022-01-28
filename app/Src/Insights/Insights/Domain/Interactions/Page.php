@@ -4,7 +4,8 @@
 namespace App\Src\Insights\Insights\Domain\Interactions;
 
 
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Insights\Insights\Domain\Context\Characteristic;
+use App\Src\Insights\Insights\Domain\Ports\PageRepository;
 use Ramsey\Uuid\Uuid;
 
 class Page

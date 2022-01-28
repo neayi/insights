@@ -5,7 +5,7 @@ namespace App\Src\UseCases\Domain\Users;
 
 
 use App\Exceptions\Domain\UserNotFound;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 
 class GetUser

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Ports;
+namespace App\Src\Insights\Insights\Domain\Ports;
 
 
 use App\Src\Insights\Insights\Domain\Context\Context;

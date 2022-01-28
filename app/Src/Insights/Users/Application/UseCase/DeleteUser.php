@@ -5,7 +5,7 @@ namespace App\Src\Insights\Users\Application\UseCase;
 
 
 use App\Exceptions\Domain\UserNotFound;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 
 class DeleteUser
 {

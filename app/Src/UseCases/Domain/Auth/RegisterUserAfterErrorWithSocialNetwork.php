@@ -6,8 +6,8 @@ namespace App\Src\UseCases\Domain\Auth;
 
 use App\Exceptions\Domain\ProviderMissing;
 use App\Exceptions\Domain\ProviderNotSupported;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 

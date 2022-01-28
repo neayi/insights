@@ -4,7 +4,7 @@
 namespace App\Src\Insights\Insights\Application\Read\Context;
 
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;

@@ -4,7 +4,8 @@
 namespace App\Src\UseCases\Domain\Auth\Services;
 
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
+
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 
 class CheckEmailUniqueness
 {

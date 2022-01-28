@@ -4,8 +4,8 @@
 namespace App\Src\Insights\Users\Application\UseCase;
 
 
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\Insights\Users\Domain\Stats;
-use App\Src\UseCases\Domain\Ports\UserRepository;
 
 class EditUserStats
 {

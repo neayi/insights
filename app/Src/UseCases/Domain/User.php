@@ -6,9 +6,8 @@ namespace App\Src\UseCases\Domain;
 
 use App\Events\UserDeleted;
 use App\Events\UserLeaveOrganization;
-use App\Events\UserUpdated;
 use App\Mail\UserJoinsOrganizationToUser;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\Users\Identity;
 use App\Src\UseCases\Domain\Users\State;

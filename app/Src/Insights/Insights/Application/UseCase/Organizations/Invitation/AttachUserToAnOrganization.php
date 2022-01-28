@@ -5,8 +5,8 @@ namespace App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation
 
 
 use App\Mail\UserJoinsOrganizationToAdmin;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use Illuminate\Support\Facades\Mail;
 

@@ -5,9 +5,9 @@ namespace App\Src\Insights\Insights\Application\UseCase\Organizations\Invitation
 
 
 use App\Src\Insights\Insights\Domain\Organizations\Organization;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Insights\Insights\Domain\Ports\InvitationRepository;
+use App\Src\Insights\Insights\Domain\Ports\OrganizationRepository;
+use App\Src\Insights\Insights\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 
