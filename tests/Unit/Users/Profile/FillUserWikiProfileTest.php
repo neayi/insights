@@ -5,7 +5,6 @@ namespace Tests\Unit\Users\Profile;
 
 
 use App\Src\Insights\Insights\Domain\Context\Context;
-use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
 use Illuminate\Validation\ValidationException;
@@ -44,13 +43,11 @@ class FillUserWikiProfileTest extends TestCase
         $newLastname = 'newLastname';
         $postcode = '83130';
         $email = 'e@email.com';
-        $identityProvider = app(IdentityProvider::class);
-        $identityProvider->setId($exploitationId = Uuid::uuid4());
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
 
         $coordinates = [43, 117];
-        $contextExpected = new Context($exploitationId, $postcode, [], null, null, null, '83', $coordinates);
+        $contextExpected = new Context($this->userId, $postcode, [], null, null, null, '83', $coordinates);
         $contextSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($contextExpected, $contextSaved);
     }
@@ -64,13 +61,10 @@ class FillUserWikiProfileTest extends TestCase
         $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
 
-        $identityProvider = app(IdentityProvider::class);
-        $identityProvider->setId($exploitationId = Uuid::uuid4());
-
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode, $farmingType);
 
         $coordinates = [43, 117];
-        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType, null, null, null, '83', $coordinates);
+        $exploitationExpected = new Context($this->userId, $postcode, $farmingType, null, null, null, '83', $coordinates);
         $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }

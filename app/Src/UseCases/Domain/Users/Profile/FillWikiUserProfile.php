@@ -5,7 +5,6 @@ namespace App\Src\UseCases\Domain\Users\Profile;
 
 
 use App\Src\Insights\Insights\Domain\Context\Context;
-use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 use Illuminate\Support\Facades\Validator;
@@ -13,15 +12,10 @@ use Illuminate\Support\Facades\Validator;
 class FillWikiUserProfile
 {
     private $userRepository;
-    private $identityProvider;
 
-    public function __construct(
-        UserRepository $userRepository,
-        IdentityProvider $identityProvider
-    )
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->identityProvider = $identityProvider;
     }
 
     public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $postcode, array $farmingType = [])
@@ -38,7 +32,7 @@ class FillWikiUserProfile
         $user->update($email, $firstname, $lastname, "");
         $user->addRole($role);
 
-        $exploitationId = $this->identityProvider->id();
+        $exploitationId = $userId;
 
         $geoData = app(GetDepartmentFromPostalCode::class)->execute($postcode);
 
