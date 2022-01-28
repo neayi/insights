@@ -1,4 +1,4 @@
-@extends('layouts.neayi.empty-layout')
+@extends('layouts.neayi.login')
 
 @section('title', 'Votre email a bien été vérifié')
 

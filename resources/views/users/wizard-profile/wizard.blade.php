@@ -1,4 +1,4 @@
-@extends('layouts.neayi.master')
+@extends('layouts.neayi.master-no-menus')
 
 @section('title', __('pages.wizard-profile'))
 

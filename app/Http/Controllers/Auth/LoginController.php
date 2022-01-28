@@ -95,6 +95,9 @@ class LoginController extends Controller
             $user->wiki_token = $request->session()->get('wiki_token');
             $user->save();
             $callback = urldecode($request->session()->get('wiki_callback'));
+            if(!$user->hasVerifiedEmail()){
+                return redirect()->route('verification.notice');
+            }
             return redirect($callback);
         }
 

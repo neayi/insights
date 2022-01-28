@@ -56,6 +56,11 @@ class CharacteristicsModel extends Model
         );
     }
 
+    public function picturePath():string
+    {
+        return storage_path('app/public/characteristics/' . $this->uuid . '.png');
+    }
+
     public function toDomain()
     {
         return new Characteristic($this->uuid, $this->type, $this->code, $this->attributes['visible']);

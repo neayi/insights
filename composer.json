@@ -25,7 +25,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "nunomaduro/collision": "^5.0",
-        "pnoeric/discourse-api-php": "^2.0",
         "sentry/sentry-laravel": "^2.9",
         "spatie/laravel-permission": "^3.13",
         "spinen/laravel-discourse-sso": "^2.5"

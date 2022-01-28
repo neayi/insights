@@ -14,16 +14,33 @@ class SocialiteGatewayImpl implements SocialiteGateway
     {
         if($provider === 'twitter'){
             $user = Socialite::driver($provider)->user();
+        }elseif($provider === 'facebook'){
+            $user = Socialite::driver($provider)->fields(['name', 'first_name', 'last_name', 'email'])->user();
         }else {
             $user = Socialite::driver($provider)->stateless()->user();
         }
 
         $email = $user->getEmail();
-        $firstname = $user->getNickname() !== null ? $user->getNickname() : $user->getName();
-        if(isset($user->user['given_name'])){
+
+        // For twitter, we prefer to use the name. If empty we'll use the twitter account (nickname):
+        $firstname = $user->getName() !== null ? $user->getName() :  $user->getNickname();
+        if(!empty($user->user['given_name'])){
+            // Google
             $firstname = $user->user['given_name'];
+        }elseif (!empty($user->user['first_name'])){
+            // Facebook
+            $firstname = $user->user['first_name'];
         }
-        $lastname = isset($user->user['family_name']) ? $user->user['family_name'] : $user->getName();
+
+        $lastname = $user->getName();
+        if(!empty($user->user['family_name'])){
+            // Google
+            $lastname = $user->user['family_name'];
+        }elseif (!empty($user->user['last_name'])){
+            // Facebook
+            $lastname = $user->user['last_name'];
+        }
+
         $id = $user->getId();
         $picture = $user->getAvatar();
 

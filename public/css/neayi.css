@@ -17744,7 +17744,7 @@ a.text-dark:focus {
   border: none;
   box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
   color: #404964;
   position: absolute;
   transform: translate3d(0px, 46px, 0px);
@@ -18651,7 +18651,7 @@ h3 {
   border: none;
   box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
   color: #404964;
 }
 

@@ -50,7 +50,8 @@ class ImportDepartmentFromWiki extends Command
 
     private function handleDepartments($departments)
     {
-        foreach($departments as $key => $department){
+        foreach($departments as $department){
+            $key = key($department);
             $department = last($department)['printouts'];
 
             $climat = last($department['A un climat'])['fulltext'];
@@ -65,7 +66,7 @@ class ImportDepartmentFromWiki extends Command
 
             $characteristicModel->uuid = $uuid = Uuid::uuid4();
             $characteristicModel->priority = 10000;
-            $characteristicModel->page_label = $name;
+            $characteristicModel->page_label = $key;
             $characteristicModel->pretty_page_label = $name;
             $characteristicModel->type = Characteristic::DEPARTMENT;
             $characteristicModel->code = $number;
@@ -102,6 +103,5 @@ class ImportDepartmentFromWiki extends Command
 
             $characteristicModel->save();
         }
-
     }
 }
