@@ -16,7 +16,7 @@
 
                                     @if(isset($callback) && $callback !== "")
                                         Vous allez être redirigés d'ici quelques secondes.
-                                        Si rien ne se passe vous pouvez cliquer <a href="{{ $callback }}">içi</a>
+                                        Si rien ne se passe vous pouvez cliquer <a href="{{ $callback }}">ici</a>
                                     @else
                                         <a href="{{ config('neayi.wiki_url') }}">Consulter le wiki</a>
                                     @endif
