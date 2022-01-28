@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Src\Insights\Insights\Domain\Service\GetDepartmentFromPostalCode;
+use App\Src\Insights\Insights\Domain\Service\GetDepartmentFromPostalCodeImpl;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
@@ -13,8 +15,6 @@ use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCodeImpl;
 use App\Src\UseCases\Infra\Gateway\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;

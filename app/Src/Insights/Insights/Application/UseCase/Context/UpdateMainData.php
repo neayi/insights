@@ -4,10 +4,10 @@
 namespace App\Src\Insights\Insights\Application\UseCase\Context;
 
 
+use App\Src\Insights\Insights\Domain\Service\GetDepartmentFromPostalCode;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 
 class UpdateMainData
 {

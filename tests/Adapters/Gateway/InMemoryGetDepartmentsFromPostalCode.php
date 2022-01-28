@@ -5,7 +5,7 @@ namespace Tests\Adapters\Gateway;
 
 
 use App\Src\Insights\Insights\Domain\Context\PostalCode;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
+use App\Src\Insights\Insights\Domain\Service\GetDepartmentFromPostalCode;
 
 class InMemoryGetDepartmentsFromPostalCode implements GetDepartmentFromPostalCode
 {

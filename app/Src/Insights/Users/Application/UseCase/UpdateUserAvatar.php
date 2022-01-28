@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Users;
+namespace App\Src\Insights\Users\Application\UseCase;
 
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
