@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
+use function Psy\debug;
 
 class SyncUsersDiscourse extends Command
 {
@@ -43,7 +44,16 @@ class SyncUsersDiscourse extends Command
                     $userSync->save();
                     $this->uploadAvatar($httpClient, $user, $id);
                 }catch (\Throwable $e){
-                    $message = 'Discourse sync failed for user : '.$user->uuid. ' '.$e->getMessage();
+
+                    if ($e->getCode() == 429)
+                    {
+                        // Too many requests - aborting for this time. Will need to relaunch the task in order
+                        // to process the rest of the entities
+                        $this->error('Too many requests - please relaunch the command in a few minutes');
+                        return false; // stop chunkById from continuing
+                    }
+
+                    $message = 'Discourse sync failed for user : '.$user->uuid. ' ['. $e->getCode() . '] ' . $e->getMessage();
                     $this->error($message);
                     \Sentry\captureException($e);
                 }
@@ -116,6 +126,10 @@ class SyncUsersDiscourse extends Command
 
     private function uploadAvatar(Client $httpClient, User $user, $id)
     {
+        $avatarFilename = storage_path($user->path_picture);
+        if (empty($user->path_picture) || !file_exists($avatarFilename))
+            return;
+
         $apiKey = config('services.discourse.api.key');
         $result = $httpClient->post('uploads.json', [
             'headers' => [
@@ -137,7 +151,7 @@ class SyncUsersDiscourse extends Command
                 ],
                 [
                     'name'     => 'file',
-                    'contents' => fopen(storage_path($user->path_picture), 'r'),
+                    'contents' => fopen($avatarFilename, 'r'),
                 ],
             ]
         ]);

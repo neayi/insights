@@ -74,8 +74,8 @@
                                 </div>
                                 @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
                                     <div>
-                                        <a href="{{ env('DISCOURSE_URL').'/new-message?username='.$more['discourse_username'].'&title=message%20subject&body=message%20body' }}"
-                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Le contacter</a>
+                                        <a href="{{ env('DISCOURSE_URL').'/new-message?username='.$more['discourse_username'].'&title=&body=' }}"
+                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i> Message direct</a>
                                     </div>
                                 @endif
 
