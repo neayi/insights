@@ -90,18 +90,8 @@ class SyncUsersDiscourse extends Command
     private function updateUserOnDiscourse(Client $httpClient, User $user)
     {
         $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->get('/admin/users/'.$user->discourse_id.'.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
-        $this->username = $result['username'];
         try {
-            $result = $httpClient->put('u/' . $this->username . '/preferences/email.json', [
+            $result = $httpClient->put('u/' . $user->discourse_username . '/preferences/email.json', [
                 'headers' => [
                     'Api-Key' => $apiKey,
                     'Api-Username' => 'system',
@@ -119,8 +109,7 @@ class SyncUsersDiscourse extends Command
             // pas besoin d'update l'email
         }
 
-
-        $this->info('User updated on discourse with id : '.$user->discourse_id);
+        $this->info('User email updated on discourse with id : '.$user->discourse_username);
         return $user->discourse_id;
     }
 
