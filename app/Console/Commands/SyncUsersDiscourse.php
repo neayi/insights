@@ -45,18 +45,16 @@ class SyncUsersDiscourse extends Command
                     $userSync->save();
                     $this->uploadAvatar($httpClient, $user, $id);
                 }catch (\Throwable $e){
-
-                    if ($e->getCode() == 429)
-                    {
-                        // Too many requests - aborting for this time. Will need to relaunch the task in order
-                        // to process the rest of the entities
+                    if ($e->getCode() === 429) {
+                        // Too many requests - just sleeping
+                        sleep(60);
                         $this->error('Too many requests - please relaunch the command in a few minutes');
-                        return false; // stop chunkById from continuing
-                    }
+                    }else {
 
-                    $message = 'Discourse sync failed for user : '.$user->uuid. ' ['. $e->getCode() . '] ' . $e->getMessage();
-                    $this->error($message);
-                    \Sentry\captureException($e);
+                        $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                        $this->error($message);
+                        \Sentry\captureException($e);
+                    }
                 }
             }
         });
@@ -142,10 +140,10 @@ class SyncUsersDiscourse extends Command
                 throw new \Exception($result['message']);
             }
         }catch (\Throwable $e){
-            // pas besoin d'update l'email
+            $this->error('error updating bio : '.$user->discourse_username);
         }
 
-        $this->info('User email updated on discourse with id : '.$user->discourse_username);
+        $this->info('Updating bio with id : '.$user->discourse_username);
         return $user->discourse_id;
     }
 

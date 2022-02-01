@@ -7,9 +7,12 @@ class AskSyncUsersDiscourse extends Migration
 {
     public function up()
     {
-        \App\User::where('email_verified_at', null)
+        \App\User::whereNotNull('email_verified_at')
             ->chunkById(50, function($users){
                 foreach($users as $user){
+                    if(empty($user->firstname) || empty($user->lastname)){
+                        continue;
+                    }
                     $sync = new UserSyncDiscourseModel();
                     $sync->user_id = $user->id;
                     $sync->uuid = $user->uuid;
@@ -21,6 +24,6 @@ class AskSyncUsersDiscourse extends Migration
 
     public function down()
     {
-        // nothing to do
+        \Illuminate\Support\Facades\DB::table('users_sync_discourse')->delete();
     }
 }
