@@ -34,6 +34,9 @@ class UserController extends BaseController
     public function avatarDiscourse(string $username, string $firstLetter, string $color, int $width, GetAvatar $getAvatar)
     {
         $user = User::query()->where("discourse_username", $username)->first();
+        if($user === null){
+            return null;
+        }
         $avatar = $getAvatar->execute($user->uuid, $width, true);
         if($avatar === null){
             return redirect(config('neayi.forum_url').'/letter_avatar_proxy/v4/letter/'.$firstLetter.'/'.$color.'/'.$width.'.png');

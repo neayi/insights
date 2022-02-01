@@ -6,7 +6,7 @@ Route::get('user', 'Api\OAuthController@userByToken');
 
 
 Route::get('user/avatar/{id}/{dim}', 'Api\UserController@avatar');
-Route::get('user/discourse/avatar/{id}/{dim}', 'Api\UserController@avatarDiscourse');
+Route::get('user/discourse/avatar/{username}/{letter}{color}/{dim}', 'Api\UserController@avatarDiscourse');
 Route::get('icon/{id}/{dim?}', 'Api\PictureController@serve')->name('api.icon.serve');
 Route::get('user/{id}/context', 'Api\UserController@context');
 
