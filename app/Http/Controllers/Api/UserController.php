@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Users\GetAvatar;
+use App\User;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
@@ -30,11 +31,12 @@ class UserController extends BaseController
      * @urlParam id string required The user uuid Example:379189d0-287f-4042-bf81-577deb7696f4
      * @urlParam dim integer required Width of the picture in pixels Example:300
      */
-    public function avatarDiscourse(string $uuid, int $width, GetAvatar $getAvatar)
+    public function avatarDiscourse(string $username, string $firstLetter, string $color, int $width, GetAvatar $getAvatar)
     {
-        $avatar = $getAvatar->execute($uuid, $width, true);
-        if(strlen($avatar) === 1){
-            return redirect(config('neayi.forum_url').'/letter_avatar_proxy/v4/letter/'.$avatar.'/b38774/45.png');
+        $user = User::query()->where("discourse_username", $username)->first();
+        $avatar = $getAvatar->execute($user->uuid, $width, true);
+        if($avatar === null){
+            return redirect(config('neayi.forum_url').'/letter_avatar_proxy/v4/letter/'.$firstLetter.'/'.$color.'/'.$width.'.png');
         }
         return $avatar;
     }

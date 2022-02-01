@@ -23,7 +23,7 @@ class GetAvatar
         $pathPicture = $this->getPathPicture($user, $noDefault);
 
         if($pathPicture === null){
-            return substr($user->fullname(), 0, 1);
+            return null;
         }
 
         $img = Image::make($pathPicture);
