@@ -17,10 +17,14 @@ class GetAvatar
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $uuid, int $dim)
+    public function execute(string $uuid, int $dim, bool $noDefault = false)
     {
         $user = $this->userRepository->getById($uuid);
-        $pathPicture = $this->getPathPicture($user);
+        $pathPicture = $this->getPathPicture($user, $noDefault);
+
+        if($pathPicture === null){
+            return substr($user->fullname(), 0, 1);
+        }
 
         $img = Image::make($pathPicture);
         $h = $img->height();
@@ -43,10 +47,13 @@ class GetAvatar
     }
 
 
-    private function getPathPicture(?User $user): string
+    private function getPathPicture(?User $user, bool $noDefault = false): ?string
     {
-        if (isset($user) && $user->toArray()['path_picture'] !== null) {
+        if (isset($user) && $user->toArray()['path_picture'] !== null && $user->toArray()['path_picture'] !== "") {
             return storage_path($user->toArray()['path_picture']);
+        }
+        if($noDefault === true){
+            return null;
         }
         return public_path(config('neayi.default_avatar'));
     }

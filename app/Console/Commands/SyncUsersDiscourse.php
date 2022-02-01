@@ -35,15 +35,14 @@ class SyncUsersDiscourse extends Command
                 $user = $userSync->user;
                 try {
                     if(!isset($user->discourse_id)) {
-                        $id = $this->createUserOnDiscourse($httpClient, $user);
+                        $this->createUserOnDiscourse($httpClient, $user);
                     }else{
-                        $id = $this->updateUserEmailOnDiscourse($httpClient, $user);
+                        $this->updateUserEmailOnDiscourse($httpClient, $user);
                     }
                     $this->updateUserBioOnDiscourse($httpClient, $user);
                     $userSync->sync = true;
                     $userSync->sync_at = (new \DateTime())->format('Y-m-d H:i:s');
                     $userSync->save();
-                    $this->uploadAvatar($httpClient, $user, $id);
                 }catch (\Throwable $e){
                     if ($e->getCode() === 429) {
                         // Too many requests - just sleeping
@@ -145,55 +144,5 @@ class SyncUsersDiscourse extends Command
 
         $this->info('Updating bio with id : '.$user->discourse_username);
         return $user->discourse_id;
-    }
-
-    private function uploadAvatar(Client $httpClient, User $user, $id)
-    {
-        $avatarFilename = storage_path($user->path_picture);
-        if (empty($user->path_picture) || !file_exists($avatarFilename))
-            return;
-
-        $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->post('uploads.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-            ],
-            'multipart' => [
-                [
-                    'name'     => 'type',
-                    'contents' => 'avatar',
-                ],
-                [
-                    'name'     => 'user_id',
-                    'contents' => $id,
-                ],
-                [
-                    'name'     => 'synchronous',
-                    'contents' => true,
-                ],
-                [
-                    'name'     => 'file',
-                    'contents' => fopen($avatarFilename, 'r'),
-                ],
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
-
-        $uploadId = $result['id'];
-
-        $uri = 'u/'.$this->username.'/preferences/avatar/pick.json';
-        $httpClient->put($uri, [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ],
-            'json' => [
-                'upload_id' => $uploadId,
-                'type' => 'uploaded',
-            ]
-        ]);
     }
 }
