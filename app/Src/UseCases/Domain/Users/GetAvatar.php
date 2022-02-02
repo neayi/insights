@@ -7,6 +7,7 @@ namespace App\Src\UseCases\Domain\Users;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
 use Intervention\Image\Facades\Image;
+use Laravolt\Avatar\Facade as Avatar;
 
 class GetAvatar
 {
@@ -17,13 +18,13 @@ class GetAvatar
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $uuid, int $dim, bool $noDefault = false)
+    public function execute(string $uuid, int $dim, bool $noDefault = false, string $firstLetter = null)
     {
         $user = $this->userRepository->getById($uuid);
         $pathPicture = $this->getPathPicture($user, $noDefault);
 
         if($pathPicture === null){
-            return null;
+            return Avatar::create($firstLetter)->getImageObject()->response();
         }
 
         $img = Image::make($pathPicture);

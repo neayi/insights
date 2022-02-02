@@ -37,10 +37,7 @@ class UserController extends BaseController
         if($user === null){
             return null;
         }
-        $avatar = $getAvatar->execute($user->uuid, $width, true);
-        if($avatar === null){
-            return redirect(config('neayi.forum_url').'/letter_avatar_proxy/v4/letter/'.$firstLetter.'/'.$color.'/'.$width.'.png');
-        }
+        $avatar = $getAvatar->execute($user->uuid, $width, true, $firstLetter);
         return $avatar;
     }
 
