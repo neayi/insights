@@ -39,7 +39,7 @@ class SyncUsersDiscourse extends Command
                     }else{
                         $this->updateUserEmailOnDiscourse($httpClient, $user);
                     }
-                    $this->updateUserBioOnDiscourse($httpClient, $user);
+                    $this->updateUserDetailsOnDiscourse($httpClient, $user);
                     $userSync->sync = true;
                     $userSync->sync_at = (new \DateTime())->format('Y-m-d H:i:s');
                     $userSync->save();
@@ -80,6 +80,7 @@ class SyncUsersDiscourse extends Command
                 'username' => $this->username,
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
+                'active' => true,
             ]
         ]);
 
@@ -155,9 +156,19 @@ class SyncUsersDiscourse extends Command
         return $user->discourse_id;
     }
 
-    private function updateUserBioOnDiscourse(Client $httpClient, User $user)
+    private function updateUserDetailsOnDiscourse(Client $httpClient, User $user)
     {
         $apiKey = config('services.discourse.api.key');
+        $sector = $user->context->sector;
+        if (!empty($user->context->structure))
+            $sector .= ' (' . $user->context->structure . ')';
+
+        $bioParts = array();
+        $bioParts[] = $user->getBioAttribute();
+        $bioParts[] = "\n";
+        $bioParts[] = "[voir plus](".config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid.")";
+        $newBio = implode("\n", array_filter($bioParts));
+
         try {
             $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
                 'headers' => [
@@ -166,7 +177,10 @@ class SyncUsersDiscourse extends Command
                     'Content-Type' => 'application/json'
                 ],
                 'json' => [
-                    'bio_raw' => $user->getBioAttribute(),
+                    'active' => true,
+                    'name' => $user->fullname(),
+                    'title' => $sector,
+                    'bio_raw' => $newBio,
 //                    'location' => $user->location
                 ]
             ]);
