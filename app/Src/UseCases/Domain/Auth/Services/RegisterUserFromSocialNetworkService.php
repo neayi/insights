@@ -96,6 +96,5 @@ class RegisterUserFromSocialNetworkService
             'user_id' => $id,
             'provider_id' => $socialiteUser->providerId(),
         ];
-
     }
 }

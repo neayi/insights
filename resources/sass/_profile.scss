@@ -135,18 +135,6 @@
     }
 }
 
-.exploitations-objectifs {
-    &.edition {
-        .filled {
-            display           : -webkit-box;
-            -webkit-line-clamp: 11;
-            -webkit-box-orient: vertical;
-            overflow          : hidden;
-            text-overflow     : ellipsis;
-        }
-    }
-}
-
 .pratiques {
     &.edition {
         .filled {

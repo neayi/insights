@@ -83,7 +83,8 @@ class LoginController extends Controller
 
         if($request->session()->has('sso')){
             if(!$user->hasVerifiedEmail()){
-                return redirect()->route('verification.notice');
+                $request->session()->flash('from_forum', true);
+                return redirect()->route('email.verify');
             }
             $sso = $request->session()->get('sso');
             $sig = $request->session()->get('sig');

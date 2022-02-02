@@ -72,6 +72,12 @@
                                      {{ !empty($context['sector']) ? '- '.$context['sector'] : '' }}
                                      {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
                                 </div>
+                                @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
+                                    <div>
+                                        <a href="{{ env('DISCOURSE_URL').'/new-message?username='.$more['discourse_username'].'&title=&body=' }}"
+                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i> Message direct</a>
+                                    </div>
+                                @endif
 
                                 <!--div class="dropdown mt-3">
                                     <button class="btn btn-outline-gray dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

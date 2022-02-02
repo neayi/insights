@@ -9,9 +9,11 @@ use App\Listeners\AnonymizeUserResponse;
 use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
 use App\Listeners\SetPageDryStateListener;
+use App\Listeners\SetUserToSyncOnDiscourse;
 use App\Observers\PageObserver;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -30,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserLeaveOrganization::class => [
             AnonymizeUserResponse::class
+        ],
+        Verified::class => [
+            SetUserToSyncOnDiscourse::class
         ]
     ];
 
