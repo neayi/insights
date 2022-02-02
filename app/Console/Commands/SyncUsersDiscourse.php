@@ -46,8 +46,8 @@ class SyncUsersDiscourse extends Command
                 }catch (\Throwable $e){
                     if ($e->getCode() === 429) {
                         // Too many requests - just sleeping
+                        $this->error('Too many requests - restarting in a minute....');
                         sleep(60);
-                        $this->error('Too many requests - please relaunch the command in a few minutes');
                     }else {
 
                         $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
