@@ -54,11 +54,6 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $desc;
     }
 
-    public function getAvatarUrlAttribute()
-    {
-        return $this->adminlte_image();
-    }
-
     public function getBioAttribute()
     {
         return $this->context->description;

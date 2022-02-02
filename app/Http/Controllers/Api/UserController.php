@@ -33,11 +33,12 @@ class UserController extends BaseController
      */
     public function avatarDiscourse(string $username, string $firstLetter, string $color, int $width, GetAvatar $getAvatar)
     {
+        $uuid = '';
         $user = User::query()->where("discourse_username", $username)->first();
-        if($user === null){
-            return null;
+        if(!empty($user)){
+            $uuid = $user->uuid;
         }
-        $avatar = $getAvatar->execute($user->uuid, $width, true, $firstLetter);
+        $avatar = $getAvatar->execute($uuid, $width, true, $firstLetter, $color);
         return $avatar;
     }
 

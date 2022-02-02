@@ -82,8 +82,13 @@ class SyncUsersDiscourse extends Command
                 'email' => $user->email,
             ]
         ]);
+
         $result = json_decode($result->getBody()->getContents(), true);
         if($result['success'] === false){
+            if (!empty($result['errors']['email'])) {
+                return $this->updateUsernameFromDiscourse($httpClient, $user);
+            }
+
             throw new \Exception($result['message']);
         }
         $user->discourse_id = $result['user_id'];
@@ -91,6 +96,37 @@ class SyncUsersDiscourse extends Command
         $user->save();
         $this->info('User created on discourse with id : '.$user->discourse_id);
         return $result['user_id'];
+    }
+
+    /**
+     * Let's assume the user already exists on Discourse, lets ask for the username and discourse id
+     * If found, we store it in our DB
+     *
+     * Return the user_id on success, throw an exception otherwise
+     */
+    private function updateUsernameFromDiscourse(Client $httpClient, User $user)
+    {
+        $apiKey = config('services.discourse.api.key');
+        $result = $httpClient->get('u/by-external/' . $user->id . '.json', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $result = json_decode($result->getBody()->getContents(), true);
+        if(empty($result['user'])){
+            throw new \Exception('Dupplicate email not corresponding to existing user');
+        }
+
+        $user->discourse_id = $result['user']['id'];
+        $user->discourse_username = $result['user']['username'];
+        $user->save();
+
+        $this->info('User was already created on discourse with id : '.$user->discourse_id);
+
+        return $result['user']['id'];
     }
 
     private function updateUserEmailOnDiscourse(Client $httpClient, User $user)

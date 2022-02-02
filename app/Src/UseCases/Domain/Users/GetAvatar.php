@@ -18,13 +18,16 @@ class GetAvatar
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $uuid, int $dim, bool $noDefault = false, string $firstLetter = null)
+    public function execute(string $uuid, int $dim, bool $noDefault = false, string $firstLetter = null, string $color = null)
     {
         $user = $this->userRepository->getById($uuid);
-        $pathPicture = $this->getPathPicture($user, $noDefault);
+        $pathPicture = null;
+
+        if (!empty($user))
+            $pathPicture = $this->getPathPicture($user, $noDefault);
 
         if($pathPicture === null){
-            return Avatar::create($firstLetter)->getImageObject()->response();
+            return Avatar::create($firstLetter)->setBackground('#' . $color)->getImageObject()->response();
         }
 
         $img = Image::make($pathPicture);
