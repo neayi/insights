@@ -56,6 +56,9 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function getBioAttribute()
     {
+        if (empty($this->context) || empty($this->context->description))
+            return '';
+
         return $this->context->description;
     }
 
