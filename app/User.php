@@ -59,6 +59,21 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->context->description;
     }
 
+    /**
+     * Return the title followed by the structure in parenthesis
+     */
+    public function getFullTitle()
+    {
+        if (empty($this->context) || empty($this->context->sector))
+            return '';
+
+        $title = $this->context->sector;
+        if (!empty($this->context->structure))
+            $title .= ' (' . $this->context->structure . ')';
+
+        return $title;
+    }
+
     public function adminlte_profile_url()
     {
         return 'user/edit/profile';

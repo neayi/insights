@@ -159,15 +159,11 @@ class SyncUsersDiscourse extends Command
     private function updateUserDetailsOnDiscourse(Client $httpClient, User $user)
     {
         $apiKey = config('services.discourse.api.key');
-        $sector = $user->context->sector;
-        if (!empty($user->context->structure))
-            $sector .= ' (' . $user->context->structure . ')';
 
         $bioParts = array();
         $bioParts[] = $user->getBioAttribute();
-        $bioParts[] = "\n";
-        $bioParts[] = "[voir plus](".config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid.")";
-        $newBio = implode("\n", array_filter($bioParts));
+        $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid.")";
+        $newBio = trim(implode("\n", array_filter($bioParts)));
 
         try {
             $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
@@ -179,9 +175,9 @@ class SyncUsersDiscourse extends Command
                 'json' => [
                     'active' => true,
                     'name' => $user->fullname(),
-                    'title' => $sector,
+                    'title' => $user->getFullTitle(),
                     'bio_raw' => $newBio,
-//                    'location' => $user->location
+//                  'location' => $user->location
                 ]
             ]);
             $result = json_decode($result->getBody()->getContents(), true);
