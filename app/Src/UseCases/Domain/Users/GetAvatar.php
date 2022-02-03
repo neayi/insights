@@ -21,7 +21,11 @@ class GetAvatar
     public function execute(string $uuid, int $dim, bool $noDefault = false, string $firstLetter = null, string $color = null)
     {
         $user = $this->userRepository->getById($uuid);
-        $pathPicture = null;
+
+        if ($noDefault === true)
+            $pathPicture = null;
+        else
+            $pathPicture = public_path(config('neayi.default_avatar'));
 
         if (!empty($user))
             $pathPicture = $this->getPathPicture($user, $noDefault);
