@@ -27,7 +27,13 @@ class GetAvatar
             $pathPicture = $this->getPathPicture($user, $noDefault);
 
         if($pathPicture === null){
-            return Avatar::create($firstLetter)->setBackground('#' . $color)->getImageObject()->response();
+            if (empty($firstLetter) && !empty($user))
+                $firstLetter = $user->fullname();
+
+            if (!empty($color))
+                return Avatar::create($firstLetter)->setBackground('#' . $color)->getImageObject()->response();
+            else
+                return Avatar::create($firstLetter)->getImageObject()->response();
         }
 
         $img = Image::make($pathPicture);
