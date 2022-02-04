@@ -165,27 +165,25 @@ class SyncUsersDiscourse extends Command
         $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid.")";
         $newBio = trim(implode("\n", array_filter($bioParts)));
 
-        try {
-            $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
-                'headers' => [
-                    'Api-Key' => $apiKey,
-                    'Api-Username' => 'system',
-                    'Content-Type' => 'application/json'
-                ],
-                'json' => [
-                    'active' => true,
-                    'name' => $user->fullname(),
-                    'title' => $user->getFullTitle(),
-                    'bio_raw' => $newBio,
-//                  'location' => $user->location
-                ]
-            ]);
-            $result = json_decode($result->getBody()->getContents(), true);
-            if($result['success'] === false){
-                throw new \Exception($result['message']);
-            }
-        }catch (\Throwable $e){
-            $this->error('error updating bio : '.$user->discourse_username);
+        $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'name' => $user->fullname(),
+                'title' => $user->getFullTitle(),
+                'bio_raw' => $newBio,
+//                'website' => config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid,
+//                'location' => $user->location
+            ]
+        ]);
+
+        $result = json_decode($result->getBody()->getContents(), true);
+
+        if($result['success'] === false){
+            throw new \Exception($result['message']);
         }
 
         $this->info('Updating bio with id : '.$user->discourse_username);
