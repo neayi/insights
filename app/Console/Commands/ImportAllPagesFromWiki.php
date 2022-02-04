@@ -22,29 +22,35 @@ class ImportAllPagesFromWiki extends Command
 
     public function handle()
     {
-        $httpClient = new Client();
-        $queryPages = '?action=query&generator=allpages&gaplimit=500&gapfilterredir=nonredirects&format=json';
+        // Repeat for Main, Categories and Structures
+        foreach ([0, 14, 3000] as $namespace)
+        {
+            $httpClient = new Client();
+            $queryPages = '?action=query&list=allpages&apnamespace=' . $namespace . '&aplimit=500&apfilterredir=nonredirects&format=json';
 
-        $pagesApiUri = config('wiki.api_uri').$queryPages;
+            $pagesApiUri = config('wiki.api_uri').$queryPages;
 
-        $response = $httpClient->get($pagesApiUri);
-        $content = json_decode($response->getBody()->getContents(), true);
-
-        $pages = $content['query']['pages'];
-
-        $this->handlePages($pages);
-        $continue = $content['continue']['gapcontinue'] ?? null;
-
-        while($continue !== null && $continue !== ''){
-            $this->info($continue);
-
-            $pagesApiUri = config('wiki.api_uri').$queryPages.'&gapcontinue='.$continue;
             $response = $httpClient->get($pagesApiUri);
             $content = json_decode($response->getBody()->getContents(), true);
-            $pages = $content['query']['pages'];
-            $this->handlePages($pages);
 
-            $continue = $content['continue']['gapcontinue'] ?? null;
+            $pages = $content['query']['allpages'];
+
+            $this->handlePages($pages);
+            $continue = $content['continue']['apcontinue'] ?? null;
+
+            while($continue !== null && $continue !== ''){
+                $this->info($continue);
+
+                $pagesApiUri = config('wiki.api_uri').$queryPages.'&apcontinue='.$continue;
+
+                $response = $httpClient->get($pagesApiUri);
+                $content = json_decode($response->getBody()->getContents(), true);
+                $pages = $content['query']['allpages'];
+
+                $this->handlePages($pages);
+
+                $continue = $content['continue']['apcontinue'] ?? null;
+            }
         }
     }
 
