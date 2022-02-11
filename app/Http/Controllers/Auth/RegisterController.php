@@ -134,6 +134,13 @@ class RegisterController extends Controller
                 return redirect($callback);
             }
 
+            if(session()->has('sso')){
+                $sso = session()->get('sso');
+                $sig = session()->get('sig');
+                $callback = base64_encode(url('discourse/sso?sso='.$sso.'&sig='.$sig));
+                return redirect($callback);
+            }
+
             return redirect()->route('wizard.profile');
         }catch (ValidationException $e) {
             $attributes = $e->validator->attributes();

@@ -9,6 +9,7 @@ use App\Src\UseCases\Domain\Users\Identity;
 use App\Src\UseCases\Domain\Users\State;
 use App\Src\UseCases\Domain\Users\Stats;
 use App\Src\UseCases\Domain\Users\UserDto;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
@@ -194,6 +195,7 @@ class UserRepositorySql implements UserRepository
         if(!isset($user)){
            return;
         }
+        event(new Verified($user));
         $user->markEmailAsVerified();
     }
 
