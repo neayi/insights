@@ -61,7 +61,7 @@ return [
         'secret' => env('DISCOURSE_SECRET'),
 
         // Disable Discourse from sending welcome message
-        'suppress_welcome_message' => 'true',
+        'suppress_welcome_message' => 'false',
 
         // Where the Discourse forum lives
         'url' => env('DISCOURSE_URL'),
@@ -88,10 +88,10 @@ return [
             'admin' => null,
 
             // Full path to user's avatar image
-            'avatar_url' => 'avatar_url',
+            'avatar_url' => null,
 
             // The avatar is cached, so this triggers an update
-            'avatar_force_update' => true,
+            'avatar_force_update' => null,
 
             // Content of the user's bio
             'bio' => 'bio',
@@ -107,7 +107,7 @@ return [
 
             // Full name on Discourse if the user is new or
             // if SiteSetting.sso_overrides_name is set
-            'name' => 'name',
+            'name' => 'fullname',
 
             // Discourse Groups to make sure that the user is *NOT* part of in a comma-separated string.
             // NOTE: Groups cannot have spaces in their names & must already exist in Discourse
@@ -120,7 +120,7 @@ return [
 
             // username on Discourse if the user is new or
             // if SiteSetting.sso_overrides_username is set
-            'username' => 'email',
+            'username' => 'discourse_username',
         ],
     ],
 ];

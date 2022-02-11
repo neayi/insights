@@ -32,7 +32,7 @@ class GetAvatar
 
         if($pathPicture === null){
             if (empty($firstLetter) && !empty($user))
-                $firstLetter = $user->fullname();
+                $firstLetter = $user->fullname;
 
             if (!empty($color))
                 return Avatar::create($firstLetter)->setBackground('#' . $color)->getImageObject()->response();

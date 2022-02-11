@@ -61,7 +61,7 @@ class SyncUsersDiscourse extends Command
 
     private function createUserOnDiscourse(Client $httpClient, User $user)
     {
-        $this->username = trim(substr(Str::of($user->fullname())->slug('.'), 0, 20), '.');
+        $this->username = trim(substr(Str::of($user->fullname)->slug('.'), 0, 20), '.');
 
         if (empty($user->email_verified_at))
             throw new \Exception("Email not verified", 54);
@@ -162,7 +162,7 @@ class SyncUsersDiscourse extends Command
 
         $bioParts = array();
         $bioParts[] = $user->getBioAttribute();
-        $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid.")";
+        $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname)."/".$user->uuid.")";
         $newBio = trim(implode("\n", array_filter($bioParts)));
 
         $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
@@ -172,10 +172,10 @@ class SyncUsersDiscourse extends Command
                 'Content-Type' => 'application/json'
             ],
             'json' => [
-                'name' => $user->fullname(),
-                'title' => $user->getFullTitle(),
+                'name' => $user->fullname,
+                'title' => $user->title,
                 'bio_raw' => $newBio,
-//                'website' => config('app.url')."/tp/".urlencode($user->fullname())."/".$user->uuid,
+//                'website' => config('app.url')."/tp/".urlencode($user->fullname)."/".$user->uuid,
 //                'location' => $user->location
             ]
         ]);

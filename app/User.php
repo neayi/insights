@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -65,7 +66,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     /**
      * Return the title followed by the structure in parenthesis
      */
-    public function getFullTitle()
+    public function getTitleAttribute()
     {
         if (empty($this->context) || empty($this->context->sector))
             return '';
@@ -82,9 +83,32 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return 'user/edit/profile';
     }
 
+    /**
+     * Get the discourse_username for discourse
+     *
+     * @return string
+     */
+    public function getDiscourseUsernameAttribute()
+    {
+        if (empty($this->discourse_username))
+            return trim(substr(Str::of($this->fullname)->slug('.'), 0, 20), '.');
+
+        return $this->discourse_username;
+    }
+
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullnameAttribute()
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
+
     public function fullname()
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->getFullNameAttribute();
     }
 
     public function sendEmailVerificationNotification()
