@@ -55,6 +55,16 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $desc;
     }
 
+    public function adminlte_profile_url()
+    {
+        return 'user/edit/profile';
+    }
+
+    /**
+     * Accessors
+     * @see https://laravel.com/docs/8.x/eloquent-mutators#defining-an-accessor
+     */
+
     public function getBioAttribute()
     {
         if (empty($this->context) || empty($this->context->description))
@@ -78,22 +88,18 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $title;
     }
 
-    public function adminlte_profile_url()
-    {
-        return 'user/edit/profile';
-    }
-
     /**
      * Get the discourse_username for discourse
      *
+     * @param  string  $value
      * @return string
      */
-    public function getDiscourseUsernameAttribute()
+    public function getDiscourseUsernameAttribute($value)
     {
-        if (empty($this->discourse_username))
+        if (empty($value))
             return trim(substr(Str::of($this->fullname)->slug('.'), 0, 20), '.');
 
-        return $this->discourse_username;
+        return $value;
     }
 
     /**

@@ -9,6 +9,7 @@ use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Type\Integer;
 
 use function Psy\debug;
 
@@ -59,7 +60,7 @@ class SyncUsersDiscourse extends Command
         });
     }
 
-    private function createUserOnDiscourse(Client $httpClient, User $user)
+    private function createUserOnDiscourse(Client $httpClient, User $user, int $increment = 0)
     {
         $this->username = trim(substr(Str::of($user->fullname)->slug('.'), 0, 20), '.');
 
@@ -69,6 +70,11 @@ class SyncUsersDiscourse extends Command
         if (empty($this->username))
             throw new \Exception("Empty username", 55);
 
+        if (!empty($increment))
+            $username = $this->username . $increment;
+        else
+            $username = $this->username;
+
         $apiKey = config('services.discourse.api.key');
         $result = $httpClient->post('users.json', [
             'headers' => [
@@ -77,7 +83,7 @@ class SyncUsersDiscourse extends Command
                 'Content-Type' => 'application/json'
             ],
             'json' => [
-                'username' => $this->username,
+                'username' => $username,
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
                 'active' => true,
@@ -90,10 +96,16 @@ class SyncUsersDiscourse extends Command
                 return $this->updateUsernameFromDiscourse($httpClient, $user);
             }
 
+            if (!empty($result['errors']['username'][0]) &&
+                strpos($result['errors']['username'][0], 'unique') !== false) {
+                $increment++;
+                return $this->createUserOnDiscourse($httpClient, $user, $increment);
+            }
+
             throw new \Exception($result['message']);
         }
         $user->discourse_id = $result['user_id'];
-        $user->discourse_username = $this->username;
+        $user->discourse_username = $username;
         $user->save();
         $this->info('User created on discourse with id : '.$user->discourse_id);
         return $result['user_id'];
