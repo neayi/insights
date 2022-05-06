@@ -171,7 +171,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function toDto():UserDto
     {
-        return new UserDto($this->uuid, $this->firstname, $this->lastname);
+        return new UserDto($this->uuid, $this->firstname, $this->lastname, $this->discourse_username);
     }
 
     public function askDiscourseSync()

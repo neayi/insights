@@ -84,6 +84,7 @@ class SyncUsersDiscourse extends Command
             ],
             'json' => [
                 'username' => $username,
+                'name' => $user->fullname,
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
                 'active' => true,
