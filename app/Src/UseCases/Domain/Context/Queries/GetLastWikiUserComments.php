@@ -28,24 +28,24 @@ class GetLastWikiUserComments
             return json_decode($comments, true);
         }
 
-        $response = $this->httpClient->get(config('wiki.api_uri').$this->commentsEndPoint.$userId);
-        $content = json_decode($response->getBody()->getContents(), true);
-        $comments = $content['query']['usercomments'];
+        // $response = $this->httpClient->get(config('wiki.api_uri').$this->commentsEndPoint.$userId);
+        // $content = json_decode($response->getBody()->getContents(), true);
+        // $comments = $content['query']['usercomments'];
 
         $commentsToRetrieved = [];
-        foreach($comments as $comment){
-            if(!isset($commentsToRetrieved[$comment['pageid']])) {
-                $commentsToRetrieved[$comment['pageid']] = $comment;
+        // foreach($comments as $comment){
+        //     if(!isset($commentsToRetrieved[$comment['pageid']])) {
+        //         $commentsToRetrieved[$comment['pageid']] = $comment;
 
-                $realPageId = $comment['associatedid'];
-                $page = PageModel::where('page_id', $realPageId)->first();
-                $commentsToRetrieved[$comment['pageid']]['picture'] = $page['picture'];
-                $commentsToRetrieved[$comment['pageid']]['real_page_id'] = $realPageId;
+        //         $realPageId = $comment['associatedid'];
+        //         $page = PageModel::where('page_id', $realPageId)->first();
+        //         $commentsToRetrieved[$comment['pageid']]['picture'] = $page['picture'];
+        //         $commentsToRetrieved[$comment['pageid']]['real_page_id'] = $realPageId;
 
-                $commentsToRetrieved[$comment['pageid']]['title'] = $comment['associated_page_title'];
-                $commentsToRetrieved[$comment['pageid']]['date'] = (new Carbon($comment['timestamp']))->translatedFormat('l j F Y - h:i');
-            }
-        }
+        //         $commentsToRetrieved[$comment['pageid']]['title'] = $comment['associated_page_title'];
+        //         $commentsToRetrieved[$comment['pageid']]['date'] = (new Carbon($comment['timestamp']))->translatedFormat('l j F Y - h:i');
+        //     }
+        // }
 
         Cache::put("comments_".$userId, json_encode($commentsToRetrieved), 86400);
         return $commentsToRetrieved;
