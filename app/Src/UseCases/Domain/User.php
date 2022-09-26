@@ -25,6 +25,8 @@ class User
     private $pathPicture;
     private $roles;
     private $providers;
+    private $discourse_id;
+    private $discourse_username;
 
     public function __construct(
         string $id,
@@ -34,7 +36,9 @@ class User
         string $organizationId = null,
         string $pathPicture = null,
         array $roles = [],
-        array $providers = []
+        array $providers = [],
+        string $discourse_id = '',
+        string $discourse_username = ''
     )
     {
         $this->id = $id;
@@ -45,6 +49,8 @@ class User
         $this->pathPicture = $pathPicture;
         $this->roles = $roles;
         $this->providers = $providers;
+        $this->discourse_id = $discourse_id;
+        $this->discourse_username = $discourse_username;
     }
 
     public function email():string
@@ -73,6 +79,11 @@ class User
             return true;
         }
         return false;
+    }
+
+    public function discourse_username():string
+    {
+        return $this->discourse_username;
     }
 
     public function addProvider(string $provider, string $providerId)

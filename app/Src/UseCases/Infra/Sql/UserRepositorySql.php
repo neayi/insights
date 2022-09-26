@@ -185,7 +185,9 @@ class UserRepositorySql implements UserRepository
             $record->organization_id,
             $record->path_picture,
             $roles,
-            $record->providers ?? []
+            $record->providers ?? [],
+            $record->discourse_id,
+            $record->discourse_username
         );
     }
 

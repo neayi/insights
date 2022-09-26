@@ -1,4 +1,7 @@
 FROM php:7.3-fpm AS base
+
+ARG DEBUG_TOOLS
+
 RUN docker-php-ext-install pdo_mysql mbstring
 
 RUN apt-get update && apt-get install -y \
@@ -13,6 +16,18 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install exif
+
+RUN test -z "$DEBUG_TOOLS" || ( \
+        pecl install xdebug \
+            && docker-php-ext-enable xdebug \
+            && echo "xdebug.discover_client_host=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+            && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
+            && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
+            && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
+            && echo "xdebug.idekey=VSCODE" >> /usr/local/etc/php/conf.d/xdebug.ini \
+            && echo "log_errors = On" >> /usr/local/etc/php/conf.d/error_log.ini \
+            && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/error_log.ini \
+    )
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer

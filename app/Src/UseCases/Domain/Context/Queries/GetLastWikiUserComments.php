@@ -13,11 +13,12 @@ use Illuminate\Support\Carbon;
 class GetLastWikiUserComments
 {
     private $httpClient;
-    private $commentsEndPoint = '?action=query&list=usercomments&format=json&ucuserguids=';
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->httpClient = new Client();
+        $hostname = config('services.discourse.api.url');
+        $this->httpClient = new Client(['base_uri' => $hostname]);
+
         $this->userRepository = $userRepository;
     }
 
@@ -28,24 +29,36 @@ class GetLastWikiUserComments
             return json_decode($comments, true);
         }
 
-        // $response = $this->httpClient->get(config('wiki.api_uri').$this->commentsEndPoint.$userId);
-        // $content = json_decode($response->getBody()->getContents(), true);
-        // $comments = $content['query']['usercomments'];
+        $user = $this->userRepository->getById($userId);
 
+        $response = $this->httpClient->get('search.json?q=order:latest @'.$user->discourse_username());
+        $content = json_decode($response->getBody()->getContents(), true);
         $commentsToRetrieved = [];
-        // foreach($comments as $comment){
-        //     if(!isset($commentsToRetrieved[$comment['pageid']])) {
-        //         $commentsToRetrieved[$comment['pageid']] = $comment;
 
-        //         $realPageId = $comment['associatedid'];
-        //         $page = PageModel::where('page_id', $realPageId)->first();
-        //         $commentsToRetrieved[$comment['pageid']]['picture'] = $page['picture'];
-        //         $commentsToRetrieved[$comment['pageid']]['real_page_id'] = $realPageId;
+        if (!empty($content['posts']))
+        {
+            $comments = $content['posts'];
 
-        //         $commentsToRetrieved[$comment['pageid']]['title'] = $comment['associated_page_title'];
-        //         $commentsToRetrieved[$comment['pageid']]['date'] = (new Carbon($comment['timestamp']))->translatedFormat('l j F Y - h:i');
-        //     }
-        // }
+            $topicsTitleById = array();
+            $topics = $content['topics'];
+            foreach ($topics as $aTopic)
+                $topicsTitleById[$aTopic['id']] = $aTopic['title'];
+
+            $forumURL = config('services.discourse.url');
+
+            foreach ($comments as $aPost)
+            {
+                $commentsToRetrieved[$aPost['created_at']] = array(
+                    'html' => $aPost['blurb'],
+                    'title' => $topicsTitleById[$aPost['topic_id']],
+                    'url' => $forumURL . '/t/'.$aPost['topic_id'].'/'.$aPost['post_number'],
+                    'date' => (new Carbon($aPost['created_at']))->translatedFormat('l j F Y - h:i'));
+            }
+
+            // sort the comments
+            ksort($commentsToRetrieved);
+            $commentsToRetrieved = array_reverse($commentsToRetrieved);
+        }
 
         Cache::put("comments_".$userId, json_encode($commentsToRetrieved), 86400);
         return $commentsToRetrieved;

@@ -5,15 +5,10 @@
                 <div class="col-lg-6 followed-page">
                     <div class="card mb-3">
                         <div class="row no-gutters position-static">
-                            @if(isset($comment['picture']))
-                            <div class="col-md-4 col-lg-5">
-                                <img src="{{ $comment['picture'] }}" class="followed-image card-img">
-                            </div>
-                            @endif
-                            <div class="col-md-8 col-lg-7 position-static">
+                            <div class="col-md-12 position-static">
                                 <div class="card-body py-2">
                                     <h4 class="card-title mb-0">
-                                        <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$comment['real_page_id']}}#cs-comments">{{ $comment['title'] }}</a>
+                                        <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{$comment['url']}}">{{ $comment['title'] }}</a>
                                     </h4>
                                     <div class="card-text muted comment-date">{!! $comment['date'] !!}</div>
                                     <div class="card-text muted comment-extract">{!! $comment['html'] !!}</div>
