@@ -38,13 +38,13 @@ class ContextModel extends Model
         return new ContextDto(
             $this->user->firstname,
             $this->user->lastname,
-            $this->postal_code,
+            $this->postal_code ?? '',
             $characteristics->toArray(),
             $this->description,
             $this->sector ?? '',
             $this->structure ?? '',
             $this->user->uuid,
-            $this->department_number
+            $this->department_number ?? ''
         );
     }
 

@@ -30,8 +30,8 @@ class ContextDto extends Dto
         ?string $description,
         ?string $sector,
         ?string $structure,
-        ?string $userUuid = null,
-        string $departmentNumber = null
+        ?string $userUuid = '',
+        string $departmentNumber = ''
     )
     {
         $this->firstname = $firstname;
