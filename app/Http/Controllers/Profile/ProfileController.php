@@ -69,11 +69,27 @@ class ProfileController extends Controller
     {
         $user = app(GetUser::class)->get($userId)->toArray();
         $routeComment = route('profile.comments.show', ['user_id' => $userId]);
-        $context = $contextQueryByUser->execute($userId)->toArray();
+
+        $contextRepo = $contextQueryByUser->execute($userId);
+        if (!empty($contextRepo))
+        {
+            $context = $contextRepo->toArray();
+            $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
+        }
+        else
+        {
+            // TODO : This was added because in some cases, the context is not created when the user is created.
+            // We should remove this when this is fixed.
+            $context = array();
+            $context['fullname'] = $user['firstname'] . ' ' . $user['lastname'];
+            $context['department'] = '75';
+            $context['description'] = '';
+            $usersCharacteristics = array();
+        }
+
         $roles = app(GetUserRole::class)->get()->toArray();
         $practises = app(GetUserPractises::class)->get($userId);
         $interactions = app(GetInteractionsByUser::class)->get($userId);
-        $usersCharacteristics =  array_merge($context['productions'], $context['characteristics']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
 
