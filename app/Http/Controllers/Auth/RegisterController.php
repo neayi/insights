@@ -58,9 +58,14 @@ class RegisterController extends Controller
         if(session()->has('should_attach_to_organization')) {
             session()->reflash();
         }
+
         return Validator::make($data, [
             //'g-recaptcha-response' => 'required|captcha',
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'email' => ['required',
+                        'email',
+                        'max:255',
+                        'unique:users',
+                        new \nickurt\StopForumSpam\Rules\IsSpamEmail(20)],
             'password' => 'required|min:8|max:255|confirmed'
         ], [
             'password.confirmed' => 'Veuillez confirmer votre mot de passe ci-dessous'

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eee5308993e2877e097c1214dcc91620",
+    "content-hash": "13ed811c9a207469e33b2188bba1df42",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -3050,6 +3050,63 @@
                 }
             ],
             "time": "2021-09-06T09:29:23+00:00"
+        },
+        {
+            "name": "nickurt/laravel-stopforumspam",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nickurt/laravel-stopforumspam.git",
+                "reference": "f9f639f00b9f03aef676460d2c1cb735cfc150d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nickurt/laravel-stopforumspam/zipball/f9f639f00b9f03aef676460d2c1cb735cfc150d8",
+                "reference": "f9f639f00b9f03aef676460d2c1cb735cfc150d8",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3|^7.0.1",
+                "laravel/framework": "^6.0|^7.0|^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^7.5|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "nickurt\\StopForumSpam\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "StopForumSpam": "nickurt\\StopForumSpam\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "nickurt\\StopForumSpam\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "StopForumSpam for Laravel 6.x/7.x/8.x",
+            "keywords": [
+                "laravel",
+                "stopforumspam"
+            ],
+            "support": {
+                "issues": "https://github.com/nickurt/laravel-stopforumspam/issues",
+                "source": "https://github.com/nickurt/laravel-stopforumspam/tree/1.6"
+            },
+            "time": "2020-09-18T09:48:10+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -10576,5 +10633,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

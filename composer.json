@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "laravolt/avatar": "^4.1",
+        "nickurt/laravel-stopforumspam": "^1.6",
         "nunomaduro/collision": "^5.0",
         "sentry/sentry-laravel": "^2.9",
         "spatie/laravel-permission": "^3.13",
