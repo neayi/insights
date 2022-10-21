@@ -121,13 +121,21 @@ class SyncUsersDiscourse extends Command
     private function updateUsernameFromDiscourse(Client $httpClient, User $user)
     {
         $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->get('u/by-external/' . $user->id . '.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+
+        try {
+            $result = $httpClient->get('u/by-external/' . $user->id . '.json', [
+                'headers' => [
+                    'Api-Key' => $apiKey,
+                    'Api-Username' => 'system',
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+        } catch (\Throwable $th) {
+            if ($th->getCode() == 404)
+                return $this->updateUsernameFromDiscourseWithEmail($httpClient, $user);
+
+            throw $th;
+        }
 
         $result = json_decode($result->getBody()->getContents(), true);
         if(empty($result['user'])){
@@ -141,6 +149,40 @@ class SyncUsersDiscourse extends Command
         $this->info('User was already created on discourse with id : '.$user->discourse_id);
 
         return $result['user']['id'];
+    }
+
+    /**
+     * Let's assume the user already exists on Discourse, lets ask for the username and discourse id
+     * If found, we store it in our DB
+     *
+     * Not as robust than updateUsernameFromDiscourse but works pretty well anyhow
+     *
+     * Return the user_id on success, throw an exception otherwise
+     */
+    private function updateUsernameFromDiscourseWithEmail(Client $httpClient, User $user)
+    {
+        $apiKey = config('services.discourse.api.key');
+        $result = $httpClient->get('/admin/users/list/active.json?filter=' . $user->email . '&show_emails=true&order=&ascending=&page=1', [
+            'headers' => [
+                'Api-Key' => $apiKey,
+                'Api-Username' => 'system',
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $result = json_decode($result->getBody()->getContents(), true);
+
+        if(empty($result[0]['email']) || strtolower($result[0]['email']) != strtolower($user->email)){
+            throw new \Exception('Dupplicate email not corresponding to existing user');
+        }
+
+        $user->discourse_id = $result[0]['id'];
+        $user->discourse_username = $result[0]['username'];
+        $user->save();
+
+        $this->info('User was already created on discourse with id : '.$user->discourse_id);
+
+        return $result[0]['id'];
     }
 
     private function updateUserEmailOnDiscourse(Client $httpClient, User $user)
