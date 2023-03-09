@@ -4,7 +4,7 @@
 namespace Tests\Integration\Repositories;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Context\Domain\Characteristic;
 use Tests\TestCase;
 
 class CharacteristicsRepositoryTest extends TestCase

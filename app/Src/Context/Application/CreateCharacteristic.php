@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\UseCases;
+namespace App\Src\Context\Application;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\Context\Domain\Characteristic;
+use App\Src\Context\Domain\CharacteristicsRepository;
+use App\Src\Context\Domain\ContextRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
 class CreateCharacteristic

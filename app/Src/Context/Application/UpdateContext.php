@@ -1,15 +1,15 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\UseCases;
+namespace App\Src\Context\Application;
 
 
-use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\Context\Domain\ContextRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 
-class UpdateMainData
+class UpdateContext
 {
     private $contextRepository;
     private $authGateway;

@@ -1,10 +1,9 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Model;
+namespace App\Src\Context\Domain;
 
 
-use App\Src\UseCases\Domain\Ports\PageRepository;
 use Ramsey\Uuid\Uuid;
 
 class Page

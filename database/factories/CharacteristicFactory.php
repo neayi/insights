@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Context\Domain\Characteristic;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

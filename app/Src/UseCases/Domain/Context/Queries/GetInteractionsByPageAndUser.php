@@ -4,11 +4,11 @@
 namespace App\Src\UseCases\Domain\Context\Queries;
 
 
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\CanInteract;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use App\Src\Context\Domain\AnonymousUser;
+use App\Src\Context\Domain\CanInteract;
+use App\Src\Context\Domain\Interaction;
+use App\Src\Context\Domain\InteractionRepository;
+use App\Src\Context\Domain\RegisteredUser;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
 class GetInteractionsByPageAndUser

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Context\Domain\Characteristic;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

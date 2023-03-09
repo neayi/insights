@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\Context\Domain\CharacteristicsRepository;
+use App\Src\Context\Domain\ContextRepository;
+use App\Src\Context\Domain\InteractionRepository;
+use App\Src\Context\Domain\PageRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
@@ -22,10 +22,10 @@ use App\Src\UseCases\Infra\Gateway\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
+use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
-use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\PageRepositorySql;
 use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;

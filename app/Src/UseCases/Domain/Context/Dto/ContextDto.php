@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Context\Dto;
 
 
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\Context\Domain\Characteristic;
 use App\Src\UseCases\Domain\Shared\Model\Dto;
 
 class ContextDto extends Dto

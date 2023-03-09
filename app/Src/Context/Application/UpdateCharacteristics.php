@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\UseCases;
+namespace App\Src\Context\Application;
 
 
-use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\Context\Domain\ContextRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
-class UpdateDescription
+class UpdateCharacteristics
 {
     private $contextRepository;
     private $authGateway;
@@ -21,10 +21,10 @@ class UpdateDescription
         $this->authGateway = $authGateway;
     }
 
-    public function execute(string $description)
+    public function execute(array $characteristics)
     {
         $currentUser = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($currentUser->id());
-        $context->update(['description' => $description], $currentUser->id());
+        $context->update(['characteristics' => $characteristics], $currentUser->id());
     }
 }

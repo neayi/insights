@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
+use App\Src\Context\Domain\CharacteristicsRepository;
+use App\Src\Context\Domain\ContextRepository;
+use App\Src\Context\Domain\InteractionRepository;
+use App\Src\Context\Domain\PageRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;

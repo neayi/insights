@@ -4,25 +4,24 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
+use App\Src\Context\Application\AddCharacteristicsToContext;
+use App\Src\Context\Application\CreateCharacteristic;
+use App\Src\Context\Application\UpdateCharacteristics;
+use App\Src\Context\Application\UpdateContext;
+use App\Src\Context\Application\UpdateDescription;
+use App\Src\Context\Domain\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
-use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
+use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByUser;
+use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
 use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
 use App\Src\UseCases\Domain\Context\Queries\SearchStructure;
-use App\Src\UseCases\Domain\Context\UseCases\AddCharacteristicsToContext;
-use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use App\User;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -128,7 +127,7 @@ class ProfileController extends Controller
         return $descProcessed;
     }
 
-    public function updateContext(Request $request, UpdateMainData $updateMainData)
+    public function updateContext(Request $request, UpdateContext $updateMainData)
     {
         $role = $request->input('role') !== null ? $request->input('role') : '';
         $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';

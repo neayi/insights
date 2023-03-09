@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\System;
 
 
-use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Context\Domain\Page;
+use App\Src\Context\Domain\PageRepository;
 
 class SetPageDryState
 {

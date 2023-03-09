@@ -4,8 +4,8 @@
 namespace Tests\Unit\Users\Context;
 
 
-use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
+use App\Src\Context\Application\UpdateContext;
+use App\Src\Context\Domain\Context;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 
@@ -28,7 +28,7 @@ class UpdateMainDataTest  extends TestCase
         $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], 'test');
         $this->contextRepository->add($context, 'abc');
 
-        app(UpdateMainData::class)->execute('83130', 'sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer');
+        app(UpdateContext::class)->execute('83130', 'sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer');
 
         $coordinates = [43, 117];
         $contextExpected = new Context(

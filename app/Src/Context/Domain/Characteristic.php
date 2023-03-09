@@ -1,10 +1,9 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Model;
+namespace App\Src\Context\Domain;
 
 
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Shared\Model\HasMemento;
 use App\Src\UseCases\Domain\Shared\Model\Memento;
 

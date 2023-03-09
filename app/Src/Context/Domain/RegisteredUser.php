@@ -1,10 +1,8 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Model;
+namespace App\Src\Context\Domain;
 
-
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
 
 class RegisteredUser implements CanInteract
 {

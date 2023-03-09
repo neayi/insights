@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\System;
 
 
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
+use App\Src\Context\Domain\AnonymousUser;
+use App\Src\Context\Domain\RegisteredUser;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 
 class SetInteractionToRegisteredUser

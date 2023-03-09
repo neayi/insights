@@ -1,10 +1,8 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Ports;
+namespace App\Src\Context\Domain;
 
-
-use App\Src\UseCases\Domain\Context\Model\Page;
 
 interface PageRepository
 {

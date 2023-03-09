@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Sql\Model;
 
 
+use App\Src\Context\Domain\Context;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Context\Model\Context;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 

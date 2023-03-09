@@ -1,15 +1,12 @@
 <?php
 namespace Database\Seeders;
 
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
-use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
-use App\Src\UseCases\Domain\Ports\InteractionRepository;
-use App\Src\UseCases\Domain\Ports\PageRepository;
-use App\User;
-use Illuminate\Database\Seeder;
+use App\Src\Context\Domain\AnonymousUser;
+use App\Src\Context\Domain\Interaction;
+use App\Src\Context\Domain\InteractionRepository;
+use App\Src\Context\Domain\RegisteredUser;
 use Faker\Generator as Faker;
+use Illuminate\Database\Seeder;
 
 class PageDataSeeder extends Seeder
 {

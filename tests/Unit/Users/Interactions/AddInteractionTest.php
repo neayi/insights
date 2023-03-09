@@ -5,11 +5,10 @@ namespace Tests\Unit\Users\Interactions;
 
 
 use App\Events\InteractionOnPage;
-use App\Src\UseCases\Domain\Context\Model\AnonymousUser;
-use App\Src\UseCases\Domain\Context\Model\Interaction;
-use App\Src\UseCases\Domain\Context\Model\Page;
-use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
-use App\Src\UseCases\Domain\Exceptions\PageNotFound;
+use App\Src\Context\Domain\AnonymousUser;
+use App\Src\Context\Domain\Interaction;
+use App\Src\Context\Domain\Page;
+use App\Src\Context\Domain\RegisteredUser;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Support\Facades\Event;

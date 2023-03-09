@@ -4,9 +4,9 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
+use App\Src\Context\Domain\Context;
+use App\Src\Context\Domain\ContextRepository;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Context\Model\Context;
-use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\User;
 

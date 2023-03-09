@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Domain\Context\Queries;
 
 
-use App\Src\UseCases\Domain\Ports\PageRepository;
+use App\Src\Context\Domain\PageRepository;
 
 /**
  * Search characteristics in the wiki pages
