@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Src\Context\Application\HandleInteractions;
 use App\Src\Context\Application\Queries\CountInteractionsOnPageQuery;
-use App\Src\Context\Application\Queries\GetFollowersOfPage;
+use App\Src\Context\Application\Queries\GetPageFollowers;
 use App\Src\Context\Application\Queries\GetInteractionsByPageAndUser;
 use App\Src\Context\Application\Queries\GetStatsByDepartment;
 use Illuminate\Http\Request;
@@ -83,7 +83,7 @@ class InteractionController extends Controller
      * @queryParam farming_id string The uuid of a farming characteristic
      * @queryParam cropping_id string The uuid of a cropping characteristic
      */
-    public function followersOfPage($pageId, Request $request, GetFollowersOfPage $getFollowersOfPage)
+    public function followersOfPage($pageId, Request $request, GetPageFollowers $getFollowersOfPage)
     {
         $type = $request->input('type', 'follow');
         $dept = $request->input('dept', null);

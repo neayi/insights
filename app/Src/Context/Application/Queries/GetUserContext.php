@@ -7,7 +7,7 @@ namespace App\Src\Context\Application\Queries;
 use App\Src\Context\Application\Dto\ContextDto;
 use App\Src\Context\Domain\ContextRepository;
 
-class GetContextByUser
+class GetUserContext
 {
     private $contextRepository;
 

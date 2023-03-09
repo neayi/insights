@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Src\Context\Application\Queries\GetContextByUser;
+use App\Src\Context\Application\Queries\GetUserContext;
 use App\Src\UseCases\Domain\Users\GetAvatar;
 use App\User;
 use Illuminate\Routing\Controller as BaseController;
@@ -46,7 +46,7 @@ class UserController extends BaseController
      * Get the context of a user
      * @urlParam id string required the user uuid Example:379189d0-287f-4042-bf81-577deb7696f4
      */
-    public function context(string $uuid, GetContextByUser $contextQueryByUser)
+    public function context(string $uuid, GetUserContext $contextQueryByUser)
     {
         return $contextQueryByUser->execute($uuid);
     }

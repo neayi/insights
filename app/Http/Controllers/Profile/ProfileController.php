@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Src\Context\Application\AddCharacteristicsToContext;
 use App\Src\Context\Application\CreateCharacteristic;
 use App\Src\Context\Application\Queries\GetAllCharacteristics;
-use App\Src\Context\Application\Queries\GetContextByUser;
+use App\Src\Context\Application\Queries\GetUserContext;
 use App\Src\Context\Application\Queries\GetInteractionsByUser;
 use App\Src\Context\Application\Queries\GetUserPractises;
 use App\Src\Context\Application\Queries\SearchCharacteristics;
@@ -29,7 +29,7 @@ use Ramsey\Uuid\Uuid;
 
 class ProfileController extends Controller
 {
-    public function showEdit(GetContextByUser $contextQueryByUser)
+    public function showEdit(GetUserContext $contextQueryByUser)
     {
         $allCharacteristics = app(GetAllCharacteristics::class)->get();
         try {
@@ -64,7 +64,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show(string $username, string $userId, GetContextByUser $contextQueryByUser)
+    public function show(string $username, string $userId, GetUserContext $contextQueryByUser)
     {
         $user = app(GetUser::class)->get($userId)->toArray();
         $routeComment = route('profile.comments.show', ['user_id' => $userId]);

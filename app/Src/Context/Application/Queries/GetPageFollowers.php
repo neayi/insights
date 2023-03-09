@@ -7,7 +7,7 @@ namespace App\Src\Context\Application\Queries;
 use App\Src\Context\Domain\InteractionRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 
-class GetFollowersOfPage
+class GetPageFollowers
 {
     private $interactionRepository;
 

@@ -6,7 +6,7 @@ namespace Tests\Integration\Context;
 
 use App\Src\Context\Application\Dto\CharacteristicDto;
 use App\Src\Context\Application\Dto\ContextDto;
-use App\Src\Context\Application\Queries\GetContextByUser;
+use App\Src\Context\Application\Queries\GetUserContext;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
@@ -25,7 +25,7 @@ class ContextQueryTest extends TestCase
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
         $this->contextRepository->add(new Context(Uuid::uuid4(), 83220, [], 'desc', null, null, 83), $userId1);
 
-        $context = app(GetContextByUser::class)->execute($userId1);
+        $context = app(GetUserContext::class)->execute($userId1);
 
         $contextExpected = new ContextDto('first', 'last', $postalCode = 83220,  [], 'desc', '', '', $userId1, 83);
         self::assertEquals($contextExpected, $context);
@@ -40,7 +40,7 @@ class ContextQueryTest extends TestCase
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
         $this->contextRepository->add(new Context(Uuid::uuid4(), 97400, [], 'desc', '', '', 974), $userId1);
 
-        $context = app(GetContextByUser::class)->execute($userId1);
+        $context = app(GetUserContext::class)->execute($userId1);
 
         $contextExpected = new ContextDto('first', 'last', $postalCode = 97400,  [], 'desc', '', '', $userId1, 974);
         self::assertEquals($contextExpected, $context);
@@ -64,7 +64,7 @@ class ContextQueryTest extends TestCase
         ]);
 
         $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$characteristic1->uuid, $characteristic2->uuid], 'description', null, null, 83), $userId1);
-        $context = app(GetContextByUser::class)->execute($userId1);
+        $context = app(GetUserContext::class)->execute($userId1);
 
         $icon = route('api.icon.serve', ['id' => $characteristic1->uuid]);
         $icon2 = route('api.icon.serve', ['id' => $characteristic2->uuid]);

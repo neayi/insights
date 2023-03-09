@@ -8,7 +8,7 @@ use App\Src\Context\Application\Dto\ContextDto;
 use App\Src\Context\Application\Dto\FollowerDto;
 use App\Src\Context\Application\Dto\InteractionDto;
 use App\Src\Context\Application\Dto\UserDto;
-use App\Src\Context\Application\Queries\GetFollowersOfPage;
+use App\Src\Context\Application\Queries\GetPageFollowers;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Domain\Interaction;
@@ -24,7 +24,7 @@ class FollowersQueryTest extends TestCase
      */
     public function shouldGetEmptyFollowers()
     {
-        $followers = app(GetFollowersOfPage::class)->execute(1);
+        $followers = app(GetPageFollowers::class)->execute(1);
         self::assertEmpty($followers);
     }
 
@@ -43,7 +43,7 @@ class FollowersQueryTest extends TestCase
         $context = new Context('abcd', '83220', [$characteristic1->uuid], '');
         $this->contextRepository->add($context, $user->uuid);
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId);
+        $followers = app(GetPageFollowers::class)->execute($pageId);
 
         $followerDtoExpected = new FollowerDto(
            new UserDto($user->uuid, $user->firstname, $user->lastname),
@@ -77,7 +77,7 @@ class FollowersQueryTest extends TestCase
         $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
         $this->contextRepository->add($context2, $user2->uuid);
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, $type = "do");
+        $followers = app(GetPageFollowers::class)->execute($pageId, $type = "do");
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname),
@@ -110,7 +110,7 @@ class FollowersQueryTest extends TestCase
         $context2 = new Context('abcde', '06000', [$characteristic1->uuid], '', null, null, '06');
         $this->contextRepository->add($context2, $user2->uuid);
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06');
+        $followers = app(GetPageFollowers::class)->execute($pageId, 'follow', '06');
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname),
@@ -148,7 +148,7 @@ class FollowersQueryTest extends TestCase
         $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
         $this->contextRepository->add($context2, $user2->uuid);
 
-        $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', null, null, $characteristic2->uuid);
+        $followers = app(GetPageFollowers::class)->execute($pageId, 'follow', null, null, $characteristic2->uuid);
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user->uuid, $user->firstname, $user->lastname),
