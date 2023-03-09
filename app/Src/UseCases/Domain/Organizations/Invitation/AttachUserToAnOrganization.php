@@ -32,7 +32,7 @@ class AttachUserToAnOrganization
     private function sendMailUserJoinsToAdmin(string $organizationId, User $user): void
     {
         $admins = $this->userRepository->getAdminOfOrganization($organizationId);
-        $fullname = $user->fullname;
+        $fullname = $user->fullname();
         $organization = $this->organizationRepository->get($organizationId);
         foreach ($admins as $admin) {
             Mail::to($admin->email())->send(new UserJoinsOrganizationToAdmin($fullname, $organization->name()));
