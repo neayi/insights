@@ -1,8 +1,10 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Exceptions;
+namespace App\Src\Context\Domain\Exceptions;
 
+
+use App\Src\Shared\Exceptions\NotFound;
 
 class PageNotFound extends NotFound
 {

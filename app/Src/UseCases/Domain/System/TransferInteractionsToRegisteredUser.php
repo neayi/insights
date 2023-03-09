@@ -8,7 +8,7 @@ use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\RegisteredUser;
 use App\Src\Shared\Gateway\AuthGateway;
 
-class SetInteractionToRegisteredUser
+class TransferInteractionsToRegisteredUser
 {
     private $authGateway;
 

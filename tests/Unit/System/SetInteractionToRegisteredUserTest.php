@@ -8,7 +8,7 @@ use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\Interaction;
 use App\Src\Context\Domain\Page;
 use App\Src\Context\Domain\RegisteredUser;
-use App\Src\UseCases\Domain\System\SetInteractionToRegisteredUser;
+use App\Src\UseCases\Domain\System\TransferInteractionsToRegisteredUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class SetInteractionToRegisteredUserTest extends TestCase
         $this->userRepository->add($user);
         $this->authGateway->log($user);
 
-        app(SetInteractionToRegisteredUser::class)->execute();
+        app(TransferInteractionsToRegisteredUser::class)->execute();
 
         $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1);
         $interactionExpected = clone $interaction;
@@ -56,7 +56,7 @@ class SetInteractionToRegisteredUserTest extends TestCase
         $interaction = new Interaction(1, true, false, false);
         $this->interactionRepository->save($anonymousUser, $interaction);
 
-        $state = app(SetInteractionToRegisteredUser::class)->execute();
+        $state = app(TransferInteractionsToRegisteredUser::class)->execute();
         self::assertEquals('nothing_to_do', $state);
     }
 }

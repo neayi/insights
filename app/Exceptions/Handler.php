@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Src\UseCases\Domain\Exceptions\NotFound;
+use App\Src\Shared\Exceptions\NotFound;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;

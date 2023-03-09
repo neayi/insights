@@ -6,11 +6,10 @@ namespace App\Src\Context\Application;
 
 use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\CanInteract;
+use App\Src\Context\Domain\Exceptions\PageNotFound;
 use App\Src\Context\Domain\InteractionRepository;
-use App\Src\Context\Domain\PageRepository;
 use App\Src\Context\Domain\RegisteredUser;
 use App\Src\Shared\Gateway\AuthGateway;
-use App\Src\UseCases\Domain\Exceptions\PageNotFound;
 use Exception;
 
 class HandleInteractions

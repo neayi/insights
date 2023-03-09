@@ -6,9 +6,9 @@ namespace App\Src\UseCases\Domain\Users\Profile;
 
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Domain\ContextRepository;
+use App\Src\Shared\Gateway\GetDepartmentFromPostalCode;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 use Illuminate\Support\Facades\Validator;
 
 class FillWikiUserProfile

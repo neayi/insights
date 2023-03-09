@@ -4,7 +4,7 @@
 namespace App\Exceptions\Domain;
 
 
-use App\Src\UseCases\Domain\Exceptions\NotFound;
+use App\Src\Shared\Exceptions\NotFound;
 
 class UserNotFound extends NotFound
 {

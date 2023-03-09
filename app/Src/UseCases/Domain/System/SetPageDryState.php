@@ -25,5 +25,6 @@ class SetPageDryState
             return;
         }
         $page->setOnDryState();
+        $this->pageRepository->save($page);
     }
 }

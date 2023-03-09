@@ -10,7 +10,7 @@ class MigrateDepartmentNumber extends Migration
         foreach($contexts as $context){
             try {
                 if (!isset($context->deparment_number) || $context->deparment_number == "") {
-                    $geoData = app(\App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode::class)->execute($context->postal_code);
+                    $geoData = app(\App\Src\Shared\Gateway\GetDepartmentFromPostalCode::class)->execute($context->postal_code);
                 }
                 $context->coordinates = $geoData['coordinates'];
                 $context->department_number = $geoData['department_number'];

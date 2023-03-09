@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Exceptions;
+namespace App\Src\Shared\Exceptions;
 
 
 class NotFound extends \Exception

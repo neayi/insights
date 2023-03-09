@@ -4,12 +4,12 @@
 namespace App\Listeners;
 
 
-use App\Src\UseCases\Domain\System\SetInteractionToRegisteredUser;
+use App\Src\UseCases\Domain\System\TransferInteractionsToRegisteredUser;
 
 class SetInteractionToRegisteredUserListener
 {
     public function handle($event)
     {
-        app(SetInteractionToRegisteredUser::class)->execute();
+        app(TransferInteractionsToRegisteredUser::class)->execute();
     }
 }

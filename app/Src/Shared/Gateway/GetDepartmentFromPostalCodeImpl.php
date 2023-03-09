@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\System;
+namespace App\Src\Shared\Gateway;
 
 
 use GuzzleHttp\Client;

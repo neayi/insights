@@ -43,7 +43,6 @@ class Page
     public function setOnDryState()
     {
         $this->dryState = true;
-        app(PageRepository::class)->save($this);
     }
 
     public function createCharacteristicAssociated(): Characteristic
