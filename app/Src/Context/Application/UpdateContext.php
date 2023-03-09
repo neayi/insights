@@ -43,7 +43,9 @@ class UpdateContext
             'structure' => $structure,
             'coordinates' => $geoData['coordinates'],
             'department_number' => $geoData['department_number'],
-        ], $currentUser->id());
+        ]);
+
+        $this->contextRepository->update($context, $currentUser->id());
     }
 
     private function getGeoData(string $postalCode): array

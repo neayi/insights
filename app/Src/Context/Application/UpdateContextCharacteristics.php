@@ -24,7 +24,10 @@ class UpdateContextCharacteristics
     public function execute(array $characteristics)
     {
         $currentUser = $this->authGateway->current();
+
         $context = $this->contextRepository->getByUser($currentUser->id());
         $context->update(['characteristics' => $characteristics], $currentUser->id());
+
+        $this->contextRepository->update($context, $currentUser->id());
     }
 }

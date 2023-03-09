@@ -15,8 +15,6 @@ class Context
     private $departmentNumber;
     private $coordinates;
 
-    private $contextRepository;
-
     public function __construct(
         string $id,
         string $postalCode,
@@ -36,7 +34,6 @@ class Context
         $this->structure = $structure;
         $this->departmentNumber = $departmentNumber;
         $this->coordinates = $coordinates;
-        $this->contextRepository = app(ContextRepository::class);
     }
 
     public function id():string
@@ -44,12 +41,7 @@ class Context
         return $this->uid;
     }
 
-    public function create(string $userId)
-    {
-        $this->contextRepository->add($this, $userId);
-    }
-
-    public function update(array $params, string $userId)
+    public function update(array $params)
     {
         $this->description = $params['description'] ?? $this->description;
         $this->postalCode = $params['postal_code'] ?? $this->postalCode;
@@ -58,13 +50,11 @@ class Context
         $this->structure = $params['structure'] ?? $this->structure;
         $this->departmentNumber = $params['department_number'] ?? $this->departmentNumber;
         $this->coordinates = $params['coordinates'] ?? $this->coordinates;
-        $this->contextRepository->update($this, $userId);
     }
 
-    public function addCharacteristics(array $characteristics, string $userId)
+    public function addCharacteristics(array $characteristics)
     {
         $this->characteristics = array_values(array_unique(array_merge($this->characteristics, $characteristics)));
-        $this->contextRepository->update($this, $userId);
     }
 
     public function toArray()

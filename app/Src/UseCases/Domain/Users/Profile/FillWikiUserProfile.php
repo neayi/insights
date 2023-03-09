@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Domain\Users\Profile;
 
 
 use App\Src\Context\Domain\Context;
+use App\Src\Context\Domain\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
@@ -13,15 +14,18 @@ use Illuminate\Support\Facades\Validator;
 class FillWikiUserProfile
 {
     private $userRepository;
+    private $contextRepository;
     private $identityProvider;
 
     public function __construct(
         UserRepository $userRepository,
-        IdentityProvider $identityProvider
+        IdentityProvider $identityProvider,
+        ContextRepository $contextRepository
     )
     {
         $this->userRepository = $userRepository;
         $this->identityProvider = $identityProvider;
+        $this->contextRepository = $contextRepository;
     }
 
     public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $postcode, array $farmingType = [])
@@ -38,12 +42,12 @@ class FillWikiUserProfile
         $user->update($email, $firstname, $lastname, "");
         $user->addRole($role);
 
-        $exploitationId = $this->identityProvider->id();
+        $contextId = $this->identityProvider->id();
 
         $geoData = app(GetDepartmentFromPostalCode::class)->execute($postcode);
 
         $context = new Context(
-            $exploitationId,
+            $contextId,
             $postcode,
             $farmingType,
             null,
@@ -52,7 +56,7 @@ class FillWikiUserProfile
             $geoData['department_number'] ?? null,
             $geoData['coordinates'] ?? []
         );
-        $context->create($userId);
+        $this->contextRepository->add($context, $userId);
     }
 
     private function validate(string $firstname, string $lastname, string $role, string $email, string $postcode, array $errors = []): void

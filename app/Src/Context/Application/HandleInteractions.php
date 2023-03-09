@@ -15,7 +15,6 @@ use Exception;
 
 class HandleInteractions
 {
-    private $pageRepository;
     private $interactionRepository;
     private $authGateway;
 
@@ -24,12 +23,10 @@ class HandleInteractions
     ];
 
     public function __construct(
-        PageRepository $pageRepository,
         InteractionRepository $interactionRepository,
         AuthGateway $authGateway
     )
     {
-        $this->pageRepository = $pageRepository;
         $this->interactionRepository = $interactionRepository;
         $this->authGateway = $authGateway;
     }

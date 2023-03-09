@@ -25,6 +25,7 @@ class UpdateDescription
     {
         $currentUser = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($currentUser->id());
-        $context->update(['description' => $description], $currentUser->id());
+        $context->update(['description' => $description]);
+        $this->contextRepository->update($context, $currentUser->id());
     }
 }

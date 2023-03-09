@@ -35,6 +35,10 @@ class Page
     {
         return $this->pageId;
     }
+    public function icon(): ?string
+    {
+        return $this->icon;
+    }
 
     public function setOnDryState()
     {
@@ -42,18 +46,16 @@ class Page
         app(PageRepository::class)->save($this);
     }
 
-    public function createCharacteristicAssociated():Characteristic
+    public function createCharacteristicAssociated(): Characteristic
     {
         $type = $this->type === self::TYPE_CULTURE ? Characteristic::FARMING_TYPE : Characteristic::CROPPING_SYSTEM;
-        $characteristic = new Characteristic(
+        return new Characteristic(
             Uuid::uuid4(),
             $type,
             $this->title,
             false,
             $this->pageId
         );
-        $characteristic->create($this->icon);
-        return $characteristic;
     }
 
     public function toArray()

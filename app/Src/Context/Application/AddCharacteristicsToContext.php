@@ -40,9 +40,12 @@ class AddCharacteristicsToContext
             $characteristic = $this->characteristicsRepository->getByPageId($page->pageId());
             if(!isset($characteristic)){
                 $characteristic = $page->createCharacteristicAssociated();
+                $characteristic->create($page->icon());
+                $this->characteristicsRepository->save($characteristic);
             }
             $characteristics[] = $characteristic->id();
         }
-        $context->addCharacteristics($characteristics, $user->id());
+        $context->addCharacteristics($characteristics);
+        $this->contextRepository->update($context, $user->id());
     }
 }
