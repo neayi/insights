@@ -34,8 +34,8 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
     public function getBy(array $conditions): ?Characteristic
     {
         foreach($this->characteristics as $characteristic){
-            $memento = $characteristic->memento();
-            if($memento->type() === $conditions['type'] && $memento->title() === $conditions['title']){
+            $characteristicArray = $characteristic->toArray();
+            if($characteristicArray['type'] === $conditions['type'] && $characteristicArray['title'] === $conditions['title']){
                 return $characteristic;
             }
         }
@@ -45,7 +45,8 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
     public function getByPageId(int $pageId): Characteristic
     {
         foreach($this->characteristics as $characteristic){
-            if($characteristic->pageId() === $pageId){
+            $characteristicArray = $characteristic->toArray();
+            if($characteristicArray['pageId'] === $pageId){
                 return $characteristic;
             }
         }

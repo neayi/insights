@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Src\UseCases\Infra\Sql\Model;
+namespace App\Src\Context\Infrastructure\Model;
 
 
 use App\Src\Context\Domain\Characteristic;
 use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
+use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use App\User;
 use Database\Factories\CharacteristicFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

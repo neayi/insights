@@ -5,6 +5,7 @@ namespace App\Src\UseCases\Infra\Sql\Model;
 
 
 use App\Src\Context\Domain\Context;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\User;
 use Illuminate\Database\Eloquent\Model;

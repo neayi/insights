@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Src\Context\Domain\Characteristic;
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CharacteristicFactory extends Factory

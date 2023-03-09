@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Support\Facades\DB;

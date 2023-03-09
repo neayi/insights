@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Src\UseCases\Infra\Sql;
+namespace App\Src\Context\Infrastructure\Repository;
 
 
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\CharacteristicsRepository;
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 
 class CharacteristicsRepositorySql implements CharacteristicsRepository
 {
@@ -44,18 +44,15 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
 
     public function save(Characteristic $c)
     {
-        $memento = $c->memento();
+        $memento = $c->toArray();
         $characteristicModel = new CharacteristicsModel();
-        $characteristicModel->page_label = $memento->title();
-        $characteristicModel->pretty_page_label = $memento->title();
+        $characteristicModel->page_label = $memento['title'];
+        $characteristicModel->pretty_page_label = $memento['title'];
+        $characteristicModel->code = $memento['title'];
         $characteristicModel->main = false;
         $characteristicModel->priority = 100000;
-        $characteristicModel->uuid = $memento->id();
-        $characteristicModel->code = $memento->title();
-        $characteristicModel->type = $memento->type();
-        $characteristicModel->visible = $memento->visible();
-        $characteristicModel->icon = $memento->icon();
-        $characteristicModel->page_id = $memento->pageId();
+
+        $characteristicModel->fill($c->toArray());
         $characteristicModel->save();
     }
 

@@ -8,12 +8,12 @@ use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Domain\Interaction;
 use App\Src\Context\Domain\RegisteredUser;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Context\Dto\FollowerDto;
 use App\Src\UseCases\Domain\Context\Dto\InteractionDto;
 use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\User;
 use Tests\TestCase;
 

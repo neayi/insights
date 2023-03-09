@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Infra\Sql;
 
 
-use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
+use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
 
 class ReportingCharacteristicSql
