@@ -16,7 +16,7 @@ class GetAllCharacteristics
         $this->characteristicsRepository = $characteristicsRepository;
     }
 
-    public function get()
+    public function get(): array
     {
         $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE);
         $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM);

@@ -32,5 +32,8 @@ class InMemoryPageRepository implements PageRepository
         return $pages;
     }
 
-
+    public function search(string $type, string $search)
+    {
+        // TODO: Implement search() method.
+    }
 }

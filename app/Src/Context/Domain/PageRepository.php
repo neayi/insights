@@ -9,4 +9,5 @@ interface PageRepository
     public function get(string $pageId):?Page;
     public function getByIds(array $pagesId):array;
     public function save(Page $page);
+    public function search(string $type, string $search);
 }
