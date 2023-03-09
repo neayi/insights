@@ -96,7 +96,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FileStorage::class, FsFileStorage::class);
         $this->app->singleton(SocialiteGateway::class, SocialiteGatewayImpl::class);
         $this->app->singleton(HashGen::class, HashGenReal::class);
-        $this->app->singleton(UserRoleRepository::class, UserRoleRepositorySql::class);
         $this->app->singleton(ContextRepository::class, ContextRepositorySql::class);
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
@@ -115,7 +114,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
         $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
-        $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
         $this->app->singleton(PageRepository::class, InMemoryPageRepository::class);
