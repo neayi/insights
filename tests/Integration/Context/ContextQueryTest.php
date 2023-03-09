@@ -4,12 +4,12 @@
 namespace Tests\Integration\Context;
 
 
+use App\Src\Context\Application\Dto\CharacteristicDto;
+use App\Src\Context\Application\Dto\ContextDto;
+use App\Src\Context\Application\Queries\GetContextByUser;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
-use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
-use App\Src\UseCases\Domain\Context\Dto\ContextDto;
-use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

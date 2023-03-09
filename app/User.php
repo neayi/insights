@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Src\Context\Application\Dto\UserDto;
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
-use App\Src\UseCases\Domain\Context\Dto\UserDto;
+use App\Src\Context\Infrastructure\Model\ContextModel;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
 use Illuminate\Auth\MustVerifyEmail;

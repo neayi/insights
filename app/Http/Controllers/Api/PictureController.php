@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Src\UseCases\Domain\Context\Queries\GetIcon;
+use App\Src\Context\Application\Queries\GetIcon;
 use Illuminate\Routing\Controller as BaseController;
 
 class PictureController extends BaseController

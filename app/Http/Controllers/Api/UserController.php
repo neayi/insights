@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
+use App\Src\Context\Application\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Users\GetAvatar;
 use App\User;
 use Illuminate\Routing\Controller as BaseController;

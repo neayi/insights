@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Organizations\Invitation;
 
 
+use App\Src\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use Illuminate\Support\Facades\Validator;
 
 class PrepareInvitationUsersInOrganization

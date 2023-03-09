@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Infra\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

@@ -3,7 +3,7 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Infra\Sql\Model\PageModel;
+use App\Src\Context\Infrastructure\Model\PageModel;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 

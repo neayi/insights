@@ -4,9 +4,9 @@
 namespace Tests\Adapters\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
-use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
-use App\Src\UseCases\Domain\Shared\Model\Picture;
+use App\Src\Shared\Gateway\FileStorage;
+use App\Src\Shared\Gateway\PictureHandler;
+use App\Src\Shared\Model\Picture;
 
 class InMemoryFileStorage implements FileStorage
 {

@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
-use App\Src\UseCases\Domain\Shared\Model\Picture;
+use App\Src\Shared\Gateway\FileStorage;
+use App\Src\Shared\Model\Picture;
 
 class FsFileStorage implements FileStorage
 {

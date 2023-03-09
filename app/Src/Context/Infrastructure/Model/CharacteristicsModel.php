@@ -4,8 +4,8 @@
 namespace App\Src\Context\Infrastructure\Model;
 
 
+use App\Src\Context\Application\Dto\CharacteristicDto;
 use App\Src\Context\Domain\Characteristic;
-use App\Src\UseCases\Domain\Context\Dto\CharacteristicDto;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use App\User;
 use Database\Factories\CharacteristicFactory;

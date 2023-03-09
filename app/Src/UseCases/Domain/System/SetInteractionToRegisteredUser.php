@@ -6,7 +6,7 @@ namespace App\Src\UseCases\Domain\System;
 
 use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\RegisteredUser;
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 
 class SetInteractionToRegisteredUser
 {

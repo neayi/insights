@@ -4,7 +4,7 @@
 namespace App\Src\Context\Domain;
 
 
-use App\Src\UseCases\Domain\Context\Dto\ContextDto;
+use App\Src\Context\Application\Dto\ContextDto;
 
 interface ContextRepository
 {

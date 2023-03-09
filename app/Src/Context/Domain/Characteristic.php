@@ -31,7 +31,6 @@ class Characteristic
             copy(storage_path('app/'.$icon), storage_path('app/public/characteristics/'.$this->id.'.png'));
             $this->icon = 'public/characteristics/'.$this->id.'.png';
         }
-        app(CharacteristicsRepository::class)->save($this);
     }
 
     public function toArray(): array

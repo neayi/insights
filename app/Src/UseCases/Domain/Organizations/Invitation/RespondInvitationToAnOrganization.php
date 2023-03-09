@@ -4,11 +4,11 @@
 namespace App\Src\UseCases\Domain\Organizations\Invitation;
 
 
+use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Organizations\Model\Organization;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 
 class RespondInvitationToAnOrganization

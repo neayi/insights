@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Infra\Gateway;
 
 
+use App\Src\Shared\Gateway\SocialiteGateway;
 use App\Src\UseCases\Domain\Auth\SocialiteUser;
-use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteGatewayImpl implements SocialiteGateway

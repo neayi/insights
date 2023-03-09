@@ -11,7 +11,7 @@ use App\Listeners\SetInteractionToRegisteredUserListener;
 use App\Listeners\SetPageDryStateListener;
 use App\Listeners\SetUserToSyncOnDiscourse;
 use App\Observers\PageObserver;
-use App\Src\UseCases\Infra\Sql\Model\PageModel;
+use App\Src\Context\Infrastructure\Model\PageModel;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;

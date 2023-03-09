@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Queries\CountInteractionsOnPageQuery;
-use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
-use App\Src\UseCases\Domain\Context\Queries\GetStatsByDepartment;
-use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByPageAndUser;
-use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
+use App\Src\Context\Application\HandleInteractions;
+use App\Src\Context\Application\Queries\CountInteractionsOnPageQuery;
+use App\Src\Context\Application\Queries\GetFollowersOfPage;
+use App\Src\Context\Application\Queries\GetInteractionsByPageAndUser;
+use App\Src\Context\Application\Queries\GetStatsByDepartment;
 use Illuminate\Http\Request;
 
 /**

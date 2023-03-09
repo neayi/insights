@@ -6,17 +6,17 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Src\Context\Application\AddCharacteristicsToContext;
 use App\Src\Context\Application\CreateCharacteristic;
-use App\Src\Context\Application\UpdateCharacteristics;
+use App\Src\Context\Application\Queries\GetAllCharacteristics;
+use App\Src\Context\Application\Queries\GetContextByUser;
+use App\Src\Context\Application\Queries\GetInteractionsByUser;
+use App\Src\Context\Application\Queries\GetUserPractises;
+use App\Src\Context\Application\Queries\SearchCharacteristics;
+use App\Src\Context\Application\Queries\SearchStructure;
 use App\Src\Context\Application\UpdateContext;
+use App\Src\Context\Application\UpdateContextCharacteristics;
 use App\Src\Context\Application\UpdateDescription;
 use App\Src\Context\Domain\Characteristic;
-use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
-use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
-use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByUser;
-use App\Src\UseCases\Domain\Context\Queries\GetUserPractises;
-use App\Src\UseCases\Domain\Context\Queries\SearchCharacteristics;
-use App\Src\UseCases\Domain\Context\Queries\SearchStructure;
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
 use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\RemoveAvatar;
@@ -141,7 +141,7 @@ class ProfileController extends Controller
         return [];
     }
 
-    public function updateCharacteristics(Request $request, UpdateCharacteristics $updateCharacteristics)
+    public function updateCharacteristics(Request $request, UpdateContextCharacteristics $updateCharacteristics)
     {
         $characteristics = $request->input('farming_type', []);
         $updateCharacteristics->execute($characteristics);

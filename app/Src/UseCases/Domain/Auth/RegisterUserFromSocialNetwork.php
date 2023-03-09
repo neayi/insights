@@ -5,8 +5,8 @@ namespace App\Src\UseCases\Domain\Auth;
 
 
 use App\Exceptions\Domain\ProviderNotSupported;
+use App\Src\Shared\Gateway\SocialiteGateway;
 use App\Src\UseCases\Domain\Auth\Services\RegisterUserFromSocialNetworkService;
-use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 
 class RegisterUserFromSocialNetwork
 {

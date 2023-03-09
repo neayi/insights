@@ -5,7 +5,7 @@ namespace App\Src\Context\Application;
 
 
 use App\Src\Context\Domain\ContextRepository;
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 
 class UpdateDescription
 {

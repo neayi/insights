@@ -4,8 +4,8 @@
 namespace App\Src\UseCases\Domain\Organizations\Model;
 
 
+use App\Src\Shared\Model\Picture;
 use App\Src\UseCases\Domain\Ports\OrganizationRepository;
-use App\Src\UseCases\Domain\Shared\Model\Picture;
 
 class Organization
 {

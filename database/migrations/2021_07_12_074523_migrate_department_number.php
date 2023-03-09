@@ -6,7 +6,7 @@ class MigrateDepartmentNumber extends Migration
 {
     public function up()
     {
-        $contexts = \App\Src\UseCases\Infra\Sql\Model\ContextModel::all();
+        $contexts = \App\Src\Context\Infrastructure\Model\ContextModel::all();
         foreach($contexts as $context){
             try {
                 if (!isset($context->deparment_number) || $context->deparment_number == "") {

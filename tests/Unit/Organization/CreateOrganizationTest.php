@@ -4,10 +4,10 @@
 namespace Tests\Unit\Organization;
 
 
+use App\Src\Shared\Gateway\PictureHandler;
 use App\Src\UseCases\Domain\Organizations\CreateOrganization;
 use App\Src\UseCases\Domain\Organizations\Model\Address;
 use App\Src\UseCases\Domain\Organizations\Model\Organization;
-use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

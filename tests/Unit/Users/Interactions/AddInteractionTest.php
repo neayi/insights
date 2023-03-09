@@ -5,12 +5,12 @@ namespace Tests\Unit\Users\Interactions;
 
 
 use App\Events\InteractionOnPage;
+use App\Src\Context\Application\HandleInteractions;
 use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\Interaction;
 use App\Src\Context\Domain\Page;
 use App\Src\Context\Domain\RegisteredUser;
 use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 

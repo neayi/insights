@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Profile;
 
 
 use App\Http\Controllers\Controller;
-use App\Src\UseCases\Domain\Context\Queries\GetLastWikiUserComments;
+use App\Src\Context\Application\Queries\GetLastWikiUserComments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

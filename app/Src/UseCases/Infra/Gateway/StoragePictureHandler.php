@@ -4,7 +4,7 @@
 namespace App\Src\UseCases\Infra\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
+use App\Src\Shared\Gateway\PictureHandler;
 use Intervention\Image\Facades\Image;
 
 class StoragePictureHandler implements PictureHandler

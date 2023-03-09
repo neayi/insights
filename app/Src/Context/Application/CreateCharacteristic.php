@@ -7,7 +7,7 @@ namespace App\Src\Context\Application;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\CharacteristicsRepository;
 use App\Src\Context\Domain\ContextRepository;
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 
 class CreateCharacteristic
 {
@@ -32,6 +32,7 @@ class CreateCharacteristic
         if(!isset($characteristic)){
             $characteristic = new Characteristic($id, $type, $title, false);
             $characteristic->create();
+            $this->characteristicRepository->save($characteristic);
         }
 
         $user = $this->authGateway->current();

@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
+use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 
 class InMemoryAuthGateway implements AuthGateway

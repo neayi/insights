@@ -4,7 +4,7 @@
 namespace Tests\Adapters\Gateway;
 
 
-use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
+use App\Src\Shared\Gateway\PictureHandler;
 
 class InMemoryPictureHandler implements PictureHandler
 {

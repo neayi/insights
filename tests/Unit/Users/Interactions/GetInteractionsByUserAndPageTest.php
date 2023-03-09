@@ -4,11 +4,11 @@
 namespace Tests\Unit\Users\Interactions;
 
 
+use App\Src\Context\Application\Queries\GetInteractionsByPageAndUser;
 use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\Interaction;
 use App\Src\Context\Domain\Page;
 use App\Src\Context\Domain\RegisteredUser;
-use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByPageAndUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
 
