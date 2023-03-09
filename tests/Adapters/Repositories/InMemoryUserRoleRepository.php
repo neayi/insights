@@ -3,8 +3,8 @@
 
 namespace Tests\Adapters\Repositories;
 
-use App\Src\UseCases\Domain\Ports\UserRoleRepository;
-use App\Src\UseCases\Domain\Users\Dto\Role;
+use App\Src\Users\Dto\Role;
+use App\Src\Users\UserRoleRepository;
 use Illuminate\Support\Collection;
 
 class InMemoryUserRoleRepository implements UserRoleRepository

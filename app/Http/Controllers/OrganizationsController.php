@@ -4,14 +4,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Common\Form\OrganizationForm;
-use App\Src\UseCases\Domain\Organizations\CreateOrganization;
-use App\Src\UseCases\Domain\Organizations\EditOrganization;
-use App\Src\UseCases\Domain\Organizations\GetOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\AttachUserToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\InviteUsersInOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\PrepareInvitationUsersInOrganization;
-use App\Src\UseCases\Domain\Organizations\Invitation\RespondInvitationToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\ListOrganizations;
+use App\Src\Organizations\CreateOrganization;
+use App\Src\Organizations\EditOrganization;
+use App\Src\Organizations\GetOrganization;
+use App\Src\Organizations\Invitation\AttachUserToAnOrganization;
+use App\Src\Organizations\Invitation\InviteUsersInOrganization;
+use App\Src\Organizations\Invitation\PrepareInvitationUsersInOrganization;
+use App\Src\Organizations\Invitation\RespondInvitationToAnOrganization;
+use App\Src\Organizations\ListOrganizations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

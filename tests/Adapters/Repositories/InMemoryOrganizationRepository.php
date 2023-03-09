@@ -3,8 +3,8 @@
 
 namespace Tests\Adapters\Repositories;
 
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
+use App\Src\Organizations\Model\Organization;
+use App\Src\Organizations\OrganizationRepository;
 
 class InMemoryOrganizationRepository implements OrganizationRepository
 {

@@ -3,7 +3,7 @@
 
 namespace App\Src\Shared\Gateway;
 
-use App\Src\UseCases\Domain\Auth\SocialiteUser;
+use App\Src\Auth\SocialiteUser;
 
 interface SocialiteGateway
 {

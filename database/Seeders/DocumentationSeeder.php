@@ -6,7 +6,7 @@ namespace Database\Seeders;
 
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
 use App\Src\UseCases\Domain\Agricultural\Dto\GetFarmingType;
-use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
+use App\Src\Users\Profile\FillWikiUserProfile;
 use App\User;
 use Illuminate\Database\Seeder;
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
+use App\Src\Users\Infrastructure\Model\UserSyncDiscourseModel;
 use Illuminate\Database\Migrations\Migration;
 
 class AskSyncUsersDiscourse extends Migration

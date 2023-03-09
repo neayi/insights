@@ -5,8 +5,8 @@ namespace Tests\Unit\Users;
 
 
 use App\Exceptions\Domain\UserNotFound;
-use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\GetUser;
+use App\Src\Users\GetUser;
+use App\Src\Users\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

@@ -4,7 +4,7 @@
 namespace App\Src\Context\Application\Queries;
 
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\Users\UserRepository;
 use GuzzleHttp\Client;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;

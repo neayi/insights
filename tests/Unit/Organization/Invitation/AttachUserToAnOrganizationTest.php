@@ -6,10 +6,10 @@ namespace Tests\Unit\Organization\Invitation;
 
 use App\Mail\UserJoinsOrganizationToAdmin;
 use App\Mail\UserJoinsOrganizationToUser;
-use App\Src\UseCases\Domain\Organizations\Invitation\AttachUserToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
-use App\Src\UseCases\Domain\User;
+use App\Src\Organizations\Invitation\AttachUserToAnOrganization;
+use App\Src\Organizations\Model\Address;
+use App\Src\Organizations\Model\Organization;
+use App\Src\Users\User;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

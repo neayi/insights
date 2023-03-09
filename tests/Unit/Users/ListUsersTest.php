@@ -4,9 +4,9 @@
 namespace Tests\Unit\Users;
 
 
-use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\ListUsers;
-use App\Src\UseCases\Domain\Users\UserDto;
+use App\Src\Users\ListUsers;
+use App\Src\Users\User;
+use App\Src\Users\UserDto;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

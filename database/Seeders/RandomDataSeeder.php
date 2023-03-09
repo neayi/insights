@@ -3,10 +3,10 @@ namespace Database\Seeders;
 
 use App\Src\UseCases\Domain\Address;
 use App\Src\UseCases\Domain\Organization;
-use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\EditUserStats;
-use Illuminate\Database\Seeder;
+use App\Src\Users\EditUserStats;
+use App\Src\Users\User;
 use Faker\Generator as Faker;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 

@@ -4,7 +4,7 @@
 namespace App\Listeners;
 
 
-use App\Src\UseCases\Domain\System\TransferInteractionsToRegisteredUser;
+use App\Src\Context\Application\TransferInteractionsToRegisteredUser;
 
 class SetInteractionToRegisteredUserListener
 {

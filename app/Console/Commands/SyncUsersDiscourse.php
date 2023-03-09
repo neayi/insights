@@ -4,14 +4,11 @@
 namespace App\Console\Commands;
 
 
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
+use App\Src\Users\Infrastructure\Model\UserSyncDiscourseModel;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Type\Integer;
-
-use function Psy\debug;
 
 class SyncUsersDiscourse extends Command
 {

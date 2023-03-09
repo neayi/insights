@@ -4,8 +4,8 @@
 namespace Tests\Unit\Auth;
 
 
-use App\Src\UseCases\Domain\Auth\Register;
-use App\Src\UseCases\Domain\User;
+use App\Src\Auth\Register;
+use App\Src\Users\User;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

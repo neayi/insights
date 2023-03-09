@@ -5,8 +5,8 @@ namespace Tests\Unit\Auth;
 
 
 use App\Exceptions\Domain\ProviderMissing;
-use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
-use App\Src\UseCases\Domain\User;
+use App\Src\Auth\RegisterUserAfterErrorWithSocialNetwork;
+use App\Src\Users\User;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

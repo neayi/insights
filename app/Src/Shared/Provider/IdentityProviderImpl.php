@@ -4,7 +4,7 @@
 namespace App\Src\Shared\Provider;
 
 
-use App\Src\UseCases\Domain\Ports\IdentityProvider;
+use App\Src\Shared\IdentityProvider;
 use Ramsey\Uuid\Uuid;
 
 class IdentityProviderImpl implements IdentityProvider

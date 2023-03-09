@@ -6,7 +6,7 @@ namespace Tests\Unit\Context;
 
 use App\Src\Context\Application\UpdateContext;
 use App\Src\Context\Domain\Context;
-use App\Src\UseCases\Domain\User;
+use App\Src\Users\User;
 use Tests\TestCase;
 
 class UpdateMainDataTest  extends TestCase

@@ -4,7 +4,7 @@
 namespace App\Listeners;
 
 
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
+use App\Src\Users\Infrastructure\Model\UserSyncDiscourseModel;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Log;
 

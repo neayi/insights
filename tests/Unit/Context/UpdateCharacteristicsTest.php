@@ -6,7 +6,7 @@ namespace Tests\Unit\Context;
 
 use App\Src\Context\Application\UpdateContextCharacteristics;
 use App\Src\Context\Domain\Context;
-use App\Src\UseCases\Domain\User;
+use App\Src\Users\User;
 use Tests\TestCase;
 
 class UpdateCharacteristicsTest  extends TestCase

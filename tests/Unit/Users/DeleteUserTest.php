@@ -5,8 +5,8 @@ namespace Tests\Unit\Users;
 
 
 use App\Events\UserDeleted;
-use App\Src\UseCases\Domain\User;
-use App\Src\UseCases\Domain\Users\DeleteUser;
+use App\Src\Users\DeleteUser;
+use App\Src\Users\User;
 use Illuminate\Support\Facades\Event;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

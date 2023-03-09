@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Src\UseCases\Domain\Auth\Register;
-use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
-use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
+use App\Src\Auth\Register;
+use App\Src\Auth\RegisterUserAfterErrorWithSocialNetwork;
+use App\Src\Auth\RegisterUserFromSocialNetwork;
 use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;

@@ -4,11 +4,11 @@
 namespace Tests\Unit\Organization\Invitation;
 
 
-use App\Src\UseCases\Domain\Organizations\Invitation\RespondInvitationToAnOrganization;
-use App\Src\UseCases\Domain\Organizations\Model\Address;
-use App\Src\UseCases\Domain\Organizations\Model\Invitation;
-use App\Src\UseCases\Domain\Organizations\Model\Organization;
-use App\Src\UseCases\Domain\User;
+use App\Src\Organizations\Invitation\RespondInvitationToAnOrganization;
+use App\Src\Organizations\Model\Address;
+use App\Src\Organizations\Model\Invitation;
+use App\Src\Organizations\Model\Organization;
+use App\Src\Users\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 

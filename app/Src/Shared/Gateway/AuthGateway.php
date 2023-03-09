@@ -4,7 +4,7 @@
 namespace App\Src\Shared\Gateway;
 
 
-use App\Src\UseCases\Domain\User;
+use App\Src\Users\User;
 
 interface AuthGateway
 {

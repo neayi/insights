@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\Users\EditUserStats;
+use App\Src\Users\EditUserStats;
+use App\Src\Users\UserRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

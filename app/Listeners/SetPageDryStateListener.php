@@ -5,7 +5,7 @@ namespace App\Listeners;
 
 
 use App\Events\InteractionOnPage;
-use App\Src\UseCases\Domain\System\SetPageDryState;
+use App\Src\Context\Application\SetPageDryState;
 
 class SetPageDryStateListener
 {

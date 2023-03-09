@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Src\Context\Application\Queries\GetAllCharacteristics;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Shared\Gateway\AuthGateway;
-use App\Src\UseCases\Domain\Users\Dto\GetUserRole;
-use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
+use App\Src\Users\Dto\GetUserRole;
+use App\Src\Users\Profile\FillWikiUserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

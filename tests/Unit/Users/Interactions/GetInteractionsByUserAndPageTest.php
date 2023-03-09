@@ -9,7 +9,7 @@ use App\Src\Context\Domain\AnonymousUser;
 use App\Src\Context\Domain\Interaction;
 use App\Src\Context\Domain\Page;
 use App\Src\Context\Domain\RegisteredUser;
-use App\Src\UseCases\Domain\User;
+use App\Src\Users\User;
 use Tests\TestCase;
 
 class GetInteractionsByUserAndPageTest extends TestCase

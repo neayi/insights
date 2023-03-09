@@ -3,8 +3,8 @@
 
 namespace Tests\Adapters\Repositories;
 
-use App\Src\UseCases\Domain\Organizations\Model\Invitation;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
+use App\Src\Organizations\InvitationRepository;
+use App\Src\Organizations\Model\Invitation;
 
 class InMemoryInvitationRepository implements InvitationRepository
 {
