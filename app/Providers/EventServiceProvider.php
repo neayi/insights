@@ -30,9 +30,6 @@ class EventServiceProvider extends ServiceProvider
         UserDeleted::class => [
             AnonymizeUserResponse::class
         ],
-        UserLeaveOrganization::class => [
-            AnonymizeUserResponse::class
-        ],
         Verified::class => [
             SetUserToSyncOnDiscourse::class
         ]

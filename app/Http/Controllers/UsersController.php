@@ -5,14 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Common\Form\UserForm;
-use App\Src\Organizations\GetOrganization;
-use App\Src\Organizations\GrantUserAsAdminOrganization;
-use App\Src\Organizations\Invitation\DeleteUserFromOrganization;
-use App\Src\Organizations\RevokeUserAsAdminOrganization;
 use App\Src\Users\DeleteUser;
 use App\Src\Users\EditUser;
-use App\Src\Users\GetUser;
-use App\Src\Users\GetUserStats;
 use App\Src\Users\ListUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,39 +42,10 @@ class UsersController extends Controller
         return format($total, $list);
     }
 
-    public function editShowForm(string $userId, GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)
-    {
-        $user = $getUser->get($userId);
-        if($user->organizationId() !== null) {
-            $organization = $getOrganization->get($user->organizationId());
-        }
-        $stats = $getUserStats->get($userId);
-        return view('users/edit_form', [
-            'user' => $user->toArray(),
-            'stats' => $stats->toArray(),
-            'organization' => isset($organization) ? $organization->toArray() : null,
-            'action' => route('user.edit', ['id' => $userId])
-        ]);
-    }
-
     public function editProcess(string $userId, Request $request, EditUser $editUser, UserForm $form)
     {
         list($firstname, $lastname, $email, $picture) = $form->process();
         $editUser->edit($userId, $email, $firstname, $lastname, $picture);
-        $request->session()->flash('notif_msg', __('users.message.user.updated'));
-        return redirect()->back();
-    }
-
-    public function grantAsAdmin(string $userId, string $organizationId, Request $request, GrantUserAsAdminOrganization $grantUserAsAdminOrganization)
-    {
-        $grantUserAsAdminOrganization->grant($userId, $organizationId);
-        $request->session()->flash('notif_msg', __('users.message.user.updated'));
-        return redirect()->back();
-    }
-
-    public function revokeAsAdmin(string $userId, string $organizationId, Request $request, RevokeUserAsAdminOrganization $grantUserAsAdminOrganization)
-    {
-        $grantUserAsAdminOrganization->revoke($userId, $organizationId);
         $request->session()->flash('notif_msg', __('users.message.user.updated'));
         return redirect()->back();
     }
@@ -97,12 +62,5 @@ class UsersController extends Controller
         }
         $request->session()->flash('notif_msg', __('users.message.user.deleted'));
         return redirect()->route('home');
-    }
-
-    public function leaveOrganization(string $userId, Request $request, DeleteUserFromOrganization $deleteUserFromOrganization)
-    {
-        $deleteUserFromOrganization->delete($userId);
-        $request->session()->flash('notif_msg', __('users.message.user.updated'));
-        return redirect()->back();
     }
 }

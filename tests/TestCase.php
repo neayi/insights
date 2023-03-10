@@ -23,8 +23,6 @@ abstract class TestCase extends BaseTestCase
 
     protected $contextRepository;
     protected $userRepository;
-    protected $organizationRepository;
-    protected $invitationRepository;
     protected $authGateway;
     protected $socialiteGateway;
     protected $fileStorage;
@@ -37,8 +35,6 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->contextRepository = $this->contextRepository();
         $this->userRepository = $this->userRepository();
-        $this->organizationRepository = $this->organizationRepository();
-        $this->invitationRepository = $this->invitationRepository();
         $this->characteristicRepository = $this->characteristicRepository();
         $this->authGateway = $this->authGateway();
         $this->socialiteGateway = $this->socialiteGateway();
@@ -58,16 +54,6 @@ abstract class TestCase extends BaseTestCase
     private function contextRepository():ContextRepository
     {
         return app(ContextRepository::class);
-    }
-
-    private function organizationRepository():OrganizationRepository
-    {
-        return app(OrganizationRepository::class);
-    }
-
-    private function invitationRepository():InvitationRepository
-    {
-        return app(InvitationRepository::class);
     }
 
     private function authGateway():AuthGateway

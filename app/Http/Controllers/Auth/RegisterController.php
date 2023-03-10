@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use App\Src\Auth\Register;
 use App\Src\Auth\RegisterUserAfterErrorWithSocialNetwork;
 use App\Src\Auth\RegisterUserFromSocialNetwork;
-use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -43,9 +42,6 @@ class RegisterController extends Controller
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
 
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
         return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
@@ -55,10 +51,6 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
-
         return Validator::make($data, [
             //'g-recaptcha-response' => 'required|captcha',
             'email' => ['required',
@@ -86,9 +78,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         $this->guard()->login($user, true);
-        if($request->session()->has('should_attach_to_organization')){
-            app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
-        }
         $user = Auth::user();
 
         if($user->context_id === null) {
