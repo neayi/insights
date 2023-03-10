@@ -125,11 +125,11 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('done', true)
             ->get();
         foreach ($records as $record){
-            $practises[] = new PractiseDto(
+            $practises[] = [
                 $record->page_id,
                 $record->page->title ?? '',
                 $record->start_done_at ?? null
-            );
+            ];
         }
         return $practises ?? [];
     }
