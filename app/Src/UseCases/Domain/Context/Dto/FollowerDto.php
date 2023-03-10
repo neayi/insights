@@ -14,7 +14,7 @@ class FollowerDto extends Dto
 
     public function __construct(
         UserDto $userDto,
-        ContextDto $contextDto,
+        ?ContextDto $contextDto,
         InteractionDto $interactionDto
     )
     {
