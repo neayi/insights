@@ -66,9 +66,9 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $email = isset($data['email']) ? $data['email'] : '';
-        $firstname = isset($data['firstname']) ? $data['firstname'] : '';
-        $lastname = isset($data['lastname']) ? $data['lastname'] : '';
+        $email = $data['email'] ?? '';
+        $firstname = $data['firstname'] ?? '';
+        $lastname = $data['lastname'] ?? '';
         $password = $data['password'] !== null ? $data['password'] : '';
         $passwordConfirmation = $data['password_confirmation'] !== null ? $data['password_confirmation'] : '';
         $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);

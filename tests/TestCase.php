@@ -11,7 +11,7 @@ use App\Src\Organizations\OrganizationRepository;
 use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\Shared\Gateway\FileStorage;
 use App\Src\Shared\Gateway\SocialiteGateway;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\UserRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Event;

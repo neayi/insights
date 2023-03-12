@@ -7,7 +7,7 @@ namespace App\Src\Context\Application;
 use App\Src\Context\Domain\ContextRepository;
 use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\Shared\Gateway\GetDepartmentFromPostalCode;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\UserRepository;
 
 class UpdateContext
 {

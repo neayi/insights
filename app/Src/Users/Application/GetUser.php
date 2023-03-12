@@ -1,10 +1,12 @@
 <?php
 
 
-namespace App\Src\Users;
+namespace App\Src\Users\Application;
 
 
 use App\Exceptions\Domain\UserNotFound;
+use App\Src\Users\Domain\User;
+use App\Src\Users\Domain\UserRepository;
 
 class GetUser
 {

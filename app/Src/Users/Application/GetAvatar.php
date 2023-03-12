@@ -1,9 +1,11 @@
 <?php
 
 
-namespace App\Src\Users;
+namespace App\Src\Users\Application;
 
 
+use App\Src\Users\Domain\User;
+use App\Src\Users\Domain\UserRepository;
 use Intervention\Image\Facades\Image;
 use Laravolt\Avatar\Facade as Avatar;
 

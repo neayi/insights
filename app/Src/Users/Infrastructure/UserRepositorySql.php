@@ -3,9 +3,9 @@
 
 namespace App\Src\Users\Infrastructure;
 
-use App\Src\Users\Stats;
-use App\Src\Users\User;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\Stats;
+use App\Src\Users\Domain\User;
+use App\Src\Users\Domain\UserRepository;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\DB;
 

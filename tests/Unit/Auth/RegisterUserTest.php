@@ -5,7 +5,7 @@ namespace Tests\Unit\Auth;
 
 
 use App\Src\Auth\Register;
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 

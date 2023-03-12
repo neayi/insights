@@ -6,7 +6,7 @@ namespace Tests\Integration\Repositories;
 
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Tests\TestCase;
 
 class ContextRepositoryTest extends TestCase

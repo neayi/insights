@@ -5,8 +5,8 @@ namespace Tests\Unit\Users;
 
 
 use App\Exceptions\Domain\UserNotFound;
-use App\Src\Users\EditUser;
-use App\Src\Users\User;
+use App\Src\Users\Application\EditUser;
+use App\Src\Users\Domain\User;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

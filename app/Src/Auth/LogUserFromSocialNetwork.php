@@ -8,7 +8,7 @@ use App\Exceptions\Domain\ProviderNotSupported;
 use App\Src\Auth\Services\RegisterUserFromSocialNetworkService;
 use App\Src\Shared\Gateway\AuthGateway;
 use App\Src\Shared\Gateway\SocialiteGateway;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\UserRepository;
 
 class LogUserFromSocialNetwork
 {

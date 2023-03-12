@@ -4,7 +4,7 @@
 namespace App\Src\Auth;
 
 
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;

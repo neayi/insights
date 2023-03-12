@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\Users;
+namespace App\Src\Users\Domain;
 
 
 interface UserRepository

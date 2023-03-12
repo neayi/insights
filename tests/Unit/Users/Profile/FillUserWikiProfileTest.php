@@ -6,8 +6,8 @@ namespace Tests\Unit\Users\Profile;
 
 use App\Src\Context\Domain\Context;
 use App\Src\Shared\IdentityProvider;
-use App\Src\Users\Profile\FillWikiUserProfile;
-use App\Src\Users\User;
+use App\Src\Users\Application\FillWikiUserProfile;
+use App\Src\Users\Domain\User;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;

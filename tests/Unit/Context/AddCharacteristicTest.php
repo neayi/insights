@@ -8,7 +8,7 @@ use App\Src\Context\Application\AddCharacteristicsToContext;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Domain\Page;
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Tests\TestCase;
 
 class AddCharacteristicTest extends TestCase

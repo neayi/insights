@@ -7,7 +7,7 @@ namespace Tests\Unit\Context;
 use App\Src\Context\Application\CreateCharacteristic;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Tests\TestCase;
 
 class CreateCharacteristicTest extends TestCase

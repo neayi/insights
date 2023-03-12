@@ -7,8 +7,8 @@ namespace App\Src\Auth\Services;
 use App\Src\Auth\SocialiteUser;
 use App\Src\Shared\Gateway\FileStorage;
 use App\Src\Shared\Model\Picture;
-use App\Src\Users\User;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\User;
+use App\Src\Users\Domain\UserRepository;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 

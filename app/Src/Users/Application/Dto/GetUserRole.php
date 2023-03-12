@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\Users\Dto;
+namespace App\Src\Users\Application\Dto;
 
 class GetUserRole
 {

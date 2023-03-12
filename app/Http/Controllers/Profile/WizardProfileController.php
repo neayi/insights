@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Src\Context\Application\Queries\GetAllCharacteristics;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Shared\Gateway\AuthGateway;
-use App\Src\Users\Dto\GetUserRole;
-use App\Src\Users\Profile\FillWikiUserProfile;
+use App\Src\Users\Application\Dto\GetUserRole;
+use App\Src\Users\Application\FillWikiUserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Auth;
  */
 class WizardProfileController extends Controller
 {
-    public function showWizard()
+    public function showWizard(GetAllCharacteristics $getAllCharacteristics, AuthGateway $authGateway, GetUserRole $getUserRole)
     {
-        $characteristics = app(GetAllCharacteristics::class)->get();
-        $user = app(AuthGateway::class)->current()->toArray();
-        $roles = app(GetUserRole::class)->get()->toArray();
+        $characteristics = $getAllCharacteristics->get();
+        $user = $authGateway->current()->toArray();
+        $roles = $getUserRole->get()->toArray();
 
         return view('users.wizard-profile.wizard', [
             'userRoles' => $roles,

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Src\Users\Profile;
+namespace App\Src\Users\Application;
 
 
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Domain\ContextRepository;
 use App\Src\Shared\Gateway\GetDepartmentFromPostalCode;
 use App\Src\Shared\IdentityProvider;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\UserRepository;
 use Illuminate\Support\Facades\Validator;
 
 class FillWikiUserProfile

@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Src\Context\Application\Queries\GetUserContext;
-use App\Src\Users\GetAvatar;
+use App\Src\Users\Application\GetAvatar;
 use App\User;
 use Illuminate\Routing\Controller as BaseController;
 

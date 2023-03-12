@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Src\Users;
+namespace App\Src\Users\Domain;
 
 
 use App\Events\UserDeleted;
@@ -58,11 +58,6 @@ class User
     public function fullname():string
     {
         return $this->firstname.' '.$this->lastname;
-    }
-
-    public function organizationId():?string
-    {
-        return $this->organizationId;
     }
 
     public function provider(string $provider, string $providerId):bool

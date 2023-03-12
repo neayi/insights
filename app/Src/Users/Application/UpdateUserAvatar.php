@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Src\Users;
+namespace App\Src\Users\Application;
 
 
+use App\Src\Users\Domain\UserRepository;
 use Illuminate\Support\Facades\Validator;
 
 class UpdateUserAvatar

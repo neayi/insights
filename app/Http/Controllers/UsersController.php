@@ -5,19 +5,13 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Common\Form\UserForm;
-use App\Src\Users\DeleteUser;
-use App\Src\Users\EditUser;
-use App\Src\Users\ListUsers;
+use App\Src\Users\Application\DeleteUser;
+use App\Src\Users\Application\EditUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function showListUsers(string $organizationId)
-    {
-        return view('users/list', ['organization_id' => $organizationId]);
-    }
-
     public function editProcess(string $userId, Request $request, EditUser $editUser, UserForm $form)
     {
         list($firstname, $lastname, $email, $picture) = $form->process();

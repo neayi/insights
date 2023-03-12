@@ -3,9 +3,9 @@
 
 namespace Tests\Adapters\Repositories;
 
-use App\Src\Users\Stats;
-use App\Src\Users\User;
-use App\Src\Users\UserRepository;
+use App\Src\Users\Domain\Stats;
+use App\Src\Users\Domain\User;
+use App\Src\Users\Domain\UserRepository;
 
 class InMemoryUserRepository implements UserRepository
 {

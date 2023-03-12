@@ -10,7 +10,7 @@ use App\Src\Context\Application\Queries\GetUserContext;
 use App\Src\Context\Domain\Characteristic;
 use App\Src\Context\Domain\Context;
 use App\Src\Context\Infrastructure\Model\CharacteristicsModel;
-use App\Src\Users\User;
+use App\Src\Users\Domain\User;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
