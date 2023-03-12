@@ -5,10 +5,7 @@ namespace App\Src\Users;
 
 
 use App\Events\UserDeleted;
-use App\Events\UserLeaveOrganization;
-use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\Shared\Model\Picture;
-use Illuminate\Support\Facades\Mail;
 
 class User
 {
@@ -87,11 +84,6 @@ class User
         app(UserRepository::class)->updateProviders($this);
     }
 
-    public function belongsTo(string $organisationId):bool
-    {
-        return $this->organizationId === $organisationId;
-    }
-
     public function create(string $passwordHashed = null, Picture $picture = null)
     {
         if(isset($picture)) {
@@ -99,32 +91,6 @@ class User
             $this->pathPicture = $picture->relativePath();
         }
         app(UserRepository::class)->add($this, $passwordHashed);
-    }
-
-    public function joinsOrganization(string $organizationId)
-    {
-        $this->organizationId = $organizationId;
-        app(UserRepository::class)->update($this);
-        Mail::to($this->email())->send(new UserJoinsOrganizationToUser());
-    }
-
-    public function grantAsAdmin()
-    {
-        $this->roles = array_merge($this->roles, ['admin']);
-        app(UserRepository::class)->update($this);
-    }
-
-    public function revokeAsAdmin()
-    {
-        $this->roles = [];
-        app(UserRepository::class)->update($this);
-    }
-
-    public function leaveOrganization()
-    {
-        $this->organizationId = null;
-        app(UserRepository::class)->update($this);
-        event(new UserLeaveOrganization());
     }
 
     public function isAdmin():bool
@@ -160,13 +126,6 @@ class User
     {
         app(UserRepository::class)->delete($this->id);
         event(new UserDeleted($this->id, $this->organizationId));
-    }
-
-    public function toDto():UserDto
-    {
-        $identity = new Identity($this->id, $this->email, $this->firstname, $this->lastname, $this->pathPicture);
-        $state = new State($this->organizationId, null, true);
-        return new UserDto($identity, $state);
     }
 
     public function addRole(string $role)
