@@ -188,7 +188,11 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->orderBy('interactions.updated_at', 'desc')
             ->paginate()
             ->through(function ($item){
-                return new FollowerDto($item->user->toDto(), $item->user->context->toDto(), $item->toDto());
+                $context = null;
+                if ($item->user->context !== null) {
+                    $context = $item->user->context->toDto();
+                }
+                return new FollowerDto($item->user->toDto(), $context, $item->toDto());
             })
         ;
     }
