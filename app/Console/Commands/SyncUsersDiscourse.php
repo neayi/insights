@@ -30,8 +30,10 @@ class SyncUsersDiscourse extends Command
         $httpClient = new Client(['base_uri' => $hostname]);
 
         UserSyncDiscourseModel::query()
+            ->join('users', 'user_id', 'users.id')
             ->where('sync', false)
-            ->chunkById(50, function ($items) use ($httpClient) {
+            ->whereNotNull('email_verified_at')
+            ->chunk(50, function ($items) use ($httpClient) {
             foreach($items as $userSync) {
                 $user = $userSync->user;
                 try {
@@ -49,8 +51,7 @@ class SyncUsersDiscourse extends Command
                         // Too many requests - just sleeping
                         $this->error('Too many requests - restarting in a minute....');
                         sleep(60);
-                    }else {
-
+                    } else {
                         $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
                         $this->error($message);
                         \Sentry\captureException($e);
@@ -139,7 +140,7 @@ class SyncUsersDiscourse extends Command
 
         $result = json_decode($result->getBody()->getContents(), true);
         if(empty($result['user'])){
-            throw new \Exception('Dupplicate email not corresponding to existing user');
+            throw new \Exception('Duplicate email not corresponding to existing user');
         }
 
         $user->discourse_id = $result['user']['id'];
@@ -173,7 +174,7 @@ class SyncUsersDiscourse extends Command
         $result = json_decode($result->getBody()->getContents(), true);
 
         if(empty($result[0]['email']) || strtolower($result[0]['email']) != strtolower($user->email)){
-            throw new \Exception('Dupplicate email not corresponding to existing user');
+            throw new \Exception('Duplicate email not corresponding to existing user');
         }
 
         $user->discourse_id = $result[0]['id'];
