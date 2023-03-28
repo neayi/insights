@@ -3,15 +3,11 @@
 
 namespace App\Console\Commands;
 
-
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Type\Integer;
-
-use function Psy\debug;
 
 class SyncUsersDiscourse extends Command
 {
@@ -29,36 +25,34 @@ class SyncUsersDiscourse extends Command
         $hostname = config('services.discourse.api.url');
         $httpClient = new Client(['base_uri' => $hostname]);
 
-        UserSyncDiscourseModel::query()
-            ->join('users', 'user_id', 'users.id')
-            ->where('sync', false)
+        User::query()
             ->whereNotNull('email_verified_at')
-            ->chunk(50, function ($items) use ($httpClient) {
-            foreach($items as $userSync) {
-                $user = $userSync->user;
-                try {
-                    if(!isset($user->discourse_id)) {
-                        $this->createUserOnDiscourse($httpClient, $user);
-                    }else{
-                        $this->updateUserEmailOnDiscourse($httpClient, $user);
-                    }
-                    $this->updateUserDetailsOnDiscourse($httpClient, $user);
-                    $userSync->sync = true;
-                    $userSync->sync_at = (new \DateTime())->format('Y-m-d H:i:s');
-                    $userSync->save();
-                }catch (\Throwable $e){
-                    if ($e->getCode() === 429) {
-                        // Too many requests - just sleeping
-                        $this->error('Too many requests - restarting in a minute....');
-                        sleep(60);
-                    } else {
-                        $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
-                        $this->error($message);
-                        \Sentry\captureException($e);
+            ->whereNull('sync_at_discourse')
+            ->chunkById(50, function ($items) use ($httpClient) {
+                foreach($items as $user) {
+                    Log::info('Discourse Syncing user : '.$user->uuid);
+                    try {
+                        if(!isset($user->discourse_id)) {
+                            $this->createUserOnDiscourse($httpClient, $user);
+                        }else{
+                            $this->updateUserEmailOnDiscourse($httpClient, $user);
+                        }
+                        $this->updateUserDetailsOnDiscourse($httpClient, $user);
+                        $user->sync_at_discourse = (new \DateTime())->format('Y-m-d H:i:s');
+                        $user->save();
+                    }catch (\Throwable $e){
+                        if ($e->getCode() === 429) {
+                            // Too many requests - just sleeping
+                            $this->error('Too many requests - restarting in a minute....');
+                            sleep(60);
+                        } else {
+                            $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                            $this->error($message);
+                            \Sentry\captureException($e);
+                        }
                     }
                 }
-            }
-        });
+            });
     }
 
     private function createUserOnDiscourse(Client $httpClient, User $user, int $increment = 0)
