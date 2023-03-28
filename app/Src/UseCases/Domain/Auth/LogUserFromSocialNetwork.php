@@ -40,9 +40,12 @@ class LogUserFromSocialNetwork
         $socialiteUser = $this->socialiteGateway->user($provider);
 
         $user = $this->userRepository->getByProvider($provider, $socialiteUser->providerId());
+
         if($user === null){
             app(RegisterUserFromSocialNetworkService::class)->register($provider, $socialiteUser);
             $user = $this->userRepository->getByProvider($provider, $socialiteUser->providerId());
+        } else {
+            $this->userRepository->verifyEmail($user->id());
         }
         $this->authGateway->log($user);
     }
