@@ -10,22 +10,21 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
-        "albertcht/invisible-recaptcha": "^1.9",
-        "doctrine/dbal": "^2.10",
-        "spatie/laravel-ignition": "^1.0",
+        "doctrine/dbal": "^3.6.0",
+        "spatie/laravel-ignition": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "intervention/imagecache": "^2.5",
         "jeroennoten/laravel-adminlte": "3.6.0",
-        "laravel/framework": "^9.52.4",
-        "laravel/sanctum": "^2.9",
+        "laravel/framework": "^10.0.0",
+        "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.0",
-        "laravolt/avatar": "^4.1",
+        "laravel/ui": "^4.2",
+        "laravolt/avatar": "^5.0",
         "nickurt/laravel-stopforumspam": "^1.8",
         "nunomaduro/collision": "^6.1",
-        "sentry/sentry-laravel": "^2.9",
+        "sentry/sentry-laravel": "^3.3.2",
         "spatie/laravel-permission": "^5.10.0",
         "spinen/laravel-discourse-sso": "^2.8.0",
         "mailchimp/marketing": "^3.0",
@@ -61,7 +60,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
