@@ -54,7 +54,7 @@ return [
 
         // The route's URI that acts as the entry point for Discourse to start the SSO process.
         // Used by Discourse to route incoming logins.
-        'route' => 'discourse/sso',
+        'route' => 'neayi/discourse/sso',
 
         // Secret string used to encrypt/decrypt SSO information,
         // be sure that it is 10 chars or longer
@@ -64,7 +64,8 @@ return [
         'suppress_welcome_message' => 'false',
 
         // Where the Discourse forum lives
-        'url' => env('DISCOURSE_URL'),
+        // will be overridden with the country code if host = insights.en.dev... url => discourse_url_en...
+        'url' => env('DISCOURSE_URL_FR'),
 
         // Api-specific items
         // For logging out of Discourse directly, generate an API key as an "All user key" and put the key here.

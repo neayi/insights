@@ -142,7 +142,7 @@ class RegisterController extends Controller
             if(session()->has('sso')){
                 $sso = session()->get('sso');
                 $sig = session()->get('sig');
-                $callback = base64_encode(url('discourse/sso?sso='.$sso.'&sig='.$sig));
+                $callback = base64_encode(url('neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
                 return redirect($callback);
             }
 

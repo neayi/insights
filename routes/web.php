@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
     Route::get('profile-wizard', 'Profile\WizardProfileController@showWizard')->name('wizard.profile');
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
-
+Route::get('neayi/discourse/sso', 'Discourse\SsoController@login')->name('neayi.discourse.sso');
 Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
 Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
 
