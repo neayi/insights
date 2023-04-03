@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Events\InteractionOnPage;
 use App\Events\UserDeleted;
 use App\Events\UserLeaveOrganization;
-use App\Listeners\AddEmailToMailChimp;
+use App\Listeners\AddEmailToNewsletter;
 use App\Listeners\AnonymizeUserResponse;
 use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
@@ -36,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         Verified::class => [
             SetUserToSyncOnDiscourse::class,
-            AddEmailToMailChimp::class
+            AddEmailToNewsletter::class
         ]
     ];
 

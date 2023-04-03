@@ -28,6 +28,7 @@
         "mailchimp/marketing": "^3.0",
         "nickurt/laravel-stopforumspam": "^1.6",
         "nunomaduro/collision": "^5.0",
+        "sendinblue/api-v3-sdk": "^8.4",
         "sentry/sentry-laravel": "^2.9",
         "spatie/laravel-permission": "^3.13",
         "spinen/laravel-discourse-sso": "^2.5"
@@ -41,7 +42,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {
