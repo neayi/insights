@@ -197,6 +197,9 @@ class UserRepositorySql implements UserRepository
         if(!isset($user)){
            return;
         }
+        if ($user->hasVerifiedEmail()) {
+            return;
+        }
         event(new Verified($user));
         $user->markEmailAsVerified();
     }
