@@ -24,12 +24,19 @@ class SendinBlueService
         );
     }
 
-    public function addEmailToList(string $email)
+    public function addEmailToList(string $email, string $name, string $firstName)
     {
         try {
             $createContact = new CreateContact();
             $createContact['email'] = $email;
             $createContact['listIds'] = [4];
+            $createContact['attributes'] = [
+                'NOM' => $name,
+                'PRENOM' => $firstName
+            ];
+            $createContact['updateEnabled'] = true;
+
+
             $this->client->createContact($createContact);
             Log::info('Email added to sendinblue : ' . $email);
         } catch (\Throwable $e) {

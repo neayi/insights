@@ -22,6 +22,6 @@ class TestMailChimp extends Command
         $email = $this->argument('email');
 
         //$mailChimpService->addEmailToList($email);
-        $sendinBlueService->addEmailToList($email);
+        $sendinBlueService->addEmailToList($email, 'jean', 'dupont');
     }
 }
