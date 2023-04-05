@@ -11,11 +11,9 @@ class SsoController extends \Spinen\Discourse\Controllers\SsoController
 {
     protected function loadConfigs(Config $config): void
     {
-        $urlsSegments = explode('.', \Illuminate\Support\Facades\Request::url(), 3);
-        $countryCode = strlen($urlsSegments[1]) === 2 ? strtoupper($urlsSegments[1]) : 'FR';
-
+        list(,$countryCode,) = explode('/', request()->getRequestUri());
         $configs = $config->get('services.discourse');
-        $configs['url'] = env('DISCOURSE_URL_'.$countryCode);
+        $configs['url'] = env('DISCOURSE_URL_'.strtoupper($countryCode));
 
         $this->config = collect($configs);
         $this->config->put('user', collect($this->config->get('user')));
