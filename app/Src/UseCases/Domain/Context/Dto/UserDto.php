@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Dto;
 
@@ -12,12 +13,20 @@ class UserDto extends Dto
     public $firstname;
     public $lastname;
     public $discourseUsername;
+    public $defaultAvatar;
 
-    public function __construct(string $userId, string $firstname, string $lastname, string $discourseUsername)
+    public function __construct(
+        string $userId,
+        string $firstname,
+        string $lastname,
+        string $discourseUsername,
+        bool $defaultAvatar
+    )
     {
         $this->userUid = $userId;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->discourseUsername = $discourseUsername;
+        $this->defaultAvatar = $defaultAvatar;
     }
 }
