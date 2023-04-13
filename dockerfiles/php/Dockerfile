@@ -14,6 +14,10 @@ RUN apt-get update && apt-get install -y \
 
 RUN rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-configure gd \
+            --prefix=/usr \
+            --with-jpeg \
+            --with-freetype \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install exif
 
