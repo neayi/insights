@@ -1,8 +1,8 @@
-FROM php:7.3-fpm AS base
+FROM php:8.2-fpm AS base
 
 ARG DEBUG_TOOLS
 
-RUN docker-php-ext-install pdo_mysql mbstring
+RUN docker-php-ext-install pdo_mysql
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
@@ -10,15 +10,15 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         git \
         zip \
-        unzip \
-    && rm -rf /var/lib/apt/lists/* \
+        unzip
+
+RUN rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install -j$(nproc) iconv \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install exif
 
 RUN test -z "$DEBUG_TOOLS" || ( \
-        pecl install xdebug-3.1.6 \
+        pecl install xdebug-3.2.1 \
             && docker-php-ext-enable xdebug \
             && echo "xdebug.discover_client_host=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
             && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
