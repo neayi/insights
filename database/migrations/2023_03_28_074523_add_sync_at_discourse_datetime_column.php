@@ -31,6 +31,7 @@ class AddSyncAtDiscourseDatetimeColumn extends Migration
             ->get();
         foreach($usersSyncDiscourse as $userSyncDiscourse) {
             $user = User::query()->where('uuid', $userSyncDiscourse->uuid)->first();
+            if(!isset($user)) { continue; }
             $user->sync_at_discourse = $userSyncDiscourse->sync_at;
             $user->save();
         }
