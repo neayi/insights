@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big success mb-3">Je suis</label>
+                                    <label class="label-big success mb-3">@lang('wiki_profile.fill_role_header')</label>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <select name="role" id="input-role" title="-" class="selectpicker w-100">
@@ -22,11 +22,11 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <input name="sector" type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="Titre, fonction, poste, ..." value="{{$context['sector'] ?? ''}}">
+                                            <input name="sector" type="text" class="form-control input-big mt-md-0 mt-2" id="secteur" aria-describedby="" placeholder="@lang('wiki_profile.sector'), ..." value="{{$context['sector'] ?? ''}}">
                                         </div>
                                     </div>
                                     <small class="form-text text-muted font-weight-semibold mt-2">
-                                        Nous sommes transparents sur le profil de ceux qui prennent la parole.
+                                        @lang('wiki_profile.fill_role_hint')
                                     </small>
                                 </div>
                             </div>
@@ -48,25 +48,26 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="label-big success mb-3">J'habite</label>
+                                    <label class="label-big success mb-3">@lang('wiki_profile.fill_postal_code_header')</label>
                                     <div class="row ">
                                         <div class="col-md-3 pr-md-0">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-5 col-3">
-                                                    <label>Code postal</label>
+                                                    <label>@lang('wiki_profile.fill_postal_code')</label>
                                                 </div>
                                                 <div class="col-lg-5 col-9">
-                                                    <input name="postal_code" type="text" class="form-control input-big city-input" id="city" aria-describedby="" value="{{$context['postal_code']}}">
+                                                    <input name="postal_code" type="text" class="form-control input-big city-input"
+                                                           id="city" aria-describedby="" value="{{$context['postal_code']}}">
                                                 </div>
                                             </div>
                                             <small class="form-text text-muted font-weight-semibold mt-2">
-                                                Parce que nos pratiques ne sont pas partout les mêmes.
+                                                @lang('wiki_profile.fill_postal_code_hint')
                                             </small>
                                         </div>
                                         <div class="col-md-7">
                                             <div class="row align-items-center mt-3 mt-lg-0">
                                                 <div class="col-lg-4 col-3">
-                                                    <label>Structure de rattachement</label>
+                                                    <label>@lang('wiki_profile.structure')</label>
                                                 </div>
                                                 <div class="col-lg-8 col-9">
                                                     <input name="structure"
@@ -75,7 +76,7 @@
                                                            id="structure"
                                                            autocomplete="off"
                                                            data-url="{{ route('profile.structure.search') }}"
-                                                           data-noresults-text="Pas de résultats"
+                                                           data-noresults-text="@lang('wiki_profile.no_results')"
                                                            value="{{$context['structure'] ?? ''}}">
                                                 </div>
                                             </div>
@@ -86,8 +87,8 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
-                                <button data-dismiss="modal" type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">Annuler</button>
+                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">@lang('common.btn_save_edit')</button>
+                                <button data-dismiss="modal" type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">@lang('common.btn_cancel')</button>
                             </div>
                         </div>
                     </form>

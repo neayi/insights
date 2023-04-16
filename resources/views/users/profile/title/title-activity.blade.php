@@ -1,5 +1,5 @@
 @if($edit)
-    Mon activité
+    @lang('wiki_profile.my_activity')
 @else
-    Son activité
+    @lang('wiki_profile.his_activity')
 @endif

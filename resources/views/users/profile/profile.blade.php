@@ -24,7 +24,7 @@
                                             add
                                         </span>
                                         <span class="add-avatar picture_upload">
-                                            Ajouter une photo
+                                            @lang('wiki_profile.add_avatar')
                                         </span>
                                     @endif
                                 </div>
@@ -63,7 +63,7 @@
                                                 </span>
                                             </a>
                                             <a class="text-dark-green edit-link text-decoration-none">
-                                                Modifier
+                                                @lang('common.btn_edit')
                                             </a>
                                         </div>
                                     @endif
@@ -75,7 +75,9 @@
                                 @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
                                     <div>
                                         <a href="{{ env('DISCOURSE_URL').'/new-message?username='.$more['discourse_username'].'&title=&body=' }}"
-                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i> Message direct</a>
+                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i>
+                                            @lang('wiki_profile.direct_message')
+                                        </a>
                                     </div>
                                 @endif
 
@@ -152,7 +154,7 @@
                                             </span>
                                             </a>
                                             <a class="text-dark-green edit-link text-decoration-none">
-                                                Modifier
+                                                @lang('common.btn_edit')
                                             </a>
                                         </div>
                                     @endif

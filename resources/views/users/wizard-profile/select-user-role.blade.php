@@ -5,7 +5,7 @@
     }
 @endphp
 <div class="form-group">
-    <label id="state-role" class="label-big {{$state}} mb-3">Je suis</label>
+    <label id="state-role" class="label-big {{$state}} mb-3">@lang('wiki_profile.fill_role_header')</label>
     <div class="row">
         <div class="col-12">
             <select name="role" id="input-role" class="selectpicker" title="-">
@@ -18,6 +18,6 @@
         </div>
     </div>
     <small class="form-text text-muted font-weight-semibold mt-2">
-        Nous sommes transparents sur le profil de ceux qui prennent la parole.
+        @lang('wiki_profile.fill_role_hint')
     </small>
 </div>

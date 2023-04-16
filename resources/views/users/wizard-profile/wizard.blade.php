@@ -11,15 +11,14 @@
             <div class="col-lg-8 offset-lg-2 col-12" id="msg">
                 <span class="font-weight-bold text-dark-green text-big d-block mb-4">Merci !</span>
                 <p class="mb-4">
-                    Pour vous aider à trouver des retours d’expériences ou des pratiques pouvant s’appliquer
-                    à votre ferme et aider la communauté à vous comprendre, présentez-vous,
+                    @lang('wiki_profile.fill_profile_hint')
                 </p>
             </div>
         @endif
         @if(isset($errors) && $errors->any())
             <div class="col-lg-8 offset-lg-2 col-12" id="msg-err">
                 <p class="mb-4" style="color: red;">
-                    Vous y êtes presque ! Il nous manque deux trois infos dans le formulaire pour pouvoir continuer !
+                    @lang('wiki_profile.fill_profile_almost_done')
                 </p>
             </div>
         @endif
@@ -43,7 +42,7 @@
     <div class="row mt-5 icon-checkboxes" id="select-farming">
         <div class="col-lg-8 offset-lg-2" id="select-main-c">
             <div class="form-group">
-                <label class="label-big mb-3">Mes productions</label>
+                <label class="label-big mb-3">@lang('wiki_profile.fill_profile_production')</label>
                 <div class="circle-row d-flex flex-wrap">
                     @php $displayMore = false; @endphp
                     @foreach($farmingTypeMain as $farming)
@@ -74,7 +73,7 @@
         </div>
         <div class="col-lg-8 offset-lg-2" id="select-cdc">
             <div class="form-group">
-                <label class="label-big mb-3">Mon cahier des charges</label>
+                <label class="label-big mb-3">@lang('wiki_profile.fill_profile_specs')</label>
                 <div class="circle-row d-flex flex-wrap">
                 @php $displayMore = false; @endphp
                 @foreach($croppingTypeMain as $farming)
@@ -106,7 +105,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3 offset-lg-2 col-md-4 mb-5">
-            <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2">Valider</button>
+            <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2">@lang('common.btn_validate')</button>
         </div>
     </div>
 </form>

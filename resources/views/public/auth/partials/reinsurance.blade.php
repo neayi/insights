@@ -1,13 +1,15 @@
 <div class="col-lg-4 p-0 p-sm-2">
-    <h1 class="text-yellow font-weight-bold mb-lg-4 mb-2">Bienvenue,</h1>
+    <h1 class="text-yellow font-weight-bold mb-lg-4 mb-2">
+        @lang('auth.modal.welcome')
+    </h1>
     <p class="text-white text-merriweather mb-lg-4 mb-2">
-        Sur Triple Performance vos informations ne seront jamais transmises à un tiers à des fins commerciales.<br>
+        @lang('auth.modal.reinsurance1')<br>
     </p>
     <p class="text-white text-merriweather mb-lg-5 mb-2">
-        Nous ne spammerons pas non <br> plus votre boîte aux lettres.<br>
+        @lang('auth.modal.reinsurance2')
     </p>
     <p class="text-white text-merriweather mb-lg-2 mb-0">
-        Retrouvez-nous sur
+        @lang('auth.modal.find-us')
     </p>
     <div class="row rs-line mb-2">
         <div class="col-12">

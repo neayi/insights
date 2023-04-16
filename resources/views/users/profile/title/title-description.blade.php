@@ -1,5 +1,5 @@
 @if($edit)
-    Ma ferme, mes objectifs
+    @lang('wiki_profile.my_farm_aim')
 @else
-    Sa ferme, ses objectifs
+    @lang('wiki_profile.his_farm_aim')
 @endif

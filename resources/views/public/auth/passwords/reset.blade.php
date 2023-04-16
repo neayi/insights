@@ -15,7 +15,7 @@
                                 <div class="col-lg-6 offset-lg-2 bg-white-mobile">
                                     <div class="row mb-4">
                                         <div class="col-md-12">
-                                            <h4 class="text-dark-green font-weight-bold mt-2">Réinitialisation du mot de passe</h4>
+                                            <h4 class="text-dark-green font-weight-bold mt-2">@lang('auth.reset_password')</h4>
                                         </div>
                                     </div>
                                     <form action="{{route('password.update')}}" method="POST">
@@ -24,8 +24,9 @@
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Votre adresse email">
+                                                    <label for="email">@lang('common.email')</label>
+                                                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+                                                           placeholder="@lang('auth.email_placeholder')">
                                                     @if ($errors->has('email'))
                                                         <div class="invalid-feedback" style="display: block !important;">
                                                             {{ $errors->first('email') }}
@@ -39,7 +40,7 @@
                                                 <div class="form-group">
                                                     <label>Mot de passe</label>
                                                     <div id="show_hide_password">
-                                                        <input class="form-control" name="password" type="password" placeholder="8 caractères minimum">
+                                                        <input class="form-control" name="password" type="password" placeholder="@lang('auth.rule_password_length')">
                                                         <div class="form-icon">
                                                             <a href=""><span class="material-icons" aria-hidden="true">visibility</span></a>
                                                         </div>
@@ -55,9 +56,9 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label>Confirmation mot de passe</label>
+                                                    <label>@lang('auth.confirmation_password')</label>
                                                     <div id="show_hide_password">
-                                                        <input class="form-control" name="password_confirmation" type="password" placeholder="8 caractères minimum">
+                                                        <input class="form-control" name="password_confirmation" type="password" placeholder="@lang('auth.rule_password_length')">
                                                     </div>
                                                     @if ($errors->has('password_confirmation'))
                                                         <div class="invalid-feedback" style="display: block !important;">
@@ -69,7 +70,7 @@
                                         </div>
                                         <div class="row text-right mt-4">
                                             <div class="col-12">
-                                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2">Valider</button>
+                                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2">@lang('common.btn_validate')</button>
                                             </div>
                                         </div>
                                     </form>

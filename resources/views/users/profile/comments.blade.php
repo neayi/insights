@@ -20,7 +20,7 @@
             @endforeach
         @else
             <div class="alert alert-light small">
-                Pas encore de commentaires ni de questions !
+                @lang('wiki_profile.no_comments')
             </div>
         @endif
     </div>

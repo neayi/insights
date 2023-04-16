@@ -8,14 +8,13 @@
     }
 @endphp
 <div class="form-group">
-    <label id="state-email" class="label-big {{$state}} mb-3">Mon email</label>
+    <label id="state-email" class="label-big {{$state}} mb-3">@lang('wiki_profile.fill_email_header')</label>
     <div class="form-row">
         <div class="col-md-{{ isset($width) ? $width : 5 }}">
-            <input type="text" name="email" value="{{old('email', $email)}}" class="form-control input-big" id="input-email" autocomplete="nope" aria-describedby="" placeholder="email">
+            <input type="text" name="email" value="{{old('email', $email)}}" class="form-control input-big"
+                   id="input-email" autocomplete="nope" aria-describedby="" placeholder="@lang('wiki_profile.fill_email')">
             <small class="form-text text-muted font-weight-semibold mt-2">
-                Nous avons besoin de votre email pour vous notifier quand une page évolue par exemple.
-                Nous ne vous enverrons pas de mail non sollicité, et vous pourrez à tout moment régler le type de notifications
-                que vous souhaitez recevoir.
+                @lang('wiki_profile.fill_email_hint')
             </small>
         </div>
     </div>

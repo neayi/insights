@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-6">
                                 <button type="submit" class="btn btn-dark-green text-white">
-                                    Ajouter à mon profil
+                                    @lang('wiki_profile.add_to_my_profile')
                                 </button>
                             </div>
                         </div>
@@ -27,13 +27,12 @@
                     <form action="{{ route('profile.characteristic.create') }}" method="POST">
                         @csrf
                         <p>
-                            Malheuresement aucun résultat ne correspond à votre recherche !<br/>
-                            Vous pouvez créer la caractéristique, elle sera automatique associée à votre profil
+                            @lang('wiki_profile.no_characteristics_results')
                         </p>
                         <input type="hidden" name="type" id="i-type" value="{{$type}}">
                         <input type="hidden" name="title" id="i-title" value="{{$search}}">
                         <button type="submit" class="btn btn-dark-green text-white">
-                            Ajouter la caractéristique {{ $search }}
+                            @lang('wiki_profile.add_characteristic') {{ $search }}
                         </button>
                     </form>
                 </div>

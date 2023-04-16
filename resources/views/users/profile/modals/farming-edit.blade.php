@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3">Ma ferme, mes objectifs</label>
+                                    <label class="label-big mb-3">@lang('wiki_profile.my_farm_aim')</label>
                                     <div class="row">
                                         <div class="col-md-12">
                                            <textarea name="description" rows="12" class="w-100">{!! strip_tags($context['description']) !!}</textarea>
@@ -21,8 +21,8 @@
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
-                                <button data-dismiss="modal" type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">Annuler</button>
+                                <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">@lang('common.btn_save_edit')</button>
+                                <button data-dismiss="modal" type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">@lang('common.btn_cancel')</button>
                             </div>
                         </div>
                     </form>
