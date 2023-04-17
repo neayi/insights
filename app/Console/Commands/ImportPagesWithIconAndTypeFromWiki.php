@@ -72,7 +72,7 @@ class ImportPagesWithIconAndTypeFromWiki extends Command
                 $content = json_decode($response->getBody()->getContents(), true);
                 $picturesInfo = $content['query']['pages'];
                 foreach($picturesInfo as $picture) {
-                    if (isset(last($picture['imageinfo'])['url'])) {
+                    if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
                         try {
                             $response = $this->httpClient->get(last($picture['imageinfo'])['url']);
                             $content = $response->getBody()->getContents();
