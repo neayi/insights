@@ -16,7 +16,9 @@ class GeoOpenDataSoftService
 
     public function getGeolocationByPostalCode(string $postalCode)
     {
-        $this->params['q'] = sprintf('NOT CEDEX and postal_code=%s', $postalCode);
+        $this->params['q'] = sprintf('postal_code=%s', $postalCode);
+        $this->params['rows'] = 100;
+        $this->params['sort'] = 'accuracy';
         $result = (new Client())->request(
             'GET',
             $this->baseUri . http_build_query($this->params),
@@ -28,7 +30,6 @@ class GeoOpenDataSoftService
             ]
         );
 
-        dd($result->getBody()->getContents());
         return json_decode($result->getBody()->getContents(), true);
     }
 

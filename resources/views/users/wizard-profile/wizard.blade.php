@@ -35,6 +35,10 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-12 offset-lg-2" id="geo-details">
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12 offset-lg-2">
             @include('users.wizard-profile.fill-email')
         </div>
