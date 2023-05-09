@@ -212,3 +212,23 @@ $('.search-type-c').click(function(){
 $('#btn-remove-avatar').click(function (){
     $(this).parents('form').submit();
 });
+
+$('#input-postal').change(function (){
+    var postal = $(this).val();
+    $.ajax({
+        url: '/geo',
+        data: { postal_code : postal },
+        success: function (data) {
+            $('#geo-details').html(data);
+        }
+    });
+});
+
+$('#geo-details').on('change', '#select-country', function (){
+    var country = $(this).val();
+    $('.div-country').hide();
+    $('#div-'+country).show();
+});
+
+
+
