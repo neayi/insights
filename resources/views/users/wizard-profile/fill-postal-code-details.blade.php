@@ -5,12 +5,12 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-5">
-                        <label> Sélectionnez votre pays</label>
+                        <label>Sélectionnez votre pays ou région</label>
                     </div>
                     <div class="col-lg-7">
                         <select class="form-control input-big" id="select-country">
                             @foreach($geos as $country => $geo)
-                                <option value="@json($geo)">{{$country}}</option>
+                                <option value="@json($geo)">{{ $country }}</option>
                             @endforeach
                         </select>
                     </div>
