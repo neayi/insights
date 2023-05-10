@@ -24,21 +24,21 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-lg-2 offset-lg-2">
+        <div class="col-lg-3 offset-lg-2">
             @include('users.wizard-profile.select-user-role')
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             @include('users.wizard-profile.fill-identity')
         </div>
-        <div class="col-lg-2">
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-3  offset-lg-2">
             @include('users.wizard-profile.fill-postal-code')
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 offset-lg-2" id="geo-details">
+        <div class="col-lg-6" id="geo-details">
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-lg-12 offset-lg-2">
             @include('users.wizard-profile.fill-email')
         </div>
