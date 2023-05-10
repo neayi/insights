@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b71f55a0e3da02a291fef7d8366ee480",
+    "content-hash": "18d65eaaabe29b842998f4f6334b750f",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -8198,6 +8198,67 @@
             "time": "2023-02-24T10:42:00+00:00"
         },
         {
+            "name": "tariq86/country-list",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tariq86/country-list.git",
+                "reference": "5546bb36f3dac8e717024c075de4e0e95340986a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tariq86/country-list/zipball/5546bb36f3dac8e717024c075de4e0e95340986a",
+                "reference": "5546bb36f3dac8e717024c075de4e0e95340986a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "umpirsky/country-list": "2.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Tariq86\\CountryList\\CountryListServiceProvider"
+                    ],
+                    "aliases": {
+                        "Countries": "Tariq86\\CountryList\\CountryListFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tariq86\\CountryList\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tariq A.",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats for Laravel",
+            "keywords": [
+                "countries",
+                "country",
+                "i18n",
+                "internationalization",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/tariq86/country-list/issues",
+                "source": "https://github.com/tariq86/country-list/tree/master"
+            },
+            "time": "2018-04-09T13:47:08+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.6",
             "source": {
@@ -8249,6 +8310,52 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "umpirsky/country-list",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umpirsky/country-list.git",
+                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umpirsky/country-list/zipball/6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
+                "reference": "6dddae6983c1bc4d314b513c5decb7c8c6c879dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "slowprog/composer-copy-file": "^0.2",
+                "symfony/intl": "^4.3",
+                "umpirsky/list-generator": "^1.2"
+            },
+            "type": "library",
+            "extra": {
+                "copy-file": {
+                    "vendor/umpirsky/list-generator/Dockerfile": "./",
+                    "vendor/umpirsky/list-generator/docker-compose.yml": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saša Stamenković",
+                    "email": "umpirsky@gmail.com"
+                }
+            ],
+            "description": "List of all countries with names and ISO 3166-1 codes in all languages and data formats.",
+            "support": {
+                "issues": "https://github.com/umpirsky/country-list/issues",
+                "source": "https://github.com/umpirsky/country-list/tree/2.0.6"
+            },
+            "time": "2020-12-03T10:09:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
