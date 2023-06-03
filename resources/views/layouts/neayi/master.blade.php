@@ -11,6 +11,7 @@
         <link rel="shortcut icon" href="{{config('neayi.wiki_url')}}/skins/skin-neayi/favicon/favicon.ico"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        @yield('scripts')
         <script src="{{ asset('js/neayi.js') }}" defer></script>
         <link href="{{ asset('css/neayi.css') }}" rel="stylesheet">
     </head>

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
@@ -14,9 +15,8 @@ class Context
     private $description;
     private $sector;
     private $structure;
-    private $departmentNumber;
     private $coordinates;
-
+    private $countryCode;
     private $contextRepository;
 
     public function __construct(
@@ -26,8 +26,8 @@ class Context
         string $description = null,
         string $sector = null,
         string $structure = null,
-        string $departmentNumber = null,
-        array $coordinates = []
+        array $coordinates = [],
+        string $countryCode = ''
     )
     {
         $this->uid = $id;
@@ -36,19 +36,14 @@ class Context
         $this->description = $description;
         $this->sector = $sector;
         $this->structure = $structure;
-        $this->departmentNumber = $departmentNumber;
         $this->coordinates = $coordinates;
+        $this->countryCode = $countryCode;
         $this->contextRepository = app(ContextRepository::class);
     }
 
     public function id():string
     {
         return $this->uid;
-    }
-
-    public function create(string $userId)
-    {
-        $this->contextRepository->add($this, $userId);
     }
 
     public function update(array $params, string $userId)
@@ -58,7 +53,6 @@ class Context
         $this->characteristics = $params['characteristics'] ?? $this->characteristics;
         $this->sector = $params['sector'] ?? $this->sector;
         $this->structure = $params['structure'] ?? $this->structure;
-        $this->departmentNumber = $params['department_number'] ?? $this->departmentNumber;
         $this->coordinates = $params['coordinates'] ?? $this->coordinates;
         $this->contextRepository->update($this, $userId);
     }
@@ -79,7 +73,7 @@ class Context
             'sector' => $this->sector,
             'structure' => $this->structure,
             'coordinates' => $this->coordinates,
-            'department_number' => $this->departmentNumber,
+            'country' => $this->countryCode
         ];
     }
 }
