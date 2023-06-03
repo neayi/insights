@@ -14,18 +14,28 @@ class GeoController extends Controller
     {
         $cl = new CountryList();
         $postalCode = request()->get('postal_code');
-        $result = $geoOpenDataSoftService->getGeolocationByPostalCode($postalCode);
+
+        $result = ['records' => []];
+        if(!empty($postalCode)) {
+            $result = $geoOpenDataSoftService->getGeolocationByPostalCode($postalCode);
+        }
 
         $results = [];
         foreach($result['records'] as $record) {
             try {
                 $countryTrans = $cl->getOne($record['fields']['country_code'], 'fr');
+                if (!empty($results[$countryTrans])) {
+                    continue;
+                }
             } catch (\Throwable $e) {
                 $countryTrans = $record['fields']['country_code'];
             } finally {
                 $record['fields']['country_trans'] = $countryTrans;
             }
-            $results[$countryTrans][] = $record;
+            $results[$countryTrans] = [
+                'coordinates' => $record['fields']['coordinates'],
+                'country_code' => $record['fields']['country_code'],
+            ];
         }
         return view('users.wizard-profile.fill-postal-code-details', ['geos' => $results]);
     }

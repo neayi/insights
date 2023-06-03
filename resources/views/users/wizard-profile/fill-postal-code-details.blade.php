@@ -8,9 +8,12 @@
                         <label>Sélectionnez votre pays ou région</label>
                     </div>
                     <div class="col-lg-7">
-                        <select class="form-control input-big" id="select-country">
+                        <select name="geo" class="form-control input-big" id="select-country">
                             @foreach($geos as $country => $geo)
-                                <option value="@json($geo)">{{ $country }}</option>
+                                @php
+                                    $countrySelected = \Illuminate\Support\Facades\Request::input('country_selected');
+                                @endphp
+                                <option @if($countrySelected == $geo['country_code']) selected @endif value="{{json_encode($geo)}}">{{ $country }}</option>
                             @endforeach
                         </select>
                     </div>

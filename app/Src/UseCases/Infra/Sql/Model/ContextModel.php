@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql\Model;
 
@@ -13,7 +14,16 @@ class ContextModel extends Model
 {
     protected $table = 'contexts';
 
-    protected $fillable = ['description', 'postal_code', 'structure', 'sector', 'department_number', 'coordinates', 'uuid'];
+    protected $fillable = [
+        'description',
+        'postal_code',
+        'structure',
+        'sector',
+        'department_number',
+        'coordinates',
+        'uuid',
+        'country'
+    ];
 
     protected $casts = [
         'coordinates' => 'array'
@@ -64,8 +74,8 @@ class ContextModel extends Model
             $this->description,
             $this->sector,
             $this->structure,
-            $this->department_number,
-            $this->coordinates
+            $this->coordinates,
+            $this->country_code,
         );
     }
 }

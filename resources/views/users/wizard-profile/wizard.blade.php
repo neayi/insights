@@ -114,3 +114,10 @@
     </div>
 </form>
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
+        var oldGeo = '{{ old('geo') !== null ? json_decode(old('geo'), true)['country_code'] : '' }}';
+    </script>
+@endsection

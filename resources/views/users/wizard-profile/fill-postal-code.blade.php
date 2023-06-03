@@ -17,6 +17,8 @@
     </div>
     <small class="form-text text-muted font-weight-semibold mt-2">
         @lang('wiki_profile.fill_postal_code_hint')
-        <p style="cursor:pointer;">Cliquez ici si vous n'avez pas de code postal.</p>
+        <p style="cursor:pointer;" id="no-postal-code">Cliquez ici si vous n'avez pas de code postal.</p>
+        <input type="hidden" value="0" name="no_postal_code" id="no_postal_code_input"/>
+        <p style="cursor:pointer; display: none;" id="fill-postal-code">Je souhaite renseigner mon code postal</p>
     </small>
 </div>

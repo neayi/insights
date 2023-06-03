@@ -29,19 +29,7 @@ $('#input-role').change(function (){
         succeedState(elem);
         return;
     }
-    failedState(elem)
-});
-
-$('#input-postal').change(function (){
-    var elem = $('#state-postal');
-    var postal = $(this).val();
-    const regex = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
-    const found = postal.match(regex);
-    if(found != null) {
-        succeedState(elem);
-        return;
-    }
-    failedState(elem)
+    failedState(elem);
 });
 
 $('#input-email').change(function (){
@@ -220,15 +208,49 @@ $('#input-postal').change(function (){
         data: { postal_code : postal },
         success: function (data) {
             $('#geo-details').html(data);
+            var elem = $('#state-postal');
+            var found = $('#select-country').val();
+            if(found != null) {
+                succeedState(elem);
+                return;
+            }
+            failedState(elem);
         }
     });
 });
 
-$('#geo-details').on('change', '#select-country', function (){
-    var country = $(this).val();
-    $('.div-country').hide();
-    $('#div-'+country).show();
+if(wizardError == '1') {
+    var postal = $('#input-postal').val();
+    $.ajax({
+        url: '/geo',
+        data: { postal_code : postal, country_selected: oldGeo },
+        success: function (data) {
+            $('#geo-details').html(data);
+            var elem = $('#state-postal');
+            var found = $('#select-country').val();
+            if(found != null) {
+                succeedState(elem);
+                return;
+            }
+            failedState(elem);
+        }
+    });
+}
+
+$('#no-postal-code').click(function (){
+    $(this).hide();
+    $('#no_postal_code_input').val(1);
+    $('#input-postal').val('');
+    $('#input-postal').prop('disabled', true);
+    $('#geo-details').html('');
+    $('#fill-postal-code').show();
 });
 
-
+$('#fill-postal-code').click(function (){
+    $(this).hide();
+    $('#no_postal_code_input').val(0);
+    $('#input-postal').prop('disabled', false);
+    $('#select-country').prop('disabled', false);
+    $('#no-postal-code').show();
+});
 
