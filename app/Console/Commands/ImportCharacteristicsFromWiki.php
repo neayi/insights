@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
@@ -13,15 +15,15 @@ use Ramsey\Uuid\Uuid;
 
 class ImportCharacteristicsFromWiki extends Command
 {
-    protected $signature = 'characteristics:import';
+    protected $signature = 'characteristics:import {country_code}';
 
     protected $description = 'Import the wiki characteristics';
 
-    private $httpClient;
+    private Client $httpClient;
 
     // @see https://wiki.tripleperformance.fr/wiki/Aide:Requettes_Insights
-    private $queryFarming = "?action=ask&api_version=3&query=[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
-    private $queryCroppingSystem  = "?action=ask&api_version=3&query=[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
+    private string $queryFarming = "?action=ask&api_version=3&query=[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
+    private string $queryCroppingSystem  = "?action=ask&api_version=3&query=[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc&format=json";
 
 
     public function __construct()
@@ -40,9 +42,12 @@ class ImportCharacteristicsFromWiki extends Command
     public function importCharacteristics(string $query, string $type)
     {
         $queryPictures = '?action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
-        $this->queryPages = $queryPages = '?action=query&redirects=true&prop=info&format=json&titles=';
+        $queryPages = '?action=query&redirects=true&prop=info&format=json&titles=';
 
-        $response = $this->httpClient->get(config('wiki.api_uri').$query);
+        $countryCode = $this->argument('country_code');
+        $baseUri = config(sprintf('wiki.api_uri_%s', $countryCode));
+
+        $response = $this->httpClient->get($baseUri.$query);
         $content = json_decode($response->getBody()->getContents(), true);
         $characteristics = $content['query']['results'];
 
@@ -54,7 +59,7 @@ class ImportCharacteristicsFromWiki extends Command
             $path = '';
             if(isset($characteristic['printouts']['A un fichier d\'icone de caractéristique'][0]['fulltext'])) {
                 $picture = $characteristic['printouts']['A un fichier d\'icone de caractéristique'][0]['fulltext'];
-                $picturesApiUri = config('wiki.api_uri').$queryPictures.$picture;
+                $picturesApiUri = $baseUri.$queryPictures.$picture;
 
                 $response = $this->httpClient->get($picturesApiUri);
                 $content = json_decode($response->getBody()->getContents(), true);
@@ -73,7 +78,7 @@ class ImportCharacteristicsFromWiki extends Command
                 }
             }
 
-            $pagesApiUri = config('wiki.api_uri').$queryPages.$page;
+            $pagesApiUri = $baseUri.$queryPages.$page;
             $response = $this->httpClient->get($pagesApiUri);
             $content = json_decode($response->getBody()->getContents(), true);
 
@@ -92,10 +97,14 @@ class ImportCharacteristicsFromWiki extends Command
                 'pretty_page_label' => $prettyPage,
                 'page_id' => (int)$pageInfo['pageid'],
                 'type' => $type,
-                'code' => $pageInfo['title']
+                'code' => $pageInfo['title'],
+                'country_code' => $countryCode,
             ];
 
-            $model = CharacteristicsModel::where('page_id', (int)$pageInfo['pageid'])->first();
+            $model = CharacteristicsModel::query()
+                ->where('page_id', (int)$pageInfo['pageid'])
+                ->where('country_code', $countryCode)
+                ->first();
             if(!isset($model)) {
                 $model = new CharacteristicsModel();
             }

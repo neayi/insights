@@ -9,11 +9,11 @@ use Illuminate\Console\Command;
 
 class SyncDryPagesFromWiki extends Command
 {
-    protected $signature = 'pages:sync-dry';
+    protected $signature = 'pages:sync-dry {country_code}';
 
     protected $description = 'Sync the pages from the wiki';
 
-    private $queryPages = '?action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=';
+    private string $queryPages = '?action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=';
 
     public function __construct()
     {
@@ -23,11 +23,13 @@ class SyncDryPagesFromWiki extends Command
     public function handle()
     {
         $httpClient = new Client();
+        $countryCode = $this->argument('country_code');
+        $baseUri = config(sprintf('wiki.api_uri_%s', $countryCode));
 
-        PageModel::query()->where('dry', true)->chunkById(50, function ($items, $count) use($httpClient){
+        PageModel::query()->where('dry', true)->chunkById(50, function ($items, $count) use($httpClient, $baseUri){
             $this->info(($count*50).' Pages');
             $pages = $items->pluck('page_id')->toArray();
-            $pagesApiUri = config('wiki.api_uri').$this->queryPages.implode('|', $pages);
+            $pagesApiUri = $baseUri.$this->queryPages.implode('|', $pages);
             $response = $httpClient->get($pagesApiUri);
             $content = json_decode($response->getBody()->getContents(), true);
             $wikiPages = $content['query']['pages'];
@@ -39,8 +41,7 @@ class SyncDryPagesFromWiki extends Command
                     continue;
                 }
 
-                if (!isset($page['title']))
-                {
+                if (!isset($page['title'])) {
                     // The page has been deleted from the wiki, we remove it on our side too
                     $pageModel->delete();
                     continue;
