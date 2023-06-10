@@ -28,6 +28,7 @@ class CharacteristicsModel extends Model
         'type',
         'code',
         'visible',
+        'country_code',
     ];
 
     protected $casts = [
