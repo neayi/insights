@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::table('pages', function (Blueprint $table) {
             $table->string('country_code')->nullable();
+            $table->uuid()->nullable();
+            $table->dropUnique('pages_page_id_unique');
+            $table->unique(['page_id', 'country_code']);
         });
 
         Schema::table('characteristics', function (Blueprint $table) {
@@ -34,6 +37,7 @@ return new class extends Migration
     {
         Schema::table('pages', function (Blueprint $table){
             $table->dropColumn('country_code');
+            $table->dropColumn('uuid');
         });
 
         Schema::table('characteristics', function (Blueprint $table){
@@ -43,9 +47,5 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table){
             $table->dropColumn('country_code');
         });
-
-        PageModel::query()->update(['country_code' => '']);
-        User::query()->update(['country_code' => '']);
-        CharacteristicsModel::query()->update(['country_code' => '']);
     }
 };
