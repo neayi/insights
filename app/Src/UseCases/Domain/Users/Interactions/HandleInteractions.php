@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Users\Interactions;
 
@@ -15,24 +16,15 @@ use Exception;
 
 class HandleInteractions
 {
-    private $pageRepository;
-    private $interactionRepository;
-    private $authGateway;
-
-    private $allowedInteractions = [
+    private array $allowedInteractions = [
         'follow', 'unfollow', 'done', 'undone', 'applause', 'unapplause'
     ];
 
     public function __construct(
-        PageRepository $pageRepository,
-        InteractionRepository $interactionRepository,
-        AuthGateway $authGateway
-    )
-    {
-        $this->pageRepository = $pageRepository;
-        $this->interactionRepository = $interactionRepository;
-        $this->authGateway = $authGateway;
-    }
+        private PageRepository                 $pageRepository,
+        private readonly InteractionRepository $interactionRepository,
+        private readonly AuthGateway           $authGateway
+    ){}
 
     /**
      * @param string $pageId
@@ -41,17 +33,17 @@ class HandleInteractions
      * @throws PageNotFound
      * @throws Exception
      */
-    public function execute(string $pageId, array $interactions, array $doneValue = []):void
+    public function execute(int $pageId, array $interactions, string $countryCode, array $doneValue = []):void
     {
         $this->checkAllowedInteractions($interactions);
 
         $canInteractUser = $this->getInteractUser();
-        $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId);
+        $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $countryCode);
         if(!isset($interaction)) {
-            $canInteractUser->addInteraction($interactions, $pageId, $doneValue);
+            $canInteractUser->addInteraction($interactions, $pageId, $countryCode, $doneValue);
             return;
         }
-        $canInteractUser->updateInteraction($interaction, $interactions, $doneValue);
+        $canInteractUser->updateInteraction($interaction, $interactions, $doneValue, $countryCode);
     }
 
     /**

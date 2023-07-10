@@ -72,7 +72,7 @@ class WikiClient
      */
     public function getPictureInfo(string $picture): ?array
     {
-        $queryPictures = '?action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
+        $queryPictures = 'action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
 
         $picturesApiUri = $this->baseUri.$queryPictures.$picture;
         $response = $this->client->get($picturesApiUri);
@@ -94,7 +94,7 @@ class WikiClient
      */
     public function getInfoPage(string $page): array
     {
-        $queryPages = '?action=query&redirects=true&prop=info&format=json&titles=';
+        $queryPages = 'action=query&redirects=true&prop=info&format=json&titles=';
 
         $pagesApiUri = $this->baseUri.$queryPages.$page;
         $response = $this->client->get($pagesApiUri);

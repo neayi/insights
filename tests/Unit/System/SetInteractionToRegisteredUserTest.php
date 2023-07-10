@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Unit\System;
 
@@ -14,6 +15,7 @@ use Tests\TestCase;
 
 class SetInteractionToRegisteredUserTest extends TestCase
 {
+    private $countryCode = 'FR';
 
     /**
      * @test
@@ -35,11 +37,11 @@ class SetInteractionToRegisteredUserTest extends TestCase
 
         app(SetInteractionToRegisteredUser::class)->execute();
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1);
+        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1, $this->countryCode);
         $interactionExpected = clone $interaction;
         self::assertEquals($interactionExpected, $interactionSaved);
 
-        $oldInteraction = $this->interactionRepository->getByInteractUser($anonymousUser, 1);
+        $oldInteraction = $this->interactionRepository->getByInteractUser($anonymousUser, 1, $this->countryCode);
         self::assertNull($oldInteraction);
 
     }

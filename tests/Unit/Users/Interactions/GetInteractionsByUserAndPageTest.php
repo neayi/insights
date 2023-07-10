@@ -14,6 +14,8 @@ use Tests\TestCase;
 
 class GetInteractionsByUserAndPageTest extends TestCase
 {
+    private $countryCode = 'FR';
+
     /**
      * @test
      */
@@ -23,7 +25,7 @@ class GetInteractionsByUserAndPageTest extends TestCase
         $user = new User($userId, 'g@gmail.com', 'g', 'g');
         $this->authGateway->log($user);
 
-        self::assertEmpty(app(GetInteractionsByPageAndUser::class)->execute(1));
+        self::assertEmpty(app(GetInteractionsByPageAndUser::class)->execute(1, $this->countryCode));
     }
 
     /**
@@ -39,7 +41,7 @@ class GetInteractionsByUserAndPageTest extends TestCase
         $this->authGateway->log($user);
         $this->interactionRepository->save($registeredUser, $interactionExpected = new Interaction($pageId, true, true,false));
 
-        $interactionRetrieved = app(GetInteractionsByPageAndUser::class)->execute($pageId);
+        $interactionRetrieved = app(GetInteractionsByPageAndUser::class)->execute($pageId, $this->countryCode);
 
         self::assertEquals($interactionExpected, $interactionRetrieved);
     }
@@ -55,7 +57,7 @@ class GetInteractionsByUserAndPageTest extends TestCase
         $anonymousUser = new AnonymousUser($sid);
         $this->interactionRepository->save($anonymousUser, $interactionExpected = new Interaction($pageId, true, true,false));
 
-        $interactionRetrieved = app(GetInteractionsByPageAndUser::class)->execute($pageId);
+        $interactionRetrieved = app(GetInteractionsByPageAndUser::class)->execute($pageId, $this->countryCode);
 
         self::assertEquals($interactionExpected, $interactionRetrieved);
     }

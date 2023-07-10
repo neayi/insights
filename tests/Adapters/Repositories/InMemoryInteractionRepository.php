@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Adapters\Repositories;
 
@@ -18,7 +19,7 @@ class InMemoryInteractionRepository implements InteractionRepository
         $this->interactions[$canInteract->key()][$canInteract->identifier()][$interaction->pageId()] = $interaction;
     }
 
-    public function getByInteractUser(CanInteract $canInteract, int $pageId):?Interaction
+    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $countryCode):?Interaction
     {
         return $this->interactions[$canInteract->key()][$canInteract->identifier()][$pageId] ?? null;
     }
@@ -32,7 +33,7 @@ class InMemoryInteractionRepository implements InteractionRepository
         unset($this->interactions[$anonymous->key()][$anonymous->identifier()]);
     }
 
-    public function getCountInteractionsOnPage(int $pageId): array
+    public function getCountInteractionsOnPage(int $pageId, string $countryCode): array
     {
         return [];
     }
@@ -47,7 +48,7 @@ class InMemoryInteractionRepository implements InteractionRepository
         return [];
     }
 
-    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $dept = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $dept = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null, ?string $countryCode = null): Paginator
     {
         // TODO: Implement getFollowersPage() method.
     }

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
@@ -8,17 +9,17 @@ use App\Events\InteractionOnPage;
 
 trait Interact
 {
-    public function interaction(array $interactions, int $pageId, array $doneValue = []):Interaction
+    public function interaction(array $interactions, int $pageId, string $countryCode, array $doneValue = []):Interaction
     {
         $follow = in_array('follow', $interactions);
         $applause = in_array('applause', $interactions);
         $done = in_array('done', $interactions);
-        return new Interaction($pageId, $follow, $applause, $done, $doneValue);
+        return new Interaction($pageId, $follow, $applause, $done, $doneValue, $countryCode);
     }
 
-    public function addInteraction(array $interactions, int $pageId, array $doneValue = [])
+    public function addInteraction(array $interactions, int $pageId, string $countryCode, array $doneValue = [])
     {
-        $interaction = $this->interaction($interactions, $pageId, $doneValue);
+        $interaction = $this->interaction($interactions, $pageId, $countryCode, $doneValue);
         $this->interactionRepository->save($this, $interaction);
         event(new InteractionOnPage($pageId));
     }

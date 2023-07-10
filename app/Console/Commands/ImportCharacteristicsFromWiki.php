@@ -64,7 +64,7 @@ class ImportCharacteristicsFromWiki extends Command
 
                 $content = $wikiClient->getPictureInfo($picture);
 
-                if (!isset($picturesInfo)) {
+                if (!isset($content)) {
                     continue;
                 }
                 $picturesInfo = $content['query']['pages'];
@@ -111,6 +111,8 @@ class ImportCharacteristicsFromWiki extends Command
             }
             $model->fill($characteristicsToSave);
             $model->save();
+            $this->info(sprintf("Saving characteristic for %s", $label));
+
         }
     }
 
