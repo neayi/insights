@@ -20,7 +20,7 @@ class WikiClient
 
     public function searchStructures(string $search): array
     {
-        $query = sprintf('?action=query&list=search&srwhat=text&srsearch=%s&srqiprofile=classic_noboostlinks&srnamespace=3000&format=json', $search);
+        $query = sprintf('action=query&list=search&srwhat=text&srsearch=%s&srqiprofile=classic_noboostlinks&srnamespace=3000&format=json', $search);
         $uri = $this->baseUri.$query;
         try {
             $response = $this->client->get($uri);
