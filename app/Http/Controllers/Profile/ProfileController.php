@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Profile;
 
@@ -32,7 +33,8 @@ class ProfileController extends Controller
 {
     public function showEdit(GetContextByUser $contextQueryByUser)
     {
-        $allCharacteristics = app(GetAllCharacteristics::class)->get();
+        $countryCode = Auth::user()->country_code;
+        $allCharacteristics = app(GetAllCharacteristics::class)->get($countryCode);
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
@@ -166,7 +168,7 @@ class ProfileController extends Controller
     {
         $title = $request->input('title', '');
         $type = $request->input('type', '');
-        $createCharacteristic->execute(Uuid::uuid4(), $type, $title);
+        $createCharacteristic->execute(Uuid::uuid4()->toString(), $type, $title);
         return redirect()->back();
     }
 
