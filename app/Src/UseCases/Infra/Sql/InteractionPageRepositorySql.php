@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql;
 
@@ -26,7 +27,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('page_id', $interaction->pageId())
             ->first();
 
-        if($interactionModel === null) {
+        if ($interactionModel === null) {
             $interactionModel = new InteractionModel();
             $interactionModel->{$canInteract->key()} = $user->id ?? $canInteract->identifier();
         }
@@ -36,7 +37,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         $interactionModel->save();
     }
 
-    public function getByInteractUser(CanInteract $canInteract, int $pageId): ?Interaction
+    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $countryCode): ?Interaction
     {
         if($canInteract->key() == 'user_id') {
             $user = User::query()->where('uuid', $canInteract->identifier())->first();
@@ -45,6 +46,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         $interactionModel = InteractionModel::query()
             ->where($canInteract->key(), $user->id ?? $canInteract->identifier())
             ->where('page_id', $pageId)
+            ->where('country_code', $countryCode)
             ->first();
 
         if(!isset($interactionModel)){
@@ -52,7 +54,14 @@ class InteractionPageRepositorySql implements InteractionRepository
         }
 
         $value = $interactionModel->value ?? [];
-        return new Interaction($pageId, $interactionModel->follow, $interactionModel->applause, $interactionModel->done, $value);
+        return new Interaction(
+            $pageId,
+            $interactionModel->follow,
+            $interactionModel->applause,
+            $interactionModel->done,
+            $value,
+            $interactionModel->country_code,
+        );
     }
 
     public function transfer(CanInteract $anonymous, CanInteract $registered)
@@ -66,11 +75,12 @@ class InteractionPageRepositorySql implements InteractionRepository
             ]);
     }
 
-    public function getCountInteractionsOnPage(int $pageId):array
+    public function getCountInteractionsOnPage(int $pageId, string $countryCode):array
     {
         $applause = InteractionModel::query()
             ->where('page_id', $pageId)
             ->where('applause', true)
+            ->where('country_code', $countryCode)
             ->count();
 
         // For follows and done, don't include Neayi people - we tend to spoil the results with our faces
@@ -79,6 +89,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('follow', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
+            ->where('country_code', $countryCode)
             ->count();
 
         $done = InteractionModel::query()
@@ -86,6 +97,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('done', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
+            ->where('country_code', $countryCode)
             ->count();
 
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
@@ -144,7 +156,7 @@ class InteractionPageRepositorySql implements InteractionRepository
      * @return Paginator
      *
     */
-    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null, ?string $countryCode = null): Paginator
     {
         return  InteractionModel::query()
             ->with('user.context')
@@ -184,6 +196,7 @@ class InteractionPageRepositorySql implements InteractionRepository
                     ->where('contexts.department_number', $departmentNumber);
             })
             ->where('page_id', $pageId)
+            ->where('country_code', $countryCode)
             ->whereNotNull('interactions.user_id')
             ->orderBy('interactions.updated_at', 'desc')
             ->paginate()

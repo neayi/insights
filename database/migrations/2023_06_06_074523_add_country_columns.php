@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Src\UseCases\Infra\Sql\Model\InteractionModel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -28,9 +29,14 @@ return new class extends Migration
             $table->string('country_code')->nullable();
         });
 
+        Schema::table('interactions', function (Blueprint $table) {
+            $table->string('country_code')->nullable();
+        });
+
         PageModel::query()->update(['country_code' => 'FR']);
         User::query()->update(['country_code' => 'FR']);
         CharacteristicsModel::query()->update(['country_code' => 'FR']);
+        InteractionModel::query()->update(['country_code' => 'FR']);
     }
 
     public function down()
@@ -45,6 +51,10 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table){
+            $table->dropColumn('country_code');
+        });
+
+        Schema::table('interactions', function (Blueprint $table){
             $table->dropColumn('country_code');
         });
     }

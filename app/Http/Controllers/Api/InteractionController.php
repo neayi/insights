@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
@@ -19,9 +20,8 @@ use Illuminate\Http\Request;
  */
 class InteractionController extends Controller
 {
-
     /**
-     * Add a interaction (follow, unfollow, done, undone, applause, unapplause) of the user authenticated to the page given
+     * Add an interaction (follow, unfollow, done, undone, applause, unapplause) of the user authenticated to the page given
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      * @bodyParam interactions string[] required The user's interactions on the page. Example: unapplause, done
@@ -36,10 +36,12 @@ class InteractionController extends Controller
     {
         $interactions = $request->input('interactions');
         $doneValue = $request->input('done_value', []);
-        $handleInteractions->execute($pageId, $interactions, $doneValue);
+        $countryCode = $request->input('country_code');
+        $handleInteractions->execute($pageId, $interactions, $doneValue, $countryCode);
 
-        $interaction = $interactionsQueryByPageAndUser->execute($pageId);
-        $counts = $countInteractionsOnPage->execute($pageId);
+        $interaction = $interactionsQueryByPageAndUser->execute($pageId, $countryCode);
+        $counts = $countInteractionsOnPage->execute($pageId, $countryCode);
+
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
             'counts' => $counts
@@ -51,9 +53,11 @@ class InteractionController extends Controller
      * @urlParam pageId integer required The wiki page id Example:1
      * @queryParam wiki_session_id string required The wiki session id Example:abc
      */
-    public function countsInteractionOnPage($pageId, CountInteractionsOnPageQuery $countInteractionsOnPage):array
+    public function countsInteractionOnPage($pageId, Request $request, CountInteractionsOnPageQuery $countInteractionsOnPage):array
     {
-        return $countInteractionsOnPage->execute($pageId);
+        $countryCode = $request->input('country_code');
+
+        return $countInteractionsOnPage->execute($pageId, $countryCode);
     }
 
     /**
@@ -63,12 +67,15 @@ class InteractionController extends Controller
      */
     public function getInteractionsOnPageByUser(
         $pageId,
+        Request $request,
         GetInteractionsByPageAndUser $interactionsQueryByPageAndUser,
         CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {
-        $interaction = $interactionsQueryByPageAndUser->execute($pageId);
-        $counts = $countInteractionsOnPage->execute($pageId);
+        $countryCode = $request->input('country_code');
+        $interaction = $interactionsQueryByPageAndUser->execute($pageId, $countryCode);
+        $counts = $countInteractionsOnPage->execute($pageId, $countryCode);
+
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
             'counts' => $counts
@@ -89,12 +96,15 @@ class InteractionController extends Controller
         $dept = $request->input('dept', null);
         $farmingId = $request->input('farming_id', null);
         $croppingId = $request->input('cropping_id', null);
-        return $getFollowersOfPage->execute($pageId, $type, $dept, $farmingId, $croppingId);
+        $countryCode = $request->input('country_code');
+
+        return $getFollowersOfPage->execute($pageId, $type, $dept, $farmingId, $croppingId, $countryCode);
     }
 
     public function getStatsDepartment($pageId, Request $request, GetStatsByDepartment $getStatsByDepartment)
     {
         $type = $request->input('type', 'follow');
+
         return $getStatsByDepartment->execute($pageId, $type);
     }
 }

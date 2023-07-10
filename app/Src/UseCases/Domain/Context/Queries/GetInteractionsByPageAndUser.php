@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Queries;
 
@@ -25,10 +26,10 @@ class GetInteractionsByPageAndUser
         $this->authGateway = $authGateway;
     }
 
-    public function execute(int $pageId):?Interaction
+    public function execute(int $pageId, string $countryCode): ?Interaction
     {
         $canInteractUser = $this->getInteractUser();
-        return $this->interactionRepository->getByInteractUser($canInteractUser, $pageId);
+        return $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $countryCode);
     }
 
     private function getInteractUser():CanInteract

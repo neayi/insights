@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Profile;
 
@@ -18,9 +19,11 @@ use Illuminate\Support\Facades\Auth;
  */
 class WizardProfileController extends Controller
 {
-    public function showWizard()
+    public function showWizard(Request $request)
     {
-        $characteristics = app(GetAllCharacteristics::class)->get();
+        $langs = explode('_', $request->getPreferredLanguage());
+        $countryCode = $langs[1] ?? 'FR';
+        $characteristics = app(GetAllCharacteristics::class)->get($countryCode);
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
 

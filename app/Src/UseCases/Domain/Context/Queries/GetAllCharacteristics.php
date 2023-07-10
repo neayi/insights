@@ -9,17 +9,14 @@ use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 
 class GetAllCharacteristics
 {
-    private $characteristicsRepository;
+    public function __construct(
+        private CharacteristicsRepository $characteristicsRepository
+    ){}
 
-    public function __construct(CharacteristicsRepository $characteristicsRepository)
+    public function get(string $countryCode): array
     {
-        $this->characteristicsRepository = $characteristicsRepository;
-    }
-
-    public function get()
-    {
-        $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE);
-        $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM);
+        $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE, $countryCode);
+        $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM, $countryCode);
 
         return [
             Characteristic::FARMING_TYPE => $mains,
