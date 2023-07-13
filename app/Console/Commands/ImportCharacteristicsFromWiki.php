@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 
 class ImportCharacteristicsFromWiki extends Command
 {
-    protected $signature = 'characteristics:import {country_code}';
+    protected $signature = 'characteristics:import {wiki}';
 
     protected $description = 'Import the wiki characteristics';
 
@@ -45,8 +45,8 @@ class ImportCharacteristicsFromWiki extends Command
     {
         $this->info(sprintf("Importing Characteristics for %s", $type));
 
-        $countryCode = $this->argument('country_code');
-        $wikiClient = new WikiClient($countryCode);
+        $wikiCode = $this->argument('wiki');
+        $wikiClient = new WikiClient($wikiCode);
 
         $content = $wikiClient->searchCharacteristics($opt);
         $characteristics = $content['query']['results'];
@@ -99,12 +99,12 @@ class ImportCharacteristicsFromWiki extends Command
                 'page_id' => (int)$pageInfo['pageid'],
                 'type' => $type,
                 'code' => $pageInfo['title'],
-                'country_code' => $countryCode,
+                'wiki' => strtolower($wikiCode),
             ];
 
             $model = CharacteristicsModel::query()
                 ->where('page_id', (int)$pageInfo['pageid'])
-                ->where('country_code', $countryCode)
+                ->where('wiki', $wikiCode)
                 ->first();
             if(!isset($model)) {
                 $model = new CharacteristicsModel();

@@ -9,17 +9,17 @@ use App\Events\InteractionOnPage;
 
 trait Interact
 {
-    public function interaction(array $interactions, int $pageId, string $countryCode, array $doneValue = []):Interaction
+    public function interaction(array $interactions, int $pageId, string $wikiCode, array $doneValue = []):Interaction
     {
         $follow = in_array('follow', $interactions);
         $applause = in_array('applause', $interactions);
         $done = in_array('done', $interactions);
-        return new Interaction($pageId, $follow, $applause, $done, $doneValue, $countryCode);
+        return new Interaction($pageId, $follow, $applause, $done, $doneValue, $wikiCode);
     }
 
-    public function addInteraction(array $interactions, int $pageId, string $countryCode, array $doneValue = [])
+    public function addInteraction(array $interactions, int $pageId, string $wikiCode, array $doneValue = [])
     {
-        $interaction = $this->interaction($interactions, $pageId, $countryCode, $doneValue);
+        $interaction = $this->interaction($interactions, $pageId, $wikiCode, $doneValue);
         $this->interactionRepository->save($this, $interaction);
         event(new InteractionOnPage($pageId));
     }

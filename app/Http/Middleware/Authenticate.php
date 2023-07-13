@@ -15,10 +15,10 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if($request->has('sso')){
-            list(,$countryCode,) = explode('/', $request->getRequestUri());
+            list(,$wikiCode,) = explode('/', $request->getRequestUri());
             session()->put('sso', $request->get('sso'));
             session()->put('sig', $request->get('sig'));
-            session()->put('countryCode', strtoupper($countryCode));
+            session()->put('wikiCode', strtolower($wikiCode));
         }
 
         if (! $request->expectsJson()) {

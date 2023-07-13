@@ -33,8 +33,8 @@ class ProfileController extends Controller
 {
     public function showEdit(GetContextByUser $contextQueryByUser)
     {
-        $countryCode = Auth::user()->country_code;
-        $allCharacteristics = app(GetAllCharacteristics::class)->get($countryCode);
+        $wikiCode = Auth::user()->wiki;
+        $allCharacteristics = app(GetAllCharacteristics::class)->get($wikiCode);
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){

@@ -11,9 +11,9 @@ class SsoController extends \Spinen\Discourse\Controllers\SsoController
 {
     protected function loadConfigs(Config $config): void
     {
-        list(,$countryCode,) = explode('/', request()->getRequestUri());
+        list(,$wikiCode,) = explode('/', request()->getRequestUri());
         $configs = $config->get('services.discourse');
-        $configs['url'] = env('DISCOURSE_URL_'.strtoupper($countryCode));
+        $configs['url'] = env('DISCOURSE_URL_'.strtoupper($wikiCode));
 
         $this->config = collect($configs);
         $this->config->put('user', collect($this->config->get('user')));

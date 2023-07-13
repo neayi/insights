@@ -26,10 +26,10 @@ class GetInteractionsByPageAndUser
         $this->authGateway = $authGateway;
     }
 
-    public function execute(int $pageId, string $countryCode): ?Interaction
+    public function execute(int $pageId, string $wikiCode): ?Interaction
     {
         $canInteractUser = $this->getInteractUser();
-        return $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $countryCode);
+        return $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $wikiCode);
     }
 
     private function getInteractUser():CanInteract

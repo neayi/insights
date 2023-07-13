@@ -13,8 +13,8 @@ class CountInteractionsOnPageQuery
         private InteractionRepository $interactionRepository
     ){}
 
-    public function execute(int $pageId, string $countryCode):array
+    public function execute(int $pageId, string $wikiCode):array
     {
-        return $this->interactionRepository->getCountInteractionsOnPage($pageId, $countryCode);
+        return $this->interactionRepository->getCountInteractionsOnPage($pageId, $wikiCode);
     }
 }

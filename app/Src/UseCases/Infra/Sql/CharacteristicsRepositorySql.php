@@ -21,13 +21,13 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $list->toArray();
     }
 
-    public function getAllByType(string $type, string $countryCode): array
+    public function getAllByType(string $type, string $wikiCode): array
     {
         $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->orderBy('priority')
             ->where('visible', true)
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->get();
         return $list->toArray();
     }

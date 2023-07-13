@@ -88,8 +88,8 @@ class LoginController extends Controller
             }
             $sso = $request->session()->get('sso');
             $sig = $request->session()->get('sig');
-            $countryCode = $request->session()->get('countryCode');
-            return redirect($countryCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig);
+            $wikiCode = $request->session()->get('wikiCode');
+            return redirect($wikiCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig);
         }
 
         if($request->session()->has('wiki_callback')){

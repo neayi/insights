@@ -16,7 +16,7 @@ class InMemoryCharacteristicRepository implements CharacteristicsRepository
         throw new \Exception('not implemented');
     }
 
-    public function getAllByType(string $type, string $countryCode): array
+    public function getAllByType(string $type, string $wikiCode): array
     {
         // TODO: Implement getAllByType() method.
     }
