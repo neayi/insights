@@ -56,9 +56,9 @@ class InteractionPageRepositorySql implements InteractionRepository
         $value = $interactionModel->value ?? [];
         return new Interaction(
             $pageId,
-            $interactionModel->follow,
-            $interactionModel->applause,
-            $interactionModel->done,
+            (bool)$interactionModel->follow,
+            (bool)$interactionModel->applause,
+            (bool)$interactionModel->done,
             $value,
             $interactionModel->wiki,
         );
