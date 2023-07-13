@@ -37,10 +37,10 @@ class InteractionController extends Controller
         $interactions = $request->input('interactions');
         $doneValue = $request->input('done_value', []);
         $countryCode = $request->input('country_code');
-        $handleInteractions->execute($pageId, $interactions, $doneValue, $countryCode);
+        $handleInteractions->execute((int)$pageId, $interactions, $doneValue, $countryCode);
 
-        $interaction = $interactionsQueryByPageAndUser->execute($pageId, $countryCode);
-        $counts = $countInteractionsOnPage->execute($pageId, $countryCode);
+        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $countryCode);
+        $counts = $countInteractionsOnPage->execute((int)$pageId, $countryCode);
 
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
@@ -57,7 +57,7 @@ class InteractionController extends Controller
     {
         $countryCode = $request->input('country_code');
 
-        return $countInteractionsOnPage->execute($pageId, $countryCode);
+        return $countInteractionsOnPage->execute((int)$pageId, $countryCode);
     }
 
     /**
@@ -73,8 +73,8 @@ class InteractionController extends Controller
     )
     {
         $countryCode = $request->input('country_code');
-        $interaction = $interactionsQueryByPageAndUser->execute($pageId, $countryCode);
-        $counts = $countInteractionsOnPage->execute($pageId, $countryCode);
+        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $countryCode);
+        $counts = $countInteractionsOnPage->execute((int)$pageId, $countryCode);
 
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
@@ -98,13 +98,13 @@ class InteractionController extends Controller
         $croppingId = $request->input('cropping_id', null);
         $countryCode = $request->input('country_code');
 
-        return $getFollowersOfPage->execute($pageId, $type, $dept, $farmingId, $croppingId, $countryCode);
+        return $getFollowersOfPage->execute((int)$pageId, $type, $dept, $farmingId, $croppingId, $countryCode);
     }
 
     public function getStatsDepartment($pageId, Request $request, GetStatsByDepartment $getStatsByDepartment)
     {
         $type = $request->input('type', 'follow');
 
-        return $getStatsByDepartment->execute($pageId, $type);
+        return $getStatsByDepartment->execute((int)$pageId, $type);
     }
 }
