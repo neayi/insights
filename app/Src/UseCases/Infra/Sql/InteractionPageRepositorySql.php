@@ -45,8 +45,8 @@ class InteractionPageRepositorySql implements InteractionRepository
 
         $interactionModel = InteractionModel::query()
             ->where($canInteract->key(), $user->id ?? $canInteract->identifier())
-            ->where('page_id', $pageId)
-            ->where('wiki', $wikiCode)
+            ->where('interactions.page_id', $pageId)
+            ->where('interactions.wiki', $wikiCode)
             ->first();
 
         if(!isset($interactionModel)){
@@ -78,9 +78,9 @@ class InteractionPageRepositorySql implements InteractionRepository
     public function getCountInteractionsOnPage(int $pageId, string $wikiCode):array
     {
         $applause = InteractionModel::query()
-            ->where('page_id', $pageId)
-            ->where('applause', true)
-            ->where('wiki', $wikiCode)
+            ->where('interactions.page_id', $pageId)
+            ->where('interactions.applause', true)
+            ->where('interactions.wiki', $wikiCode)
             ->count();
 
         // For follows and done, don't include Neayi people - we tend to spoil the results with our faces
@@ -89,7 +89,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('follow', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
-            ->where('wiki', $wikiCode)
+            ->where('interactions.wiki', $wikiCode)
             ->count();
 
         $done = InteractionModel::query()
@@ -97,7 +97,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('done', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
-            ->where('wiki', $wikiCode)
+            ->where('interactions.wiki', $wikiCode)
             ->count();
 
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
@@ -195,8 +195,8 @@ class InteractionPageRepositorySql implements InteractionRepository
                     ->join('contexts', 'users.context_id', 'contexts.id')
                     ->where('contexts.department_number', $departmentNumber);
             })
-            ->where('page_id', $pageId)
-            ->where('wiki', $wikiCode)
+            ->where('interactions.page_id', $pageId)
+            ->where('interactions.wiki', $wikiCode)
             ->whereNotNull('interactions.user_id')
             ->orderBy('interactions.updated_at', 'desc')
             ->paginate()
