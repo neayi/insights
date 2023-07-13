@@ -37,7 +37,7 @@ class InteractionController extends Controller
         $interactions = $request->input('interactions');
         $doneValue = $request->input('done_value', []);
         $wikiCode = $request->input('wiki');
-        $handleInteractions->execute((int)$pageId, $interactions, $doneValue, $wikiCode);
+        $handleInteractions->execute((int)$pageId, $interactions, $wikiCode, $doneValue);
 
         $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $wikiCode);
         $counts = $countInteractionsOnPage->execute((int)$pageId, $wikiCode);
