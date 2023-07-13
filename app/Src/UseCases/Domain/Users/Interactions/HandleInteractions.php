@@ -33,7 +33,7 @@ class HandleInteractions
      * @throws PageNotFound
      * @throws Exception
      */
-    public function execute(int $pageId, array $interactions, string $countryCode, array $doneValue = []):void
+    public function execute(string $pageId, array $interactions, string $countryCode, array $doneValue = []):void
     {
         $this->checkAllowedInteractions($interactions);
 
