@@ -33,17 +33,17 @@ class HandleInteractions
      * @throws PageNotFound
      * @throws Exception
      */
-    public function execute(int $pageId, array $interactions, string $countryCode, array $doneValue = []):void
+    public function execute(int $pageId, array $interactions, string $wikiCode, array $doneValue = []):void
     {
         $this->checkAllowedInteractions($interactions);
 
         $canInteractUser = $this->getInteractUser();
-        $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $countryCode);
+        $interaction = $this->interactionRepository->getByInteractUser($canInteractUser, $pageId, $wikiCode);
         if(!isset($interaction)) {
-            $canInteractUser->addInteraction($interactions, $pageId, $countryCode, $doneValue);
+            $canInteractUser->addInteraction($interactions, $pageId, $wikiCode, $doneValue);
             return;
         }
-        $canInteractUser->updateInteraction($interaction, $interactions, $doneValue, $countryCode);
+        $canInteractUser->updateInteraction($interaction, $interactions, $doneValue, $wikiCode);
     }
 
     /**

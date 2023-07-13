@@ -11,7 +11,7 @@ class Interaction
     private $done;
     private $pageId;
     private $doneValue;
-    private $countryCode;
+    private $wikiCode;
 
     public function __construct(
         int $pageId,
@@ -19,7 +19,7 @@ class Interaction
         bool $applause,
         bool $done,
         array $doneValue = [],
-        string $countryCode = null
+        string $wikiCode = null
     )
     {
         $this->pageId = $pageId;
@@ -27,7 +27,7 @@ class Interaction
         $this->follow = $follow;
         $this->applause = $applause;
         $this->doneValue = $doneValue;
-        $this->countryCode = $countryCode;
+        $this->wikiCode = $wikiCode;
     }
 
     public function pageId():int
@@ -71,7 +71,7 @@ class Interaction
             'applause' => $this->applause,
             'value' => $this->doneValue,
             'page_id' => $this->pageId,
-            'country_code' => $this->countryCode
+            'wiki' => $this->wikiCode
         ];
     }
 }

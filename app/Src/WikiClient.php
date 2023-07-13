@@ -12,9 +12,9 @@ class WikiClient
     private Client $client;
     private string $baseUri;
 
-    public function __construct(string $countryCode)
+    public function __construct(string $wikiCode)
     {
-        $this->baseUri = config(sprintf('wiki.api_uri_%s', strtolower($countryCode))).'?';
+        $this->baseUri = config(sprintf('wiki.api_uri_%s', strtolower($wikiCode))).'?';
         $this->client = new Client();
     }
 

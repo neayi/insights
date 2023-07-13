@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
     Route::post('profile-wizard', 'Profile\WizardProfileController@processWizard')->name('wizard.profile.process');
 });
 
-Route::get('{countryCode}/neayi/discourse/sso', 'Discourse\SsoController@login')
+Route::get('{wikiCode}/neayi/discourse/sso', 'Discourse\SsoController@login')
     ->middleware('auth')
     ->name('neayi.discourse.sso');
 

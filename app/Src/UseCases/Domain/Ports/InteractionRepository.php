@@ -11,9 +11,9 @@ use Illuminate\Contracts\Pagination\Paginator;
 interface InteractionRepository
 {
     public function save(CanInteract $canInteract, Interaction $interaction);
-    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $countryCode):?Interaction;
+    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $wikiCode):?Interaction;
     public function transfer(CanInteract $anonymous, CanInteract $registered);
-    public function getCountInteractionsOnPage(int $pageId, string $countryCode):array;
+    public function getCountInteractionsOnPage(int $pageId, string $wikiCode):array;
     public function getInteractionsByUser(string $userId):array;
     public function getDoneByUser(string $userId):array;
 
@@ -24,6 +24,6 @@ interface InteractionRepository
         ?string $dept = null,
         ?string $characteristicId = null,
         ?string $characteristicIdCroppingSystem = null,
-        ?string $countryCode = null
+        ?string $wikiCode = null
     ):Paginator;
 }

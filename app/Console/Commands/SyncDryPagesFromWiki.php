@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 
 class SyncDryPagesFromWiki extends Command
 {
-    protected $signature = 'pages:sync-dry {country_code}';
+    protected $signature = 'pages:sync-dry {wiki}';
 
     protected $description = 'Sync the pages from the wiki';
 
@@ -24,8 +24,8 @@ class SyncDryPagesFromWiki extends Command
     public function handle()
     {
         $httpClient = new Client();
-        $countryCode = $this->argument('country_code');
-        $baseUri = config(sprintf('wiki.api_uri_%s', $countryCode));
+        $wikiCode = $this->argument('wiki');
+        $baseUri = config(sprintf('wiki.api_uri_%s', $wikiCode));
 
         PageModel::query()->where('dry', true)->chunkById(50, function ($items, $count) use($httpClient, $baseUri){
             $this->info(($count*50).' Pages');

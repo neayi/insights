@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 class SetInteractionToRegisteredUserTest extends TestCase
 {
-    private $countryCode = 'FR';
+    private $wikiCode = 'fr';
 
     /**
      * @test
@@ -37,11 +37,11 @@ class SetInteractionToRegisteredUserTest extends TestCase
 
         app(SetInteractionToRegisteredUser::class)->execute();
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1, $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), 1, $this->wikiCode);
         $interactionExpected = clone $interaction;
         self::assertEquals($interactionExpected, $interactionSaved);
 
-        $oldInteraction = $this->interactionRepository->getByInteractUser($anonymousUser, 1, $this->countryCode);
+        $oldInteraction = $this->interactionRepository->getByInteractUser($anonymousUser, 1, $this->wikiCode);
         self::assertNull($oldInteraction);
 
     }

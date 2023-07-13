@@ -37,7 +37,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         $interactionModel->save();
     }
 
-    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $countryCode): ?Interaction
+    public function getByInteractUser(CanInteract $canInteract, int $pageId, string $wikiCode): ?Interaction
     {
         if($canInteract->key() == 'user_id') {
             $user = User::query()->where('uuid', $canInteract->identifier())->first();
@@ -46,7 +46,7 @@ class InteractionPageRepositorySql implements InteractionRepository
         $interactionModel = InteractionModel::query()
             ->where($canInteract->key(), $user->id ?? $canInteract->identifier())
             ->where('page_id', $pageId)
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->first();
 
         if(!isset($interactionModel)){
@@ -60,7 +60,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             $interactionModel->applause,
             $interactionModel->done,
             $value,
-            $interactionModel->country_code,
+            $interactionModel->wiki,
         );
     }
 
@@ -75,12 +75,12 @@ class InteractionPageRepositorySql implements InteractionRepository
             ]);
     }
 
-    public function getCountInteractionsOnPage(int $pageId, string $countryCode):array
+    public function getCountInteractionsOnPage(int $pageId, string $wikiCode):array
     {
         $applause = InteractionModel::query()
             ->where('page_id', $pageId)
             ->where('applause', true)
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->count();
 
         // For follows and done, don't include Neayi people - we tend to spoil the results with our faces
@@ -89,7 +89,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('follow', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->count();
 
         $done = InteractionModel::query()
@@ -97,7 +97,7 @@ class InteractionPageRepositorySql implements InteractionRepository
             ->where('done', true)
             ->join('users', 'users.id', 'interactions.user_id')
             ->where('users.email', 'NOT LIKE', '%@neayi.com')
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->count();
 
         return ['follow' => $follow, 'done' => $done, 'applause' => $applause];
@@ -156,7 +156,7 @@ class InteractionPageRepositorySql implements InteractionRepository
      * @return Paginator
      *
     */
-    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null, ?string $countryCode = null): Paginator
+    public function getFollowersPage(int $pageId, string $type = 'follow', ?string $departmentNumber = null, ?string $characteristicId = null, ?string $characteristicIdCroppingSystem = null, ?string $wikiCode = null): Paginator
     {
         return  InteractionModel::query()
             ->with('user.context')
@@ -196,7 +196,7 @@ class InteractionPageRepositorySql implements InteractionRepository
                     ->where('contexts.department_number', $departmentNumber);
             })
             ->where('page_id', $pageId)
-            ->where('country_code', $countryCode)
+            ->where('wiki', $wikiCode)
             ->whereNotNull('interactions.user_id')
             ->orderBy('interactions.updated_at', 'desc')
             ->paginate()

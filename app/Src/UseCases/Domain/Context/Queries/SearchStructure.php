@@ -15,7 +15,7 @@ class SearchStructure
 {
     public function execute(string $search):array
     {
-        $client = new WikiClient(Auth::user()->country_code);
+        $client = new WikiClient(Auth::user()->wiki);
         $content = $client->searchStructures($search);
         if(isset($content['query']['search'])){
             $results = array_column($content['query']['search'], 'title');

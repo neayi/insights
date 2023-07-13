@@ -20,7 +20,7 @@ class GetFollowersOfPage
         ?string $dept = null,
         string $characteristicIdFarmingType = null,
         string $characteristicIdCroppingSystem = null,
-        string $countryCode = null
+        string $wikiCode = null
     ):Paginator
     {
         return $this->interactionRepository->getFollowersPage(
@@ -29,7 +29,7 @@ class GetFollowersOfPage
             $dept,
             $characteristicIdFarmingType,
             $characteristicIdCroppingSystem,
-            $countryCode
+            $wikiCode
         );
     }
 }

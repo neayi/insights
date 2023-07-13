@@ -13,10 +13,10 @@ class GetAllCharacteristics
         private CharacteristicsRepository $characteristicsRepository
     ){}
 
-    public function get(string $countryCode): array
+    public function get(string $wikiCode): array
     {
-        $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE, $countryCode);
-        $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM, $countryCode);
+        $mains = $this->characteristicsRepository->getAllByType(Characteristic::FARMING_TYPE, $wikiCode);
+        $mainsTs = $this->characteristicsRepository->getAllByType(Characteristic::CROPPING_SYSTEM, $wikiCode);
 
         return [
             Characteristic::FARMING_TYPE => $mains,

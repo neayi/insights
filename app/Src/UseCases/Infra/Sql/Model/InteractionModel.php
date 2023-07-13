@@ -13,7 +13,7 @@ class InteractionModel extends Model
 {
     protected $table = 'interactions';
 
-    protected $fillable = ['follow', 'applause', 'done', 'page_id', 'value', 'country_code'];
+    protected $fillable = ['follow', 'applause', 'done', 'page_id', 'value', 'wiki'];
 
     protected $casts = ['value' => 'array', 'start_done_at' => 'datetime'];
 

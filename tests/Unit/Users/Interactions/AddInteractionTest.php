@@ -17,7 +17,7 @@ use Tests\TestCase;
 
 class AddInteractionTest extends TestCase
 {
-    private $countryCode = 'FR';
+    private $wikiCode = 'fr';
 
     public function setUp(): void
     {
@@ -36,7 +36,7 @@ class AddInteractionTest extends TestCase
 
         self::expectException(\Exception::class);
         self::expectExceptionMessage('interaction_not_allowed');
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode);
     }
 
 
@@ -53,9 +53,9 @@ class AddInteractionTest extends TestCase
         $this->userRepository->add($user);
         $this->authGateway->log($user);
 
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode);
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), $pageId, $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser(new RegisteredUser($userId), $pageId, $this->wikiCode);
         self::assertEquals($expected, $interactionSaved);
 
         Event::assertDispatched(InteractionOnPage::class);
@@ -64,13 +64,13 @@ class AddInteractionTest extends TestCase
     public function dataProvider()
     {
         return [
-            [['follow'], new Interaction(1, true, false, false, [], $this->countryCode)],
-            [['follow', 'done'], new Interaction(1,true, false, true, [], $this->countryCode)],
-            [['unfollow'], new Interaction(1,false, false, false, [], $this->countryCode)],
-            [['done'], new Interaction(1,false, false, true, [], $this->countryCode)],
-            [['undone'], new Interaction(1,false, false, false, [], $this->countryCode)],
-            [['applause'], new Interaction(1,false, true, false, [], $this->countryCode)],
-            [['unapplause'], new Interaction(1,false, false, false, [], $this->countryCode)],
+            [['follow'], new Interaction(1, true, false, false, [], $this->wikiCode)],
+            [['follow', 'done'], new Interaction(1,true, false, true, [], $this->wikiCode)],
+            [['unfollow'], new Interaction(1,false, false, false, [], $this->wikiCode)],
+            [['done'], new Interaction(1,false, false, true, [], $this->wikiCode)],
+            [['undone'], new Interaction(1,false, false, false, [], $this->wikiCode)],
+            [['applause'], new Interaction(1,false, true, false, [], $this->wikiCode)],
+            [['unapplause'], new Interaction(1,false, false, false, [], $this->wikiCode)],
         ];
     }
 
@@ -88,12 +88,12 @@ class AddInteractionTest extends TestCase
         $this->authGateway->log($user);
 
         $registeredUser = new RegisteredUser($userId);
-        $this->interactionRepository->save($registeredUser, new Interaction(1,false, true, false, [], $this->countryCode));
+        $this->interactionRepository->save($registeredUser, new Interaction(1,false, true, false, [], $this->wikiCode));
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode);
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId, $this->countryCode);
-        $expected = new Interaction(1,true, true, true, [], $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId, $this->wikiCode);
+        $expected = new Interaction(1,true, true, true, [], $this->wikiCode);
         self::assertEquals($expected, $interactionSaved);
 
         Event::assertDispatched(InteractionOnPage::class);
@@ -113,10 +113,10 @@ class AddInteractionTest extends TestCase
         $registeredUser = new RegisteredUser($userId);
 
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode, ['start_at' => '2020-10-23']);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode, ['start_at' => '2020-10-23']);
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId, $this->countryCode);
-        $expected = new Interaction(1,true, false, true, $doneValue = ['start_at' => '2020-10-23'], $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser($registeredUser, $pageId, $this->wikiCode);
+        $expected = new Interaction(1,true, false, true, $doneValue = ['start_at' => '2020-10-23'], $this->wikiCode);
         self::assertEquals($expected, $interactionSaved);
     }
 
@@ -129,10 +129,10 @@ class AddInteractionTest extends TestCase
         $this->pageRepository->save(new Page($pageId));
 
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode);
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser(new AnonymousUser('session_id'), $pageId, $this->countryCode);
-        $expected = new Interaction(1,true, false, true, [], $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser(new AnonymousUser('session_id'), $pageId, $this->wikiCode);
+        $expected = new Interaction(1,true, false, true, [], $this->wikiCode);
         self::assertEquals($expected, $interactionSaved);
 
         Event::assertDispatched(InteractionOnPage::class);
@@ -147,12 +147,12 @@ class AddInteractionTest extends TestCase
         $this->pageRepository->save(new Page($pageId));
 
         $anonymousUser = new AnonymousUser('session_id');
-        $this->interactionRepository->save($anonymousUser, new Interaction(1,false, true, false, [], $this->countryCode));
+        $this->interactionRepository->save($anonymousUser, new Interaction(1,false, true, false, [], $this->wikiCode));
         $interaction = ['follow', 'done'];
-        app(HandleInteractions::class)->execute($pageId, $interaction, $this->countryCode);
+        app(HandleInteractions::class)->execute($pageId, $interaction, $this->wikiCode);
 
-        $interactionSaved = $this->interactionRepository->getByInteractUser($anonymousUser, $pageId, $this->countryCode);
-        $expected = new Interaction(1,true, true, true, [], $this->countryCode);
+        $interactionSaved = $this->interactionRepository->getByInteractUser($anonymousUser, $pageId, $this->wikiCode);
+        $expected = new Interaction(1,true, true, true, [], $this->wikiCode);
         self::assertEquals($expected, $interactionSaved);
 
         Event::assertDispatched(InteractionOnPage::class);

@@ -36,11 +36,11 @@ class InteractionController extends Controller
     {
         $interactions = $request->input('interactions');
         $doneValue = $request->input('done_value', []);
-        $countryCode = $request->input('country_code');
-        $handleInteractions->execute((int)$pageId, $interactions, $doneValue, $countryCode);
+        $wikiCode = $request->input('wiki');
+        $handleInteractions->execute((int)$pageId, $interactions, $doneValue, $wikiCode);
 
-        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $countryCode);
-        $counts = $countInteractionsOnPage->execute((int)$pageId, $countryCode);
+        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $wikiCode);
+        $counts = $countInteractionsOnPage->execute((int)$pageId, $wikiCode);
 
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
@@ -55,9 +55,9 @@ class InteractionController extends Controller
      */
     public function countsInteractionOnPage($pageId, Request $request, CountInteractionsOnPageQuery $countInteractionsOnPage):array
     {
-        $countryCode = $request->input('country_code');
+        $wikiCode = $request->input('wiki');
 
-        return $countInteractionsOnPage->execute((int)$pageId, $countryCode);
+        return $countInteractionsOnPage->execute((int)$pageId, $wikiCode);
     }
 
     /**
@@ -72,9 +72,9 @@ class InteractionController extends Controller
         CountInteractionsOnPageQuery $countInteractionsOnPage
     )
     {
-        $countryCode = $request->input('country_code');
-        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $countryCode);
-        $counts = $countInteractionsOnPage->execute((int)$pageId, $countryCode);
+        $wikiCode = $request->input('wiki');
+        $interaction = $interactionsQueryByPageAndUser->execute((int)$pageId, $wikiCode);
+        $counts = $countInteractionsOnPage->execute((int)$pageId, $wikiCode);
 
         return [
             'state' => isset($interaction) ? $interaction->toArray() : [],
@@ -96,9 +96,9 @@ class InteractionController extends Controller
         $dept = $request->input('dept', null);
         $farmingId = $request->input('farming_id', null);
         $croppingId = $request->input('cropping_id', null);
-        $countryCode = $request->input('country_code');
+        $wikiCode = $request->input('wiki');
 
-        return $getFollowersOfPage->execute((int)$pageId, $type, $dept, $farmingId, $croppingId, $countryCode);
+        return $getFollowersOfPage->execute((int)$pageId, $type, $dept, $farmingId, $croppingId, $wikiCode);
     }
 
     public function getStatsDepartment($pageId, Request $request, GetStatsByDepartment $getStatsByDepartment)

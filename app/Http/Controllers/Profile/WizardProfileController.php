@@ -22,8 +22,8 @@ class WizardProfileController extends Controller
     public function showWizard(Request $request)
     {
         $langs = explode('_', $request->getPreferredLanguage());
-        $countryCode = $langs[1] ?? 'FR';
-        $characteristics = app(GetAllCharacteristics::class)->get($countryCode);
+        $wikiCode = strtolower($langs[1]) ?? 'fr';
+        $characteristics = app(GetAllCharacteristics::class)->get($wikiCode);
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
 

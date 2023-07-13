@@ -81,7 +81,7 @@ class RegisterController extends Controller
 
         $user = User::where('uuid', $userId)->first();
         $langs = explode('_', \Illuminate\Support\Facades\Request::getPreferredLanguage());
-        $user->country_code = $langs[1] ?? 'FR';
+        $user->wiki = strtolower($langs[1]) ?? 'fr';
         $user->save();
         return $user;
     }
@@ -143,8 +143,8 @@ class RegisterController extends Controller
             if(session()->has('sso')){
                 $sso = session()->get('sso');
                 $sig = session()->get('sig');
-                $countryCode = session()->get('countryCode');
-                $callback = base64_encode(url($countryCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
+                $wikiCode = session()->get('wikiCode');
+                $callback = base64_encode(url($wikiCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
                 return redirect($callback);
             }
 
@@ -171,7 +171,7 @@ class RegisterController extends Controller
         $userId = $result['user_id'];
         $user = User::where('uuid', $userId)->first();
         $langs = explode('_', \Illuminate\Support\Facades\Request::getPreferredLanguage());
-        $user->country_code = $langs[1] ?? 'FR';
+        $user->wiki = strtolower($langs[1]) ?? 'fr';
         $user->save();
         return redirect()->route('home');
     }
