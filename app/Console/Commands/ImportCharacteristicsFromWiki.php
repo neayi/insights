@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\LocalesConfig;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\WikiClient;
@@ -16,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 class ImportCharacteristicsFromWiki extends Command
 {
-    protected $signature = 'characteristics:import {wiki}';
+    protected $signature = 'characteristics:import';
 
     protected $description = 'Import the wiki characteristics';
 
@@ -27,26 +28,29 @@ class ImportCharacteristicsFromWiki extends Command
     {
         // @see https://wiki.tripleperformance.fr/wiki/Aide:Requettes_Insights
 
-        $optFarming = [
-            'query' => '[[Est un élément de profil::Production]]|?A un fichier d\'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d\'affichage|?A un label|sort=A une priorité d\'affichage|order=asc',
-        ];
-        $this->importCharacteristics($optFarming, Characteristic::FARMING_TYPE);
+        $localesConfig = LocalesConfig::all();
 
-        $optCropping = [
-            'query' => "[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
-        ];
-        $this->importCharacteristics($optCropping, Characteristic::CROPPING_SYSTEM);
+        foreach ($localesConfig as $localeConfig) {
+            $client = new WikiClient($localeConfig->toArray());
+            $wikiCode = $localeConfig->code;
+            $optFarming = [
+                'query' => '[[Est un élément de profil::Production]]|?A un fichier d\'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d\'affichage|?A un label|sort=A une priorité d\'affichage|order=asc',
+            ];
+            $this->importCharacteristics($optFarming, Characteristic::FARMING_TYPE, $client, $wikiCode);
+
+            $optCropping = [
+                'query' => "[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
+            ];
+            $this->importCharacteristics($optCropping, Characteristic::CROPPING_SYSTEM, $client, $wikiCode);
+        }
     }
 
     /**
      * @throws GuzzleException
      */
-    private function importCharacteristics(array $opt, string $type): void
+    private function importCharacteristics(array $opt, string $type, WikiClient $wikiClient, string $wikiCode): void
     {
         $this->info(sprintf("Importing Characteristics for %s", $type));
-
-        $wikiCode = $this->argument('wiki');
-        $wikiClient = new WikiClient($wikiCode);
 
         $content = $wikiClient->searchCharacteristics($opt);
         $characteristics = $content['query']['results'];

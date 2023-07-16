@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\LocalesConfig;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\Src\WikiClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -11,46 +12,51 @@ use Illuminate\Console\Command;
 
 class ImportAllPagesFromWiki extends Command
 {
-    protected $signature = 'pages:import-all {wiki}';
+    protected $signature = 'pages:import-all';
 
-    protected $description = 'Import all pages from the wiki';
+    protected $description = 'Import all pages from the wikis store in locale configs';
 
     /**
      * @throws GuzzleException
      */
     public function handle(): void
     {
-        $wikiCode = $this->argument('wiki');
-        $client = new WikiClient($wikiCode);
+        $localesConfig = LocalesConfig::all();
 
-        // Repeat for Main, Categories and Structures
-        foreach ([0, 14, 3000] as $namespace)
-        {
-            $this->info("Importing Pages from namespace $namespace");
+        foreach ($localesConfig as $localeConfig) {
+            $client = new WikiClient($localeConfig->toArray());
+            $wikiCode = $localeConfig->code;
+            $this->info(sprintf("Importing Pages from wiki %s", $wikiCode));
 
-            $content = $client->searchPages($namespace);
-            $pages = $content['query']['allpages'];
 
-            $this->handlePages($pages, $wikiCode);
+            // Repeat for Main, Categories and Structures
+            foreach ([0, 14, 3000] as $namespace) {
+                $this->info("Importing Pages from namespace $namespace");
 
-            $continue = $content['continue']['apcontinue'] ?? null;
-
-            while($continue !== null && $continue !== ''){
-
-                $opts = ['apcontinue' => $continue];
-                $content = $client->searchPages($namespace, $opts);
+                $content = $client->searchPages($namespace);
                 $pages = $content['query']['allpages'];
 
                 $this->handlePages($pages, $wikiCode);
 
                 $continue = $content['continue']['apcontinue'] ?? null;
+
+                while ($continue !== null && $continue !== '') {
+
+                    $opts = ['apcontinue' => $continue];
+                    $content = $client->searchPages($namespace, $opts);
+                    $pages = $content['query']['allpages'];
+
+                    $this->handlePages($pages, $wikiCode);
+
+                    $continue = $content['continue']['apcontinue'] ?? null;
+                }
             }
         }
     }
 
     private function handlePages(array $pages, string $wikiCode): void
     {
-        $this->info(sprintf('Process %s Pages', $count = count($pages)));
+        $this->info(sprintf('Process wiki %s - %s Pages', $wikiCode, $count = count($pages)));
         foreach ($pages as $page) {
 
             $pageModel = PageModel::query()

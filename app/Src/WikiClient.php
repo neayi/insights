@@ -12,9 +12,9 @@ class WikiClient
     private Client $client;
     private string $baseUri;
 
-    public function __construct(string $wikiCode)
+    public function __construct(array $configs)
     {
-        $this->baseUri = config(sprintf('wiki.api_uri_%s', strtolower($wikiCode))).'?';
+        $this->baseUri = $configs['wiki_api_url'].'?';
         $this->client = new Client();
     }
 
@@ -47,6 +47,14 @@ class WikiClient
         $pagesApiUri = $this->baseUri.http_build_query($params);
         $response = $this->client->get($pagesApiUri);
 
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    public function searchPagesById(array $pagesIds): array
+    {
+        $query = "action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=";
+
+        $response = $this->client->get($this->baseUri.$query.implode('|', $pagesIds));
         return json_decode($response->getBody()->getContents(), true);
     }
 
@@ -99,6 +107,20 @@ class WikiClient
         $pagesApiUri = $this->baseUri.$queryPages.$page;
         $response = $this->client->get($pagesApiUri);
 
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    public function searchPagesLinkedToCharacteristics(string|int $offset = null): array
+    {
+        $query = "action=ask&format=json&api_version=3&query=[[A un type de page::%2B]]|?A un fichier d'icone de caractéristique|?A un type de page";
+
+        $pagesApiUri = $this->baseUri.$query;
+
+        if (!empty($offset)) {
+            $pagesApiUri .= '|offset='.$offset;
+        }
+
+        $response = $this->client->get($pagesApiUri);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
