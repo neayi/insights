@@ -14,7 +14,7 @@ class ImportAllPagesFromWiki extends Command
 {
     protected $signature = 'pages:import-all';
 
-    protected $description = 'Import all pages from the wikis store in locale configs';
+    protected $description = 'Import all pages from the wikis as configured in the  locale configs';
 
     /**
      * @throws GuzzleException

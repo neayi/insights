@@ -110,7 +110,7 @@ class WikiClient
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function searchPagesLinkedToCharacteristics(string|int $offset = null): array
+    public function getPagesAdditionalDetail(string|int $offset = null): array
     {
         $query = "action=ask&format=json&api_version=3&query=[[A un type de page::%2B]]|?A un fichier d'icone de caractéristique|?A un type de page";
 
