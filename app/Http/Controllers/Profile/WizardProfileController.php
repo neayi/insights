@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Profile;
 
-
+use App\LocalesConfig;
 use App\Http\Controllers\Controller;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
@@ -21,8 +21,8 @@ class WizardProfileController extends Controller
 {
     public function showWizard(Request $request)
     {
-        $langs = explode('_', $request->getPreferredLanguage());
-        $wikiCode = strtolower($langs[0]) ?? 'fr';
+        $wikiCode = LocalesConfig::getLocaleFromCode($request->getPreferredLanguage())->code;
+
         $characteristics = app(GetAllCharacteristics::class)->get($wikiCode);
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
