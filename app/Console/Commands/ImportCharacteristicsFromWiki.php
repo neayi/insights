@@ -34,7 +34,7 @@ class ImportCharacteristicsFromWiki extends Command
             $client = new WikiClient($localeConfig->toArray());
             $wikiCode = $localeConfig->code;
             $optFarming = [
-                'query' => '[[Est un élément de profil::Production]]|?A un fichier d\'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d\'affichage|?A un label|sort=A une priorité d\'affichage|order=asc',
+                'query' => "[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
             ];
             $this->importCharacteristics($optFarming, Characteristic::FARMING_TYPE, $client, $wikiCode);
 
