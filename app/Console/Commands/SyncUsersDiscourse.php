@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\LocalesConfig;
 use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -22,14 +24,25 @@ class SyncUsersDiscourse extends Command
 
     public function handle()
     {
-        $hostname = config('services.discourse.api.url');
-        $httpClient = new Client(['base_uri' => $hostname]);
+        $clients = [];
+        foreach (LocalesConfig::all() as $wiki) {
+            $clients[$wiki->code] = new Client([
+                'base_uri' => $wiki->forum_api_url,
+                'headers' => [
+                    'Api-Key' => $wiki->forum_api_key,
+                    'Api-Username' => 'system',
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+
+        }
 
         User::query()
             ->whereNotNull('email_verified_at')
             ->whereNull('sync_at_discourse')
-            ->chunkById(50, function ($items) use ($httpClient) {
+            ->chunkById(50, function ($items) use ($clients) {
                 foreach($items as $user) {
+                    $httpClient = $clients[$user->wiki];
                     Log::info('Discourse Syncing user : '.$user->uuid);
                     try {
                         if(!isset($user->discourse_id)) {
@@ -57,7 +70,7 @@ class SyncUsersDiscourse extends Command
 
     private function createUserOnDiscourse(Client $httpClient, User $user, int $increment = 0)
     {
-        $this->username = trim(substr(Str::of($user->fullname)->slug('.'), 0, 20), '.');
+        $this->username = trim(substr((string)Str::of($user->fullname)->slug('.'), 0, 20), '.');
 
         if (empty($user->email_verified_at))
             throw new \Exception("Email not verified", 54);
@@ -70,13 +83,7 @@ class SyncUsersDiscourse extends Command
         else
             $username = $this->username;
 
-        $apiKey = config('services.discourse.api.key');
         $result = $httpClient->post('users.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ],
             'json' => [
                 'username' => $username,
                 'name' => $user->fullname,
@@ -115,16 +122,8 @@ class SyncUsersDiscourse extends Command
      */
     private function updateUsernameFromDiscourse(Client $httpClient, User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-
         try {
-            $result = $httpClient->get('u/by-external/' . $user->id . '.json', [
-                'headers' => [
-                    'Api-Key' => $apiKey,
-                    'Api-Username' => 'system',
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $result = $httpClient->get('u/by-external/' . $user->id . '.json');
         } catch (\Throwable $th) {
             if ($th->getCode() == 404)
                 return $this->updateUsernameFromDiscourseWithEmail($httpClient, $user);
@@ -156,14 +155,7 @@ class SyncUsersDiscourse extends Command
      */
     private function updateUsernameFromDiscourseWithEmail(Client $httpClient, User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->get('/admin/users/list/active.json?filter=' . $user->email . '&show_emails=true&order=&ascending=&page=1', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $result = $httpClient->get('/admin/users/list/active.json?filter=' . $user->email . '&show_emails=true&order=&ascending=&page=1');
 
         $result = json_decode($result->getBody()->getContents(), true);
 
@@ -182,14 +174,8 @@ class SyncUsersDiscourse extends Command
 
     private function updateUserEmailOnDiscourse(Client $httpClient, User $user)
     {
-        $apiKey = config('services.discourse.api.key');
         try {
             $result = $httpClient->put('u/' . $user->discourse_username . '/preferences/email.json', [
-                'headers' => [
-                    'Api-Key' => $apiKey,
-                    'Api-Username' => 'system',
-                    'Content-Type' => 'application/json'
-                ],
                 'json' => [
                     'email' => $user->email,
                 ]
@@ -208,19 +194,12 @@ class SyncUsersDiscourse extends Command
 
     private function updateUserDetailsOnDiscourse(Client $httpClient, User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-
         $bioParts = array();
         $bioParts[] = $user->getBioAttribute();
         $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname)."/".$user->uuid.")";
         $newBio = trim(implode("\n", array_filter($bioParts)));
 
         $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ],
             'json' => [
                 'name' => $user->fullname,
                 'title' => $user->title,
