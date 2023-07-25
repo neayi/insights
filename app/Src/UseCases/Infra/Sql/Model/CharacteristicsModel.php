@@ -55,7 +55,8 @@ class CharacteristicsModel extends Model
             $this->type,
             $icon,
             $this->pretty_page_label,
-            $this->opt ?? []
+            $this->opt ?? [],
+            $this->wiki,
         );
     }
 

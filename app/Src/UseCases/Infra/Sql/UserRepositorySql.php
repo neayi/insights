@@ -187,7 +187,8 @@ class UserRepositorySql implements UserRepository
             $roles,
             $record->providers ?? [],
             $record->discourse_id ?? '',
-            $record->discourse_username ?? ''
+            $record->discourse_username ?? '',
+            $record->wiki
         );
     }
 
@@ -203,6 +204,4 @@ class UserRepositorySql implements UserRepository
         event(new Verified($user));
         $user->markEmailAsVerified();
     }
-
-
 }

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Gateway;
 
@@ -14,11 +15,24 @@ class SessionAuthGateway implements AuthGateway
     public function current(): ?User
     {
         $userModel = Auth::user();
-        if(!isset($userModel)){
+        if (!isset($userModel)) {
             return null;
         }
         $roles = $userModel->roles()->pluck('name')->toArray();
-        return new User($userModel->uuid, $userModel->email, $userModel->firstname, $userModel->lastname, $userModel->organization_id, $userModel->path_picture, $roles, $userModel->providers);
+
+        return new User(
+            $userModel->uuid,
+            $userModel->email,
+            $userModel->firstname,
+            $userModel->lastname,
+            $userModel->organization_id,
+            $userModel->path_picture,
+            $roles,
+            $userModel->providers,
+            $userModel->discourse_id,
+            $userModel->discourse_username,
+            $userModel->wiki
+        );
     }
 
     public function log(User $u)

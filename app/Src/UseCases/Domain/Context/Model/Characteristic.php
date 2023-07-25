@@ -1,6 +1,8 @@
 <?php
 
 
+declare(strict_types=1);
+
 namespace App\Src\UseCases\Domain\Context\Model;
 
 
@@ -20,14 +22,23 @@ class Characteristic implements HasMemento
     private $id;
     private $pageId;
     private $icon = null;
+    private $wiki = 'fr';
 
-    public function __construct(string $id, string $type, string $title, bool $visible, int $pageId = null)
+    public function __construct(
+        string $id,
+        string $type,
+        string $title,
+        bool $visible,
+        int $pageId = null,
+        string $wiki = 'fr'
+    )
     {
         $this->id = $id;
         $this->pageId = $pageId;
         $this->type = $type;
         $this->title = $title;
         $this->visible = $visible;
+        $this->wiki = $wiki;
     }
 
     public function create(string $icon = null)
@@ -41,7 +52,7 @@ class Characteristic implements HasMemento
 
     public function memento(): Memento
     {
-        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon, $this->pageId);
+        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon, $this->pageId, $this->wiki);
     }
 
     public function id(): string

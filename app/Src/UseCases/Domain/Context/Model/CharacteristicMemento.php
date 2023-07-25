@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
@@ -15,7 +16,9 @@ class CharacteristicMemento implements Memento
     private $icon;
     private $pageId;
 
-    public function __construct(string $id, string $type, string $title, bool $visible, ?string $icon = null, ?int $pageId = null)
+    private $wiki;
+
+    public function __construct(string $id, string $type, string $title, bool $visible, ?string $icon = null, ?int $pageId = null, string $wiki = 'fr')
     {
         $this->id = $id;
         $this->type = $type;
@@ -23,6 +26,7 @@ class CharacteristicMemento implements Memento
         $this->visible = $visible;
         $this->icon = $icon;
         $this->pageId = $pageId;
+        $this->wiki = $wiki;
     }
 
     public function id(): string
@@ -53,5 +57,10 @@ class CharacteristicMemento implements Memento
     public function pageId():? int
     {
         return $this->pageId;
+    }
+
+    public function wiki(): string
+    {
+        return $this->wiki;
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\ServiceConfigs;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Queries\GetContextByUser;
 use App\Src\UseCases\Domain\Context\Queries\GetAllCharacteristics;
@@ -23,29 +24,36 @@ use App\Src\UseCases\Domain\Users\GetUser;
 use App\Src\UseCases\Domain\Users\RemoveAvatar;
 use App\Src\UseCases\Domain\Users\UpdateUserAvatar;
 use App\User;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 
 class ProfileController extends Controller
 {
-    public function showEdit(GetContextByUser $contextQueryByUser)
+    public function showEdit(
+        GetContextByUser $contextQueryByUser,
+        ServiceConfigs $localesServiceConfigs,
+        AuthGateway $authGateway,
+        GetUserRole $getUserRole,
+        GetUserPractises $getUserPractises,
+        GetInteractionsByUser $getInteractionsByUser,
+        GetAllCharacteristics $getAllCharacteristics
+    )
     {
         $wikiCode = Auth::user()->wiki;
-        $allCharacteristics = app(GetAllCharacteristics::class)->get($wikiCode);
+        $allCharacteristics = $getAllCharacteristics->get($wikiCode);
+
         try {
             $context = $contextQueryByUser->execute(Auth::user()->uuid)->toArray();
         }catch (\Throwable $e){
-            Log::emergency($e->getMessage().' '.$e->getLine().' '.$e->getFile().' '.$e->getTraceAsString());
+            // profile not found, we redirect to creation of profile
             return redirect()->route('wizard.profile');
         }
 
-        $user = app(AuthGateway::class)->current()->toArray();
-        $roles = app(GetUserRole::class)->get()->toArray();
-        $practises = app(GetUserPractises::class)->get(Auth::user()->uuid);
-        $interactions = app(GetInteractionsByUser::class)->get(Auth::user()->uuid);
+        $user = $authGateway->current()->toArray();
+        $roles = $getUserRole->get()->toArray();
+        $practises = $getUserPractises->get(Auth::user()->uuid);
+        $interactions = $getInteractionsByUser->get(Auth::user()->uuid);
         $usersCharacteristics =  array_merge($context['productions'], $context['characteristics'], $context['characteristics_departement']);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
         $role = last($user['roles']);
@@ -63,16 +71,24 @@ class ProfileController extends Controller
             'croppingType' => $allCharacteristics[Characteristic::CROPPING_SYSTEM],
             'practises' => $practises,
             'interactions' => $interactions,
-            'routeComment' => $routeComment
+            'routeComment' => $routeComment,
+            'localesConfig' => $localesServiceConfigs->all(),
         ]);
     }
 
-    public function show(string $username, string $userId, GetContextByUser $contextQueryByUser)
+    public function show(
+        string $username,
+        string $userId,
+        GetContextByUser $contextQueryByUser,
+        GetUser $getUser,
+        GetUserRole $getUserRole,
+        GetUserPractises $getUserPractises,
+        GetInteractionsByUser $getInteractionsByUser
+    )
     {
-        $user = app(GetUser::class)->get($userId)->toArray();
-        $routeComment = route('profile.comments.show', ['user_id' => $userId]);
-
+        $user = $getUser->get($userId)->toArray();
         $contextRepo = $contextQueryByUser->execute($userId);
+
         if (!empty($contextRepo)) {
             $context = $contextRepo->toArray();
             $usersCharacteristics = array_merge($context['productions'], $context['characteristics']);
@@ -84,9 +100,9 @@ class ProfileController extends Controller
             $usersCharacteristics = [];
         }
 
-        $roles = app(GetUserRole::class)->get()->toArray();
-        $practises = app(GetUserPractises::class)->get($userId);
-        $interactions = app(GetInteractionsByUser::class)->get($userId);
+        $roles = $getUserRole->get()->toArray();
+        $practises = $getUserPractises->get($userId);
+        $interactions = $getInteractionsByUser->get($userId);
         $uuidsUserCharacteristics = array_column($usersCharacteristics, 'uuid');
 
         $role = !empty($user['roles']) ? last($user['roles']) : 'others';
@@ -101,7 +117,7 @@ class ProfileController extends Controller
             'uuidsUserCharacteristics' => $uuidsUserCharacteristics,
             'practises' => $practises,
             'interactions' => $interactions,
-            'routeComment' => $routeComment,
+            'routeComment' => route('profile.comments.show', ['user_id' => $userId]),
             'more' => User::query()->where('uuid', $userId)->first()->toArray()
         ]);
     }

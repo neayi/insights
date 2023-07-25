@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role)
                                      {{ !empty($context['sector']) ? '- '.$context['sector'] : '' }}
-                                     {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
+                                     {!! !empty($context['structure']) ? ' (<a href="' . $localesConfig[$context['wiki']]['wiki_url'] . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
                                 </div>
                                 @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
                                     <div>
@@ -176,7 +176,7 @@
                                                 @endphp
                                                 <div class="caracteristique-exploitation">
                                                     <img src="{{ $characteristic['icon'] }}/100">
-                                                    <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank">
+                                                    <a class="stretched-link" href="{{ $localesConfig[$characteristic['wiki']]['wiki_url'] }}/wiki/{{ $characteristic['page'] }}" target="_blank">
                                                         <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
                                                     </a>
                                                 </div>
@@ -248,7 +248,7 @@
                                     <ul class="elements practises-elem">
                                         @foreach($practisesByYear as $practise)
                                             <li class="practises-elem">
-                                                <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$practise['page_id']}}">
+                                                <a target="_blank" href="{{$localesConfig[$practise['lang']]['wiki_url'].'/index.php?curid='.$practise['page_id']}}">
                                                     {{$practise['label']}}
                                                 </a>
                                             </li>

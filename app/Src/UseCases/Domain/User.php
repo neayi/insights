@@ -27,6 +27,7 @@ class User
     private $providers;
     private $discourse_id;
     private $discourse_username;
+    private $wiki;
 
     public function __construct(
         string $id,
@@ -37,8 +38,9 @@ class User
         string $pathPicture = null,
         array $roles = [],
         array $providers = [],
-        string $discourse_id = '',
-        string $discourse_username = ''
+        ?string $discourse_id = '',
+        ?string $discourse_username = '',
+        string $wiki = 'fr',
     )
     {
         $this->id = $id;
@@ -51,6 +53,7 @@ class User
         $this->providers = $providers;
         $this->discourse_id = $discourse_id;
         $this->discourse_username = $discourse_username;
+        $this->wiki = $wiki;
     }
 
     public function email():string
@@ -71,6 +74,11 @@ class User
     public function organizationId():?string
     {
         return $this->organizationId;
+    }
+
+    public function wiki(): string
+    {
+        return $this->wiki;
     }
 
     public function provider(string $provider, string $providerId):bool

@@ -191,4 +191,9 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         $sync->sync = false;
         $sync->save();
     }
+
+    public function wikiUrl():string
+    {
+        return LocalesConfig::query()->where('code', $this->wiki)->first()->wiki_url;
+    }
 }

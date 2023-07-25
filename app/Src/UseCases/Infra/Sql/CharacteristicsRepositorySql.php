@@ -57,6 +57,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->visible = $memento->visible();
         $characteristicModel->icon = $memento->icon();
         $characteristicModel->page_id = $memento->pageId();
+        $characteristicModel->wiki = $memento->wiki();
         $characteristicModel->save();
     }
 

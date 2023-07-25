@@ -20,7 +20,7 @@
                                             @lang('common.here')
                                         </a>
                                     @else
-                                        <a href="{{ config('neayi.wiki_url') }}">
+                                        <a href="{{ \Illuminate\Support\Facades\Auth::user()->wikiUrl() }}">Consulter le wiki</a>
                                             @lang('common.consult_wiki')
                                         </a>
                                     @endif
