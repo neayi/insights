@@ -6,36 +6,34 @@ namespace App\Src\UseCases\Domain\Context\Queries;
 
 
 use App\LocalesConfig;
+use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 
 class GetLastWikiUserComments
 {
     public function __construct(
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private ForumApiClient $forumApiClient
     ){}
 
     public function get(string $userId)
     {
         $comments = Cache::get("comments_".$userId);
-        if(isset($comments)){
+        if (isset($comments)) {
             return json_decode($comments, true);
         }
 
         $user = $this->userRepository->getById($userId);
 
         $localeConfig = LocalesConfig::query()->where('code', $user->wiki())->first();
-        $httpClient = new Client(['base_uri' => $localeConfig->forum_api_url]);
         $forumURL = $localeConfig->forum_url;
 
-        $response = $httpClient->get('search.json?q=order:latest @'.$user->discourse_username());
-        $content = json_decode($response->getBody()->getContents(), true);
+        $content = $this->forumApiClient->getUserByUsername($user->discourse_username());
         $commentsToRetrieved = [];
 
-        if (!empty($content['posts']))
-        {
+        if (!empty($content['posts'])) {
             $comments = $content['posts'];
 
             $topicsTitleById = [];
