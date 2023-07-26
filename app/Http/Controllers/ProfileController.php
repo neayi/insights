@@ -12,6 +12,9 @@ use App\Src\UseCases\Domain\Users\GetUserStats;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @deprecated
+ */
 class ProfileController extends Controller
 {
     public function showEditProfile(GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)

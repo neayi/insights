@@ -11,7 +11,7 @@ use App\Src\UseCases\Domain\Ports\UserRepository;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 
-class GetLastWikiUserComments
+class GetLastUserComments
 {
     public function __construct(
         private UserRepository $userRepository,
