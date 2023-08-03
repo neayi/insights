@@ -16,11 +16,24 @@
     </head>
 <body>
     <div id="app">
-        @include('layouts.neayi.partials.top-navbar')
+
+        @php
+            $currentUser = \Illuminate\Support\Facades\Auth::user();
+            $lang = 'en';
+            $locale = \App\LocalesConfig::getLocaleFromCode(\Illuminate\Support\Facades\Request::getPreferredLanguage());
+            $wikiUrl = $locale->wiki_url;
+            if (!empty($currentUser)) {
+                $wikiUrl = $currentUser->wikiUrl();
+                $lang = $currentUser->wiki;
+            }
+        @endphp
+
+        @include('layouts.neayi.partials.'.$lang.'.top-navbar')
         <div class="container-fluid">
             @yield('content')
         </div>
-        @include('layouts.neayi.partials.footer')
+
+        @include('layouts.neayi.partials.'.$lang.'.footer', ['wikiUrl' => config('neayi.wiki_url')])
         @include('users.modals.register')
     </div>
 

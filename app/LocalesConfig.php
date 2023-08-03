@@ -25,21 +25,23 @@ class LocalesConfig extends Model
      * Returns the locale config for the wiki that best matches the code passed in parameters,
      * and returns a default one (Enligh) if none found. The code may have a country part attached (en_US)
      */
-    static public function getLocaleFromCode(string $preferedLanguage)
+    static public function getLocaleFromCode(string $preferredLanguage): self
     {
-        $languageParts = explode('_', $preferedLanguage);
-        $preferedCode = strtolower($languageParts[0]);
+        $languageParts = explode('_', $preferredLanguage);
+        $preferredCode = strtolower($languageParts[0]);
 
         $localesConfig = LocalesConfig::all();
 
         $defaultLocale = reset($localesConfig);
 
         foreach ($localesConfig as $localeConfig) {
-            if ($preferedCode == $localeConfig->code)
+            if ($preferredCode == $localeConfig->code) {
                 return $localeConfig;
+            }
 
-            if ('en' == $localeConfig->code)
+            if ('en' == $localeConfig->code) {
                 $defaultLocale = $localeConfig;
+            }
         }
 
         return $defaultLocale;
