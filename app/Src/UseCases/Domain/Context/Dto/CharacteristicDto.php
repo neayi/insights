@@ -1,8 +1,9 @@
 <?php
 
 
-namespace App\Src\UseCases\Domain\Context\Dto;
+declare(strict_types=1);
 
+namespace App\Src\UseCases\Domain\Context\Dto;
 
 class CharacteristicDto implements \JsonSerializable
 {
@@ -12,8 +13,9 @@ class CharacteristicDto implements \JsonSerializable
     public $type;
     public $icon;
     public $opt;
+    public $code;
 
-    public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel, array $opt = [])
+    public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel, array $opt = [], string $wiki = 'fr')
     {
         $this->uuid = $uuid;
         $this->label = $label;
@@ -21,6 +23,7 @@ class CharacteristicDto implements \JsonSerializable
         $this->icon = $icon;
         $this->prettyLabel = str_replace('Catégorie:', '', $prettyLabel);
         $this->opt = $opt;
+        $this->wiki = $wiki;
     }
 
     public function type():string
@@ -39,7 +42,8 @@ class CharacteristicDto implements \JsonSerializable
             'page' => $this->label,
             'icon' => $this->icon,
             'caption' => $this->prettyLabel,
-            'opt' => $this->opt
+            'opt' => $this->opt,
+            'wiki' => $this->wiki
         ];
     }
 }

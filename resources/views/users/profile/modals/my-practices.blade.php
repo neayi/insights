@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3 mr-3">Mes pratiques</label>
+                                    <label class="label-big mb-3 mr-3">@lang('wiki_profile.my_practices')</label>
                                     <a class="material-icons circle-icon mx-1">
                                         search
                                     </a>
@@ -23,7 +23,7 @@
                                                  <span class="material-icons">
                                                      sort
                                                 </span>
-                                                Chronologie
+                                                @lang('wiki_profile.chronology')
                                             </a>
                                         </div>
                                     </div>
@@ -35,8 +35,8 @@
                 </div>
             </div>
             <div class="modal-footer mt-4 border-0">
-                <button type="button" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
-                <button type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">Annuler</button>
+                <button type="button" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">@lang('common.btn_save_edit')</button>
+                <button type="button" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">@lang('common.btn_cancel')</button>
             </div>
         </div>
     </div>

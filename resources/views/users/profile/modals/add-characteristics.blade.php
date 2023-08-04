@@ -10,11 +10,11 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="info">
-                                    Vous pouvez utiliser le bouton
+                                    @lang('wiki_profile.you_can_use_btn')
                                     <span class="material-icons circle-icon mx-1">
                                      add
                                     </span>
-                                    pour ajouter des productions ou caractéristiques
+                                    @lang('wiki_profile.to_add_characteristics')
                                 </p>
                             </div>
                         </div>
@@ -22,8 +22,8 @@
                         <div class="row mt-3 icon-checkboxes">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3 mr-3">Je suis principalement en</label>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Ajouter des productions :"
+                                    <label class="label-big mb-3 mr-3">@lang('wiki_profile.im_mainly_in')</label>
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="@lang('wiki_profile.add_productions') :"
                                        data-toggle="modal" data-type="farming" data-target="#caracteristiqueSearch">
                                         add
                                     </a>
@@ -50,8 +50,8 @@
                         <div class="row mt-5 icon-checkboxes">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3 mr-3">Je suis en</label>
-                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="Ajouter des caractéristiques à mon système :"
+                                    <label class="label-big mb-3 mr-3">@lang('wiki_profile.im_in')</label>
+                                    <a class="material-icons circle-icon mx-1 search-type-c" data-type-pretty="@lang('wiki_profile.add_characteristics') :"
                                        href="#" data-toggle="modal" data-type="croppingSystem" data-target="#caracteristiqueSearch">
                                         add
                                     </a>
@@ -79,8 +79,8 @@
                 <div class="modal-footer mt-4 border-0">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">Enregistrer les modifications</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">Annuler</button>
+                            <button type="submit" class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0">@lang('common.btn_save_edit')</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-outline-darkgreen text-dark px-5 py-2 ">@lang('common.btn_cancel')</button>
                         </div>
                     </div>
                 </div>

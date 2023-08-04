@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Events\InteractionOnPage;
 use App\Events\UserDeleted;
-use App\Events\UserLeaveOrganization;
 use App\Listeners\AddEmailToNewsletter;
 use App\Listeners\AnonymizeUserResponse;
 use App\Listeners\SendCustomEmailVerificationNotification;
@@ -29,9 +28,6 @@ class EventServiceProvider extends ServiceProvider
             SetInteractionToRegisteredUserListener::class
         ],
         UserDeleted::class => [
-            AnonymizeUserResponse::class
-        ],
-        UserLeaveOrganization::class => [
             AnonymizeUserResponse::class
         ],
         Verified::class => [

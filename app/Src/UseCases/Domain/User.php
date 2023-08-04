@@ -5,15 +5,11 @@ namespace App\Src\UseCases\Domain;
 
 
 use App\Events\UserDeleted;
-use App\Events\UserLeaveOrganization;
-use App\Events\UserUpdated;
-use App\Mail\UserJoinsOrganizationToUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\Users\Identity;
 use App\Src\UseCases\Domain\Users\State;
 use App\Src\UseCases\Domain\Users\UserDto;
-use Illuminate\Support\Facades\Mail;
 
 class User
 {
@@ -27,6 +23,7 @@ class User
     private $providers;
     private $discourse_id;
     private $discourse_username;
+    private $wiki;
 
     public function __construct(
         string $id,
@@ -37,8 +34,9 @@ class User
         string $pathPicture = null,
         array $roles = [],
         array $providers = [],
-        string $discourse_id = '',
-        string $discourse_username = ''
+        ?string $discourse_id = '',
+        ?string $discourse_username = '',
+        string $wiki = 'fr',
     )
     {
         $this->id = $id;
@@ -51,6 +49,7 @@ class User
         $this->providers = $providers;
         $this->discourse_id = $discourse_id;
         $this->discourse_username = $discourse_username;
+        $this->wiki = $wiki;
     }
 
     public function email():string
@@ -73,6 +72,11 @@ class User
         return $this->organizationId;
     }
 
+    public function wiki(): string
+    {
+        return $this->wiki;
+    }
+
     public function provider(string $provider, string $providerId):bool
     {
         if(isset($this->providers[$provider]) && $this->providers[$provider] == $providerId){
@@ -92,11 +96,6 @@ class User
         app(UserRepository::class)->updateProviders($this);
     }
 
-    public function belongsTo(string $organisationId):bool
-    {
-        return $this->organizationId === $organisationId;
-    }
-
     public function create(string $passwordHashed = null, Picture $picture = null)
     {
         if(isset($picture)) {
@@ -106,30 +105,10 @@ class User
         app(UserRepository::class)->add($this, $passwordHashed);
     }
 
-    public function joinsOrganization(string $organizationId)
-    {
-        $this->organizationId = $organizationId;
-        app(UserRepository::class)->update($this);
-        Mail::to($this->email())->send(new UserJoinsOrganizationToUser());
-    }
-
     public function grantAsAdmin()
     {
         $this->roles = array_merge($this->roles, ['admin']);
         app(UserRepository::class)->update($this);
-    }
-
-    public function revokeAsAdmin()
-    {
-        $this->roles = [];
-        app(UserRepository::class)->update($this);
-    }
-
-    public function leaveOrganization()
-    {
-        $this->organizationId = null;
-        app(UserRepository::class)->update($this);
-        event(new UserLeaveOrganization());
     }
 
     public function isAdmin():bool

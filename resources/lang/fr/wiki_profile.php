@@ -28,4 +28,50 @@ return [
     'farming_autre' => 'Autre',
     'farming_maraichage' => 'Maraîchage',
 
+    'fill_email_hint' => 'Nous avons besoin de votre email pour vous notifier quand une page évolue par exemple.
+                Nous ne vous enverrons pas de mail non sollicité, et vous pourrez à tout moment régler le type de notifications
+                que vous souhaitez recevoir.',
+    'fill_email_header' => 'Mon email',
+    'fill_email' => 'email',
+    'fill_identity_hint' => 'Nous sommes convaincus qu’une personne qui s’exprime en utilisant sa véritable identité
+        engage sa réputation. Notre communauté devient plus responsable et bienveillante.',
+    'fill_identity_header' => 'Je m\'appelle',
+    'fill_identity_firstname' => 'Prénom',
+    'fill_identity_lastname' => 'Nom',
+    'fill_postal_code_hint' => 'Parce que nos pratiques ne sont pas partout les mêmes.',
+    'fill_postal_code_header' => 'J\'habite',
+    'fill_postal_code' => 'Code postal',
+    'fill_role_hint' => 'Nous sommes transparents sur le profil de ceux qui prennent la parole.',
+    'fill_role_header' => 'Je suis',
+    'fill_profile_hint' => 'Pour vous aider à trouver des retours d’expériences ou des pratiques pouvant s’appliquer
+                    à votre ferme et aider la communauté à vous comprendre, présentez-vous,',
+    'fill_profile_almost_done' => 'Vous y êtes presque ! Il nous manque deux trois infos dans le formulaire pour pouvoir continuer !',
+    'fill_profile_production' => 'Mes productions',
+    'fill_profile_specs' => 'Mon cahier des charges',
+
+    'add_characteristics' => 'Ajouter des caractéristiques à mon système',
+    'im_in' => 'Je suis en',
+    'im_mainly_in' => 'Je suis principalement en',
+    'you_can_use_btn' => 'Vous pouvez utiliser le bouton',
+    'to_add_characteristics' => 'pour ajouter des productions ou caractéristiques',
+    'add_productions' => 'Ajouter des productions',
+    'search_characteristics' => 'Rechercher : une pratique, une culture, un matériel…',
+    'my_farm_aim' => 'Ma ferme, mes objectifs',
+    'his_farm_aim' => 'Sa ferme, ses objectifs',
+    'structure' => 'Structure de rattachement',
+    'sector' => 'Titre, fonction, poste, ...',
+    'chronology' => 'Chronologie',
+    'my_practices' => 'Mes pratiques',
+    'no_comments' => 'Pas encore de commentaires ni de questions !',
+    'add_photo' => 'Ajouter une photo',
+    'direct_message' => 'Message direct',
+    'add_to_my_profile' => 'Ajouter à mon profil',
+    'no_characteristics_results' => 'Malheuresement aucun résultat ne correspond à votre recherche !<br/>
+                            Vous pouvez créer la caractéristique, elle sera automatique associée à votre profil',
+    'add_characteristic' => 'Ajouter des caractéristiques',
+    'my_activity' => 'Mon activité',
+    'his_activity' => 'Son activité',
+    'my_farm_characteristics' => 'Mes caractéristiques sur ma ferme',
+    'his_farm_characteristics' => 'Les caractéristiques de sa ferme',
+
 ];

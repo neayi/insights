@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
@@ -10,13 +11,15 @@ class Interaction
     private $done;
     private $pageId;
     private $doneValue;
+    private $wikiCode;
 
     public function __construct(
         int $pageId,
         bool $follow,
         bool $applause,
         bool $done,
-        array $doneValue = []
+        array $doneValue = [],
+        string $wikiCode = null
     )
     {
         $this->pageId = $pageId;
@@ -24,6 +27,7 @@ class Interaction
         $this->follow = $follow;
         $this->applause = $applause;
         $this->doneValue = $doneValue;
+        $this->wikiCode = $wikiCode;
     }
 
     public function pageId():int
@@ -66,7 +70,8 @@ class Interaction
             'follow' => $this->follow,
             'applause' => $this->applause,
             'value' => $this->doneValue,
-            'page_id' => $this->pageId
+            'page_id' => $this->pageId,
+            'wiki' => $this->wikiCode
         ];
     }
 }

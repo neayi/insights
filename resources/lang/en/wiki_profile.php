@@ -1,0 +1,77 @@
+<?php
+
+return [
+     'farmer' => 'Farmer',
+     'student' => 'Student',
+     'advisor' => 'Advisor',
+     'searcher' => 'Researcher',
+     'agro-supplier' => 'Agro-supplier',
+     'others' => 'Others',
+
+
+     'farming_cultures-tropicales' => 'Tropical crops',
+     'farming_viticulture' => 'Viticulture',
+     'farming_cultures-legumieres' => 'Vegetable crops',
+     'farming_arboriculture' => 'Arboriculture',
+     'farming_polyculture-elevage' => 'Polyculture livestock',
+     'farming_grandes-cultures' => 'Grandes cultures',
+     'farming_elevage-bovin' => 'Cattle farming',
+     'farming_elevage-caprin' => 'Goat farming',
+     'farming_elevage-ovin' => 'Sheep farming',
+     'farming_elevage-porcin' => 'Pig farming',
+     'farming_aviculture' => 'Poultry farming',
+     'farming_elevage-equin' => 'Equine breeding',
+     'farming_apiculture' => 'Beekeeping',
+     'farming_horticulture' => 'Horticulture - PPAM',
+     'farming_cultures_tropicales' => 'Tropical crops',
+     'farming_sylviculture' => 'Silviculture',
+     'farming_autre' => 'Other',
+     'farming_maraichage' => 'Maraichage',
+
+     'fill_email_hint' => 'We need your email to notify you when a page evolves for example.
+                 We will not send you unsolicited emails, and you can adjust the type of notifications at any time.
+                 that you wish to receive.',
+     'fill_email_header' => 'My email',
+     'fill_email' => 'email',
+     'fill_identity_hint' => 'We believe that someone who expresses themselves using their true identity
+         stakes its reputation. Our community becomes more responsible and caring.',
+     'fill_identity_header' => 'My name is',
+     'fill_identity_firstname' => 'First name',
+     'fill_identity_lastname' => 'Name',
+     'fill_postal_code_hint' => 'Because our practices are not the same everywhere.',
+     'fill_postal_code_header' => 'I live',
+     'fill_postal_code' => 'Postcode',
+     'fill_role_hint' => 'We are transparent about who speaks.',
+     'fill_role_header' => 'I am',
+     'fill_profile_hint' => 'To help you find feedback or practices that may apply
+                     to your farm and help the community understand you, introduce yourself,',
+     'fill_profile_almost_done' => 'Almost there! We are missing two or three pieces of information in the form to be able to continue!',
+     'fill_profile_production' => 'My productions',
+     'fill_profile_specs' => 'My Specifications',
+
+     'add_characteristics' => 'Add characteristics to my system',
+     'im_in' => "I'm in",
+     'im_mainly_in' => "I'm mainly in",
+     'you_can_use_btn' => 'You can use the button',
+     'to_add_characteristics' => 'to add productions or characteristics',
+     'add_productions' => 'Add Productions',
+     'search_characteristics' => 'Search: a practice, a culture, a material…',
+     'my_farm_aim' => 'My farm, my goals',
+     'his_farm_aim' => 'His farm, his goals',
+     'structure' => 'Connection structure',
+     'sector' => 'Title, function, position, ...',
+     'chronology' => 'Chronology',
+     'my_practices' => 'My practices',
+     'no_comments' => 'No comments or questions yet!',
+     'add_photo' => 'Add Photo',
+     'direct_message' => 'Direct message',
+     'add_to_my_profile' => 'Add to my profile',
+     'no_characteristics_results' => 'Unfortunately no results match your search!<br/>
+                             You can create the characteristic, it will be automatically associated with your profile',
+     'add_characteristic' => 'Add characteristics',
+     'my_activity' => 'My activity',
+     'his_activity' => 'His activity',
+     'my_farm_characteristics' => 'The characteristics on my farm',
+     'his_farm_characteristics' => 'The characteristics of his farm',
+
+];

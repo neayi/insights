@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use App\Src\UseCases\Domain\Auth\Register;
 use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
 use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
-use App\Src\UseCases\Domain\Invitation\AttachUserToAnOrganization;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -60,7 +59,6 @@ class RegisterController extends Controller
         }
 
         return Validator::make($data, [
-            //'g-recaptcha-response' => 'required|captcha',
             'email' => ['required',
                         'email',
                         'max:255',
@@ -74,21 +72,24 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $email = isset($data['email']) ? $data['email'] : '';
-        $firstname = isset($data['firstname']) ? $data['firstname'] : '';
-        $lastname = isset($data['lastname']) ? $data['lastname'] : '';
+        $email = $data['email'] ?? '';
+        $firstname = $data['firstname'] ?? '';
+        $lastname = $data['lastname'] ?? '';
         $password = $data['password'] !== null ? $data['password'] : '';
         $passwordConfirmation = $data['password_confirmation'] !== null ? $data['password_confirmation'] : '';
         $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);
-        return User::where('uuid', $userId)->first();
+
+        $user = User::where('uuid', $userId)->first();
+        $locale = \App\LocalesConfig::getPreferredLocale();
+        $user->wiki = $locale->code;
+        $user->save();
+        return $user;
     }
 
     protected function registered(Request $request, $user)
     {
         $this->guard()->login($user, true);
-        if($request->session()->has('should_attach_to_organization')){
-            app(AttachUserToAnOrganization::class)->attach($user->uuid, $request->session()->get('should_attach_to_organization'));
-        }
+
         $user = Auth::user();
 
         if($user->context_id === null) {
@@ -142,8 +143,8 @@ class RegisterController extends Controller
             if(session()->has('sso')){
                 $sso = session()->get('sso');
                 $sig = session()->get('sig');
-                $countryCode = session()->get('countryCode');
-                $callback = base64_encode(url($countryCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
+                $wikiCode = session()->get('wikiCode');
+                $callback = base64_encode(url($wikiCode.'/neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
                 return redirect($callback);
             }
 
@@ -165,7 +166,13 @@ class RegisterController extends Controller
     public function registerAfterError(Request $request, RegisterUserAfterErrorWithSocialNetwork $registerUserAfterErrorWithSocialNetwork)
     {
         list($email, $firstname, $lastname, $provider, $providerId, $pictureUrl) = $this->initData($request);
-        $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
+        $result = $registerUserAfterErrorWithSocialNetwork->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
+
+        $userId = $result['user_id'];
+        $user = User::where('uuid', $userId)->first();
+        $locale = \App\LocalesConfig::getPreferredLocale();
+        $user->wiki = $locale->code;
+        $user->save();
         return redirect()->route('home');
     }
 

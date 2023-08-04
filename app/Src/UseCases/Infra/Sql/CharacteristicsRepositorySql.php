@@ -21,12 +21,13 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         return $list->toArray();
     }
 
-    public function getAllByType(string $type): array
+    public function getAllByType(string $type, string $wikiCode): array
     {
         $list = CharacteristicsModel::query()
             ->where('type', $type)
             ->orderBy('priority')
             ->where('visible', true)
+            ->where('wiki', $wikiCode)
             ->get();
         return $list->toArray();
     }
@@ -56,6 +57,7 @@ class CharacteristicsRepositorySql implements CharacteristicsRepository
         $characteristicModel->visible = $memento->visible();
         $characteristicModel->icon = $memento->icon();
         $characteristicModel->page_id = $memento->pageId();
+        $characteristicModel->wiki = $memento->wiki();
         $characteristicModel->save();
     }
 

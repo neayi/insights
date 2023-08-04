@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
@@ -39,11 +40,12 @@ class OAuthController extends BaseController
     public function logout()
     {
         $user = Auth::user();
+        $wikiUrl = $user->locale()->wiki_url;
         if(isset($user)){
             $user->wiki_token = '';
             $user->save();
             Auth::logout();
         }
-        redirect(config('neayi.wiki_url'));
+        redirect($wikiUrl);
     }
 }

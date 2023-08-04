@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Queries;
 
@@ -8,15 +9,12 @@ use App\Src\UseCases\Domain\Ports\InteractionRepository;
 
 class CountInteractionsOnPageQuery
 {
-    private $interactionRepository;
+    public function __construct(
+        private InteractionRepository $interactionRepository
+    ){}
 
-    public function __construct(InteractionRepository $interactionRepository)
+    public function execute(int $pageId, string $wikiCode):array
     {
-        $this->interactionRepository = $interactionRepository;
-    }
-
-    public function execute(int $pageId):array
-    {
-        return $this->interactionRepository->getCountInteractionsOnPage($pageId);
+        return $this->interactionRepository->getCountInteractionsOnPage($pageId, $wikiCode);
     }
 }

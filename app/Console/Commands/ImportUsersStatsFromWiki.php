@@ -7,6 +7,9 @@ use App\Src\UseCases\Domain\Users\EditUserStats;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @deprecated
+ */
 class ImportUsersStatsFromWiki extends Command
 {
     protected $signature = 'users:import-wiki-stats';

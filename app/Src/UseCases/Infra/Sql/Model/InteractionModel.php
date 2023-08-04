@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql\Model;
 
@@ -12,7 +13,7 @@ class InteractionModel extends Model
 {
     protected $table = 'interactions';
 
-    protected $fillable = ['follow', 'applause', 'done', 'page_id', 'value'];
+    protected $fillable = ['follow', 'applause', 'done', 'page_id', 'value', 'wiki'];
 
     protected $casts = ['value' => 'array', 'start_done_at' => 'datetime'];
 

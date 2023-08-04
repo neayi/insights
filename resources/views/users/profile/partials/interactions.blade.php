@@ -10,7 +10,8 @@
                 <div class="col-md-8 col-lg-7 position-static">
                     <div class="card-body pb-1">
                         <h4 class="card-title mb-0">
-                            <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$interaction['page_id']}}">
+                            <a class="stretched-link" style="color: inherit; text-decoration: none;" target="_blank"
+                               href="{{$localesConfig[$interaction['wiki']]['wiki_url'].'/index.php?curid='.$interaction['page_id']}}">
                                 {{ $interaction['title'] }}
                             </a>
                         </h4>

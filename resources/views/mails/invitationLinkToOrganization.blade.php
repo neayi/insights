@@ -10,7 +10,7 @@
         plateforme Triple&nbsp;Performance.
     </div>
     <div style="display: none; max-height: 0px; overflow: hidden; mso-hide:all;"> ‌ ‌ ‌ </div>
-    <table align="center" width="600" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; font-family: Helvetica,Arial,sans-serif; max-width: 600px; min-width: 600px; text-align: left; vertical-align: top; padding: 0;">
+    <table align="center" width="800" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; font-family: Helvetica,Arial,sans-serif; max-width: 800px; min-width: 600px; text-align: left; vertical-align: top; padding: 0;">
         <tbody>
         <tr style="font-family: Helvetica,Arial,sans-serif; text-align: left; vertical-align: top; padding: 0;" align="left">
             <td style="-moz-hyphens: auto; -webkit-hyphens: auto; border-collapse: collapse !important; color: #0a0a0a; font-family: Helvetica,Arial,sans-serif; font-size: 14px; font-weight: 400; hyphens: auto; line-height: 1.43; text-align: left; vertical-align: top; word-wrap: break-word; margin: 0; padding: 43px 0 0;" align="left" valign="top">

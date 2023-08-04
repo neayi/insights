@@ -1,6 +1,6 @@
 @extends('layouts.neayi.login')
 
-@section('title', 'Votre email a bien été vérifié')
+@section('title', __('auth.email_verified'))
 
 @section('content')
     <div class="modal fade modal-bg show d-block " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
@@ -12,14 +12,20 @@
                             @include('public.auth.partials.reinsurance')
                             <div class="col-lg-6 offset-lg-2 bg-white-mobile">
                                 <div class="row mb-4 mt-4">
-                                    Merci, votre email a bien été vérifié.<br/>
+                                    <div class="col my-5">
+                                        @lang('auth.email_verified')<br/>
 
-                                    @if(isset($callback) && $callback !== "")
-                                        Vous allez être redirigés d'ici quelques secondes.
-                                        Si rien ne se passe vous pouvez cliquer <a href="{{ $callback }}">ici</a>
-                                    @else
-                                        <a href="{{ config('neayi.wiki_url') }}">Consulter le wiki</a>
-                                    @endif
+                                        @if(isset($callback) && $callback !== "")
+                                            @lang('auth.redirection')
+                                            <a href="{{ $callback }}">
+                                                @lang('common.here')
+                                            </a>
+                                        @else
+                                            <a href="{{ \Illuminate\Support\Facades\Auth::user()->locale()->wiki_url }}">
+                                                @lang('common.consult_wiki')
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

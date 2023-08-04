@@ -21,6 +21,7 @@ class ContextDto extends Dto
     public $structure;
     public $userUuid;
     public $fullname;
+    public $wiki;
 
     public function __construct(
         string $firstname,
@@ -31,7 +32,8 @@ class ContextDto extends Dto
         ?string $sector,
         ?string $structure,
         ?string $userUuid = '',
-        string $departmentNumber = ''
+        string $departmentNumber = '',
+        string $wiki = 'fr'
     )
     {
         $this->firstname = $firstname;
@@ -52,6 +54,7 @@ class ContextDto extends Dto
         $this->sector = $sector;
         $this->structure = $structure;
         $this->userUuid = $userUuid;
+        $this->wiki = $wiki;
     }
 
     private function fullname():string

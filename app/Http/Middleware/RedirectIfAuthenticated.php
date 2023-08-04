@@ -23,7 +23,8 @@ class RedirectIfAuthenticated
         }
 
         if (Auth::guard($guard)->check()) {
-            return redirect(config('neayi.wiki_url'));
+            $wikiUrl = Auth::user()->locale()->wiki_url;
+            return redirect($wikiUrl);
         }
 
         return $next($request);

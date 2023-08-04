@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Mail\Auth;
 
@@ -8,7 +9,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
 class VerifyEmail extends Mailable
@@ -38,6 +38,6 @@ class VerifyEmail extends Mailable
 
         return $this->view('mails.auth.verify-email', [
             'url' => $url,
-        ])->subject('Tripleperformance : Vérifiez votre email');
+        ])->subject(__('auth.mail_verify_email_subject'));
     }
 }

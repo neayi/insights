@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\LocalesConfig;
+use App\Src\ForumApiClient;
 use App\User;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -15,6 +17,8 @@ class SyncUsersDiscourse extends Command
 
     protected $description = 'Sync the users. Add users to discourse if they do not exist';
 
+    private ForumApiClient $forumApiClient;
+
     public function __construct()
     {
         parent::__construct();
@@ -22,22 +26,25 @@ class SyncUsersDiscourse extends Command
 
     public function handle()
     {
-        $hostname = config('services.discourse.api.url');
-        $httpClient = new Client(['base_uri' => $hostname]);
+        $clients = [];
+        foreach (LocalesConfig::all() as $wiki) {
+            $clients[$wiki->code] = new ForumApiClient($wiki->forum_api_url, $wiki->forum_api_key);
+        }
 
         User::query()
             ->whereNotNull('email_verified_at')
             ->whereNull('sync_at_discourse')
-            ->chunkById(50, function ($items) use ($httpClient) {
+            ->chunkById(50, function ($items) use ($clients) {
                 foreach($items as $user) {
+                    $this->forumApiClient = $clients[$user->wiki];
                     Log::info('Discourse Syncing user : '.$user->uuid);
                     try {
                         if(!isset($user->discourse_id)) {
-                            $this->createUserOnDiscourse($httpClient, $user);
+                            $this->createUserOnDiscourse($user);
                         }else{
-                            $this->updateUserEmailOnDiscourse($httpClient, $user);
+                            $this->updateUserEmailOnDiscourse($user);
                         }
-                        $this->updateUserDetailsOnDiscourse($httpClient, $user);
+                        $this->updateUserDetailsOnDiscourse($user);
                         $user->sync_at_discourse = (new \DateTime())->format('Y-m-d H:i:s');
                         $user->save();
                     }catch (\Throwable $e){
@@ -55,47 +62,24 @@ class SyncUsersDiscourse extends Command
             });
     }
 
-    private function createUserOnDiscourse(Client $httpClient, User $user, int $increment = 0)
+    private function createUserOnDiscourse(User $user, int $increment = 0)
     {
-        $this->username = trim(substr(Str::of($user->fullname)->slug('.'), 0, 20), '.');
-
-        if (empty($user->email_verified_at))
+        if (empty($user->email_verified_at)) {
             throw new \Exception("Email not verified", 54);
+        }
 
-        if (empty($this->username))
-            throw new \Exception("Empty username", 55);
+        $username = $this->formatUsername($user, $increment);
 
-        if (!empty($increment))
-            $username = $this->username . $increment;
-        else
-            $username = $this->username;
-
-        $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->post('users.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ],
-            'json' => [
-                'username' => $username,
-                'name' => $user->fullname,
-                'password' => uniqid().uniqid(),
-                'email' => $user->email,
-                'active' => true,
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
+        $result = $this->forumApiClient->createUser($username, $user);
         if($result['success'] === false){
             if (!empty($result['errors']['email'])) {
-                return $this->updateUsernameFromDiscourse($httpClient, $user);
+                return $this->updateUsernameFromDiscourse($user);
             }
 
             if (!empty($result['errors']['username'][0]) &&
                 strpos($result['errors']['username'][0], 'unique') !== false) {
                 $increment++;
-                return $this->createUserOnDiscourse($httpClient, $user, $increment);
+                return $this->createUserOnDiscourse($user, $increment);
             }
 
             throw new \Exception($result['message']);
@@ -104,6 +88,7 @@ class SyncUsersDiscourse extends Command
         $user->discourse_username = $username;
         $user->save();
         $this->info('User created on discourse with id : '.$user->discourse_id);
+
         return $result['user_id'];
     }
 
@@ -113,30 +98,21 @@ class SyncUsersDiscourse extends Command
      *
      * Return the user_id on success, throw an exception otherwise
      */
-    private function updateUsernameFromDiscourse(Client $httpClient, User $user)
+    private function updateUsernameFromDiscourse(User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-
         try {
-            $result = $httpClient->get('u/by-external/' . $user->id . '.json', [
-                'headers' => [
-                    'Api-Key' => $apiKey,
-                    'Api-Username' => 'system',
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $result = $this->forumApiClient->getUserByInsightId($user->id);
         } catch (\Throwable $th) {
-            if ($th->getCode() == 404)
-                return $this->updateUsernameFromDiscourseWithEmail($httpClient, $user);
+            if ($th->getCode() == 404) {
+                return $this->updateUsernameFromDiscourseWithEmail($user);
+            }
 
             throw $th;
         }
 
-        $result = json_decode($result->getBody()->getContents(), true);
         if(empty($result['user'])){
             throw new \Exception('Duplicate email not corresponding to existing user');
         }
-
         $user->discourse_id = $result['user']['id'];
         $user->discourse_username = $result['user']['username'];
         $user->save();
@@ -154,18 +130,9 @@ class SyncUsersDiscourse extends Command
      *
      * Return the user_id on success, throw an exception otherwise
      */
-    private function updateUsernameFromDiscourseWithEmail(Client $httpClient, User $user)
+    private function updateUsernameFromDiscourseWithEmail(User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-        $result = $httpClient->get('/admin/users/list/active.json?filter=' . $user->email . '&show_emails=true&order=&ascending=&page=1', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
+        $result = $this->forumApiClient->getUserByEmail($user->email);
 
         if(empty($result[0]['email']) || strtolower($result[0]['email']) != strtolower($user->email)){
             throw new \Exception('Duplicate email not corresponding to existing user');
@@ -180,63 +147,51 @@ class SyncUsersDiscourse extends Command
         return $result[0]['id'];
     }
 
-    private function updateUserEmailOnDiscourse(Client $httpClient, User $user)
+    private function updateUserEmailOnDiscourse(User $user)
     {
-        $apiKey = config('services.discourse.api.key');
         try {
-            $result = $httpClient->put('u/' . $user->discourse_username . '/preferences/email.json', [
-                'headers' => [
-                    'Api-Key' => $apiKey,
-                    'Api-Username' => 'system',
-                    'Content-Type' => 'application/json'
-                ],
-                'json' => [
-                    'email' => $user->email,
-                ]
-            ]);
-            $result = json_decode($result->getBody()->getContents(), true);
-            if($result['success'] === false){
-                throw new \Exception($result['message']);
-            }
+            $this->forumApiClient->updateEmail($user->discourse_username, $user->email);
         }catch (\Throwable $e){
-            // pas besoin d'update l'email
+            $this->error('User email not updated on discourse with id : '.$user->discourse_username);
         }
 
         $this->info('User email updated on discourse with id : '.$user->discourse_username);
+
         return $user->discourse_id;
     }
 
-    private function updateUserDetailsOnDiscourse(Client $httpClient, User $user)
+    private function updateUserDetailsOnDiscourse(User $user)
     {
-        $apiKey = config('services.discourse.api.key');
-
-        $bioParts = array();
+        $bioParts = [];
         $bioParts[] = $user->getBioAttribute();
-        $bioParts[] = "\n\n[voir plus](".config('app.url')."/tp/".urlencode($user->fullname)."/".$user->uuid.")";
+        $bioParts[] = "\n\n[voir plus](".$user->profileUrl().")";
         $newBio = trim(implode("\n", array_filter($bioParts)));
 
-        $result = $httpClient->put('u/' . $user->discourse_username . '.json', [
-            'headers' => [
-                'Api-Key' => $apiKey,
-                'Api-Username' => 'system',
-                'Content-Type' => 'application/json'
-            ],
-            'json' => [
-                'name' => $user->fullname,
-                'title' => $user->title,
-                'bio_raw' => $newBio,
-//                'website' => config('app.url')."/tp/".urlencode($user->fullname)."/".$user->uuid,
-//                'location' => $user->location
-            ]
-        ]);
-
-        $result = json_decode($result->getBody()->getContents(), true);
+        $result = $this->forumApiClient->updateUser($user, $newBio);
 
         if($result['success'] === false){
+            $this->error('Not Updating bio : '.$result['message']);
             throw new \Exception($result['message']);
         }
 
         $this->info('Updating bio with id : '.$user->discourse_username);
+
         return $user->discourse_id;
+    }
+
+    /**
+     * @param User $user
+     * @param int $increment
+     * @return string
+     * @throws \Exception
+     */
+    public function formatUsername(User $user, int $increment): string
+    {
+        $username = trim(substr((string)Str::of($user->fullname)->slug('.'), 0, 20), '.');
+        if (empty($username)) {
+            throw new \Exception("Empty username", 55);
+        }
+
+        return !empty($increment) ? $username . $increment : $username;
     }
 }

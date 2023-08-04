@@ -1,5 +1,5 @@
 @if($edit)
-    Mes caractéristiques sur ma ferme
+    @lang('wiki_profile.my_farm_characteristics')
 @else
-    Les caractéristiques de sa ferme
+    @lang('wiki_profile.his_farm_characteristics')
 @endif

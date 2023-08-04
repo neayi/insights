@@ -191,4 +191,20 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         $sync->sync = false;
         $sync->save();
     }
+
+    /** Deprecated - please use locale()->wiki_url */
+    public function wikiUrl():string
+    {
+        return $this->locale()->wiki_url;
+    }
+
+    public function locale():LocalesConfig
+    {
+        return LocalesConfig::query()->where('code', $this->wiki)->first();
+    }
+
+    public function profileUrl():string
+    {
+        return config('app.url')."/tp/".urlencode($this->fullname)."/".$this->uuid;
+    }
 }

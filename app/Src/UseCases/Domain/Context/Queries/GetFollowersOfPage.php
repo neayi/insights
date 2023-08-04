@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Queries;
 
@@ -9,19 +10,17 @@ use Illuminate\Contracts\Pagination\Paginator;
 
 class GetFollowersOfPage
 {
-    private $interactionRepository;
-
-    public function __construct(InteractionRepository $interactionRepository)
-    {
-        $this->interactionRepository = $interactionRepository;
-    }
+    public function __construct(
+        private InteractionRepository $interactionRepository
+    ){}
 
     public function execute(
         int $pageId,
         string $type = 'follow',
         ?string $dept = null,
         string $characteristicIdFarmingType = null,
-        string $characteristicIdCroppingSystem = null
+        string $characteristicIdCroppingSystem = null,
+        string $wikiCode = null
     ):Paginator
     {
         return $this->interactionRepository->getFollowersPage(
@@ -29,7 +28,8 @@ class GetFollowersOfPage
             $type,
             $dept,
             $characteristicIdFarmingType,
-            $characteristicIdCroppingSystem
+            $characteristicIdCroppingSystem,
+            $wikiCode
         );
     }
 }

@@ -24,7 +24,7 @@
                                             add
                                         </span>
                                         <span class="add-avatar picture_upload">
-                                            Ajouter une photo
+                                            @lang('wiki_profile.add_avatar')
                                         </span>
                                     @endif
                                 </div>
@@ -63,19 +63,21 @@
                                                 </span>
                                             </a>
                                             <a class="text-dark-green edit-link text-decoration-none">
-                                                Modifier
+                                                @lang('common.btn_edit')
                                             </a>
                                         </div>
                                     @endif
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role)
                                      {{ !empty($context['sector']) ? '- '.$context['sector'] : '' }}
-                                     {!! !empty($context['structure']) ? ' (<a href="' . config('neayi.wiki_url') . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
+                                     {!! !empty($context['structure']) ? ' (<a href="' . $localesConfig[$context['wiki']]['wiki_url'] . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
                                 </div>
                                 @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
                                     <div>
                                         <a href="{{ env('DISCOURSE_URL').'/new-message?username='.$more['discourse_username'].'&title=&body=' }}"
-                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i> Message direct</a>
+                                           class="btn btn-dark-green text-white px-5 py-2 mr-2 mb-2 mb-md-0"><i class="fas fa-envelope"></i>
+                                            @lang('wiki_profile.direct_message')
+                                        </a>
                                     </div>
                                 @endif
 
@@ -152,7 +154,7 @@
                                             </span>
                                             </a>
                                             <a class="text-dark-green edit-link text-decoration-none">
-                                                Modifier
+                                                @lang('common.btn_edit')
                                             </a>
                                         </div>
                                     @endif
@@ -174,7 +176,7 @@
                                                 @endphp
                                                 <div class="caracteristique-exploitation">
                                                     <img src="{{ $characteristic['icon'] }}/100">
-                                                    <a class="stretched-link" href="{{config('neayi.wiki_url')}}/wiki/{{ $characteristic['page'] }}" target="_blank">
+                                                    <a class="stretched-link" href="{{ $localesConfig[$characteristic['wiki']]['wiki_url'] }}/wiki/{{ $characteristic['page'] }}" target="_blank">
                                                         <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
                                                     </a>
                                                 </div>
@@ -246,7 +248,7 @@
                                     <ul class="elements practises-elem">
                                         @foreach($practisesByYear as $practise)
                                             <li class="practises-elem">
-                                                <a target="_blank" href="{{config('neayi.wiki_url').'/index.php?curid='.$practise['page_id']}}">
+                                                <a target="_blank" href="{{$localesConfig[$practise['lang']]['wiki_url'].'/index.php?curid='.$practise['page_id']}}">
                                                     {{$practise['label']}}
                                                 </a>
                                             </li>

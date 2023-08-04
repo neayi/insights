@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Queries;
 
@@ -11,12 +12,9 @@ use App\Src\UseCases\Domain\Ports\PageRepository;
  */
 class SearchCharacteristics
 {
-    private $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
-    {
-        $this->pageRepository = $pageRepository;
-    }
+    public function __construct(
+        private PageRepository $pageRepository
+    ){}
 
     public function execute(string $type, string $search):array
     {
@@ -26,6 +24,7 @@ class SearchCharacteristics
         if($type === 'croppingSystem') {
             $type = 'label';
         }
+
         return $this->pageRepository->search($type, $search);
     }
 }

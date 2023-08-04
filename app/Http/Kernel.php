@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckEmailVerified;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\FlashWikiCallback;
 use App\Http\Middleware\IsWizardProfileAvailable;
+use App\Http\Middleware\SelectLocale;
 use App\Http\Middleware\SetWikiSessionId;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
@@ -44,7 +45,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             FlashWikiCallback::class,
-            SetWikiSessionId::class
+            SetWikiSessionId::class,
+            SelectLocale::class
         ],
 
         'api' => [

@@ -1,6 +1,8 @@
 <?php
 
 
+declare(strict_types=1);
+
 namespace App\Src\UseCases\Infra\Sql\Model;
 
 
@@ -28,6 +30,7 @@ class CharacteristicsModel extends Model
         'type',
         'code',
         'visible',
+        'wiki',
     ];
 
     protected $casts = [
@@ -52,7 +55,8 @@ class CharacteristicsModel extends Model
             $this->type,
             $icon,
             $this->pretty_page_label,
-            $this->opt ?? []
+            $this->opt ?? [],
+            $this->wiki,
         );
     }
 
