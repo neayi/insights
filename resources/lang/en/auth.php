@@ -37,4 +37,14 @@ return [
     'redirection' => 'You will be redirected in a few seconds. If nothing happens you can click',
     'email_verified' => 'Thank you, your email has been verified.',
     'reset_password' => 'Reset Password',
+    'validate_email' => 'Validate my email address',
+    'greeting_inscription' => 'Thank you for your subscription !',
+    'click_link_to_validate_email' => 'Click on the button below to validate your email address :',
+    'mail_verify_email_subject' => 'Tripleperformance : Verify your email',
+    'mail_reset_password_subject' => 'Triple performance : Reset your password',
+    'mail_reset_password_line1' => 'You receive this email because we have received a request to reset the password for your account.',
+    'mail_reset_password_line2' => 'Reset your password',
+    'mail_reset_password_line3' => 'The password modification link will expire in :minutes minutes.'
+
+
 ];

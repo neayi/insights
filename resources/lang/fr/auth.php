@@ -39,4 +39,12 @@ return [
     'redirection' => "Vous allez être redirigés d'ici quelques secondes. Si rien ne se passe vous pouvez cliquer",
     'email_verified' => 'Merci, votre email a bien été vérifié.',
     'reset_password' => 'Réinitialisation du mot de passe',
+    'validate_email' => 'Valider mon adresse email',
+    'greeting_inscription' => 'Merci pour votre inscription !',
+    'click_link_to_validate_email' => 'Cliquez sur le bouton ci-dessous pour valider votre adresse email :',
+    'mail_verify_email_subject' => 'Tripleperformance : Vérifiez votre email',
+    'mail_reset_password_subject' => 'Triple performance : Réinitialisez votre mot de passe',
+    'mail_reset_password_line1' => 'Vous recevez cet email car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
+    'mail_reset_password_line2' => 'Réinitialisez votre mot de passe',
+    'mail_reset_password_line3' => 'Le lien de modification du mot de passe expirera dans :minutes minutes.'
 ];

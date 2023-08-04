@@ -29,17 +29,17 @@
                 <div style="font-family: Helvetica,Arial,sans-serif;">
                     <div style="font-family: Helvetica,Arial,sans-serif; background: no-repeat center / 100% auto; padding: 40px 40px 36px;">
                         <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 42px !important; font-stretch: normal; font-style: normal; font-weight: 700; letter-spacing: normal; line-height: 1.24;">
-                            Réinitialisation du mot de passe
+                            {{ __('auth.reset_password') }}
                         </div>
                         <div style="color: #050038; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; letter-spacing: normal; line-height: 1.4; margin-top: 16px; opacity: .6;">
-                            Vous recevez cet email car nous avons reçu une requête de changement de mot de passe pour votre compte.
+                            {{ __('auth.mail_reset_password_line1') }}
                         </div>
                         <a href="{{$url}}" target="_blank" style="padding:0 20px; background-color: #3f53d9; border-radius: 4px; box-sizing: border-box; color: #fff !important; cursor: pointer; display: inline-block; font-family: Helvetica,Arial,sans-serif; font-size: 20px !important; font-stretch: normal; font-style: normal; font-weight: 400; height: 60px; letter-spacing: normal; line-height: 60px !important; text-align: center; text-decoration: none; white-space: nowrap; margin: 24px 0 0; border: none;">
-                            Réinitialisez votre mot de passe
+                            {{ __('auth.mail_reset_password_line2') }}
                         </a>
                         <br/>
                         <br/>
-                        Le lien de modification du mot de passe expirera dans {{ $validity }} minutes.
+                        {{ __('auth.mail_reset_password_line3', ['minutes' =>$validity])}}
                     </div>
 
                     <div style="background-color: #e1e0e7; font-family: Helvetica,Arial,sans-serif; height: 1px;"></div>
