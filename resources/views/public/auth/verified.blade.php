@@ -21,7 +21,7 @@
                                                 @lang('common.here')
                                             </a>
                                         @else
-                                            <a href="{{ \Illuminate\Support\Facades\Auth::user()->locale()->wiki_url }}">Consulter le wiki</a>
+                                            <a href="{{ \Illuminate\Support\Facades\Auth::user()->locale()->wiki_url }}">
                                                 @lang('common.consult_wiki')
                                             </a>
                                         @endif
