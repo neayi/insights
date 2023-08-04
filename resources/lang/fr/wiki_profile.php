@@ -61,7 +61,7 @@ return [
     'structure' => 'Structure de rattachement',
     'sector' => 'Titre, fonction, poste, ...',
     'chronology' => 'Chronologie',
-    'my_practises' => 'Mes pratiques',
+    'my_practices' => 'Mes pratiques',
     'no_comments' => 'Pas encore de commentaires ni de questions !',
     'add_photo' => 'Ajouter une photo',
     'direct_message' => 'Message direct',

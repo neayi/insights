@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="label-big mb-3 mr-3">@lang('wiki_profile.my_practises')</label>
+                                    <label class="label-big mb-3 mr-3">@lang('wiki_profile.my_practices')</label>
                                     <a class="material-icons circle-icon mx-1">
                                         search
                                     </a>
