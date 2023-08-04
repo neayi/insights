@@ -19,13 +19,18 @@
 
         @php
             $currentUser = \Illuminate\Support\Facades\Auth::user();
-            $lang = 'en';
-            $locale = \App\LocalesConfig::getLocaleFromCode(\Illuminate\Support\Facades\Request::getPreferredLanguage());
-            $wikiUrl = $locale->wiki_url;
+
             if (!empty($currentUser)) {
                 $wikiUrl = $currentUser->locale()->wiki_url;
                 $lang = $currentUser->wiki;
             }
+            else
+            {
+                $locale = \App\LocalesConfig::getPreferredLocale();
+                $lang = $locale->code;
+                $wikiUrl = $locale->wiki_url;
+            }
+
         @endphp
 
         @include('layouts.neayi.partials.'.$lang.'.top-navbar', ['wikiUrl' => $wikiUrl])

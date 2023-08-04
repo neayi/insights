@@ -19,11 +19,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class WizardProfileController extends Controller
 {
-    public function showWizard(Request $request)
+    public function showWizard()
     {
-        $wikiCode = LocalesConfig::getLocaleFromCode($request->getPreferredLanguage())->code;
-
-        $characteristics = app(GetAllCharacteristics::class)->get($wikiCode);
+        $locale = \App\LocalesConfig::getPreferredLocale();
+        $characteristics = app(GetAllCharacteristics::class)->get($locale->code);
         $user = app(AuthGateway::class)->current()->toArray();
         $roles = app(GetUserRole::class)->get()->toArray();
 

@@ -80,8 +80,8 @@ class RegisterController extends Controller
         $userId = app(Register::class)->register($email, $firstname, $lastname, $password, $passwordConfirmation);
 
         $user = User::where('uuid', $userId)->first();
-        $langs = explode('_', \Illuminate\Support\Facades\Request::getPreferredLanguage());
-        $user->wiki = strtolower($langs[1]) ?? 'fr';
+        $locale = \App\LocalesConfig::getPreferredLocale();
+        $user->wiki = $locale->code;
         $user->save();
         return $user;
     }
@@ -170,8 +170,8 @@ class RegisterController extends Controller
 
         $userId = $result['user_id'];
         $user = User::where('uuid', $userId)->first();
-        $langs = explode('_', \Illuminate\Support\Facades\Request::getPreferredLanguage());
-        $user->wiki = strtolower($langs[1]) ?? 'fr';
+        $locale = \App\LocalesConfig::getPreferredLocale();
+        $user->wiki = $locale->code;
         $user->save();
         return redirect()->route('home');
     }

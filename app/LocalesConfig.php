@@ -32,6 +32,7 @@ class LocalesConfig extends Model
 
         $localesConfig = LocalesConfig::all();
 
+        // by defaut we return the first locale found, but later if we find English we'll return English by default
         $defaultLocale = reset($localesConfig);
 
         foreach ($localesConfig as $localeConfig) {
@@ -45,5 +46,10 @@ class LocalesConfig extends Model
         }
 
         return $defaultLocale;
+    }
+
+    static public function getPreferredLocale()
+    {
+        return self::getLocaleFromCode(\Illuminate\Support\Facades\Request::getPreferredLanguage());
     }
 }

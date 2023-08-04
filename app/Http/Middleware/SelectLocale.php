@@ -12,9 +12,9 @@ class SelectLocale
 {
     public function handle($request, Closure $next)
     {
-        $countryLang = $request->getPreferredLanguage();
-        list($lang, ) = explode('_', $countryLang);
-        app()->setLocale($lang);
+        $locale = \App\LocalesConfig::getLocaleFromCode($request->getPreferredLanguage());
+
+        app()->setLocale($locale->code);
         $user = Auth::user();
         if (!empty($user)) {
             $locale = $user->wiki;
