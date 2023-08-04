@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
         }
 
         if (Auth::guard($guard)->check()) {
-            $wikiUrl = Auth::user()->wikiUrl();
+            $wikiUrl = Auth::user()->locale()->wiki_url;
             return redirect($wikiUrl);
         }
 

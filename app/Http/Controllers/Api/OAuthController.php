@@ -40,7 +40,7 @@ class OAuthController extends BaseController
     public function logout()
     {
         $user = Auth::user();
-        $wikiUrl = $user->wikiUrl();
+        $wikiUrl = $user->locale()->wiki_url;
         if(isset($user)){
             $user->wiki_token = '';
             $user->save();

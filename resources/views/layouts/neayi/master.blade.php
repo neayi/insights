@@ -23,17 +23,17 @@
             $locale = \App\LocalesConfig::getLocaleFromCode(\Illuminate\Support\Facades\Request::getPreferredLanguage());
             $wikiUrl = $locale->wiki_url;
             if (!empty($currentUser)) {
-                $wikiUrl = $currentUser->wikiUrl();
+                $wikiUrl = $currentUser->locale()->wiki_url;
                 $lang = $currentUser->wiki;
             }
         @endphp
 
-        @include('layouts.neayi.partials.'.$lang.'.top-navbar')
+        @include('layouts.neayi.partials.'.$lang.'.top-navbar', ['wikiUrl' => $wikiUrl])
         <div class="container-fluid">
             @yield('content')
         </div>
 
-        @include('layouts.neayi.partials.'.$lang.'.footer', ['wikiUrl' => config('neayi.wiki_url')])
+        @include('layouts.neayi.partials.'.$lang.'.footer', ['wikiUrl' => $wikiUrl])
         @include('users.modals.register')
     </div>
 
