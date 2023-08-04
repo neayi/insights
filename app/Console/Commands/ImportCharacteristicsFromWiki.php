@@ -74,7 +74,7 @@ class ImportCharacteristicsFromWiki extends Command
                 $picturesInfo = $content['query']['pages'];
 
                 foreach($picturesInfo as $picture) {
-                    if (isset(last($picture['imageinfo'])['url'])) {
+                    if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
                         try {
                             $content = $wikiClient->downloadPicture(last($picture['imageinfo'])['url']);
                             $path = 'public/characteristics/' . $uuid . '.png';
