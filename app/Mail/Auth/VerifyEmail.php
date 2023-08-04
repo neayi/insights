@@ -38,6 +38,6 @@ class VerifyEmail extends Mailable
 
         return $this->view('mails.auth.verify-email', [
             'url' => $url,
-        ])->subject(__('mails.mail_verify_email_subject'));
+        ])->subject(__('auth.mail_verify_email_subject'));
     }
 }

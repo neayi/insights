@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 
 class LocalesConfig extends Model
 {
@@ -32,7 +33,7 @@ class LocalesConfig extends Model
 
         $localesConfig = LocalesConfig::all();
 
-        // by defaut we return the first locale found, but later if we find English we'll return English by default
+        // by default, we return the first locale found, but later if we find English we'll return English by default
         $defaultLocale = reset($localesConfig);
 
         foreach ($localesConfig as $localeConfig) {
@@ -48,8 +49,8 @@ class LocalesConfig extends Model
         return $defaultLocale;
     }
 
-    static public function getPreferredLocale()
+    static public function getPreferredLocale(): self
     {
-        return self::getLocaleFromCode(\Illuminate\Support\Facades\Request::getPreferredLanguage());
+        return self::getLocaleFromCode(Request::getPreferredLanguage());
     }
 }
