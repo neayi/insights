@@ -99,17 +99,6 @@ class User
         app(UserRepository::class)->add($this, $passwordHashed);
     }
 
-    public function grantAsAdmin()
-    {
-        $this->roles = array_merge($this->roles, ['admin']);
-        app(UserRepository::class)->update($this);
-    }
-
-    public function isAdmin():bool
-    {
-        return in_array('admin', $this->roles);
-    }
-
     public function update(string $email, string $firstname, string $lastname, string $pathPicture = "", string $ext = 'jpg')
     {
         $this->email = $email;
