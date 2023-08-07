@@ -13,6 +13,7 @@ abstract class Dto implements \JsonSerializable
 
     private function serialize(array $properties)
     {
+        $params = [];
         foreach ($properties as $key => $property){
             if(is_object($property)){
                 $params[$this->camelToSnake($key)] = $this->serialize(get_object_vars($property));

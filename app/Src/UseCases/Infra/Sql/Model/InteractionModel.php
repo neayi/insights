@@ -15,7 +15,7 @@ class InteractionModel extends Model
 
     protected $fillable = ['follow', 'applause', 'done', 'page_id', 'value', 'wiki'];
 
-    protected $casts = ['value' => 'array', 'start_done_at' => 'datetime'];
+    protected $casts = ['value' => 'array', 'start_done_at' => 'datetime', 'follow' => 'bool', 'done' => 'bool', 'applause' => 'bool'];
 
     public function page()
     {
