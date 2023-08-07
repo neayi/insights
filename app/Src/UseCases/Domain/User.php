@@ -4,7 +4,6 @@
 namespace App\Src\UseCases\Domain;
 
 
-use App\Events\UserDeleted;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\Users\Identity;
@@ -65,11 +64,6 @@ class User
     public function fullname():string
     {
         return $this->firstname.' '.$this->lastname;
-    }
-
-    public function organizationId():?string
-    {
-        return $this->organizationId;
     }
 
     public function wiki(): string
@@ -140,12 +134,9 @@ class User
         return $this->pathPicture;
     }
 
-    public function delete()
-    {
-        app(UserRepository::class)->delete($this->id);
-        event(new UserDeleted($this->id, $this->organizationId));
-    }
-
+    /**
+     * @deprecated
+     */
     public function toDto():UserDto
     {
         $identity = new Identity($this->id, $this->email, $this->firstname, $this->lastname, $this->pathPicture);

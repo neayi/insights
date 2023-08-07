@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use App\Events\InteractionOnPage;
-use App\Events\UserDeleted;
 use App\Listeners\AddEmailToNewsletter;
-use App\Listeners\AnonymizeUserResponse;
 use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
 use App\Listeners\SetPageDryStateListener;
@@ -26,9 +24,6 @@ class EventServiceProvider extends ServiceProvider
         InteractionOnPage::class => [
             SetPageDryStateListener::class,
             SetInteractionToRegisteredUserListener::class
-        ],
-        UserDeleted::class => [
-            AnonymizeUserResponse::class
         ],
         Verified::class => [
             SetUserToSyncOnDiscourse::class,
