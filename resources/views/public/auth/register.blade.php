@@ -27,9 +27,9 @@
                                                 <a href="{{ route('register.auth.provider', ['provider' => 'facebook']) }}">
                                                     <img src="images/facebook-logo.png" alt="@lang('auth.alt_register_facebook')" class="d-inline-block d-inline-block mr-1 mr-md-2">
                                                 </a>
-                                                <a href="{{ route('register.auth.provider', ['provider' => 'twitter']) }}">
+                                                {{-- <a href="{{ route('register.auth.provider', ['provider' => 'twitter']) }}">
                                                     <img src="images/twitter-logo.png" alt="@lang('auth.alt_register_twitter')" class="d-inline-block mr-1 ml-1 mr-md-2 ml-md-2">
-                                                </a>
+                                                </a> --}}
                                                 <a href="{{ route('register.auth.provider', ['provider' => 'google']) }}">
                                                     <img src="images/google-logo.png" alt="@lang('auth.alt_register_google')" class="d-inline-block ml-1 ml-md-2 mr-md-2">
                                                 </a>

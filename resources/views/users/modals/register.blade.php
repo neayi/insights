@@ -42,7 +42,7 @@
                                 <div class="col-md-12 login-with-rs pr-0">
                                     <h5 class="text-dark-purple font-weight-bold d-inline-block mr-1">@lang('auth.modal.create-account-with-social-network')</h5>
                                     <img src="images/facebook-logo.png" alt="S'inscrire avec Facebook" class="d-inline-block mr-3 ml-2">
-                                    <img src="images/twitter-logo.png" alt="S'inscrire avec Twitter" class="d-inline-block mr-3 ml-2">
+                                    {{-- <img src="images/twitter-logo.png" alt="S'inscrire avec Twitter" class="d-inline-block mr-3 ml-2"> --}}
                                     <img src="images/google-logo.png" alt="S'inscrire avec Google" class="d-inline-block mr-3 ml-2">
                                 </div>
                             </div>
