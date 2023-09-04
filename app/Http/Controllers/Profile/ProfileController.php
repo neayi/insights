@@ -83,7 +83,8 @@ class ProfileController extends Controller
         GetUser $getUser,
         GetUserRole $getUserRole,
         GetUserPractises $getUserPractises,
-        GetInteractionsByUser $getInteractionsByUser
+        GetInteractionsByUser $getInteractionsByUser,
+        ServiceConfigs $localesServiceConfigs
     )
     {
         $user = $getUser->get($userId)->toArray();
@@ -118,7 +119,8 @@ class ProfileController extends Controller
             'practises' => $practises,
             'interactions' => $interactions,
             'routeComment' => route('profile.comments.show', ['user_id' => $userId]),
-            'more' => User::query()->where('uuid', $userId)->first()->toArray()
+            'more' => User::query()->where('uuid', $userId)->first()->toArray(),
+            'localesConfig' => $localesServiceConfigs->all(),
         ]);
     }
 

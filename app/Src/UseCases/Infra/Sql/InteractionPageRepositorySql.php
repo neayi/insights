@@ -140,7 +140,8 @@ class InteractionPageRepositorySql implements InteractionRepository
             $practises[] = new PractiseVo(
                 $record->page_id,
                 $record->page->title ?? '',
-                $record->start_done_at ?? null
+                $record->start_done_at ?? null,
+                $record->wiki
             );
         }
         return $practises ?? [];
