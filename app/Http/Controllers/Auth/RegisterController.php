@@ -42,9 +42,6 @@ class RegisterController extends Controller
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
 
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
         return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
@@ -54,10 +51,6 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
-
         return Validator::make($data, [
             'email' => ['required',
                         'email',
@@ -129,8 +122,12 @@ class RegisterController extends Controller
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
     {
         try {
-            $userId = $register->register($provider);
+            $result = $register->register($provider);
+            $userId = $result['user_id'];
             $user = User::where('uuid', $userId)->first();
+            $locale = \App\LocalesConfig::getPreferredLocale();
+            $user->wiki = $locale->code;
+            $user->save();
             $this->guard()->login($user);
 
             if($user->context_id !== null){

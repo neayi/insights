@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Src\UseCases\Domain\Auth\LogUserFromSocialNetwork;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,10 +25,6 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        if($request->session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
-
         if($request->has('wiki_callback')){
             session()->flash('wiki_callback', $request->input('wiki_callback'));
             session()->flash('wiki_token', $request->input('wiki_token'));
@@ -37,24 +34,12 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        if($request->session()->has('should_attach_to_organization')) {
-            $shouldAttach = $request->session()->get('should_attach_to_organization');
-            $shouldAttachToken = $request->session()->get('should_attach_to_organization_token');
-            $linkToRedirect = $request->session()->get('should_attach_to_organization_redirect');
-            $userToRegister = $request->session()->get('user_to_register');
-        }
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        if(isset($shouldAttach)){
-            $request->session()->flash('should_attach_to_organization', $shouldAttach);
-            $request->session()->flash('should_attach_to_organization_token', $shouldAttachToken);
-            $request->session()->flash('should_attach_to_organization_redirect', $linkToRedirect);
-            $request->session()->flash('user_to_register', $userToRegister);
-        }
         if ($response = $this->loggedOut($request)) {
             return $response;
         }
@@ -77,6 +62,12 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if (empty($user->wiki)) {
+            $locale = \App\LocalesConfig::getPreferredLocale();
+            $user->wiki = $locale->code;
+            $user->save();
+        }
+
         if($user->context_id === null){
             return redirect()->route('wizard.profile');
         }
@@ -102,13 +93,6 @@ class LoginController extends Controller
             return redirect($callback);
         }
 
-        if($request->session()->has('should_attach_to_organization') && $request->session()->get('should_attach_to_organization') !== null){
-            $token = $request->session()->get('should_attach_to_organization_token');
-            $link = route('organization.invite.show').'?&token='.$token;
-            return $request->wantsJson()
-                ? new Response('', 204)
-                : redirect($link);
-        }
         return redirect()->route('show.profile');
     }
 
