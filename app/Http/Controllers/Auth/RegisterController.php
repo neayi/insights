@@ -124,6 +124,9 @@ class RegisterController extends Controller
         try {
             $userId = $register->register($provider);
             $user = User::where('uuid', $userId)->first();
+            $locale = \App\LocalesConfig::getPreferredLocale();
+            $user->wiki = $locale->code;
+            $user->save();
             $this->guard()->login($user);
 
             if($user->context_id !== null){
