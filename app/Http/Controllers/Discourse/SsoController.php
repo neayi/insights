@@ -17,6 +17,10 @@ class SsoController extends BaseSsoController
         $localesConfig = LocalesConfig::query()->where('code', $wikiCode)->first();
         $configs = $config->get('services.discourse');
 
+        if (empty($localesConfig)) {
+            $localesConfig = LocalesConfig::query()->where('code', 'fr')->first();
+        }
+
         $configs['url'] = $localesConfig->forum_url;
         $configs['secret'] = $localesConfig->forum_api_secret;
         $configs['api']['key'] = $localesConfig->forum_api_key;

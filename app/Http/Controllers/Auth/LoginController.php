@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Src\UseCases\Domain\Auth\LogUserFromSocialNetwork;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -61,6 +62,12 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if (empty($user->wiki)) {
+            $locale = \App\LocalesConfig::getPreferredLocale();
+            $user->wiki = $locale->code;
+            $user->save();
+        }
+
         if($user->context_id === null){
             return redirect()->route('wizard.profile');
         }

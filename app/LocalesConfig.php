@@ -28,16 +28,16 @@ class LocalesConfig extends Model
      */
     static public function getLocaleFromCode(string $preferredLanguage = ''): self
     {
-        if (empty($preferredLanguage))
+        if (empty($preferredLanguage)) {
             $preferredLanguage = 'fr'; // In case called from the command line specifically
+        }
 
         $languageParts = explode('_', $preferredLanguage);
         $preferredCode = strtolower($languageParts[0]);
 
         $localesConfig = LocalesConfig::all();
 
-        if (empty($localesConfig))
-        {
+        if (empty($localesConfig)) {
             throw new \Exception("LocalesConfig is empty - did you forget to seed the DB?", 1);
         }
 

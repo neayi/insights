@@ -122,7 +122,8 @@ class RegisterController extends Controller
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
     {
         try {
-            $userId = $register->register($provider);
+            $result = $register->register($provider);
+            $userId = $result['user_id'];
             $user = User::where('uuid', $userId)->first();
             $locale = \App\LocalesConfig::getPreferredLocale();
             $user->wiki = $locale->code;
