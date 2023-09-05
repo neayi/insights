@@ -42,9 +42,6 @@ class RegisterController extends Controller
             session()->flash('wiki_token', $request->input('wiki_token'));
         }
 
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
         return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
@@ -54,10 +51,6 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        if(session()->has('should_attach_to_organization')) {
-            session()->reflash();
-        }
-
         return Validator::make($data, [
             'email' => ['required',
                         'email',
