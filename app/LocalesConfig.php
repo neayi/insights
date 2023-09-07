@@ -26,7 +26,7 @@ class LocalesConfig extends Model
      * Returns the locale config for the wiki that best matches the code passed in parameters,
      * and returns a default one (Enligh) if none found. The code may have a country part attached (en_US)
      */
-    static public function getLocaleFromCode(string $preferredLanguage = ''): self
+    static public function getLocaleFromCode($preferredLanguage = ''): self
     {
         if (empty($preferredLanguage)) {
             $preferredLanguage = 'fr'; // In case called from the command line specifically
