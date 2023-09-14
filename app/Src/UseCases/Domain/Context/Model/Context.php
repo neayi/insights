@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
-
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class Context
@@ -19,7 +18,7 @@ class Context
         private ?string $sector = null,
         private ?string $structure = null,
         private array $coordinates = [],
-        private string $countryCode = ''
+        private ?string $countryCode = ''
     )
     {
         $this->contextRepository = app(ContextRepository::class);
@@ -32,12 +31,15 @@ class Context
 
     public function update(array $params, string $userId)
     {
+        if (isset($params['postal_code']) && $this->postalCode !== $params['postal_code']) {
+            $this->postalCode = $params['postal_code'];
+            $this->coordinates = $params['coordinates'] ?? $this->coordinates;
+            $this->countryCode = $params['country_code'] ?? $this->countryCode;
+        }
         $this->description = $params['description'] ?? $this->description;
-        $this->postalCode = $params['postal_code'] ?? $this->postalCode;
         $this->characteristics = $params['characteristics'] ?? $this->characteristics;
         $this->sector = $params['sector'] ?? $this->sector;
         $this->structure = $params['structure'] ?? $this->structure;
-        $this->coordinates = $params['coordinates'] ?? $this->coordinates;
         $this->contextRepository->update($this, $userId);
     }
 
@@ -57,7 +59,8 @@ class Context
             'sector' => $this->sector,
             'structure' => $this->structure,
             'coordinates' => $this->coordinates,
-            'country' => $this->countryCode
+            'country' => $this->countryCode,
+            'department_number' => $this->countryCode === 'FR' ? (new PostalCode($this->postalCode))->department() : null
         ];
     }
 }
