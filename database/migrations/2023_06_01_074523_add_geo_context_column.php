@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('contexts', function (Blueprint $table){
             $table->string('country', 255)->nullable()->default(null);
+            $table->json('geo')->nullable()->default(null);
         });
     }
 
@@ -17,6 +18,7 @@ return new class extends Migration
     {
         Schema::table('contexts', function (Blueprint $table){
             $table->dropColumn('country');
+            $table->dropColumn('geo');
         });
     }
 };

@@ -9,35 +9,19 @@ use App\Src\UseCases\Domain\Ports\ContextRepository;
 
 class Context
 {
-    private $uid;
-    private $postalCode;
-    private $characteristics;
-    private $description;
-    private $sector;
-    private $structure;
-    private $coordinates;
-    private $countryCode;
     private $contextRepository;
 
     public function __construct(
-        string $id,
-        string $postalCode,
-        array $characteristics = [],
-        string $description = null,
-        string $sector = null,
-        string $structure = null,
-        array $coordinates = [],
-        string $countryCode = ''
+        private string $uid,
+        private string $postalCode,
+        private array $characteristics = [],
+        private ?string $description = null,
+        private ?string $sector = null,
+        private ?string $structure = null,
+        private array $coordinates = [],
+        private string $countryCode = ''
     )
     {
-        $this->uid = $id;
-        $this->postalCode = $postalCode;
-        $this->characteristics = $characteristics;
-        $this->description = $description;
-        $this->sector = $sector;
-        $this->structure = $structure;
-        $this->coordinates = $coordinates;
-        $this->countryCode = $countryCode;
         $this->contextRepository = app(ContextRepository::class);
     }
 
