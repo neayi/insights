@@ -124,6 +124,7 @@ $('#form-update-description').submit(function () {
 
 $('#form-update-main-data').submit(function () {
     var form = $(this);
+    console.log(form.serialize());
     $.ajax({
         url: form.attr('action'),
         type: 'post',
@@ -219,7 +220,7 @@ $('#input-postal').change(function (){
     });
 });
 
-if(wizardError == '1') {
+if(typeof wizardError != undefined && wizardError == '1') {
     var postal = $('#input-postal').val();
     $.ajax({
         url: '/geo',

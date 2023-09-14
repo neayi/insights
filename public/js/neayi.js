@@ -40813,6 +40813,7 @@ var __webpack_exports__ = {};
 /*!*******************************!*\
   !*** ./resources/js/neayi.js ***!
   \*******************************/
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! bootstrap-select */ "./node_modules/bootstrap-select/dist/js/bootstrap-select.js");
 __webpack_require__(/*! bootstrap-autocomplete */ "./node_modules/bootstrap-autocomplete/dist/latest/bootstrap-autocomplete.js");
@@ -40920,6 +40921,7 @@ $('#form-update-description').submit(function () {
 });
 $('#form-update-main-data').submit(function () {
   var form = $(this);
+  console.log(form.serialize());
   $.ajax({
     url: form.attr('action'),
     type: 'post',
@@ -41009,7 +41011,7 @@ $('#input-postal').change(function () {
     }
   });
 });
-if (wizardError == '1') {
+if ((typeof wizardError === "undefined" ? "undefined" : _typeof(wizardError)) != undefined && wizardError == '1') {
   var postal = $('#input-postal').val();
   $.ajax({
     url: '/geo',
