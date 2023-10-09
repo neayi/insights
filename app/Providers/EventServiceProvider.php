@@ -10,6 +10,7 @@ use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
 use App\Listeners\SetPageDryStateListener;
 use App\Listeners\SetUserToSyncOnDiscourse;
+use App\Listeners\SetWikiToRegisteredUser;
 use App\Observers\PageObserver;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use Illuminate\Auth\Events\Registered;
@@ -21,7 +22,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendCustomEmailVerificationNotification::class,
-            SetInteractionToRegisteredUserListener::class
+            SetInteractionToRegisteredUserListener::class,
+            SetWikiToRegisteredUser::class
         ],
         InteractionOnPage::class => [
             SetPageDryStateListener::class,
