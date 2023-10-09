@@ -36,30 +36,35 @@ class SyncUsersDiscourse extends Command
             ->whereNull('sync_at_discourse')
             ->chunkById(50, function ($items) use ($clients) {
                 foreach($items as $user) {
-                    $this->forumApiClient = $clients[$user->wiki];
-                    Log::info('Discourse Syncing user : '.$user->uuid);
-                    try {
-                        if(!isset($user->discourse_id)) {
-                            $this->createUserOnDiscourse($user);
-                        }else{
-                            $this->updateUserEmailOnDiscourse($user);
-                        }
-                        $this->updateUserDetailsOnDiscourse($user);
-                        $user->sync_at_discourse = (new \DateTime())->format('Y-m-d H:i:s');
-                        $user->save();
-                    }catch (\Throwable $e){
-                        if ($e->getCode() === 429) {
-                            // Too many requests - just sleeping
-                            $this->error('Too many requests - restarting in a minute....');
-                            sleep(60);
-                        } else {
-                            $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
-                            $this->error($message);
-                            \Sentry\captureException($e);
-                        }
-                    }
+                    $this->processOneUser($clients, $user);
                 }
             });
+    }
+
+    private function processOneUser(array $clients, User $user)
+    {
+        try {
+            $this->forumApiClient = $clients[$user->wiki];
+            Log::info('Discourse Syncing user : '.$user->uuid);
+            if (!isset($user->discourse_id)) {
+                $this->createUserOnDiscourse($user);
+            } else {
+                $this->updateUserEmailOnDiscourse($user);
+            }
+            $this->updateUserDetailsOnDiscourse($user);
+            $user->sync_at_discourse = (new \DateTime())->format('Y-m-d H:i:s');
+            $user->save();
+        } catch (\Throwable $e){
+            if ($e->getCode() === 429) {
+                // Too many requests - just sleeping
+                $this->error('Too many requests - restarting in a minute....');
+                sleep(60);
+            } else {
+                $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                $this->error($message);
+                \Sentry\captureException($e);
+            }
+        }
     }
 
     private function createUserOnDiscourse(User $user, int $increment = 0)
