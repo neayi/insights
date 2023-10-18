@@ -46,11 +46,3 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::post('update-avatar', 'Profile\ProfileController@updateProfilePicture')->name('user.update.avatar');
 });
 
-Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
-    Route::get('/user/{id}/edit/form', 'UsersController@editShowForm')->name('user.edit.form');
-    Route::post('/user/{id}/edit', 'UsersController@editProcess')->name('user.edit');
-    Route::post('/user/{id}/delete', 'UsersController@delete')->name('user.delete');
-
-    Route::get('/user/edit/profile', 'ProfileController@showEditProfile')->name('user.edit.profile.show');
-    Route::post('/user/edit/profile', 'ProfileController@processEditProfile')->name('user.edit.profile');
-});
