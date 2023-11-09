@@ -17,6 +17,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Nach Feedback suchen">Nach Feedback suchen</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Nach Bauernhofporträts suchen">Nach Bauernhofporträts suchen</a>
 
 		</div>
 	</li>

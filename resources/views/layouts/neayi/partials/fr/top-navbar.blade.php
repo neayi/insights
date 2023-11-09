@@ -17,6 +17,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PPAM">PPAM</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Rechercher des retours d’expérience">Rechercher des retours d’expérience</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Rechercher des portraits de ferme">Rechercher des portraits de ferme</a>
 
 		</div>
 	</li>

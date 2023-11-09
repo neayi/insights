@@ -17,6 +17,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Wyszukaj opinie">Wyszukaj opinie</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Wyszukiwanie portretów rolniczych">Wyszukiwanie portretów rolniczych</a>
 
 		</div>
 	</li>
