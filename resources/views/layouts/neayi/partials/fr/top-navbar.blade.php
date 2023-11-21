@@ -45,7 +45,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Sols vivants">Sols vivants</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valorisation de la production">Valorisation de la production</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Search?filters=A+un+type+de+page%5E%5EPratique&order=desc&ordertype=Modification+date" title="Rechercher des pratiques">Rechercher des pratiques</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Search" title="Rechercher">Rechercher</a>
 
 		</div>
 	</li>
