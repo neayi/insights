@@ -188,7 +188,7 @@ class UserRepositorySql implements UserRepository
             $record->providers ?? [],
             $record->discourse_id ?? '',
             $record->discourse_username ?? '',
-            $record->wiki
+            $record->wiki ?? 'fr',
         );
     }
 

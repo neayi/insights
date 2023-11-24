@@ -113,7 +113,7 @@ class InteractionPageRepositorySql implements InteractionRepository
 
         foreach($interactionsModel as $interaction) {
             $page = PageModel::query()->where('page_id', $interaction->page_id)->first();
-            if(!isset($page)){
+            if(!isset($page) || empty($page->title) || empty($page->wiki)){
                 continue;
             }
             $applause = InteractionModel::query()->where('page_id', $interaction->page_id)->where('applause', true)->count();
