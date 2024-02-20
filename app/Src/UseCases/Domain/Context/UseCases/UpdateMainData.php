@@ -1,6 +1,8 @@
 <?php
 
 
+declare(strict_types=1);
+
 namespace App\Src\UseCases\Domain\Context\UseCases;
 
 
@@ -11,22 +13,13 @@ use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 
 class UpdateMainData
 {
-    private $contextRepository;
-    private $authGateway;
-    private $userRepository;
-
     public function __construct(
-        ContextRepository $contextRepository,
-        AuthGateway $authGateway,
-        UserRepository $userRepository
-    )
-    {
-        $this->contextRepository = $contextRepository;
-        $this->authGateway = $authGateway;
-        $this->userRepository = $userRepository;
-    }
+        private ContextRepository $contextRepository,
+        private AuthGateway $authGateway,
+        private UserRepository $userRepository
+    ){}
 
-    public function execute(string $postalCode, string $sector, string $structure, string $email, string $firstname, string $lastname, string $role)
+    public function execute(string $postalCode, string $sector, string $structure, string $email, string $firstname, string $lastname, string $role, array $geo = [])
     {
         $currentUser = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($currentUser->id());
@@ -35,14 +28,12 @@ class UpdateMainData
         $user->update($email, $firstname, $lastname);
         $user->updateRole($role);
 
-        $geoData = app(GetDepartmentFromPostalCode::class)->execute($postalCode);
-
         $context->update([
             'postal_code' => $postalCode,
             'sector' => $sector,
             'structure' => $structure,
-            'coordinates' => $geoData['coordinates'],
-            'department_number' => $geoData['department_number'],
+            'coordinates' => !empty($geo['coordinates']) ? array_reverse($geo['coordinates']) : [],
+            'country_code' => !empty($geo['country_code']) ? $geo['country_code'] : null,
         ], $currentUser->id());
     }
 }

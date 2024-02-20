@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Debug;
 
+use App\GeoOpenDataSoftService;
 use App\MailChimpService;
 use App\SendinBlueService;
 use Illuminate\Console\Command;
@@ -22,6 +23,9 @@ class TestMailChimp extends Command
         $email = $this->argument('email');
 
         //$mailChimpService->addEmailToList($email);
-        $sendinBlueService->addEmailToList($email, 'jean', 'dupont');
+        //$sendinBlueService->addEmailToList($email, 'jean', 'dupont');
+
+        (new GeoOpenDataSoftService())->getGeolocationByPostalCode('12000');
+
     }
 }

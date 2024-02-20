@@ -24,17 +24,21 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-lg-2 offset-lg-2">
+        <div class="col-lg-3 offset-lg-2">
             @include('users.wizard-profile.select-user-role')
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             @include('users.wizard-profile.fill-identity')
         </div>
-        <div class="col-lg-2">
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-3  offset-lg-2">
             @include('users.wizard-profile.fill-postal-code')
         </div>
+        <div class="col-lg-6" id="geo-details">
+        </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-lg-12 offset-lg-2">
             @include('users.wizard-profile.fill-email')
         </div>
@@ -109,4 +113,11 @@
         </div>
     </div>
 </form>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
+        var oldGeo = '{{ old('geo') !== null ? json_decode(old('geo'), true)['country_code'] : '' }}';
+    </script>
 @endsection

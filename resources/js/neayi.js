@@ -29,19 +29,7 @@ $('#input-role').change(function (){
         succeedState(elem);
         return;
     }
-    failedState(elem)
-});
-
-$('#input-postal').change(function (){
-    var elem = $('#state-postal');
-    var postal = $(this).val();
-    const regex = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
-    const found = postal.match(regex);
-    if(found != null) {
-        succeedState(elem);
-        return;
-    }
-    failedState(elem)
+    failedState(elem);
 });
 
 $('#input-email').change(function (){
@@ -136,6 +124,7 @@ $('#form-update-description').submit(function () {
 
 $('#form-update-main-data').submit(function () {
     var form = $(this);
+    console.log(form.serialize());
     $.ajax({
         url: form.attr('action'),
         type: 'post',
@@ -212,3 +201,57 @@ $('.search-type-c').click(function(){
 $('#btn-remove-avatar').click(function (){
     $(this).parents('form').submit();
 });
+
+$('#input-postal').change(function (){
+    var postal = $(this).val();
+    $.ajax({
+        url: '/geo',
+        data: { postal_code : postal },
+        success: function (data) {
+            $('#geo-details').html(data);
+            var elem = $('#state-postal');
+            var found = $('#select-country').val();
+            if(found != null) {
+                succeedState(elem);
+                return;
+            }
+            failedState(elem);
+        }
+    });
+});
+
+if(typeof wizardError != undefined && wizardError == '1') {
+    var postal = $('#input-postal').val();
+    $.ajax({
+        url: '/geo',
+        data: { postal_code : postal, country_selected: oldGeo },
+        success: function (data) {
+            $('#geo-details').html(data);
+            var elem = $('#state-postal');
+            var found = $('#select-country').val();
+            if(found != null) {
+                succeedState(elem);
+                return;
+            }
+            failedState(elem);
+        }
+    });
+}
+
+$('#no-postal-code').click(function (){
+    $(this).hide();
+    $('#no_postal_code_input').val(1);
+    $('#input-postal').val('');
+    $('#input-postal').prop('disabled', true);
+    $('#geo-details').html('');
+    $('#fill-postal-code').show();
+});
+
+$('#fill-postal-code').click(function (){
+    $(this).hide();
+    $('#no_postal_code_input').val(0);
+    $('#input-postal').prop('disabled', false);
+    $('#select-country').prop('disabled', false);
+    $('#no-postal-code').show();
+});
+
