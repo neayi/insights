@@ -22,7 +22,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install exif
 
 RUN test -z "$DEBUG_TOOLS" || ( \
-        pecl install xdebug-3.2.1 \
+        pecl install xdebug-3.2.2 \
             && docker-php-ext-enable xdebug \
             && echo "xdebug.discover_client_host=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
             && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
