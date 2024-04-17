@@ -28,7 +28,8 @@
         "spatie/laravel-permission": "^5.10.0",
         "spinen/laravel-discourse-sso": "^2.8.0",
         "mailchimp/marketing": "^3.0",
-        "sendinblue/api-v3-sdk": "^8.4"
+        "sendinblue/api-v3-sdk": "^8.4",
+        "mailerlite/mailerlite-php": "^1.0"
     },
     "require-dev": {
         "knuckleswtf/scribe": "^4.17.0",
