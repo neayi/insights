@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Debug;
 
-use App\MailChimpService;
 use App\SendinBlueService;
 use App\MailerLiteService;
 use Illuminate\Console\Command;
@@ -18,13 +17,11 @@ class TestMailChimp extends Command
         parent::__construct();
     }
 
-    public function handle(MailChimpService $mailChimpService,
-                           SendinBlueService $sendinBlueService,
+    public function handle(SendinBlueService $sendinBlueService,
                            MailerLiteService $mailerLiteService)
     {
         $email = $this->argument('email');
 
-        $mailChimpService->addEmailToList($email);
         $sendinBlueService->addEmailToList($email, 'jean', 'dupont');
         $mailerLiteService->addEmailToList($email);
     }
