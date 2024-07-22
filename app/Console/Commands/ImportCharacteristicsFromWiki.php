@@ -76,7 +76,12 @@ class ImportCharacteristicsFromWiki extends Command
                 foreach($picturesInfo as $picture) {
                     if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
                         try {
-                            $content = $wikiClient->downloadPicture(last($picture['imageinfo'])['url']);
+                            $imageURL = last($picture['imageinfo'])['url'];
+                            
+                            // Force HTTP as we are behind the proxy
+                            $imageURL = str_replace('https', 'http', $imageURL);
+
+                            $content = $wikiClient->downloadPicture($imageURL);
                             $path = 'public/characteristics/' . $uuid . '.png';
                             Storage::put('public/characteristics/' . $uuid . '.png', $content);
                         }catch (ClientException $e){

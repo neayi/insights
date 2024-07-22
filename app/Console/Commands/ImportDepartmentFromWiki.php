@@ -86,7 +86,12 @@ class ImportDepartmentFromWiki extends Command
                 if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
                     $characteristicModel->page_id = $picture['pageid'];
                     try {
-                        $response = $this->httpClient->get(last($picture['imageinfo'])['url']);
+                        $imageURL = last($picture['imageinfo'])['url'];
+                            
+                        // Force HTTP as we are behind the proxy
+                        $imageURL = str_replace('https', 'http', $imageURL);
+
+                        $response = $this->httpClient->get($imageURL);
                         $content = $response->getBody()->getContents();
                         $path = 'public/characteristics/' . $uuid . '.png';
                         Storage::put('public/characteristics/' . $uuid . '.png', $content);

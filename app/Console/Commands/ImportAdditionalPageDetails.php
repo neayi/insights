@@ -61,7 +61,12 @@ class ImportAdditionalPageDetails extends Command
                 foreach($picturesInfo as $picture) {
                     if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
                         try {
-                            $content = $wikiClient->downloadPicture(last($picture['imageinfo'])['url']);
+                            $imageURL = last($picture['imageinfo'])['url'];
+                            
+                            // Force HTTP as we are behind the proxy
+                            $imageURL = str_replace('https', 'http', $imageURL);
+
+                            $content = $wikiClient->downloadPicture($imageURL);                            
                             $path = 'public/pages/' . $pageModel->id . '.png';
                             Storage::put('public/pages/' . $pageModel->id . '.png', $content);
                         } catch (ClientException $e){
