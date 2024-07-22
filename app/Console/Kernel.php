@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('pages:import-all')->dailyAt('02:00');
         $schedule->command('pages:import-additional-page-detail')->twiceMonthly();
         $schedule->command('pages:sync-dry')->hourly();
-        $schedule->command('users:sync-on-discourse')->dailyAt('22:00');
+        $schedule->command('users:sync-on-discourse')->dailyAt('22:30');
     }
 
     /**
