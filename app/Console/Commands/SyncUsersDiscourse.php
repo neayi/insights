@@ -26,6 +26,8 @@ class SyncUsersDiscourse extends Command
 
     public function handle()
     {
+        Log::info('Starting Discourse Sync command');
+
         $clients = [];
         foreach (LocalesConfig::all() as $wiki) {
             $clients[$wiki->code] = new ForumApiClient($wiki->forum_api_url, $wiki->forum_api_key);
@@ -39,6 +41,8 @@ class SyncUsersDiscourse extends Command
                     $this->processOneUser($clients, $user);
                 }
             });
+
+        Log::info('Ending Discourse Sync command - completed');
     }
 
     private function processOneUser(array $clients, User $user)
