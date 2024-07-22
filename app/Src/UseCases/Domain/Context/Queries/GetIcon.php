@@ -12,6 +12,10 @@ class GetIcon
     {
         $pathPicture = storage_path('app/public/characteristics/'.$uuid.'.png');
 
+        // Sometimes there's no picture for the characteristic. Return an empty pixel.
+        if (!file_exists($pathPicture))
+            $pathPicture = app_path('../public/images/empty-pixel.gif');
+        
         $img = Image::make($pathPicture);
         $h = $img->height();
         $w = $img->width();
