@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 .idea
 /.idea/*
+resources/views/layouts/neayi/partials/*/*:Zone.Identifier
