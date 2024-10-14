@@ -11,70 +11,71 @@
                     <div class="col-xl-2 col-lg-6 offset-xl-1">
 <p class="footer-title">Triple Performance</p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/%C3%80_propos" title="About">About</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Partenaires" title="Partners">Partners</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Manifeste_de_la_plateforme_Triple_Performance" title="Why?">Why?</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Comment_fonctionne_la_plateforme" title="How does it work?">How does it work?</a></li>
-<li><a href="#" class="neayi-tour">Launch the guided tour</a> <i class="fas fa-route"></i></li>
+<li><a href="{{$wikiUrl}}/wiki/%C3%80_propos" title="A proposito">A proposito</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Partenaires" title="Socios">Socios</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Manifeste_de_la_plateforme_Triple_Performance" title="Por qué ?">Por qué ?</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Comment_fonctionne_la_plateforme" title="Cómo funciona ?">Cómo funciona ?</a></li>
+<li><a href="#" class="neayi-tour">Iniciar la visita guiada</a> <i class="fas fa-route"></i></li>
 </ul>
-<p class="footer-title">Community</p>
+<p class="footer-title">Comunidad</p>
 <ul class="list-unstyled">
-<li><a rel="nofollow" class="login-links" href="{{$wikiUrl}}/wiki/Special:Login">Create an account or sign in</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Help:Bienvenue" title="Contribute? It starts here!">Contribute? It starts here!</a></li>
-<li><a href="https://forum.es.tripleperformance.ag">Access the forum</a></li>
-</ul>
-</div>
-<div class="col-xl-2 col-lg-6">
-<p class="footer-title">Productions</p>
-<ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Grandes cultures" title="Field crops">Field crops</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Élevage" title="Breeding">Breeding</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Viticulture">Viticulture</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Market gardening">Market gardening</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a></li>
+<li><a rel="nofollow" class="login-links" href="{{$wikiUrl}}/wiki/Special:Login">Crea una cuenta o inicia sesión</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Help:Bienvenue" title="¿Contribuir? ¡Empieza aquí!">¿Contribuir? ¡Empieza aquí!</a></li>
+<li><a href="https://es.forum.tripleperformance.ag">Accede al foro</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
-<p class="footer-title">Themes</p>
+<p class="footer-title">Producciones</p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Precision agriculture">Precision agriculture</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestry">Agroforestry</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressors">Bioaggressors</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversity">Biodiversity</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaboration and cooperation in agriculture">Collaboration and cooperation in agriculture</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Plant cover">Plant cover</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Carbon cycle and GHG">Carbon cycle and GHG</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Weeding">Weeding</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosis and performance">Diagnosis and performance</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water management">Water management</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Grandes cultures" title="Grandes culturas">Grandes culturas</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Élevage" title="Cría">Cría</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Viticultura">Viticultura</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboricultura">Arboricultura</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Horticultura">Horticultura</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a></li>
+</ul>
+</div>
+<div class="col-xl-2 col-lg-6">
+<p class="footer-title">Temas</p>
+<ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Agricultura de precisión">Agricultura de precisión</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestería">Agroforestería</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagresores">Bioagresores</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversidad">Biodiversidad</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Colaboración y cooperación en agricultura">Colaboración y cooperación en agricultura</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Cubierta vegetal">Cubierta vegetal</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo del carbono y GEI">Ciclo del carbono y GEI</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Deshierbe">Deshierbe</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnóstico y rendimiento">Diagnóstico y rendimiento</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Administracion del Agua">Administracion del Agua</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Agricultural equipment and machinery">Agricultural equipment and machinery</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and observation tools">Measurement and observation tools</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energy production">Energy production</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrated crop protection">Integrated crop protection</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Climate resilience">Climate resilience</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Settling down">Settling down</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Selling the farm">Selling the farm</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Living soils">Living soils</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valuation of production">Valuation of production</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Equipos y maquinaria agrícola">Equipos y maquinaria agrícola</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Herramientas de medición y observación.">Herramientas de medición y observación.</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Producción de energía">Producción de energía</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Protección integral de cultivos">Protección integral de cultivos</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resiliencia climática">Resiliencia climática</a></li>
+<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Asentarse">Asentarse</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vender la granja">Vender la granja</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Suelos vivos">Suelos vivos</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valoración de la producción">Valoración de la producción</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
-<p class="footer-title">Made with ♡ by <a target="_blank" href="https://neayi.com/">Neayi</a></p>
+<p class="footer-title">Hecho con ♡ por <a target="_blank" href="https://neayi.com/">Neayi</a></p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Charte_d%E2%80%99utilisation" title="Platform charter">Platform charter</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Politique_de_confidentialité" title="Legal notice">Legal notice</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Open_Source" title="Open-Source">Open-Source</a></li>
-<li><a target="_blank" href="https://neayi.com/contact/">Contact</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Charte_d%E2%80%99utilisation" title="Carta de la plataforma">Carta de la plataforma</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Politique_de_confidentialité" title="Notas legales">Notas legales</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Open_Source" title="Fuente abierta">Fuente abierta</a></li>
+<li><a target="_blank" href="https://neayi.com/contact/">Contactar</a> - <a target="_blank" href="{{$wikiUrl}}/wiki/Triple Performance:Newsletter">Boletín</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Stats" title="Estadísticas">Estadísticas</a></li>
 <li><span class="social-links">
-<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on Facebook"><span class="fab fa-facebook-f"></span></a>
-<a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on Twitter"><span class="fab fa-twitter"></span></a>
-<a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on LinkedIn"><span class="fab fa-linkedin-in"></span></a>
+<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Síguenos en Facebook"><span class="fab fa-facebook-f"></span></a>
+<a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Síganos en Twitter"><span class="fab fa-twitter"></span></a>
+<a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Síguenos en LinkedIn"><span class="fab fa-linkedin-in"></span></a>
 </span></li>
 </ul>
 </div>

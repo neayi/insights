@@ -52,8 +52,9 @@
 
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Productions">Productions</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Thématiques">Thématiques</a></li>
-<li class="nav-item" id="forum-nav"><a class="nav-link" href="https://forum.tripleperformance.fr" title="Forum">Forum</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="https://forum.tripleperformance.fr" title="Forum">Forum</a></li>
+<li class="nav-item"><a class="nav-link" href="https://forum.tripleperformance.fr" title="Forum">Forum</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Formations" title="Formations">Formations</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Rechercher">Rechercher</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

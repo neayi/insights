@@ -7,53 +7,54 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown neayi-desktop-nav">
-		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_productions" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productions</a>
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_productions" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produzioni</a>
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Grandes cultures" title="Field crops">Field crops</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Élevage" title="Breeding">Breeding</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Viticulture">Viticulture</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Market gardening">Market gardening</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
+            <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Grandes cultures" title="Grandi culture">Grandi culture</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Élevage" title="Allevamento">Allevamento</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Viticoltura">Viticoltura</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboricoltura">Arboricoltura</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Orticoltura">Orticoltura</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Search for case studies">Search for case studies</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Search for portraits">Search for portraits</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Ricerca di casi di studio">Ricerca di casi di studio</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Ricerca di ritratti">Ricerca di ritratti</a>
 
 		</div>
 	</li>
 
                     <li class="nav-item dropdown neayi-desktop-nav">
-		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_thematiques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Themes</a>
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_thematiques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Temi</a>
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Precision agriculture">Precision agriculture</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestry">Agroforestry</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressors">Bioaggressors</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversity">Biodiversity</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaboration and cooperation in agriculture">Collaboration and cooperation in agriculture</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Plant cover">Plant cover</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Carbon cycle and GHG">Carbon cycle and GHG</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Weeding">Weeding</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosis and performance">Diagnosis and performance</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water management">Water management</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Agricultural equipment and machinery">Agricultural equipment and machinery</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and observation tools">Measurement and observation tools</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Energy production">Energy production</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrated crop protection">Integrated crop protection</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Climate resilience">Climate resilience</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Settling down">Settling down</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Selling the farm">Selling the farm</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Living soils">Living soils</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valuation of production">Valuation of production</a>
+            <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Agricoltura di precisione">Agricoltura di precisione</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestale">Agroforestale</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressori">Bioaggressori</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversità">Biodiversità</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaborazione e cooperazione in agricoltura">Collaborazione e cooperazione in agricoltura</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Copertura vegetale">Copertura vegetale</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo del carbonio e GHG">Ciclo del carbonio e GHG</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Diserbo">Diserbo</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosi e prestazioni">Diagnosi e prestazioni</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestione delle risorse idriche">Gestione delle risorse idriche</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Attrezzature e macchine agricole">Attrezzature e macchine agricole</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Strumenti di misurazione e osservazione">Strumenti di misurazione e osservazione</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Produzione di energia">Produzione di energia</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Protezione integrata delle colture">Protezione integrata delle colture</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resilienza climatica">Resilienza climatica</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Fissare">Fissare</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vendere la fattoria">Vendere la fattoria</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Suoli vivi">Suoli vivi</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valutazione della produzione">Valutazione della produzione</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Search" title="Search">Search</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Search" title="Ricerca per">Ricerca per</a>
 
 		</div>
 	</li>
 
-            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Productions">Productions</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Themes">Themes</a></li>
-<li class="nav-item" id="forum-nav"><a class="nav-link" href="https://forum.it.tripleperformance.ag" title="Forum">Forum</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="https://forum.it.tripleperformance.ag" title="Forum">Forum</a></li>
+            <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Produzioni">Produzioni</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Temi">Temi</a></li>
+<li class="nav-item"><a class="nav-link" href="https://it.forum.tripleperformance.ag" title="Forum">Forum</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Corsi di formazione" title="Corsi di formazione">Corsi di formazione</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Ricerca per">Ricerca per</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

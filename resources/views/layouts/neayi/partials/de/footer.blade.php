@@ -21,7 +21,7 @@
 <ul class="list-unstyled">
 <li><a rel="nofollow" class="login-links" href="{{$wikiUrl}}/wiki/Special:Login">Konto erstellen oder anmelden</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Help:Bienvenue" title="Beitragen? Hier fängt es an!">Beitragen? Hier fängt es an!</a></li>
-<li><a href="https://forum.de.tripleperformance.ag">Auf das Forum zugreifen</a></li>
+<li><a href="https://de.forum.tripleperformance.ag">Auf das Forum zugreifen</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
@@ -31,7 +31,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Élevage" title="Zucht">Zucht</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Weinbau">Weinbau</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Baumzucht">Baumzucht</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="gärtnern">gärtnern</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Gärtnern">Gärtnern</a></li>
 <li><a href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a></li>
 </ul>
 </div>
@@ -53,13 +53,13 @@
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Landwirtschaftliche-geräte-und-maschinen">Landwirtschaftliche-geräte-und-maschinen</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Landwirtschaftliche Geräte und Maschinen">Landwirtschaftliche Geräte und Maschinen</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and Observation Tools">Measurement and Observation Tools</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energieerzeugung">Energieerzeugung</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrierter Pflanzenschutz">Integrierter Pflanzenschutz</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Klimaresilienz">Klimaresilienz</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Sich niederlassen">Sich niederlassen</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Verkauf des Hofes">Verkauf des Hofes</a></li>
+<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="sich niederlassen">sich niederlassen</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Verkauf des Bauernhofs">Verkauf des Bauernhofs</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Lebende Böden">Lebende Böden</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Bewertung der Produktion">Bewertung der Produktion</a></li>
 </ul>
@@ -70,11 +70,12 @@
 <li><a href="{{$wikiUrl}}/wiki/Charte_d%E2%80%99utilisation" title="Plattform-Charta">Plattform-Charta</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Politique_de_confidentialité" title="Rechtlicher Hinweis">Rechtlicher Hinweis</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Open_Source" title="Open Source">Open Source</a></li>
-<li><a target="_blank" href="https://neayi.com/contact/">Kontakt</a></li>
+<li><a target="_blank" href="https://neayi.com/contact/">Kontakt</a> - <a target="_blank" href="{{$wikiUrl}}/wiki/Triple Performance:Newsletter">Rundschreiben</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Stats" title="Statistiken">Statistiken</a></li>
 <li><span class="social-links">
-<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="folge-uns-auf-facebook"><span class="fab fa-facebook-f"></span></a>
+<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Folgen Sie uns auf Facebook"><span class="fab fa-facebook-f"></span></a>
 <a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Folge uns auf Twitter"><span class="fab fa-twitter"></span></a>
-<a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="follow-us-on-linkedin"><span class="fab fa-linkedin-in"></span></a>
+<a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Folgen Sie uns auf LinkedIn"><span class="fab fa-linkedin-in"></span></a>
 </span></li>
 </ul>
 </div>
