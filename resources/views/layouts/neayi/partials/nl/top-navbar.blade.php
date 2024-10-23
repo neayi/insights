@@ -29,19 +29,16 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agrobosbouw">Agrobosbouw</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagressors">Bioagressors</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversiteit">Biodiversiteit</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Samenwerking en samenwerking in de landbouw">Samenwerking en samenwerking in de landbouw</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Bedekking van planten">Bedekking van planten</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Koolstofcyclus en broeikasgassen">Koolstofcyclus en broeikasgassen</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Wieden">Wieden</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnose en uitvoering">Diagnose en uitvoering</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Bedrijfsbeheer">Bedrijfsbeheer</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water beheersing">Water beheersing</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Landbouwwerktuigen en -machines">Landbouwwerktuigen en -machines</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Meet- en observatie-instrumenten">Meet- en observatie-instrumenten</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Energie productie">Energie productie</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Geïntegreerde gewasbescherming">Geïntegreerde gewasbescherming</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Klimaatbestendigheid">Klimaatbestendigheid</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Schikken">Schikken</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="De boerderij verkopen">De boerderij verkopen</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Levende bodems">Levende bodems</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Waardebepaling van de productie">Waardebepaling van de productie</a>
 <div class="dropdown-divider"></div>

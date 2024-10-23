@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforstwirtschaft">Agroforstwirtschaft</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressoren">Bioaggressoren</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversität">Biodiversität</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Zusammenarbeit und Zusammenarbeit in der Landwirtschaft">Zusammenarbeit und Zusammenarbeit in der Landwirtschaft</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Pflanzenabdeckung">Pflanzenabdeckung</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Kohlenstoffkreislauf und Treibhausgase">Kohlenstoffkreislauf und Treibhausgase</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Jäten">Jäten</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnose und Leistung">Diagnose und Leistung</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Wasserwirtschaft">Wasserwirtschaft</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Unternehmensführung">Unternehmensführung</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Wasserwirtschaft">Wasserwirtschaft</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Landwirtschaftliche Geräte und Maschinen">Landwirtschaftliche Geräte und Maschinen</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and Observation Tools">Measurement and Observation Tools</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energieerzeugung">Energieerzeugung</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrierter Pflanzenschutz">Integrierter Pflanzenschutz</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Klimaresilienz">Klimaresilienz</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="sich niederlassen">sich niederlassen</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Verkauf des Bauernhofs">Verkauf des Bauernhofs</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Lebende Böden">Lebende Böden</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Bewertung der Produktion">Bewertung der Produktion</a></li>
 </ul>

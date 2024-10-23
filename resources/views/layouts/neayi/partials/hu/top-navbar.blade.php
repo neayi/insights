@@ -26,22 +26,19 @@
 		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_thematiques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Témák</a>
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Precíziós mezőgazdaság">Precíziós mezőgazdaság</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agrár-erdészet">Agrár-erdészet</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroerdészet">Agroerdészet</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagresszorok">Bioagresszorok</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiverzitás">Biodiverzitás</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Együttműködés és együttműködés a mezőgazdaságban">Együttműködés és együttműködés a mezőgazdaságban</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Fedezetek">Fedezetek</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Szénciklus és ÜHG">Szénciklus és ÜHG</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Gyomlálás">Gyomlálás</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnózis és teljesítmény">Diagnózis és teljesítmény</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Üzletvezetés">Üzletvezetés</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Vízgazdálkodás">Vízgazdálkodás</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Mezőgazdasági-berendezések-és-gépek">Mezőgazdasági-berendezések-és-gépek</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Mérő- és megfigyelőeszközök">Mérő- és megfigyelőeszközök</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Mezőgazdasági berendezések és gépek">Mezőgazdasági berendezések és gépek</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Mérő és megfigyelő eszközök">Mérő és megfigyelő eszközök</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Energiatermelés">Energiatermelés</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrált növényvédelem">Integrált növényvédelem</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Klíma-reziliencia">Klíma-reziliencia</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Letelepedés">Letelepedés</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="A gazdaság eladása">A gazdaság eladása</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Élő-talajok">Élő-talajok</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Termelés értékelése">Termelés értékelése</a>
 <div class="dropdown-divider"></div>

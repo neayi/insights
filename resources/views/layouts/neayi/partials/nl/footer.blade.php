@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agrobosbouw">Agrobosbouw</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagressors">Bioagressors</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversiteit">Biodiversiteit</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Samenwerking en samenwerking in de landbouw">Samenwerking en samenwerking in de landbouw</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Bedekking van planten">Bedekking van planten</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Koolstofcyclus en broeikasgassen">Koolstofcyclus en broeikasgassen</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Wieden">Wieden</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnose en uitvoering">Diagnose en uitvoering</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water beheersing">Water beheersing</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Bedrijfsbeheer">Bedrijfsbeheer</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water beheersing">Water beheersing</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Landbouwwerktuigen en -machines">Landbouwwerktuigen en -machines</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Meet- en observatie-instrumenten">Meet- en observatie-instrumenten</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energie productie">Energie productie</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Geïntegreerde gewasbescherming">Geïntegreerde gewasbescherming</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Klimaatbestendigheid">Klimaatbestendigheid</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Schikken">Schikken</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="De boerderij verkopen">De boerderij verkopen</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Levende bodems">Levende bodems</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Waardebepaling van de productie">Waardebepaling van de productie</a></li>
 </ul>

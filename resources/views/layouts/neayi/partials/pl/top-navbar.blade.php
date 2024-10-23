@@ -29,19 +29,16 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroleśnictwo">Agroleśnictwo</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagresorzy">Bioagresorzy</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Różnorodność biologiczna">Różnorodność biologiczna</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Współpraca i kooperacja w rolnictwie">Współpraca i kooperacja w rolnictwie</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Pokrywa roślinna">Pokrywa roślinna</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Cykl węglowy i GHG">Cykl węglowy i GHG</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="pielenie">pielenie</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnoza i wydajność">Diagnoza i wydajność</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Zarządzanie biznesem">Zarządzanie biznesem</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gospodarka wodna">Gospodarka wodna</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Sprzęt i maszyny rolnicze">Sprzęt i maszyny rolnicze</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Narzędzia pomiarowe i obserwacyjne">Narzędzia pomiarowe i obserwacyjne</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Produkcja energii">Produkcja energii</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Zintegrowana ochrona upraw">Zintegrowana ochrona upraw</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Odporność klimatyczna">Odporność klimatyczna</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Rozstrzygnąć">Rozstrzygnąć</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Sprzedaż farmy">Sprzedaż farmy</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Żywe gleby">Żywe gleby</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Wycena produkcji">Wycena produkcji</a>
 <div class="dropdown-divider"></div>

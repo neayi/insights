@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Maatalousmetsätalous">Maatalousmetsätalous</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressorit">Bioaggressorit</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biologinen monimuotoisuus">Biologinen monimuotoisuus</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Yhteistyötä ja yhteistyötä maataloudessa">Yhteistyötä ja yhteistyötä maataloudessa</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Kasvipeite">Kasvipeite</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Hiilikierto ja kasvihuonekaasut">Hiilikierto ja kasvihuonekaasut</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Kitkeminen">Kitkeminen</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnoosi ja suorituskyky">Diagnoosi ja suorituskyky</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Vesihuolto">Vesihuolto</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Liiketoiminnan johtaminen">Liiketoiminnan johtaminen</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
-<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Maatalouslaitteet ja -koneet">Maatalouslaitteet ja -koneet</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Mittaus- ja havaintotyökalut">Mittaus- ja havaintotyökalut</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Vesihuolto">Vesihuolto</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Equipamentos e máquinas agrícolas">Equipamentos e máquinas agrícolas</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Ferramentas de medição e observação">Ferramentas de medição e observação</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energian tuotanto">Energian tuotanto</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integroitu kasvinsuojelu">Integroitu kasvinsuojelu</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Ilmaston sietokyky">Ilmaston sietokyky</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Aloilleen asettuminen">Aloilleen asettuminen</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Maatilan myynti">Maatilan myynti</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Elävät maaperät">Elävät maaperät</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Tuotannon arvostus">Tuotannon arvostus</a></li>
 </ul>

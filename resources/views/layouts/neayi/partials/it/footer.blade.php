@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestale">Agroforestale</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressori">Bioaggressori</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversità">Biodiversità</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaborazione e cooperazione in agricoltura">Collaborazione e cooperazione in agricoltura</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Copertura vegetale">Copertura vegetale</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo del carbonio e GHG">Ciclo del carbonio e GHG</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Diserbo">Diserbo</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosi e prestazioni">Diagnosi e prestazioni</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestione delle risorse idriche">Gestione delle risorse idriche</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Gestione aziendale">Gestione aziendale</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestione delle risorse idriche">Gestione delle risorse idriche</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Attrezzature e macchine agricole">Attrezzature e macchine agricole</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Strumenti di misurazione e osservazione">Strumenti di misurazione e osservazione</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Produzione di energia">Produzione di energia</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Protezione integrata delle colture">Protezione integrata delle colture</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resilienza climatica">Resilienza climatica</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Fissare">Fissare</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vendere la fattoria">Vendere la fattoria</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Suoli vivi">Suoli vivi</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valutazione della produzione">Valutazione della produzione</a></li>
 </ul>

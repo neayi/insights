@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestry">Agroforestry</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressors">Bioaggressors</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversity">Biodiversity</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaboration and cooperation in agriculture">Collaboration and cooperation in agriculture</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Plant cover">Plant cover</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Carbon cycle and GHG">Carbon cycle and GHG</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Weeding">Weeding</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosis and performance">Diagnosis and performance</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water management">Water management</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Business management">Business management</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water management">Water management</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Agricultural equipment and machinery">Agricultural equipment and machinery</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and observation tools">Measurement and observation tools</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Energy production">Energy production</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrated crop protection">Integrated crop protection</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Climate resilience">Climate resilience</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Settling down">Settling down</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Selling the farm">Selling the farm</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Living soils">Living soils</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valuation of production">Valuation of production</a></li>
 </ul>

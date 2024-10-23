@@ -29,19 +29,16 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforesterie">Agroforesterie</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagresseurs">Bioagresseurs</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversité">Biodiversité</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaboration et coopération en agriculture">Collaboration et coopération en agriculture</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Couverts végétaux">Couverts végétaux</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Cycle du carbone et GES">Cycle du carbone et GES</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Désherbage">Désherbage</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnostic et performance">Diagnostic et performance</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Gestion d&#039;entreprise">Gestion d'entreprise</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestion de l’eau">Gestion de l’eau</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Matériel et machines agricoles">Matériel et machines agricoles</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Outils de mesure et d’observation">Outils de mesure et d’observation</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Production énergétique">Production énergétique</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Protection intégrée des cultures">Protection intégrée des cultures</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Résilience climatique">Résilience climatique</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="S’installer">S’installer</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Transmettre sa ferme">Transmettre sa ferme</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Sols vivants">Sols vivants</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valorisation de la production">Valorisation de la production</a>
 <div class="dropdown-divider"></div>

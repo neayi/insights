@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroflorestação">Agroflorestação</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagressores">Bioagressores</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversidade">Biodiversidade</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Colaboração-e-cooperação-na-agricultura">Colaboração-e-cooperação-na-agricultura</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Coberturas">Coberturas</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo do carbono e GEE">Ciclo do carbono e GEE</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Monda">Monda</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnóstico e desempenho">Diagnóstico e desempenho</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestão da água">Gestão da água</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Gestão empresarial">Gestão empresarial</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestão da água">Gestão da água</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Equipamento e maquinaria agrícola">Equipamento e maquinaria agrícola</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Ferramentas de medição e observação">Ferramentas de medição e observação</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Produção de energia">Produção de energia</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Proteção integrada das culturas">Proteção integrada das culturas</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resistência ao clima">Resistência ao clima</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Estabelecendo-se">Estabelecendo-se</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vender a quinta">Vender a quinta</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Solos vivos">Solos vivos</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Avaliação da produção">Avaliação da produção</a></li>
 </ul>
@@ -73,7 +70,7 @@
 <li><a target="_blank" href="https://neayi.com/contact/">Contactar</a> - <a target="_blank" href="{{$wikiUrl}}/wiki/Triple Performance:Newsletter">Boletim informativo</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Triple_Performance:Stats" title="Estatísticas">Estatísticas</a></li>
 <li><span class="social-links">
-<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Seguir-nos no facebook"><span class="fab fa-facebook-f"></span></a>
+<a href="https://www.facebook.com/tripleperformance" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Siga-nos no Facebook"><span class="fab fa-facebook-f"></span></a>
 <a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Siga-nos no Twitter"><span class="fab fa-twitter"></span></a>
 <a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Siga-nos no LinkedIn"><span class="fab fa-linkedin-in"></span></a>
 </span></li>

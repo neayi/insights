@@ -29,19 +29,16 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestry">Agroforestry</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressors">Bioaggressors</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversity">Biodiversity</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Collaboration and cooperation in agriculture">Collaboration and cooperation in agriculture</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Plant cover">Plant cover</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Carbon cycle and GHG">Carbon cycle and GHG</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Weeding">Weeding</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnosis and performance">Diagnosis and performance</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Business management">Business management</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Water management">Water management</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Agricultural equipment and machinery">Agricultural equipment and machinery</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Measurement and observation tools">Measurement and observation tools</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Energy production">Energy production</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Integrated crop protection">Integrated crop protection</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Climate resilience">Climate resilience</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Settling down">Settling down</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Selling the farm">Selling the farm</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Living soils">Living soils</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valuation of production">Valuation of production</a>
 <div class="dropdown-divider"></div>

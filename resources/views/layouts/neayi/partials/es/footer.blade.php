@@ -42,24 +42,21 @@
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroforestería">Agroforestería</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagresores">Bioagresores</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversidad">Biodiversidad</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Colaboración y cooperación en agricultura">Colaboración y cooperación en agricultura</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Cubierta vegetal">Cubierta vegetal</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo del carbono y GEI">Ciclo del carbono y GEI</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Désherbage" title="Deshierbe">Deshierbe</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnóstico y rendimiento">Diagnóstico y rendimiento</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Administracion del Agua">Administracion del Agua</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Gestión empresarial">Gestión empresarial</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
 <p class="footer-title d-none d-md-block">&nbsp;</p>
 <ul class="list-unstyled">
+<li><a href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Administracion del Agua">Administracion del Agua</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Equipos y maquinaria agrícola">Equipos y maquinaria agrícola</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Herramientas de medición y observación.">Herramientas de medición y observación.</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Production énergétique" title="Producción de energía">Producción de energía</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Protección integral de cultivos">Protección integral de cultivos</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resiliencia climática">Resiliencia climática</a></li>
-<li><a href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Asentarse">Asentarse</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vender la granja">Vender la granja</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Suelos vivos">Suelos vivos</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Valoración de la producción">Valoración de la producción</a></li>
 </ul>

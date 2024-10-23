@@ -29,19 +29,16 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Agroflorestação">Agroflorestação</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioagressores">Bioagressores</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Biodiversidade">Biodiversidade</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Collaboration et coopération en agriculture" title="Colaboração-e-cooperação-na-agricultura">Colaboração-e-cooperação-na-agricultura</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Coberturas">Coberturas</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Ciclo do carbono e GEE">Ciclo do carbono e GEE</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Désherbage" title="Monda">Monda</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Diagnostic et performance d'une ferme" title="Diagnóstico e desempenho">Diagnóstico e desempenho</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion_d’entreprise" title="Gestão empresarial">Gestão empresarial</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Gestion de l’eau" title="Gestão da água">Gestão da água</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Matériel et machines agricoles" title="Equipamento e maquinaria agrícola">Equipamento e maquinaria agrícola</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Outils de mesure et d’observation" title="Ferramentas de medição e observação">Ferramentas de medição e observação</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Production énergétique" title="Produção de energia">Produção de energia</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Protection intégrée des cultures" title="Proteção integrada das culturas">Proteção integrada das culturas</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Résilience climatique" title="Resistência ao clima">Resistência ao clima</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/S'installer en agriculture" title="Estabelecendo-se">Estabelecendo-se</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Transmettre sa ferme" title="Vender a quinta">Vender a quinta</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agronomie des sols vivants" title="Solos vivos">Solos vivos</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Valorisation de la production" title="Avaliação da produção">Avaliação da produção</a>
 <div class="dropdown-divider"></div>
