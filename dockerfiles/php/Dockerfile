@@ -22,16 +22,24 @@ RUN rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install exif
 
 RUN test -z "$DEBUG_TOOLS" || ( \
-        pecl install xdebug-3.2.2 \
-            && docker-php-ext-enable xdebug \
-            && echo "xdebug.discover_client_host=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-            && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
-            && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
-            && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
-            && echo "xdebug.idekey=VSCODE" >> /usr/local/etc/php/conf.d/xdebug.ini \
-            && echo "log_errors = On" >> /usr/local/etc/php/conf.d/error_log.ini \
-            && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/error_log.ini \
-    )
+    cd /tmp \
+    && git clone https://github.com/xdebug/xdebug.git \
+    && cd xdebug \
+    && git checkout xdebug_3_3 \
+    && phpize \
+    && ./configure --enable-xdebug \
+    && make \
+    && make install \
+    && rm -rf /tmp/xdebug \ 
+    && docker-php-ext-enable xdebug \
+    && echo "xdebug.discover_client_host=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.idekey=VSCODE" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "log_errors = On" >> /usr/local/etc/php/conf.d/error_log.ini \
+    && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/error_log.ini \
+)
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
