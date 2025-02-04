@@ -37,7 +37,7 @@ class LocalesConfig extends Model
 
         $localesConfig = LocalesConfig::all();
 
-        if (empty($localesConfig)) {
+        if ($localesConfig->isEmpty()) {
             throw new \Exception("LocalesConfig is empty - did you forget to seed the DB?", 1);
         }
 
