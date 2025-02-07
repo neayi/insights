@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exceptions\TechnicalException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
@@ -38,7 +39,7 @@ class LocalesConfig extends Model
         $localesConfig = LocalesConfig::all();
 
         if ($localesConfig->isEmpty()) {
-            throw new \Exception("LocalesConfig is empty - did you forget to seed the DB?", 1);
+            throw new TechnicalException("LocalesConfig is empty - did you forget to seed the DB?", 1);
         }
 
         // by default, we return the first locale found, but later if we find English we'll return English by default
