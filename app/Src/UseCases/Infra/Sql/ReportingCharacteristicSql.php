@@ -36,7 +36,9 @@ class ReportingCharacteristicSql
             if(!isset($characteristicsModel)){
                 continue;
             }
-            $characteristicsModel->icon = route('api.icon.serve', ['id' => $characteristicsModel->uuid]);
+            if (isset($characteristicsModel->opt['number'])) {
+                $characteristicsModel->icon = 'Departement-' . $characteristicsModel->opt['number'];
+            }
             $interaction->departmentData = $characteristicsModel;
             $interactionsToReturn[] = $interaction->toArray();
         }

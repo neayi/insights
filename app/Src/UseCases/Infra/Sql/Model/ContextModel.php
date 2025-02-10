@@ -34,7 +34,9 @@ class ContextModel extends Model
             ->first()
         ;
 
-        $characteristicDepartment->icon = 'Departement-'.$characteristicDepartment['opt']['number'];
+        if (isset($characteristicDepartment['opt']['number'])) {
+            $characteristicDepartment->icon = 'Departement-' . $characteristicDepartment['opt']['number'];
+        }
 
         if(isset($characteristicDepartment)){
             $characteristics->push($characteristicDepartment->toDto());
