@@ -45,15 +45,11 @@ class CharacteristicsModel extends Model
 
     public function toDto()
     {
-        $icon = null;
-        if(isset($this->icon)){
-            $icon = route('api.icon.serve', ['id' => $this->uuid]);
-        }
         return new CharacteristicDto(
             $this->uuid,
             $this->page_label,
             $this->type,
-            $icon,
+            $this->icon,
             $this->pretty_page_label,
             $this->opt ?? [],
             $this->wiki,

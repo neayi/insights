@@ -124,7 +124,9 @@
                             </div>
                             <div class="col-md-4 map">
                                 @if(isset($context['department']))
-                                <div><img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}"></div>
+                                    <div>
+                                        @include('glyph.glyph', ['glyph' => 'Departement-'.$context['department']])
+                                    </div>
                                     <div class="profile-dept-detail">
                                         @if(isset($context['characteristics_departement'][0]))
                                             <span class="dept-name">{{ $context['characteristics_departement'][0]->label }}</span><br>
@@ -174,10 +176,12 @@
                                                         $secondLine = '<br/>'.$characteristic['opt']['climat'];
                                                     }
                                                 @endphp
-                                                <div class="caracteristique-exploitation">
-                                                    <img src="{{ $characteristic['icon'] }}/100">
+                                                <div class="caracteristique-exploitation justify-content-between" >
+                                                    <div>
+                                                        @include('glyph.glyph', ['glyph' =>  $characteristic['icon']])
+                                                    </div>
                                                     <a class="stretched-link" href="{{ $localesConfig[$characteristic['wiki']]['wiki_url'] }}/wiki/{{ $characteristic['page'] }}" target="_blank">
-                                                        <span>{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
+                                                        <span  class="span">{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
                                                     </a>
                                                 </div>
                                             @endforeach

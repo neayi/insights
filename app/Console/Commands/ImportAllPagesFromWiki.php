@@ -16,40 +16,16 @@ class ImportAllPagesFromWiki extends Command
 
     protected $description = 'Import all pages from the wikis as configured in the  locale configs';
 
-    /**
-     * @throws GuzzleException
-     */
     public function handle(): void
     {
         $localesConfig = LocalesConfig::all();
 
         foreach ($localesConfig as $localeConfig) {
-            $client = new WikiClient($localeConfig->toArray());
-            $wikiCode = $localeConfig->code;
-            $this->info(sprintf("Importing Pages from wiki %s", $wikiCode));
-
-
-            // Repeat for Main, Categories and Structures
-            foreach ([0, 14, 3000] as $namespace) {
-                $this->info("Importing Pages from namespace $namespace");
-
-                $content = $client->searchPages($namespace);
-                $pages = $content['query']['allpages'];
-
-                $this->handlePages($pages, $wikiCode);
-
-                $continue = $content['continue']['apcontinue'] ?? null;
-
-                while ($continue !== null && $continue !== '') {
-
-                    $opts = ['apcontinue' => $continue];
-                    $content = $client->searchPages($namespace, $opts);
-                    $pages = $content['query']['allpages'];
-
-                    $this->handlePages($pages, $wikiCode);
-
-                    $continue = $content['continue']['apcontinue'] ?? null;
-                }
+            try {
+                $this->handleImport($localeConfig);
+            } catch (\Throwable $e) {
+                $this->error(get_class($e));
+                $this->error(sprintf('Error importing pages from wiki %s: %s', $localeConfig->code, $e->getMessage()));
             }
         }
     }
@@ -77,5 +53,36 @@ class ImportAllPagesFromWiki extends Command
         }
 
         $this->info(sprintf('End process %s Pages', $count));
+    }
+
+    private function handleImport(mixed $localeConfig): void
+    {
+        $client = new WikiClient($localeConfig->toArray());
+        $wikiCode = $localeConfig->code;
+        $this->info(sprintf("Importing Pages from wiki %s", $wikiCode));
+
+
+        // Repeat for Main, Categories and Structures
+        foreach ([0, 14, 3000] as $namespace) {
+            $this->info("Importing Pages from namespace $namespace");
+
+            $content = $client->searchPages($namespace);
+            $pages = $content['query']['allpages'];
+
+            $this->handlePages($pages, $wikiCode);
+
+            $continue = $content['continue']['apcontinue'] ?? null;
+
+            while ($continue !== null && $continue !== '') {
+
+                $opts = ['apcontinue' => $continue];
+                $content = $client->searchPages($namespace, $opts);
+                $pages = $content['query']['allpages'];
+
+                $this->handlePages($pages, $wikiCode);
+
+                $continue = $content['continue']['apcontinue'] ?? null;
+            }
+        }
     }
 }

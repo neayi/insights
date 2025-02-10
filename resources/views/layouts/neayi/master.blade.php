@@ -13,6 +13,7 @@
 
         <script src="{{ asset('js/neayi.js') }}" defer></script>
         <link href="{{ asset('css/neayi.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://neayi.github.io/tripleperformance-icon-font/style.css" />
     </head>
 <body>
     <div id="app">

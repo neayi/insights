@@ -34,12 +34,12 @@ class ImportCharacteristicsFromWiki extends Command
             $client = new WikiClient($localeConfig->toArray());
             $wikiCode = $localeConfig->code;
             $optFarming = [
-                'query' => "[[Est un élément de profil::Production]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
+                'query' => "[[Est un élément de profil::Production]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
             ];
             $this->importCharacteristics($optFarming, Characteristic::FARMING_TYPE, $client, $wikiCode);
 
             $optCropping = [
-                'query' => "[[Est un élément de profil::Cahier des charges]]|?A un fichier d'icone de caractéristique|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
+                'query' => "[[Est un élément de profil::Cahier des charges]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
             ];
             $this->importCharacteristics($optCropping, Characteristic::CROPPING_SYSTEM, $client, $wikiCode);
         }
@@ -61,34 +61,10 @@ class ImportCharacteristicsFromWiki extends Command
 
             $characteristic = last($characteristic);
 
+            $icon = '';
             $uuid = Uuid::uuid4();
-            $path = '';
-            if(isset($characteristic['printouts']['A un fichier d\'icone de caractéristique'][0]['fulltext'])) {
-                $picture = $characteristic['printouts']['A un fichier d\'icone de caractéristique'][0]['fulltext'];
-
-                $content = $wikiClient->getPictureInfo($picture);
-
-                if (!isset($content)) {
-                    continue;
-                }
-                $picturesInfo = $content['query']['pages'];
-
-                foreach($picturesInfo as $picture) {
-                    if (isset($picture['imageinfo']) && isset(last($picture['imageinfo'])['url'])) {
-                        try {
-                            $imageURL = last($picture['imageinfo'])['url'];
-                            
-                            // Force HTTP as we are behind the proxy
-                            $imageURL = str_replace('https', 'http', $imageURL);
-
-                            $content = $wikiClient->downloadPicture($imageURL);
-                            $path = 'public/characteristics/' . $uuid . '.png';
-                            Storage::put('public/characteristics/' . $uuid . '.png', $content);
-                        }catch (ClientException $e){
-                            $path = '';
-                        }
-                    }
-                }
+            if(isset($characteristic['printouts']['A un glyph'][0])) {
+                $icon = $characteristic['printouts']['A un glyph'][0];
             }
 
             $content = $wikiClient->getInfoPage($page);
@@ -102,7 +78,7 @@ class ImportCharacteristicsFromWiki extends Command
                 'uuid' => $uuid,
                 'main' => $main,
                 'priority' => (int)last($characteristic['printouts']['A une priorité d\'affichage']),
-                'icon' => $path,
+                'icon' => $icon,
                 'page_label' => $label,
                 'pretty_page_label' => $prettyPage,
                 'page_id' => (int)$pageInfo['pageid'],

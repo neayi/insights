@@ -112,7 +112,7 @@ class WikiClient
 
     public function getPagesAdditionalDetail(string|int $offset = null): array
     {
-        $query = "action=ask&format=json&api_version=3&query=[[A un type de page::%2B]]|?A un fichier d'icone de caractéristique|?A un type de page";
+        $query = "action=ask&format=json&api_version=3&query=[[A un glyph::%2B]]|?A un glyph|?A un type de page";
 
         $pagesApiUri = $this->baseUri.$query;
 
