@@ -8,7 +8,9 @@ if(in_array($uuid, old('farming_type', [])) || (isset($checked) && $checked == t
 <input {{$state}} id="c-{{$uuid}}" type="checkbox" name="farming_type[]" value="{{$uuid}}"/>
 <label for="c-{{$uuid}}">
     @if(isset($icon))
-        <img src="/api/icon/{{$uuid}}/98" class="rounded-circle mb-2"/>
+        <span class="rounded-circle mb-2">
+            @include('glyph.glyph', ['glyph' => $icon])
+        </span>
     @else
         <img src="{{asset('images/phblanc.png')}}" class="rounded-circle mb-2"/>
     @endif

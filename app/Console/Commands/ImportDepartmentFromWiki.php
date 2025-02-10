@@ -12,6 +12,9 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @deprecated
+ */
 class ImportDepartmentFromWiki extends Command
 {
     protected $signature = 'characteristics:department';
@@ -87,7 +90,7 @@ class ImportDepartmentFromWiki extends Command
                     $characteristicModel->page_id = $picture['pageid'];
                     try {
                         $imageURL = last($picture['imageinfo'])['url'];
-                            
+
                         // Force HTTP as we are behind the proxy
                         $imageURL = str_replace('https', 'http', $imageURL);
 
