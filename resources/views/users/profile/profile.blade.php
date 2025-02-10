@@ -124,9 +124,7 @@
                             </div>
                             <div class="col-md-4 map">
                                 @if(isset($context['department']))
-                                    <div>
-                                        @include('glyph.glyph', ['glyph' => 'Departement-'.$context['department']])
-                                    </div>
+                                    <div><img src="{{ asset('images/map-france/France Climat Département '.$context['department'].'.svg') }}"></div>
                                     <div class="profile-dept-detail">
                                         @if(isset($context['characteristics_departement'][0]))
                                             <span class="dept-name">{{ $context['characteristics_departement'][0]->label }}</span><br>
