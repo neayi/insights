@@ -80,7 +80,6 @@ class ReportingCharacteristicSql
             $characteristic->count = $characteristicCount->count;
             $c = $characteristic->toArray();
             $c['pretty_page_label'] = str_replace('Catégorie:', '', $c['pretty_page_label']);
-            $c['icon'] = route('api.icon.serve', ['id' => $c['uuid']]);
             $characteristicsToReturn[] = $c;
         }
         return $characteristicsToReturn;
