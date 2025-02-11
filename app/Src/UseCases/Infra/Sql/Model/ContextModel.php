@@ -29,7 +29,14 @@ class ContextModel extends Model
         $characteristics = $this->user->characteristics()->get()->transform(function(CharacteristicsModel $item){
             return $item->toDto();
         });
-        $characteristicDepartment = CharacteristicsModel::query()->where('code', $this->department_number)->first();
+        $characteristicDepartment = CharacteristicsModel::query()
+            ->where('code', $this->department_number)
+            ->first()
+        ;
+
+        if (isset($characteristicDepartment['opt']['number'])) {
+            $characteristicDepartment->icon = 'Departement-' . $characteristicDepartment['opt']['number'];
+        }
 
         if(isset($characteristicDepartment)){
             $characteristics->push($characteristicDepartment->toDto());
