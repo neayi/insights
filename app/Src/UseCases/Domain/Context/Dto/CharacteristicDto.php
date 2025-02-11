@@ -14,6 +14,7 @@ class CharacteristicDto implements \JsonSerializable
     public $icon;
     public $opt;
     public $code;
+    public $wiki;
 
     public function __construct(string $uuid,  string $label, string $type, ?string $icon, $prettyLabel, array $opt = [], string $wiki = 'fr')
     {
@@ -31,7 +32,7 @@ class CharacteristicDto implements \JsonSerializable
         return $this->type;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
@@ -43,7 +44,8 @@ class CharacteristicDto implements \JsonSerializable
             'icon' => $this->icon,
             'caption' => $this->prettyLabel,
             'opt' => $this->opt,
-            'wiki' => $this->wiki
+            'wiki' => $this->wiki,
+            'type' => $this->type
         ];
     }
 }

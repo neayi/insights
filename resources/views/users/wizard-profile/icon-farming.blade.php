@@ -9,7 +9,7 @@ if(in_array($uuid, old('farming_type', [])) || (isset($checked) && $checked == t
 <label for="c-{{$uuid}}">
     @if(isset($icon))
         <span class="rounded-circle mb-2">
-            @include('glyph.glyph', ['glyph' => $icon])
+            @include('glyph.glyph', ['glyph' => $icon, 'type' => 'farming'])
         </span>
     @else
         <img src="{{asset('images/phblanc.png')}}" class="rounded-circle mb-2"/>

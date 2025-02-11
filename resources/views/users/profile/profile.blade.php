@@ -176,7 +176,7 @@
                                                 @endphp
                                                 <div class="caracteristique-exploitation justify-content-between" >
                                                     <div>
-                                                        @include('glyph.glyph', ['glyph' =>  $characteristic['icon']])
+                                                        @include('glyph.glyph', ['glyph' => $characteristic['icon'], 'type' => $characteristic['type']])
                                                     </div>
                                                     <a class="stretched-link" href="{{ $localesConfig[$characteristic['wiki']]['wiki_url'] }}/wiki/{{ $characteristic['page'] }}" target="_blank">
                                                         <span  class="span">{{ $characteristic['caption'] }} {!! $secondLine !!}</span>
