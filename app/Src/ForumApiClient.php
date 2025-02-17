@@ -77,6 +77,7 @@ class ForumApiClient
                 'password' => uniqid().uniqid(),
                 'email' => $user->email,
                 'active' => true,
+                'approved'=> true
             ]
         ]);
 

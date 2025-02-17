@@ -14,3 +14,4 @@ yarn-error.log
 .idea
 /.idea/*
 resources/views/layouts/neayi/partials/*/*:Zone.Identifier
+public/phpinfo.php

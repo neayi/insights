@@ -34,6 +34,8 @@ class SyncUsersDiscourse extends Command
         }
 
         User::query()
+            ->where('firstname', '<>', '')
+            ->where('lastname', '<>', '')
             ->whereNotNull('email_verified_at')
             ->whereNull('sync_at_discourse')
             ->chunkById(50, function ($items) use ($clients) {
