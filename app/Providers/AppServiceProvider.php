@@ -7,7 +7,6 @@ use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
@@ -27,7 +26,6 @@ use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\PageRepositorySql;
-use App\Src\UseCases\Infra\Sql\SqlOrganizationRepository;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRoleRepositorySql;
 use App\Src\Utils\Hash\HashGen;
@@ -45,7 +43,6 @@ use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
 use Tests\Adapters\Repositories\InMemoryContextRepository;
 use Tests\Adapters\Repositories\InMemoryInteractionRepository;
 use Tests\Adapters\Repositories\InMemoryInvitationRepository;
-use Tests\Adapters\Repositories\InMemoryOrganizationRepository;
 use Tests\Adapters\Repositories\InMemoryPageRepository;
 use Tests\Adapters\Repositories\InMemoryUserRepository;
 use Tests\Adapters\Repositories\InMemoryUserRoleRepository;
@@ -88,7 +85,6 @@ class AppServiceProvider extends ServiceProvider
     private function prodBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
-        $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
         $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
         $this->app->singleton(UserRepository::class, UserRepositorySql::class);
@@ -107,7 +103,6 @@ class AppServiceProvider extends ServiceProvider
     private function tuBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
-        $this->app->singleton(OrganizationRepository::class, InMemoryOrganizationRepository::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
         $this->app->singleton(UserRepository::class, InMemoryUserRepository::class);
         $this->app->singleton(FileStorage::class, InMemoryFileStorage::class);
@@ -126,7 +121,6 @@ class AppServiceProvider extends ServiceProvider
     private function tiBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
-        $this->app->singleton(OrganizationRepository::class, SqlOrganizationRepository::class);
         $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
         $this->app->singleton(UserRepository::class, UserRepositorySql::class);

@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Src\UseCases\Domain\Context\Dto\UserDto;
-use App\Src\UseCases\Domain\Ports\OrganizationRepository;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
@@ -48,10 +47,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     public function adminlte_desc()
     {
         $desc = $this->firstname.' '.$this->lastname;
-        if($this->organization_id !== null){
-            $organization = app(OrganizationRepository::class)->get($this->organization_id);
-            $desc .= ' - organisme : '.$organization->name();
-        }
+
         return $desc;
     }
 
