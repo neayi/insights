@@ -8,6 +8,10 @@ use Illuminate\Console\Command;
 
 class TestMailers extends Command
 {
+    protected $signature = 'debug:mailers {email}';
+
+    protected $description = 'Add email to newsletter';
+
     public function handle(SendinBlueService $sendinBlueService,
                            MailerLiteService $mailerLiteService)
     {
