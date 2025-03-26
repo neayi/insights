@@ -6,16 +6,11 @@ use App\SendinBlueService;
 use App\MailerLiteService;
 use Illuminate\Console\Command;
 
-class TestMailChimp extends Command
+class TestMailers extends Command
 {
-    protected $signature = 'debug:mailchimp {email}';
+    protected $signature = 'debug:mailers {email}';
 
     protected $description = 'Add email to newsletter';
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function handle(SendinBlueService $sendinBlueService,
                            MailerLiteService $mailerLiteService)

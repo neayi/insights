@@ -11,11 +11,6 @@ class GiveAdminRole extends Command
 
     protected $description = 'Give admin role to the user (email) given';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function handle()
     {
         $email = $this->argument('email');
