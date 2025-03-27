@@ -47,7 +47,7 @@ class FollowersQueryTest extends TestCase
 
         $followerDtoExpected = new FollowerDto(
            new UserDto($user->uuid, $user->firstname, $user->lastname, null, false),
-           new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid),
+           new ContextDto($user->firstname, $user->lastname, 'FR', $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid),
            new InteractionDto($pageId, true, false, false)
         );
 
@@ -81,7 +81,7 @@ class FollowersQueryTest extends TestCase
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname, null, false),
-            new ContextDto($user2->firstname, $user2->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid),
+            new ContextDto($user2->firstname, $user2->lastname, 'FR', $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid),
             new InteractionDto($pageId, false, true, false)
         );
         self::assertEquals($followerDtoExpected, $followers[0]);
@@ -114,7 +114,7 @@ class FollowersQueryTest extends TestCase
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname, null, false),
-            new ContextDto($user2->firstname, $user2->lastname, '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid,'06'),
+            new ContextDto($user2->firstname, $user2->lastname, 'FR', '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid,'06'),
             new InteractionDto($pageId, true, true, false)
         );
         self::assertEquals($followerDtoExpected, $followers[0]);
@@ -152,7 +152,7 @@ class FollowersQueryTest extends TestCase
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user->uuid, $user->firstname, $user->lastname, null, false),
-            new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid),
+            new ContextDto($user->firstname, $user->lastname, 'FR', $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid),
             new InteractionDto($pageId, true, false, false)
         );
 

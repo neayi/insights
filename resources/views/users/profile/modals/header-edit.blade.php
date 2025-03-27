@@ -48,26 +48,25 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="label-big success mb-3">@lang('wiki_profile.fill_postal_code_header')</label>
-                                    <div class="row">
-                                        <div class="col-md-3 pr-md-0">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-5 col-3">
-                                                    <label>@lang('wiki_profile.fill_postal_code')</label>
-                                                </div>
-                                                <div class="col-lg-5 col-9">
-                                                    <input value="{{old('postal_code', $context['postal_code'])}}" type="text" id="input-postal" name="postal_code"
-                                                           autocomplete="postal-code" class="form-control" placeholder="">
-                                                </div>
-                                            </div>
-                                            <small class="form-text text-muted font-weight-semibold mt-2">
-                                                @lang('wiki_profile.fill_postal_code_hint')
-                                                <p style="cursor:pointer;" id="no-postal-code">Cliquez ici si vous n'avez pas de code postal.</p>
-                                                <input type="hidden" value="0" name="no_postal_code" id="no_postal_code_input"/>
-                                                <p style="cursor:pointer; display: none;" id="fill-postal-code">Je souhaite renseigner mon code postal</p>
-                                            </small>
+                                    <label class="label-big success">@lang('wiki_profile.fill_location_header')</label>
+                                    <p class="h6 font-italic mb-3"><small>@lang('wiki_profile.fill_location_hint')</small></p>
+                                    <div class="row align-items-center">
+                                        <div class="col-3">
+                                            <label>@lang('wiki_profile.fill_country')</label>
                                         </div>
-                                        <div class="col-lg-9" id="geo-details">
+                                        <div class="col-9">
+                                            <select value="{{old('country', $context['country'])}}" id="input-country" name="country"
+                                                    autocomplete="country" class="form-control" placeholder="">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 align-items-center">
+                                        <div class="col-3">
+                                            <label>@lang('wiki_profile.fill_postal_code')</label>
+                                        </div>
+                                        <div class="col-9 col-md-3">
+                                            <input value="{{old('postal_code', $context['postal_code'])}}" type="text" id="input-postal" name="postal_code"
+                                                   autocomplete="postal-code" class="form-control" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -76,12 +75,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row align-items-center mt-3 mt-lg-0">
-                                    <div class="col-lg-4 col-3">
+                                    <div class="col-md-4 col-12">
                                         <label class="label-big success mb-3">
                                             @lang('wiki_profile.structure')
                                         </label>
                                     </div>
-                                    <div class="col-lg-8 col-9">
+                                    <div class="col-md-8 col-12">
                                         <input name="structure"
                                                type="text"
                                                class="structure-auto-complete form-control input-big"
@@ -110,6 +109,5 @@
 @section('scripts')
     <script type="text/javascript">
         var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
-        var oldGeo = '{{ old('geo') !== null ? json_decode(old('geo'), true)['country_code'] : '' }}';
     </script>
 @endsection

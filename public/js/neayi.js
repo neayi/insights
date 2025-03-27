@@ -40992,6 +40992,8 @@ $('.search-type-c').click(function () {
 $('#btn-remove-avatar').click(function () {
   $(this).parents('form').submit();
 });
+
+/*
 $('#input-postal').change(function () {
   var postal = $(this).val();
   $.ajax({
@@ -41047,6 +41049,7 @@ $('#fill-postal-code').click(function () {
   $('#no-postal-code').show();
 });
 })();
+*/
 
 /******/ })()
 ;

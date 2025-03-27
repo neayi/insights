@@ -53,6 +53,5 @@ Route::group(['middleware' => ['auth', 'auth.check.role']], function() {
 
     Route::get('/user/edit/profile', 'ProfileController@showEditProfile')->name('user.edit.profile.show');
     Route::post('/user/edit/profile', 'ProfileController@processEditProfile')->name('user.edit.profile');
-    Route::get('/geo', \App\Http\Controllers\Profile\GeoController::class)->name('geo');
 });
 

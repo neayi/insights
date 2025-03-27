@@ -19,7 +19,7 @@ class UpdateMainData
         private UserRepository $userRepository
     ){}
 
-    public function execute(string $postalCode, string $sector, string $structure, string $email, string $firstname, string $lastname, string $role, array $geo = [])
+    public function execute(string $postalCode, string $sector, string $structure, string $email, string $firstname, string $lastname, string $role, string $country)
     {
         $currentUser = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($currentUser->id());
@@ -29,11 +29,11 @@ class UpdateMainData
         $user->updateRole($role);
 
         $context->update([
-            'postal_code' => $postalCode,
             'sector' => $sector,
+            'country' => $country,
+            'postal_code' => $postalCode,
             'structure' => $structure,
-            'coordinates' => !empty($geo['coordinates']) ? array_reverse($geo['coordinates']) : [],
-            'country_code' => !empty($geo['country_code']) ? $geo['country_code'] : null,
+            // 'coordinates' => !empty($geo['coordinates']) ? array_reverse($geo['coordinates']) : [],
         ], $currentUser->id());
     }
 }

@@ -149,13 +149,13 @@ class ProfileController extends Controller
         $role = $request->input('role') !== null ? $request->input('role') : '';
         $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
         $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
-        $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
         $email = $request->input('email') !== null ? $request->input('email') : '';
         $sector = $request->input('sector') !== null ? $request->input('sector') : '';
+        $country = $request->input('country') !== null ? json_decode($request->input('country'), true) : [];
+        $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
         $structure = $request->input('structure') !== null ? $request->input('structure') : '';
-        $geo = $request->input('geo') !== null ? json_decode($request->input('geo'), true) : [];
 
-        $updateMainData->execute($postalCode, $sector, $structure, $email, $firstname, $lastname, $role, $geo);
+        $updateMainData->execute($postalCode, $sector, $structure, $email, $firstname, $lastname, $role, $country);
         return [];
     }
 

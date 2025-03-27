@@ -32,10 +32,11 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-3  offset-lg-2">
-            @include('users.wizard-profile.fill-postal-code')
+        <div class="col-lg-6">
+            @include('users.wizard-profile.fill-country')
         </div>
-        <div class="col-lg-6" id="geo-details">
+        <div class="col-lg-6">
+            @include('users.wizard-profile.fill-postal-code')
         </div>
     </div>
     <div class="row mt-5">
@@ -118,6 +119,5 @@
 @section('scripts')
     <script type="text/javascript">
         var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
-        var oldGeo = '{{ old('geo') !== null ? json_decode(old('geo'), true)['country_code'] : '' }}';
     </script>
 @endsection

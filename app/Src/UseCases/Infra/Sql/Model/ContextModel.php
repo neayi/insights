@@ -55,13 +55,14 @@ class ContextModel extends Model
         return new ContextDto(
             $this->user->firstname,
             $this->user->lastname,
-            $this->postal_code ?? '',
+            $this->country ?? null,
+            $this->postal_code ?? null,
             $characteristics->toArray(),
-            $this->description,
-            $this->sector ?? '',
-            $this->structure ?? '',
+            $this->description ?? null,
+            $this->sector ?? null,
+            $this->structure ?? null,
             $this->user->uuid,
-            $this->department_number ?? ''
+            $this->department_number ?? null
         );
     }
 
@@ -75,7 +76,7 @@ class ContextModel extends Model
             $this->sector,
             $this->structure,
             $this->coordinates,
-            $this->country_code,
+            $this->country,
         );
     }
 }

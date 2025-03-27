@@ -18,7 +18,7 @@ readonly class FillWikiUserProfile
         private ContextRepository $contextRepository
     ){}
 
-    public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $postcode, array $farmingType = [], array $geo = [])
+    public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $country, string $postalCode, array $farmingType = [])
     {
         $errors = [];
         $user = $this->userRepository->getByEmail($email);
@@ -26,7 +26,7 @@ readonly class FillWikiUserProfile
             $errors[] = ['validation.unique'];
         }
 
-        $this->validate($firstname, $lastname, $role, $email, $postcode, $geo, $errors);
+        $this->validate($firstname, $lastname, $role, $email, $country, $errors);
 
         $user = $this->userRepository->getById($userId);
         $user->update($email, $firstname, $lastname, "");
@@ -36,35 +36,32 @@ readonly class FillWikiUserProfile
 
         $context = new Context(
             $exploitationId,
-            $postcode,
+            $postalCode,
             $farmingType,
             null,
             null,
             null,
-            !empty($geo['coordinates']) ? array_reverse($geo['coordinates']) : [],
-            $geo['country_code'] ?? ''
+            $country
         );
         $this->contextRepository->add($context, $userId);
     }
 
-    private function validate(string $firstname, string $lastname, string $role, string $email, string $postcode, array $geo, array $errors = []): void
+    private function validate(string $firstname, string $lastname, string $role, string $email, string $country, array $errors = []): void
     {
         $rules = [
             'firstname' => 'required',
             'lastname' => 'required',
             'role' => 'required',
             'email' => 'required|email',
-            'postal_code' => 'required_if:no_postal_code,0',
-            'geo' => 'required_if:no_postal_code,0'
+            'country' => 'required',
         ];
 
         $validator = Validator::make([
             'firstname' => $firstname,
             'lastname' => $lastname,
             'role' => $role,
-            'postal_code' => $postcode,
             'email' => $email,
-            'geo' => $geo
+            'country' => $country,
         ], $rules);
 
         $validator->after(function () use ($validator, $errors) {
