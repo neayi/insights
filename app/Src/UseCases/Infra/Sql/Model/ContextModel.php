@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql\Model;
 
-
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Context\Model\Context;
 use App\User;
@@ -20,14 +19,15 @@ class ContextModel extends Model
         'structure',
         'sector',
         'department_number',
-        'coordinates',
+        'latitude',
+        'longitude',
         'uuid',
         'country'
     ];
 
-    protected $casts = [
+    /*protected $casts = [
         'coordinates' => 'array'
-    ];
+    ];*/
 
     public function user()
     {
@@ -55,8 +55,8 @@ class ContextModel extends Model
         return new ContextDto(
             $this->user->firstname,
             $this->user->lastname,
-            $this->country ?? null,
-            $this->postal_code ?? null,
+            $this->country,
+            $this->postal_code,
             $characteristics->toArray(),
             $this->description ?? null,
             $this->sector ?? null,
@@ -75,8 +75,9 @@ class ContextModel extends Model
             $this->description,
             $this->sector,
             $this->structure,
-            $this->coordinates,
             $this->country,
+            $this->latitude,
+            $this->longitude,
         );
     }
 }

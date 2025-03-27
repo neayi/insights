@@ -1,3 +1,5 @@
+@inject('countryList', 'Countries')
+
 <div class="modal fade" id="headerEdit" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-edit mx-0 mx-sm-auto" role="document">
         <div class="modal-content p-md-3 p-1">
@@ -57,6 +59,11 @@
                                         <div class="col-9">
                                             <select value="{{old('country', $context['country'])}}" id="input-country" name="country"
                                                     autocomplete="country" class="form-control" placeholder="">
+                                                @foreach(Countries::getList() as $countryCode => $countryName)
+                                                    <option @if($countryCode === $context['country']) selected @endif value="{{$countryCode}}">
+                                                        {{$countryName}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

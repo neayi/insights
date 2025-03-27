@@ -28,9 +28,8 @@ class UpdateMainDataTest  extends TestCase
         $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], 'test');
         $this->contextRepository->add($context, 'abc');
 
-        app(UpdateMainData::class)->execute('83130', 'sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer');
+        app(UpdateMainData::class)->execute('sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer', null, '83130');
 
-        $coordinates = [43, 117];
         $contextExpected = new Context(
             'abc',
             '83130',
@@ -38,8 +37,10 @@ class UpdateMainDataTest  extends TestCase
             'test',
             'sector',
             'structure',
-            83,
-            $coordinates
+            'FR',
+            117,
+            43,
+            '83'
         );
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);

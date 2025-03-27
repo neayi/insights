@@ -9,7 +9,6 @@ namespace App\Src\UseCases\Domain\Context\UseCases;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 
 class UpdateMainData
 {
@@ -19,7 +18,7 @@ class UpdateMainData
         private UserRepository $userRepository
     ){}
 
-    public function execute(string $postalCode, string $sector, string $structure, string $email, string $firstname, string $lastname, string $role, string $country)
+    public function execute(string $sector, string $structure, string $email, string $firstname, string $lastname, string $role, ?string $country, ?string $postalCode)
     {
         $currentUser = $this->authGateway->current();
         $context = $this->contextRepository->getByUser($currentUser->id());
@@ -33,7 +32,6 @@ class UpdateMainData
             'country' => $country,
             'postal_code' => $postalCode,
             'structure' => $structure,
-            // 'coordinates' => !empty($geo['coordinates']) ? array_reverse($geo['coordinates']) : [],
         ], $currentUser->id());
     }
 }

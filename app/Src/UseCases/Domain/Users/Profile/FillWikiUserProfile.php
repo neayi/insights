@@ -43,6 +43,7 @@ readonly class FillWikiUserProfile
             null,
             $country
         );
+        $context->resolveGeolocation();
         $this->contextRepository->add($context, $userId);
     }
 

@@ -5,26 +5,29 @@ declare(strict_types=1);
 namespace App\Src\UseCases\Domain\Context\Model;
 
 use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
 
 class Context
 {
-    private array $coordinates = [];
+    private ContextRepository $contextRepository;
 
-    private $contextRepository;
+    private GeoLocationByPostalCode $geoLocationByPostalCode;
 
     public function __construct(
         private string $uid,
-        private string $postalCode,
+        private ?string $postalCode = null,
         private array $characteristics = [],
         private ?string $description = null,
         private ?string $sector = null,
         private ?string $structure = null,
         private ?string $country = null, // TODO: remonter au-dessus du postalCode
+        private ?float $latitude = null,
+        private ?float $longitude = null,
+        private ?string $departmentNumber = null,
     )
     {
         $this->contextRepository = app(ContextRepository::class);
-
-        // TODO: Add Geolocation service
+        $this->geoLocationByPostalCode = app(geoLocationByPostalCode::class);
     }
 
     public function id():string
@@ -34,13 +37,15 @@ class Context
 
     public function update(array $params, string $userId)
     {
+        $mustResolveGeolocation = array_key_exists('country', $params) && $params['country'] !== $this->country 
+                                    || array_key_exists('postal_code', $params) && $params['postal_code'] !== $this->postalCode;
+
         $this->country = $params['country'] ?? $this->country;
         $this->postalCode = $params['postal_code'] ?? $this->postalCode;
 
-        // TODO: Use geolcation service to calculate coordiantes
-        /*if (isset($params['postal_code']) && $this->postalCode !== $params['postal_code']) {
-            $this->coordinates = $params['coordinates'] ?? $this->coordinates;
-        }*/
+        if ($mustResolveGeolocation) {
+            $this->resolveGeolocation();
+        }
 
         $this->description = $params['description'] ?? $this->description;
         $this->characteristics = $params['characteristics'] ?? $this->characteristics;
@@ -48,6 +53,21 @@ class Context
         $this->structure = $params['structure'] ?? $this->structure;
 
         $this->contextRepository->update($this, $userId);
+    }
+
+    public function resolveGeolocation(): void
+    {
+        if (empty($this->country) || empty($this->postalCode)) {
+            $this->latitude = null;
+            $this->longitude = null;
+            $this->departmentNumber = null;
+        }
+
+        $geolocationInfos = $this->geoLocationByPostalCode->getGeolocationByPostalCode($this->country, $this->postalCode);
+
+        $this->latitude = $geolocationInfos['latitude'];
+        $this->longitude = $geolocationInfos['longitude'];
+        $this->departmentNumber = $geolocationInfos['department_number'];
     }
 
     public function addCharacteristics(array $characteristics, string $userId)
@@ -67,7 +87,7 @@ class Context
             'structure' => $this->structure,
             'coordinates' => $this->coordinates,
             'country' => $this->country,
-            'department_number' => $this->country === 'FR' ? (new PostalCode($this->postalCode))->department() : null
+            'department_number' => $this->departmentNumber,
         ];
     }
 }

@@ -23,11 +23,11 @@ class ContextQueryTest extends TestCase
     {
         $userId1 = Uuid::uuid4()->toString();
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 83220, [], 'desc', null, null, 83), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), '83220', [], 'desc', null, null, 'FR', null, null, '83'), $userId1);
 
         $context = app(GetContextByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last', 'FR', $postalCode = 83220,  [], 'desc', '', '', $userId1, 83);
+        $contextExpected = new ContextDto('first', 'last', 'FR', $postalCode = '83220',  [], 'desc', '', '', $userId1, '83');
         self::assertEquals($contextExpected, $context);
     }
 
@@ -38,11 +38,11 @@ class ContextQueryTest extends TestCase
     {
         $userId1 = Uuid::uuid4()->toString();
         $this->userRepository->add(new User($userId1, 'email@email.com', 'first', 'last'));
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 97400, [], 'desc', '', '', 974), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), '97400', [], 'desc', '', '', 'FR', null, null, '974'), $userId1);
 
         $context = app(GetContextByUser::class)->execute($userId1);
 
-        $contextExpected = new ContextDto('first', 'last', 'FR', $postalCode = 97400,  [], 'desc', '', '', $userId1, 974);
+        $contextExpected = new ContextDto('first', 'last', 'FR', $postalCode = '97400',  [], 'desc', '', '', $userId1, '974');
         self::assertEquals($contextExpected, $context);
     }
 
@@ -63,7 +63,7 @@ class ContextQueryTest extends TestCase
             'type' => Characteristic::CROPPING_SYSTEM,
         ]);
 
-        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$characteristic1->uuid, $characteristic2->uuid], 'description', null, null, 83), $userId1);
+        $this->contextRepository->add(new Context(Uuid::uuid4(), 83400, [$characteristic1->uuid, $characteristic2->uuid], 'description', null, null, 'FR', null, null, '83'), $userId1);
         $context = app(GetContextByUser::class)->execute($userId1);
 
         $icon = route('api.icon.serve', ['id' => $characteristic1->uuid]);

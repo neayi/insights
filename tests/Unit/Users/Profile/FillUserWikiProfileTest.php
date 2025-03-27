@@ -49,8 +49,7 @@ class FillUserWikiProfileTest extends TestCase
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
 
-        $coordinates = [43, 117];
-        $contextExpected = new Context($exploitationId, $postcode, [], null, null, null, '83', $coordinates);
+        $contextExpected = new Context($exploitationId, $postcode, [], null, null, null, 'FR', 117, 43, '83');
         $contextSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($contextExpected, $contextSaved);
     }
@@ -69,8 +68,7 @@ class FillUserWikiProfileTest extends TestCase
 
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode, $farmingType);
 
-        $coordinates = [43, 117];
-        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType, null, null, null, '83', $coordinates);
+        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType, null, null, null, 'FR', 117, 43, '83');
         $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
