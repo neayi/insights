@@ -14,7 +14,8 @@ return new class extends Migration
             $table->decimal('latitude', 10, 8)->nullable()->default(null);
             $table->decimal('longitude', 11, 8)->nullable()->default(null);
         });
-        
+
+        // Populates splitted coordinates
         DB::statement(<<<SQL
             UPDATE contexts 
             SET 
@@ -22,6 +23,17 @@ return new class extends Migration
                 latitude = JSON_EXTRACT(coordinates, "$[1]")
             WHERE
                 coordinates IS NOT NULL AND JSON_VALID(coordinates) AND JSON_LENGTH(coordinates) = 2;
+        SQL);
+
+        // Nullify empty country, postal_code and department_number
+        DB::statement(<<<SQL
+            UPDATE contexts SET country = NULL WHERE country = '';
+        SQL);
+        DB::statement(<<<SQL
+            UPDATE contexts SET postal_code = NULL WHERE postal_code = '';
+        SQL);
+        DB::statement(<<<SQL
+            UPDATE contexts SET department_number = NULL WHERE department_number = '';
         SQL);
 
         Schema::table('contexts', function (Blueprint $table){
@@ -32,10 +44,20 @@ return new class extends Migration
     public function down()
     {
         Schema::table('contexts', function (Blueprint $table){
+            $table->json('coordinates')->nullable();
+        });
+
+        DB::statement(<<<SQL
+            UPDATE contexts 
+            SET coordinates = JSON_ARRAY(longitude, latitude)
+            WHERE
+                latitude IS NOT NULL AND longitude IS NOT NULL; 
+        SQL);
+
+        Schema::table('contexts', function (Blueprint $table){
             $table->dropColumn('country');
             $table->dropColumn('latitude');
             $table->dropColumn('longitude');
-            $table->json('coordinates')->nullable();
         });
     }
 };
