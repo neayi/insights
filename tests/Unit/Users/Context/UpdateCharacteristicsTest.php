@@ -23,12 +23,12 @@ class UpdateCharacteristicsTest  extends TestCase
      */
     public function updateCharacteristics()
     {
-        $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], '');
+        $context = new Context('abc', ['abc', 'bcd', 'cdf'], '');
         $this->contextRepository->add($context, 'abc');
 
         app(UpdateCharacteristics::class)->execute(['abc', 'def']);
 
-        $contextExpected = new Context('abc', '83220', ['abc', 'def'], '');
+        $contextExpected = new Context('abc', ['abc', 'def'], '');
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);
     }

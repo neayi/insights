@@ -28,9 +28,8 @@ class FillUserWikiProfileTest extends TestCase
         $role = 'farmer';
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
-        $postcode = '83130';
         $email = 'e@email.com';
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, 'FR', '83130');
 
         $userExpected = new User($this->userId, $email, $newFirstname, $newLastname, null, null, ['farmer']);
         $userSaved = $this->userRepository->getById($this->userId);
@@ -42,14 +41,15 @@ class FillUserWikiProfileTest extends TestCase
         $role = 'farmer';
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
+        $country = 'FR';
         $postcode = '83130';
         $email = 'e@email.com';
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $country, $postcode);
 
-        $contextExpected = new Context($exploitationId, $postcode, [], null, null, null, 'FR', 117, 43, '83');
+        $contextExpected = new Context($exploitationId, [], null, null, null, $country, $postcode, 117, 43, '83');
         $contextSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($contextExpected, $contextSaved);
     }
@@ -59,6 +59,7 @@ class FillUserWikiProfileTest extends TestCase
         $role = 'farmer';
         $newFirstname = 'newFirstname';
         $newLastname = 'newLastname';
+        $country = 'FR';
         $postcode = '83130';
         $email = 'e@email.com';
         $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
@@ -66,9 +67,9 @@ class FillUserWikiProfileTest extends TestCase
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());
 
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postcode, $farmingType);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $country, $postcode, $farmingType);
 
-        $exploitationExpected = new Context($exploitationId, $postcode, $farmingType, null, null, null, 'FR', 117, 43, '83');
+        $exploitationExpected = new Context($exploitationId, $farmingType, null, null, null, $country, $postcode, 117, 43, '83');
         $exploitationSaved = $this->contextRepository->getByUser($this->userId);
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
@@ -76,28 +77,27 @@ class FillUserWikiProfileTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $email, $postalCode)
+    public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $email, $country, $postalCode)
     {
         $user = new User(Uuid::uuid4(), 'useremail@gmail.com', 'first', 'last');
         $this->userRepository->add($user);
 
         self::expectException(ValidationException::class);
-        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $postalCode);
+        app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $country, $postalCode);
     }
 
     public function dataProvider()
     {
         return [
-            ['', '', '', '', ''],
-            ['role', '', '', 'e@email','83130'],
-            ['role', 'firstname', '', 'e@email.com', '83130'],
-            ['role', '', 'lastname' ,  'e@email.com','83130'],
-            ['', 'firstname', 'lastname',  'e@email.com', '83130'],
-            ['', 'firstname', 'lastname',  'e@email.com', '83130'],
-            ['', 'firstname', '',  'e@email.com', '83130'],
-            ['', '', 'lastname',  'e@email.com', '83130'],
-            ['farmer', 'firstname', 'lastname',  'e@email.com', '0183130'],
-            ['farmer', 'firstname', 'lastname',  'useremail@gmail.com', '83130'],
+            ['', '', '', '', '', ''],
+            ['role', '', '', 'e@email', 'FR','83130'],
+            ['role', 'firstname', '', 'e@email.com', 'FR', '83130'],
+            ['role', '', 'lastname' ,  'e@email.com', 'FR','83130'],
+            ['', 'firstname', 'lastname',  'e@email.com', 'FR', '83130'],
+            ['', 'firstname', 'lastname',  'e@email.com', 'FR', '83130'],
+            ['', 'firstname', '',  'e@email.com', 'FR', '83130'],
+            ['', '', 'lastname',  'e@email.com', 'FR', '83130'],
+            ['farmer', 'firstname', 'lastname',  'useremail@gmail.com', 'FR', '83130'],
         ];
     }
 }

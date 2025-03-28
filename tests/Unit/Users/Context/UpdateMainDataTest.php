@@ -25,19 +25,19 @@ class UpdateMainDataTest  extends TestCase
      */
     public function updateMainDataContext()
     {
-        $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], 'test');
+        $context = new Context('abc', ['abc', 'bcd', 'cdf'], 'test', null, null, 'FR', '83220');
         $this->contextRepository->add($context, 'abc');
 
-        app(UpdateMainData::class)->execute('sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer', null, '83130');
+        app(UpdateMainData::class)->execute('sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer', 'FR', '83130');
 
         $contextExpected = new Context(
             'abc',
-            '83130',
             ['abc', 'bcd', 'cdf'],
             'test',
             'sector',
             'structure',
             'FR',
+            '83130',
             117,
             43,
             '83'

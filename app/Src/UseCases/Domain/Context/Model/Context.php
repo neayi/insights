@@ -15,12 +15,12 @@ class Context
 
     public function __construct(
         private string $uid,
-        private ?string $postalCode = null,
         private array $characteristics = [],
         private ?string $description = null,
         private ?string $sector = null,
         private ?string $structure = null,
-        private ?string $country = null, // TODO: remonter au-dessus du postalCode
+        private ?string $country = null,
+        private ?string $postalCode = null,
         private ?float $latitude = null,
         private ?float $longitude = null,
         private ?string $departmentNumber = null,

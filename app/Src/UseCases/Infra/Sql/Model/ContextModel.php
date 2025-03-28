@@ -66,12 +66,12 @@ class ContextModel extends Model
     {
         return new Context(
             $this->uuid,
-            $this->postal_code,
             $this->user->characteristics()->pluck('uuid')->toArray(),
             $this->description,
             $this->sector,
             $this->structure,
             $this->country,
+            $this->postal_code,
             $this->latitude,
             $this->longitude,
         );

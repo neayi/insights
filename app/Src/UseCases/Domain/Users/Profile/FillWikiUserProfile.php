@@ -36,12 +36,12 @@ readonly class FillWikiUserProfile
 
         $context = new Context(
             $exploitationId,
-            $postalCode,
             $farmingType,
             null,
             null,
             null,
-            $country
+            $country,
+            $postalCode,
         );
         $context->resolveGeolocation();
         $this->contextRepository->add($context, $userId);
