@@ -59,6 +59,7 @@
                                         <div class="col-9">
                                             <select value="{{old('country', $context['country'])}}" id="input-country" name="country"
                                                     autocomplete="country" class="form-control" placeholder="">
+                                                <option value=""></option>
                                                 @foreach(Countries::getList() as $countryCode => $countryName)
                                                     <option @if($countryCode === $context['country']) selected @endif value="{{$countryCode}}">
                                                         {{$countryName}}

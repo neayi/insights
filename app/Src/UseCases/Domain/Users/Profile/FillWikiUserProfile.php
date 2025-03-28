@@ -54,7 +54,6 @@ readonly class FillWikiUserProfile
             'lastname' => 'required',
             'role' => 'required',
             'email' => 'required|email',
-            'country' => 'required',
         ];
 
         $validator = Validator::make([
@@ -62,7 +61,6 @@ readonly class FillWikiUserProfile
             'lastname' => $lastname,
             'role' => $role,
             'email' => $email,
-            'country' => $country,
         ], $rules);
 
         $validator->after(function () use ($validator, $errors) {

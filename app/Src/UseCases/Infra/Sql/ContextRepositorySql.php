@@ -16,6 +16,7 @@ class ContextRepositorySql implements ContextRepository
     public function getByUser(string $userId):?Context
     {
         $user = User::where('uuid', $userId)->first();
+
         return $user->context !== null ? $user->context->toDomain() : null;
     }
 

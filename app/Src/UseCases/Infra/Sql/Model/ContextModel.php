@@ -51,8 +51,8 @@ class ContextModel extends Model
         return new ContextDto(
             $this->user->firstname,
             $this->user->lastname,
-            $this->country,
-            $this->postal_code,
+            $this->country ?? null,
+            $this->postal_code ?? null,
             $characteristics->toArray(),
             $this->description ?? null,
             $this->sector ?? null,
@@ -72,8 +72,8 @@ class ContextModel extends Model
             $this->structure,
             $this->country,
             $this->postal_code,
-            $this->latitude,
-            $this->longitude,
+            $this->latitude !== null ? (float) $this->latitude : null,
+            $this->longitude !== null ? (float) $this->longitude : null,
         );
     }
 }

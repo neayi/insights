@@ -26,6 +26,13 @@ class Context
         private ?string $departmentNumber = null,
     )
     {
+        if ('' === $this->country) {
+            $this->country = null;
+        }
+        if ('' === $this->postalCode) {
+            $this->postalCode = null;
+        }
+
         $this->contextRepository = app(ContextRepository::class);
         $this->geoLocationByPostalCode = app(geoLocationByPostalCode::class);
     }
@@ -40,8 +47,8 @@ class Context
         $mustResolveGeolocation = array_key_exists('country', $params) && $params['country'] !== $this->country 
                                     || array_key_exists('postal_code', $params) && $params['postal_code'] !== $this->postalCode;
 
-        $this->country = $params['country'] ?? $this->country;
-        $this->postalCode = $params['postal_code'] ?? $this->postalCode;
+        $this->country = $params['country'];
+        $this->postalCode = $params['postal_code'];
 
         if ($mustResolveGeolocation) {
             $this->resolveGeolocation();
@@ -61,6 +68,8 @@ class Context
             $this->latitude = null;
             $this->longitude = null;
             $this->departmentNumber = null;
+
+            return;
         }
 
         $geolocationInfos = $this->geoLocationByPostalCode->getGeolocationByPostalCode($this->country, $this->postalCode);
