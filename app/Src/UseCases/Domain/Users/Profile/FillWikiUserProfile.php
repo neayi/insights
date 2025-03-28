@@ -1,30 +1,24 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Users\Profile;
 
-
 use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\UserRepository;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
 use Illuminate\Support\Facades\Validator;
 
-class FillWikiUserProfile
+readonly class FillWikiUserProfile
 {
-    private $userRepository;
-    private $identityProvider;
-
     public function __construct(
-        UserRepository $userRepository,
-        IdentityProvider $identityProvider
-    )
-    {
-        $this->userRepository = $userRepository;
-        $this->identityProvider = $identityProvider;
-    }
+        private UserRepository $userRepository,
+        private IdentityProvider $identityProvider,
+        private ContextRepository $contextRepository
+    ){}
 
-    public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $postcode, array $farmingType = [])
+    public function fill(string $userId, string $role, string $firstname, string $lastname, string $email, string $country, string $postalCode, array $farmingType = [])
     {
         $errors = [];
         $user = $this->userRepository->getByEmail($email);
@@ -32,7 +26,7 @@ class FillWikiUserProfile
             $errors[] = ['validation.unique'];
         }
 
-        $this->validate($firstname, $lastname, $role, $email, $postcode, $errors);
+        $this->validate($firstname, $lastname, $role, $email, $country, $postalCode, $errors);
 
         $user = $this->userRepository->getById($userId);
         $user->update($email, $firstname, $lastname, "");
@@ -40,37 +34,37 @@ class FillWikiUserProfile
 
         $exploitationId = $this->identityProvider->id();
 
-        $geoData = app(GetDepartmentFromPostalCode::class)->execute($postcode);
-
         $context = new Context(
             $exploitationId,
-            $postcode,
             $farmingType,
             null,
             null,
             null,
-            $geoData['department_number'] ?? null,
-            $geoData['coordinates'] ?? []
+            $country,
+            $postalCode,
         );
-        $context->create($userId);
+        $context->resolveGeolocation();
+        $this->contextRepository->add($context, $userId);
     }
 
-    private function validate(string $firstname, string $lastname, string $role, string $email, string $postcode, array $errors = []): void
+    private function validate(string $firstname, string $lastname, string $role, string $email, string $country, string $postalCode, array $errors = []): void
     {
         $rules = [
             'firstname' => 'required',
             'lastname' => 'required',
             'role' => 'required',
             'email' => 'required|email',
-            'postal_code' => ['required', 'regex:/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/'],
+            'country' => 'required',
+            'postal_code' => 'required',
         ];
 
         $validator = Validator::make([
             'firstname' => $firstname,
             'lastname' => $lastname,
             'role' => $role,
-            'postal_code' => $postcode,
-            'email' => $email
+            'email' => $email,
+            'country' => $country,
+            'postal_code' => $postalCode,
         ], $rules);
 
         $validator->after(function () use ($validator, $errors) {

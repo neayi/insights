@@ -40,14 +40,14 @@ class FollowersQueryTest extends TestCase
         $interaction = new Interaction($pageId, true, false, false);
         $this->interactionRepository->save(new RegisteredUser($user->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', [$characteristic1->uuid], '');
+        $context = new Context('abcd', [$characteristic1->uuid], '', null, null, 'FR', '83220');
         $this->contextRepository->add($context, $user->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId);
 
         $followerDtoExpected = new FollowerDto(
            new UserDto($user->uuid, $user->firstname, $user->lastname, null, false),
-           new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid),
+           new ContextDto($user->firstname, $user->lastname, 'FR', $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user->uuid),
            new InteractionDto($pageId, true, false, false)
         );
 
@@ -71,17 +71,17 @@ class FollowersQueryTest extends TestCase
         $interaction = new Interaction($pageId, false, false, true);
         $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', [$characteristic1->uuid], '');
+        $context = new Context('abcd', [$characteristic1->uuid], '', null, null, 'FR', '83220');
         $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
+        $context2 = new Context('abcde', [$characteristic1->uuid], '', null, null, 'FR', '83220');
         $this->contextRepository->add($context2, $user2->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, $type = "do");
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname, null, false),
-            new ContextDto($user2->firstname, $user2->lastname, $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid),
+            new ContextDto($user2->firstname, $user2->lastname, 'FR', $postalCode = '83220', [$characteristic1->toDto()], '', '', '', $user2->uuid),
             new InteractionDto($pageId, false, true, false)
         );
         self::assertEquals($followerDtoExpected, $followers[0]);
@@ -104,17 +104,17 @@ class FollowersQueryTest extends TestCase
         $interaction = new Interaction($pageId, true, false, true);
         $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', [$characteristic1->uuid], '',  null, null, '83');
+        $context = new Context('abcd', [$characteristic1->uuid], '',  null, null, 'FR', '83220', null, null, '83');
         $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '06000', [$characteristic1->uuid], '', null, null, '06');
+        $context2 = new Context('abcde', [$characteristic1->uuid], '', null, null, 'FR', '06000', null, null, '06');
         $this->contextRepository->add($context2, $user2->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', '06');
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user2->uuid, $user2->firstname, $user2->lastname, null, false),
-            new ContextDto($user2->firstname, $user2->lastname, '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid,'06'),
+            new ContextDto($user2->firstname, $user2->lastname, 'FR', '06000', [$characteristic1->toDto()], '', '', '', $user2->uuid,'06'),
             new InteractionDto($pageId, true, true, false)
         );
         self::assertEquals($followerDtoExpected, $followers[0]);
@@ -142,17 +142,17 @@ class FollowersQueryTest extends TestCase
         $interaction = new Interaction($pageId, true, false, true);
         $this->interactionRepository->save(new RegisteredUser($user2->uuid), $interaction);
 
-        $context = new Context('abcd', '83220', [$characteristic2->uuid], '');
+        $context = new Context('abcd', [$characteristic2->uuid], '', null, null, 'FR', '83220');
         $this->contextRepository->add($context, $user->uuid);
 
-        $context2 = new Context('abcde', '83220', [$characteristic1->uuid], '');
+        $context2 = new Context('abcde', [$characteristic1->uuid], '', null, null, 'FR', '83220');
         $this->contextRepository->add($context2, $user2->uuid);
 
         $followers = app(GetFollowersOfPage::class)->execute($pageId, 'follow', null, null, $characteristic2->uuid);
 
         $followerDtoExpected = new FollowerDto(
             new UserDto($user->uuid, $user->firstname, $user->lastname, null, false),
-            new ContextDto($user->firstname, $user->lastname, $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid),
+            new ContextDto($user->firstname, $user->lastname, 'FR', $postalCode = '83220', [$characteristic2->toDto()], '', '', '', $user->uuid),
             new InteractionDto($pageId, true, false, false)
         );
 

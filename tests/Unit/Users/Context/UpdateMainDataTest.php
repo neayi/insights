@@ -25,21 +25,22 @@ class UpdateMainDataTest  extends TestCase
      */
     public function updateMainDataContext()
     {
-        $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf'], 'test');
+        $context = new Context('abc', ['abc', 'bcd', 'cdf'], 'test', null, null, 'FR', '83220');
         $this->contextRepository->add($context, 'abc');
 
-        app(UpdateMainData::class)->execute('83130', 'sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer');
+        app(UpdateMainData::class)->execute('sector', 'structure', 'newemail@gmail.com', 'newf', 'newl', 'farmer', 'FR', '83130');
 
-        $coordinates = [43, 117];
         $contextExpected = new Context(
             'abc',
-            '83130',
             ['abc', 'bcd', 'cdf'],
             'test',
             'sector',
             'structure',
-            83,
-            $coordinates
+            'FR',
+            '83130',
+            117,
+            43,
+            '83'
         );
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);

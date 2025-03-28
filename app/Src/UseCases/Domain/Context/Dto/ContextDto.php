@@ -9,37 +9,24 @@ use App\Src\UseCases\Domain\Shared\Model\Dto;
 
 class ContextDto extends Dto
 {
-    public $firstname;
-    public $lastname;
-    public $postalCode;
-    public $department;
-    public $characteristics;
-    public $productions;
-    public $characteristicsDepartement;
-    public $description;
-    public $sector;
-    public $structure;
-    public $userUuid;
-    public $fullname;
-    public $wiki;
+    public string $fullname;
+    public array $productions;
+    public array $characteristicsDepartement;
 
     public function __construct(
-        string $firstname,
-        string $lastname,
-        string $postalCode,
-        array $characteristics,
-        ?string $description,
-        ?string $sector,
-        ?string $structure,
-        ?string $userUuid = '',
-        string $departmentNumber = '',
-        string $wiki = 'fr'
+        public string $firstname,
+        public string $lastname,
+        public ?string $country,
+        public ?string $postalCode,
+        public array $characteristics,
+        public ?string $description,
+        public ?string $sector,
+        public ?string $structure,
+        public ?string $userUuid,
+        public ?string $department = null,
+        public string $wiki = 'fr'
     )
     {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->postalCode = $postalCode;
-        $this->department = $departmentNumber;
         $this->fullname = $this->fullname();
         $characteristicsByType = [];
         foreach($characteristics as $characteristic){
@@ -49,12 +36,6 @@ class ContextDto extends Dto
         $this->characteristicsDepartement = $characteristicsByType[Characteristic::DEPARTMENT] ?? [];
         $this->characteristics = $characteristicsByType[Characteristic::CROPPING_SYSTEM] ?? [];
         $this->productions = $characteristicsByType[Characteristic::FARMING_TYPE] ?? [];
-
-        $this->description = $description;
-        $this->sector = $sector;
-        $this->structure = $structure;
-        $this->userUuid = $userUuid;
-        $this->wiki = $wiki;
     }
 
     private function fullname():string

@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
 use App\Src\UseCases\Domain\Ports\InvitationRepository;
-use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
@@ -15,12 +16,11 @@ use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use App\Src\UseCases\Domain\Shared\Provider\IdentityProviderImpl;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCode;
-use App\Src\UseCases\Domain\System\GetDepartmentFromPostalCodeImpl;
 use App\Src\UseCases\Infra\Gateway\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
 use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
+use App\Src\UseCases\Infra\GeoOpenDataSoftService;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
 use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
@@ -36,9 +36,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Tests\Adapters\Gateway\InMemoryAuthGateway;
 use Tests\Adapters\Gateway\InMemoryFileStorage;
-use Tests\Adapters\Gateway\InMemoryGetDepartmentsFromPostalCode;
 use Tests\Adapters\Gateway\InMemoryPictureHandler;
 use Tests\Adapters\Gateway\InMemorySocialiteGateway;
+use Tests\Adapters\InMemoryGeolocationByPostalCode;
 use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
 use Tests\Adapters\Repositories\InMemoryContextRepository;
 use Tests\Adapters\Repositories\InMemoryInteractionRepository;
@@ -97,7 +97,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
         $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
-        $this->app->singleton(GetDepartmentFromPostalCode::class, GetDepartmentFromPostalCodeImpl::class);
+        $this->app->singleton(GeoLocationByPostalCode::class, GeoOpenDataSoftService::class);
     }
 
     private function tuBinding(): void
@@ -115,9 +115,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
         $this->app->singleton(PageRepository::class, InMemoryPageRepository::class);
         $this->app->singleton(InteractionRepository::class, InMemoryInteractionRepository::class);
-        $this->app->singleton(GetDepartmentFromPostalCode::class, InMemoryGetDepartmentsFromPostalCode::class);
+        $this->app->singleton(GeoLocationByPostalCode::class, InMemoryGeolocationByPostalCode::class);
     }
-
+    
     private function tiBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
@@ -132,6 +132,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CharacteristicsRepository::class, CharacteristicsRepositorySql::class);
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
         $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
-        $this->app->singleton(GetDepartmentFromPostalCode::class, InMemoryGetDepartmentsFromPostalCode::class);
+        $this->app->singleton(GeoLocationByPostalCode::class, InMemoryGeolocationByPostalCode::class);
     }
 }

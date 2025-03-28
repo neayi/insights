@@ -29,19 +29,7 @@ $('#input-role').change(function (){
         succeedState(elem);
         return;
     }
-    failedState(elem)
-});
-
-$('#input-postal').change(function (){
-    var elem = $('#state-postal');
-    var postal = $(this).val();
-    const regex = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
-    const found = postal.match(regex);
-    if(found != null) {
-        succeedState(elem);
-        return;
-    }
-    failedState(elem)
+    failedState(elem);
 });
 
 $('#input-email').change(function (){
@@ -136,6 +124,7 @@ $('#form-update-description').submit(function () {
 
 $('#form-update-main-data').submit(function () {
     var form = $(this);
+    console.log(form.serialize());
     $.ajax({
         url: form.attr('action'),
         type: 'post',
