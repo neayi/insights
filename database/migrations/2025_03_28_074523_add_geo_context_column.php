@@ -25,6 +25,14 @@ return new class extends Migration
                 coordinates IS NOT NULL AND JSON_VALID(coordinates) AND JSON_LENGTH(coordinates) = 2;
         SQL);
 
+        // Populates country
+        DB::statement(<<<SQL
+            UPDATE contexts c
+                INNER JOIN users u ON u.context_id = c.id AND u.wiki = 'fr'
+            SET c.country = 'FR'
+            WHERE country IS NULL AND department_number IS NOT NULL;
+        SQL);
+
         // Nullify empty country, postal_code and department_number
         DB::statement(<<<SQL
             UPDATE contexts SET country = NULL WHERE country = '';
