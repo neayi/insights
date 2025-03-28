@@ -85,9 +85,10 @@ class Context
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,
-            'coordinates' => $this->coordinates,
             'country' => $this->country,
             'department_number' => $this->departmentNumber,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
         ];
     }
 }

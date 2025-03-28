@@ -12,7 +12,6 @@ class InMemoryGeolocationByPostalCode implements GeoLocationByPostalCode
         $departmentNumber = substr($postalCode, 0, 2);
 
         return [
-            // 'coordinates' => [43, 117],
             'latitude' => 117,
             'longitude' => 43,
             'department_number' => $departmentNumber,

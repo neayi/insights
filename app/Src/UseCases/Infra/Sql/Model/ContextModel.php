@@ -25,10 +25,6 @@ class ContextModel extends Model
         'country'
     ];
 
-    /*protected $casts = [
-        'coordinates' => 'array'
-    ];*/
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id', 'context_id');

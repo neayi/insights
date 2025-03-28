@@ -12,6 +12,9 @@ class GeoOpenDataSoftService implements GeoLocationByPostalCode
 {
     private string $baseUri = 'https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/%s';
 
+    /**
+     * @return array{latitude: ?float, longitude: ?float, department_number: ?string}
+     */
     public function getGeolocationByPostalCode(string $country, string $postalCode): array
     {
         $geolocationInformations = [
@@ -23,7 +26,10 @@ class GeoOpenDataSoftService implements GeoLocationByPostalCode
         try {
             $returnedContent = $this->callApiToRetrieveGeolocation($country, $postalCode);
 
-            if (isset($returnedContent['results']) && !empty($returnedContent['results'])) {
+            if (
+                isset($returnedContent['results']) 
+                && !empty($returnedContent['results'])
+            ) {
                 $geolocationInformations['latitude'] = $returnedContent['results'][0]['latitude'];
                 $geolocationInformations['longitude'] = $returnedContent['results'][0]['longitude'];
                 $geolocationInformations['department_number'] = $returnedContent['results'][0]['admin_code2'];
