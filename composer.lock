@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18d65eaaabe29b842998f4f6334b750f",
+    "content-hash": "b03f8654441698b82da3d3a51ed7b3b7",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -2896,59 +2896,69 @@
             "time": "2022-04-15T14:02:14+00:00"
         },
         {
-            "name": "mailchimp/marketing",
-            "version": "3.0.80",
+            "name": "mailerlite/mailerlite-php",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mailchimp/mailchimp-marketing-php.git",
-                "reference": "c1a38f7248d8de7de412418fed8dae759b9e4b97"
+                "url": "https://github.com/mailerlite/mailerlite-php.git",
+                "reference": "1c50ecae9fc20c7e79a21810e2f8cae93c79cafb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailchimp/mailchimp-marketing-php/zipball/c1a38f7248d8de7de412418fed8dae759b9e4b97",
-                "reference": "c1a38f7248d8de7de412418fed8dae759b9e4b97",
+                "url": "https://api.github.com/repos/mailerlite/mailerlite-php/zipball/1c50ecae9fc20c7e79a21810e2f8cae93c79cafb",
+                "reference": "1c50ecae9fc20c7e79a21810e2f8cae93c79cafb",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
                 "ext-json": "*",
-                "ext-mbstring": "*",
-                "guzzlehttp/guzzle": "^6.4 || ^7.2",
-                "guzzlehttp/psr7": "^1.7 || ^2.0",
-                "php": ">=7.2"
+                "php": "^7.4|^8.0",
+                "php-http/client-common": "^2.2",
+                "php-http/discovery": "^1.9",
+                "php-http/httplug": "^2.1",
+                "psr/http-client-implementation": "^1.0",
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.12",
-                "phpunit/phpunit": "^7",
-                "squizlabs/php_codesniffer": "~2.6"
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "guzzlehttp/psr7": "^2.6.1",
+                "http-interop/http-factory-guzzle": "^1.0",
+                "mockery/mockery": "^0.9.4",
+                "php-http/guzzle7-adapter": "^0.1",
+                "php-http/message": "^1.0",
+                "php-http/mock-client": "^1.0",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^7.5.15 || ^8.4 || ^9.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "MailchimpMarketing\\": "lib/"
+                    "MailerLite\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "proprietary"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Mailchimp",
-                    "homepage": "https://github.com/mailchimp/mailchimp-marketing-php"
+                    "name": "Remigijus Rekerta",
+                    "email": "remigijus.rekerta@mailerlite.com",
+                    "role": "Developer"
                 }
             ],
-            "homepage": "http://swagger.io",
+            "description": "MailerLite PHP SDK",
+            "homepage": "https://github.com/mailerlite/mailerlite-php",
             "keywords": [
-                "api",
-                "php",
-                "sdk",
-                "swagger"
+                "email",
+                "mailerlite",
+                "marketing",
+                "sdk"
             ],
             "support": {
-                "source": "https://github.com/mailchimp/mailchimp-marketing-php/tree/v3.0.80"
+                "issues": "https://github.com/mailerlite/mailerlite-php/issues",
+                "source": "https://github.com/mailerlite/mailerlite-php/tree/v1.0.4"
             },
-            "time": "2022-11-02T19:19:48+00:00"
+            "time": "2025-02-06T08:16:09+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8221,12 +8231,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Tariq86\\CountryList\\CountryListServiceProvider"
-                    ],
                     "aliases": {
                         "Countries": "Tariq86\\CountryList\\CountryListFacade"
-                    }
+                    },
+                    "providers": [
+                        "Tariq86\\CountryList\\CountryListServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -10959,13 +10969,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
