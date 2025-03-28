@@ -26,7 +26,7 @@ readonly class FillWikiUserProfile
             $errors[] = ['validation.unique'];
         }
 
-        $this->validate($firstname, $lastname, $role, $email, $country, $errors);
+        $this->validate($firstname, $lastname, $role, $email, $country, $postalCode, $errors);
 
         $user = $this->userRepository->getById($userId);
         $user->update($email, $firstname, $lastname, "");
@@ -47,13 +47,15 @@ readonly class FillWikiUserProfile
         $this->contextRepository->add($context, $userId);
     }
 
-    private function validate(string $firstname, string $lastname, string $role, string $email, string $country, array $errors = []): void
+    private function validate(string $firstname, string $lastname, string $role, string $email, string $country, string $postalCode, array $errors = []): void
     {
         $rules = [
             'firstname' => 'required',
             'lastname' => 'required',
             'role' => 'required',
             'email' => 'required|email',
+            'country' => 'required',
+            'postal_code' => 'required',
         ];
 
         $validator = Validator::make([
@@ -61,6 +63,8 @@ readonly class FillWikiUserProfile
             'lastname' => $lastname,
             'role' => $role,
             'email' => $email,
+            'country' => $country,
+            'postal_code' => $postalCode,
         ], $rules);
 
         $validator->after(function () use ($validator, $errors) {

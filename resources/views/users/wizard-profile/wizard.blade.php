@@ -33,36 +33,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-lg-8 offset-lg-2">
-            <div class="form-group">
-                <label class="label-big success">@lang('wiki_profile.fill_location_header')</label>
-                <p class="h6 font-italic mb-3"><small>@lang('wiki_profile.fill_location_hint')</small></p>
-                <div class="row align-items-center">
-                    <div class="col-3">
-                        <label>@lang('wiki_profile.fill_country')</label>
-                    </div>
-                    <div class="col-md-7 col-9">
-                        <select value="{{old('country')}}" id="input-country" name="country"
-                                autocomplete="country" class="form-control" placeholder="">
-                            <option value=""></option>
-                            @foreach(Countries::getList() as $countryCode => $countryName)
-                                {{-- pré-sélection du pays en se basant sur la langue connue (peu fiable mais fait le job pour FR) --}}
-                                <option value="{{$countryCode}}" @if($countryCode === strtoupper(app()->getLocale())) selected @endif>
-                                    {{$countryName}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row mt-2 align-items-center">
-                    <div class="col-3">
-                        <label>@lang('wiki_profile.fill_postal_code')</label>
-                    </div>
-                    <div class="col-9 col-md-3">
-                        <input value="{{old('postal_code')}}" type="text" id="input-postal" name="postal_code"
-                                autocomplete="postal-code" class="form-control" placeholder="">
-                    </div>
-                </div>
-            </div>
+            @include('users.wizard-profile.fill-geolocation')
         </div>
     </div>
     <div class="row mt-5">

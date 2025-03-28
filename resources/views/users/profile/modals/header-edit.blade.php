@@ -49,38 +49,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="label-big success">@lang('wiki_profile.fill_location_header')</label>
-                                    <p class="h6 font-italic mb-3"><small>@lang('wiki_profile.fill_location_hint')</small></p>
-                                    <div class="row align-items-center">
-                                        <div class="col-3">
-                                            <label>@lang('wiki_profile.fill_country')</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <select value="{{old('country', $context['country'])}}" id="input-country" name="country"
-                                                    autocomplete="country" class="form-control" placeholder="">
-                                                <option value=""></option>
-                                                @foreach(Countries::getList() as $countryCode => $countryName)
-                                                    <option @if($countryCode === $context['country']) selected @endif value="{{$countryCode}}">
-                                                        {{$countryName}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2 align-items-center">
-                                        <div class="col-3">
-                                            <label>@lang('wiki_profile.fill_postal_code')</label>
-                                        </div>
-                                        <div class="col-9 col-md-3">
-                                            <input value="{{old('postal_code', $context['postal_code'])}}" type="text" id="input-postal" name="postal_code"
-                                                   autocomplete="postal-code" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('users.wizard-profile.fill-geolocation', [
+                                    'country' => $context['country'],
+                                    'postalCode' => $context['postal_code'],
+                                ])
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-4                        ">
                             <div class="col-md-12">
                                 <div class="row align-items-center mt-3 mt-lg-0">
                                     <div class="col-md-4 col-12">
