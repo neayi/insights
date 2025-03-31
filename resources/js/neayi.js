@@ -238,9 +238,7 @@ $('#input-postal-code,#input-country').on('focusout', function () {
 });
 
 $('.profile-form').on('submit', function (e) {
-    e.preventDefault();
-
     if ($('#label-fill-geolocation').hasClass('pending')) {
-        return false;
+        e.preventDefault();
     }
 });
