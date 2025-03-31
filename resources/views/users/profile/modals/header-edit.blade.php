@@ -1,3 +1,5 @@
+@inject('countryList', 'Countries')
+
 <div class="modal fade" id="headerEdit" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog modal-edit mx-0 mx-sm-auto" role="document">
         <div class="modal-content p-md-3 p-1">
@@ -6,7 +8,7 @@
             </button>
             <div class="modal-body pt-2">
                 <div class="container-fluid">
-                    <form id="form-update-main-data" action="{{ route('context.update') }}">
+                    <form id="form-update-main-data" class="profile-form" action="{{ route('context.update') }}">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -47,40 +49,29 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="label-big success mb-3">@lang('wiki_profile.fill_postal_code_header')</label>
-                                    <div class="row ">
-                                        <div class="col-md-3 pr-md-0">
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-5 col-3">
-                                                    <label>@lang('wiki_profile.fill_postal_code')</label>
-                                                </div>
-                                                <div class="col-lg-5 col-9">
-                                                    <input name="postal_code" type="text" class="form-control input-big city-input"
-                                                           id="city" aria-describedby="" value="{{$context['postal_code']}}">
-                                                </div>
-                                            </div>
-                                            <small class="form-text text-muted font-weight-semibold mt-2">
-                                                @lang('wiki_profile.fill_postal_code_hint')
-                                            </small>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="row align-items-center mt-3 mt-lg-0">
-                                                <div class="col-lg-4 col-3">
-                                                    <label>@lang('wiki_profile.structure')</label>
-                                                </div>
-                                                <div class="col-lg-8 col-9">
-                                                    <input name="structure"
-                                                           type="text"
-                                                           class="structure-auto-complete form-control input-big"
-                                                           id="structure"
-                                                           autocomplete="off"
-                                                           data-url="{{ route('profile.structure.search') }}"
-                                                           data-noresults-text="@lang('wiki_profile.no_results')"
-                                                           value="{{$context['structure'] ?? ''}}">
-                                                </div>
-                                            </div>
-                                        </div>
+                                @include('users.wizard-profile.fill-geolocation', [
+                                    'country' => $context['country'],
+                                    'postalCode' => $context['postal_code'],
+                                ])
+                            </div>
+                        </div>
+                        <div class="row mt-4 form-group">
+                            <div class="col-md-12">
+                                <div class="row align-items-center mt-3 mt-lg-0">
+                                    <div class="col-12">
+                                        <label class="label-big success mb-3">
+                                            @lang('wiki_profile.structure')
+                                        </label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input name="structure"
+                                               type="text"
+                                               class="structure-auto-complete form-control input-big"
+                                               id="structure"
+                                               autocomplete="off"
+                                               data-url="{{ route('profile.structure.search') }}"
+                                               data-noresults-text="@lang('wiki_profile.no_results')"
+                                               value="{{$context['structure'] ?? ''}}">
                                     </div>
                                 </div>
                             </div>
@@ -97,3 +88,9 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script type="text/javascript">
+        var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
+    </script>
+@endsection

@@ -11,6 +11,7 @@
         <link rel="shortcut icon" href="https://wiki.tripleperformance.fr/skins/skin-neayi/favicon/favicon.ico"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        @yield('scripts')
         <script src="{{ asset('js/neayi.js') }}" defer></script>
         <link href="{{ asset('css/neayi.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://neayi.github.io/tripleperformance-icon-font/style.css" />

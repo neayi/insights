@@ -19,7 +19,7 @@ class AddCharacteristicTest extends TestCase
         $currentUser = new User('abc', 'email@gmail.com', 'f', 'l');
         $this->authGateway->log($currentUser);
 
-        $context = new Context('abc', '83220', ['abc', 'bcd', 'cdf']);
+        $context = new Context('abc', ['abc', 'bcd', 'cdf']);
         $this->contextRepository->add($context, 'abc');
     }
 
@@ -40,7 +40,7 @@ class AddCharacteristicTest extends TestCase
 
         app(AddCharacteristicsToContext::class)->execute($charsIds);
 
-        $contextExpected = new Context('abc', '83220', ['abc', 'bcd', 'cdf', 'def']);
+        $contextExpected = new Context('abc', ['abc', 'bcd', 'cdf', 'def']);
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);
     }

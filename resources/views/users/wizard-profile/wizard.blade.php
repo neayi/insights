@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form class="form" role="form" method="post" action="{{ route('wizard.profile.process') }}">
+<form class="form profile-form" role="form" method="post" action="{{ route('wizard.profile.process') }}">
 @csrf
     <div class="row py-5">
         @if(empty($errors->any()))
@@ -24,18 +24,20 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-lg-2 offset-lg-2">
+        <div class="col-lg-3 offset-lg-2">
             @include('users.wizard-profile.select-user-role')
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             @include('users.wizard-profile.fill-identity')
         </div>
-        <div class="col-lg-2">
-            @include('users.wizard-profile.fill-postal-code')
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-lg-2">
+            @include('users.wizard-profile.fill-geolocation')
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 offset-lg-2">
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-lg-2">
             @include('users.wizard-profile.fill-email')
         </div>
     </div>
@@ -109,4 +111,10 @@
         </div>
     </div>
 </form>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        var wizardError = '{{ isset($errors) && !empty($errors->any()) ? 1 : 0 }}';
+    </script>
 @endsection

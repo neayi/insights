@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql\Model;
-
 
 use App\Src\UseCases\Domain\Context\Dto\ContextDto;
 use App\Src\UseCases\Domain\Context\Model\Context;
@@ -13,10 +13,16 @@ class ContextModel extends Model
 {
     protected $table = 'contexts';
 
-    protected $fillable = ['description', 'postal_code', 'structure', 'sector', 'department_number', 'coordinates', 'uuid'];
-
-    protected $casts = [
-        'coordinates' => 'array'
+    protected $fillable = [
+        'description',
+        'postal_code',
+        'structure',
+        'sector',
+        'department_number',
+        'latitude',
+        'longitude',
+        'uuid',
+        'country'
     ];
 
     public function user()
@@ -45,13 +51,14 @@ class ContextModel extends Model
         return new ContextDto(
             $this->user->firstname,
             $this->user->lastname,
-            $this->postal_code ?? '',
+            $this->country ?? null,
+            $this->postal_code ?? null,
             $characteristics->toArray(),
-            $this->description,
-            $this->sector ?? '',
-            $this->structure ?? '',
+            $this->description ?? null,
+            $this->sector ?? null,
+            $this->structure ?? null,
             $this->user->uuid,
-            $this->department_number ?? ''
+            $this->department_number ?? null
         );
     }
 
@@ -59,13 +66,14 @@ class ContextModel extends Model
     {
         return new Context(
             $this->uuid,
-            $this->postal_code,
             $this->user->characteristics()->pluck('uuid')->toArray(),
             $this->description,
             $this->sector,
             $this->structure,
-            $this->department_number,
-            $this->coordinates
+            $this->country,
+            $this->postal_code,
+            $this->latitude !== null ? (float) $this->latitude : null,
+            $this->longitude !== null ? (float) $this->longitude : null,
         );
     }
 }

@@ -24,12 +24,12 @@ class UpdateDescriptionTest  extends TestCase
     public function updateDescriptionContext()
     {
         $description = 'la description du context';
-        $context = new Context('abcd', '83220', []);
+        $context = new Context('abcd', []);
         $this->contextRepository->add($context, 'abc');
 
         app(UpdateDescription::class)->execute($description);
 
-        $contextExpected = new Context('abcd', '83220', [], $description);
+        $contextExpected = new Context('abcd', [], $description);
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);
     }

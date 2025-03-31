@@ -29,19 +29,7 @@ $('#input-role').change(function (){
         succeedState(elem);
         return;
     }
-    failedState(elem)
-});
-
-$('#input-postal').change(function (){
-    var elem = $('#state-postal');
-    var postal = $(this).val();
-    const regex = /^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/;
-    const found = postal.match(regex);
-    if(found != null) {
-        succeedState(elem);
-        return;
-    }
-    failedState(elem)
+    failedState(elem);
 });
 
 $('#input-email').change(function (){
@@ -136,6 +124,7 @@ $('#form-update-description').submit(function () {
 
 $('#form-update-main-data').submit(function () {
     var form = $(this);
+    console.log(form.serialize());
     $.ajax({
         url: form.attr('action'),
         type: 'post',
@@ -211,4 +200,45 @@ $('.search-type-c').click(function(){
 
 $('#btn-remove-avatar').click(function (){
     $(this).parents('form').submit();
+});
+
+$('#input-postal-code,#input-country').on('focusout', function () {
+    if ($('#input-country').val() && $('#input-postal-code').val()) {
+        $('#label-fill-geolocation').removeClass(['required','success']);
+        $('#fill-geolocation-spinner').show();
+        $('#label-fill-geolocation').addClass('pending');
+        $.ajax({
+            url: '/geolocation',
+            data: { country: $('#input-country').val(), postal_code : $('#input-postal-code').val() },
+            success: function (data) {
+                $('#fill-geolocation-spinner').hide();
+                $('#label-fill-geolocation').removeClass('pending');
+                // Success if latitude is present and valid
+                if (data && data.latitude) {
+                    $('#label-fill-geolocation').addClass('success');
+                    $('#input-check-geolocation').val('success');
+                } else {
+                    $('#label-fill-geolocation').addClass('required');
+                    $('#input-check-geolocation').val('');
+                }
+            },
+            error: function() {
+                $('#fill-geolocation-spinner').hide();
+                $('#label-fill-geolocation').removeClass('pending');
+                $('#label-fill-geolocation').addClass('required');
+                $('#input-check-geolocation').val('');
+            }
+        });
+    } else {
+        $('#fill-geolocation-spinner').hide();
+        $('#label-fill-geolocation').removeClass('success');
+        $('#label-fill-geolocation').addClass('required');
+        $('#input-check-geolocation').val('');
+    }
+});
+
+$('.profile-form').on('submit', function (e) {
+    if ($('#label-fill-geolocation').hasClass('pending')) {
+        e.preventDefault();
+    }
 });

@@ -1,44 +1,40 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Model;
 
-
 use App\Src\UseCases\Domain\Ports\ContextRepository;
+use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
 
 class Context
 {
-    private $uid;
-    private $postalCode;
-    private $characteristics;
-    private $description;
-    private $sector;
-    private $structure;
-    private $departmentNumber;
-    private $coordinates;
+    private ContextRepository $contextRepository;
 
-    private $contextRepository;
+    private GeoLocationByPostalCode $geoLocationByPostalCode;
 
     public function __construct(
-        string $id,
-        string $postalCode,
-        array $characteristics = [],
-        string $description = null,
-        string $sector = null,
-        string $structure = null,
-        string $departmentNumber = null,
-        array $coordinates = []
+        private string $uid,
+        private array $characteristics = [],
+        private ?string $description = null,
+        private ?string $sector = null,
+        private ?string $structure = null,
+        private ?string $country = null,
+        private ?string $postalCode = null,
+        private ?float $latitude = null,
+        private ?float $longitude = null,
+        private ?string $departmentNumber = null,
     )
     {
-        $this->uid = $id;
-        $this->postalCode = $postalCode;
-        $this->characteristics = $characteristics;
-        $this->description = $description;
-        $this->sector = $sector;
-        $this->structure = $structure;
-        $this->departmentNumber = $departmentNumber;
-        $this->coordinates = $coordinates;
+        if ('' === $this->country) {
+            $this->country = null;
+        }
+        if ('' === $this->postalCode) {
+            $this->postalCode = null;
+        }
+
         $this->contextRepository = app(ContextRepository::class);
+        $this->geoLocationByPostalCode = app(geoLocationByPostalCode::class);
     }
 
     public function id():string
@@ -46,21 +42,42 @@ class Context
         return $this->uid;
     }
 
-    public function create(string $userId)
-    {
-        $this->contextRepository->add($this, $userId);
-    }
-
     public function update(array $params, string $userId)
     {
+        if (array_key_exists('country', $params) && array_key_exists('postal_code', $params)) {
+            $mustResolveGeolocation = $params['country'] !== $this->country || $params['postal_code'] !== $this->postalCode;
+
+            $this->country = $params['country'];
+            $this->postalCode = $params['postal_code'];
+
+            if ($mustResolveGeolocation) {
+                $this->resolveGeolocation();
+            }
+        }
+
         $this->description = $params['description'] ?? $this->description;
-        $this->postalCode = $params['postal_code'] ?? $this->postalCode;
         $this->characteristics = $params['characteristics'] ?? $this->characteristics;
         $this->sector = $params['sector'] ?? $this->sector;
         $this->structure = $params['structure'] ?? $this->structure;
-        $this->departmentNumber = $params['department_number'] ?? $this->departmentNumber;
-        $this->coordinates = $params['coordinates'] ?? $this->coordinates;
+
         $this->contextRepository->update($this, $userId);
+    }
+
+    public function resolveGeolocation(): void
+    {
+        if (empty($this->country) || empty($this->postalCode)) {
+            $this->latitude = null;
+            $this->longitude = null;
+            $this->departmentNumber = null;
+
+            return;
+        }
+
+        $geolocationInfos = $this->geoLocationByPostalCode->getGeolocationByPostalCode($this->country, $this->postalCode);
+
+        $this->latitude = $geolocationInfos['latitude'];
+        $this->longitude = $geolocationInfos['longitude'];
+        $this->departmentNumber = $geolocationInfos['department_number'];
     }
 
     public function addCharacteristics(array $characteristics, string $userId)
@@ -78,8 +95,10 @@ class Context
             'description' => $this->description,
             'sector' => $this->sector,
             'structure' => $this->structure,
-            'coordinates' => $this->coordinates,
+            'country' => $this->country,
             'department_number' => $this->departmentNumber,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
         ];
     }
 }

@@ -41,11 +41,13 @@ class WizardProfileController extends Controller
         $role = $request->input('role') !== null ? $request->input('role') : '';
         $firstname = $request->input('firstname') !== null ? $request->input('firstname') : '';
         $lastname = $request->input('lastname') !== null ? $request->input('lastname') : '';
-        $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
         $email = $request->input('email') !== null ? $request->input('email') : '';
         $farmingType = $request->input('farming_type') !== null ? $request->input('farming_type') : [];
+        $country = $request->input('country') !== null ? $request->input('country') : '';
+        $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
 
-        $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $postalCode, $farmingType);
+        $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $country, $postalCode, $farmingType);
+
         return redirect()->route('verification.notice');
     }
 }
