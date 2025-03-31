@@ -194,7 +194,7 @@
 
                 <!-- ma ferme -->
                 <div class="row mt-4">
-                    <div class="col-md-6 @if($edit) editable @endif exploitations-objectifs edition">
+                    <div class="col-md-12 @if($edit) editable @endif exploitations-objectifs edition">
                         <div class="d-flex align-items-center">
                             <h3 class="font-weight-bold d-inline-block">
                                 @include('users.profile.title.title-description', ['edit' => $edit])
@@ -224,51 +224,7 @@
                             {!! $description !!}
                         </p>
                     </div>
-                    <div class="col-md-6 @if($edit) editable @endif pratiques edition">
-                        <div class="d-flex align-items-center">
-                            <h3 class="font-weight-bold d-inline-block">
-                                Historique
-                            </h3>
-                            <!--div class="edit d-inline-block ml-4 mb-1">
-                                <a class="btn btn-outline-gray edit-btn mr-2" data-toggle="modal" data-target="#pratiquesEdit">
-                             <span class="material-icons text-dark-green">
-                                 edit
-                            </span>
-                                </a>
-                                <a class="text-dark-green edit-link text-decoration-none">
-                                    Editer
-                                </a>
-                            </div-->
-                        </div>
-                        <p class="empty d-none">Renseignez les pratiques mises en œuvre sur votre ferme.</p>
-                        <div class="timeline filled">
-                            @php $count = 0; @endphp
-                            @if(!empty($practises))
-                                @foreach($practises as $year => $practisesByYear)
-                                    @php $count++; @endphp
-                                    <div class="year practises-elem">{{$year}}</div>
-                                    <ul class="elements practises-elem">
-                                        @foreach($practisesByYear as $practise)
-                                            <li class="practises-elem">
-                                                <a target="_blank" href="{{$localesConfig[$practise['lang']]['wiki_url'].'/index.php?curid='.$practise['page_id']}}">
-                                                    {{$practise['label']}}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endforeach
-                            @else
-                                <div class="alert alert-light small">
-                                    L'historique de la ferme est vide. Il se remplira au fur et à mesure des pages marquées comme "Je le fais" ou "J'en ai" !
-                                </div>
-                            @endif
-                        </div>
-                        @if(!empty($practises))
-                            <button class="btn btn-outline-gray mt-2" id="btn-show-practises" action="show">
-                                Afficher tout l'historique
-                            </button>
-                        @endif
-                    </div>
+                    
                 </div>
 
                 <!-- mon activité -->
