@@ -55,15 +55,15 @@
                                 ])
                             </div>
                         </div>
-                        <div class="row mt-4                        ">
+                        <div class="row mt-4 form-group">
                             <div class="col-md-12">
                                 <div class="row align-items-center mt-3 mt-lg-0">
-                                    <div class="col-md-4 col-12">
+                                    <div class="col-12">
                                         <label class="label-big success mb-3">
                                             @lang('wiki_profile.structure')
                                         </label>
                                     </div>
-                                    <div class="col-md-8 col-12">
+                                    <div class="col-12">
                                         <input name="structure"
                                                type="text"
                                                class="structure-auto-complete form-control input-big"

@@ -20,7 +20,7 @@
         <div class="col-3">
             <label>@lang('wiki_profile.fill_country')</label>
         </div>
-        <div class="col-md-7 col-9">
+        <div class="col-9 col-md-3">
             <select value="{{ $country }}" id="input-country" name="country"
                     autocomplete="country" class="form-control" placeholder="" required>
                 @foreach(Countries::getList() as $countryCode => $countryName)
