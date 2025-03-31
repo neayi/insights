@@ -41001,19 +41001,22 @@ $('#input-postal-code,#input-country').on('focusout', function () {
       url: '/geolocation',
       data: { country: $('#input-country').val(), postal_code : $('#input-postal-code').val() },
       success: function (data) {
-        // Succès si la latitude est renseignée
+        // Success if latitude is filled
         if (data.latitude > '') {
           $('#label-fill-geolocation').removeClass('pending');
           $('#label-fill-geolocation').addClass('success');
+          $('#input-check-geolocation').val('success');
         } else {
           $('#label-fill-geolocation').removeClass('pending');
           $('#label-fill-geolocation').addClass('required');
+          $('#input-check-geolocation').val('');
         }
       }
     });
   } else {
     $('#label-fill-geolocation').removeClass('success');
     $('#label-fill-geolocation').addClass('required');
+    $('#input-check-geolocation').val('');
   }
 });
 

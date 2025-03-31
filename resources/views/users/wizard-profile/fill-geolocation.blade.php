@@ -32,8 +32,8 @@
             <label>@lang('wiki_profile.fill_postal_code')</label>
         </div>
         <div class="col-9 col-md-3">
-            <input value="{{old('postal_code')}}" type="text" id="input-postal-code" name="postal_code"
-                    autocomplete="postal-code" class="form-control" placeholder="" required>
+            <input value="{{old('postal_code')}}" type="text" id="input-postal-code" name="postal_code" autocomplete="postal-code" class="form-control" placeholder="" required>
+            <input value="@if ('success' === $state) success @endif" type="text" style="height: 1px; opacity: 0; display: block" id="input-check-geolocation" title="Failed geolocation" name="check_geolocation" required>
         </div>
     </div>
 </div>
