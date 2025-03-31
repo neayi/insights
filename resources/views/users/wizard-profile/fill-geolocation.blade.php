@@ -3,13 +3,13 @@
     if(old('country') && old('postal_code') && !$errors->has('country') && !$errors->has('postal_code')){
         $state = 'success';
     }
-    if($country > '' && $postalCode > '') {
+    if(old('country') > '' && old('postal_code') > '') {
         $state = 'success';
     }
 @endphp
 
 <div class="form-group">
-    <label class="label-big {{ $state }} }}">@lang('wiki_profile.fill_location_header')</label>
+    <label id="label-fill-geolocation" class="label-big {{ $state }}">@lang('wiki_profile.fill_location_header')</label>
     <p class="h6 font-italic mb-3"><small>@lang('wiki_profile.fill_location_hint')</small></p>
     <div class="row align-items-center">
         <div class="col-3">
@@ -32,7 +32,7 @@
             <label>@lang('wiki_profile.fill_postal_code')</label>
         </div>
         <div class="col-9 col-md-3">
-            <input value="{{old('postal_code')}}" type="text" id="input-postal" name="postal_code"
+            <input value="{{old('postal_code')}}" type="text" id="input-postal-code" name="postal_code"
                     autocomplete="postal-code" class="form-control" placeholder="" required>
         </div>
     </div>

@@ -40993,5 +40993,29 @@ $('#btn-remove-avatar').click(function () {
   $(this).parents('form').submit();
 });
 
+$('#input-postal-code,#input-country').on('focusout', function () {
+  if ($('#input-country').val() && $('#input-postal-code').val()) {
+    $('#label-fill-geolocation').removeClass(['required','success']);
+    $('#label-fill-geolocation').addClass('pending');
+    $.ajax({
+      url: '/geolocation',
+      data: { country: $('#input-country').val(), postal_code : $('#input-postal-code').val() },
+      success: function (data) {
+        // Succès si la latitude est renseignée
+        if (data.latitude > '') {
+          $('#label-fill-geolocation').removeClass('pending');
+          $('#label-fill-geolocation').addClass('success');
+        } else {
+          $('#label-fill-geolocation').removeClass('pending');
+          $('#label-fill-geolocation').addClass('required');
+        }
+      }
+    });
+  } else {
+    $('#label-fill-geolocation').removeClass('success');
+    $('#label-fill-geolocation').addClass('required');
+  }
+});
+
 /******/ })()
 })();

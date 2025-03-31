@@ -17291,6 +17291,15 @@ h3 {
   position: absolute;
   font-size: 1.4rem;
 }
+.form-group label.label-big.pending:after {
+  font-family: "Material Icons";
+  content: "pending";
+  color: #6c757d;
+  top: 2px;
+  right: -28px;
+  position: absolute;
+  font-size: 1.4rem;
+}
 
 .form-control {
   border-radius: 4px;

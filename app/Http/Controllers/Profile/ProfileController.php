@@ -156,6 +156,7 @@ class ProfileController extends Controller
         $structure = $request->input('structure') !== null ? $request->input('structure') : '';
 
         $updateMainData->execute($sector, $structure, $email, $firstname, $lastname, $role, $country, $postalCode);
+
         return [];
     }
 
