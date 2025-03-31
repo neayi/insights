@@ -41001,8 +41001,8 @@ $('#input-postal-code,#input-country').on('focusout', function () {
       url: '/geolocation',
       data: { country: $('#input-country').val(), postal_code : $('#input-postal-code').val() },
       success: function (data) {
-        // Success if latitude is filled
-        if (data.latitude > '') {
+        // Success if latitude is present and valid
+        if (data && data.latitude) {
           $('#label-fill-geolocation').removeClass('pending');
           $('#label-fill-geolocation').addClass('success');
           $('#input-check-geolocation').val('success');
@@ -41011,6 +41011,11 @@ $('#input-postal-code,#input-country').on('focusout', function () {
           $('#label-fill-geolocation').addClass('required');
           $('#input-check-geolocation').val('');
         }
+      },
+      error: function() {
+        $('#label-fill-geolocation').removeClass('pending');
+        $('#label-fill-geolocation').addClass('required');
+        $('#input-check-geolocation').val('');
       }
     });
   } else {

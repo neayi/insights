@@ -47,6 +47,7 @@ class WizardProfileController extends Controller
         $postalCode = $request->input('postal_code') !== null ? $request->input('postal_code') : '';
 
         $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $country, $postalCode, $farmingType);
+
         return redirect()->route('verification.notice');
     }
 }

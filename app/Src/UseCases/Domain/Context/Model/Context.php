@@ -44,14 +44,15 @@ class Context
 
     public function update(array $params, string $userId)
     {
-        $mustResolveGeolocation = array_key_exists('country', $params) && $params['country'] !== $this->country 
-                                    || array_key_exists('postal_code', $params) && $params['postal_code'] !== $this->postalCode;
+        if (array_key_exists('country', $params) && array_key_exists('postal_code', $params)) {
+            $mustResolveGeolocation = $params['country'] !== $this->country || $params['postal_code'] !== $this->postalCode;
 
-        $this->country = $params['country'];
-        $this->postalCode = $params['postal_code'];
+            $this->country = $params['country'];
+            $this->postalCode = $params['postal_code'];
 
-        if ($mustResolveGeolocation) {
-            $this->resolveGeolocation();
+            if ($mustResolveGeolocation) {
+                $this->resolveGeolocation();
+            }
         }
 
         $this->description = $params['description'] ?? $this->description;

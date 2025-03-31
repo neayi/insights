@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra;
 
-use GuzzleHttp\Client;
 use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
 use Exception;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class GeoOpenDataSoftService implements GeoLocationByPostalCode
 {
@@ -35,7 +36,11 @@ class GeoOpenDataSoftService implements GeoLocationByPostalCode
                 $geolocationInformations['department_number'] = $returnedContent['results'][0]['admin_code2'];
             }
         } catch (Exception $e) {
-            // TODO: log !
+            Log::error('Error retrieving geolocation data', [
+                'country' => $country,
+                'postalCode' => $postalCode,
+                'error' => $e->getMessage()
+            ]);
         }
 
         return $geolocationInformations;
