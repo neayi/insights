@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form class="form" role="form" method="post" action="{{ route('wizard.profile.process') }}">
+<form class="form profile-form" role="form" method="post" action="{{ route('wizard.profile.process') }}">
 @csrf
     <div class="row py-5">
         @if(empty($errors->any()))

@@ -8,7 +8,7 @@
             </button>
             <div class="modal-body pt-2">
                 <div class="container-fluid">
-                    <form id="form-update-main-data" action="{{ route('context.update') }}">
+                    <form id="form-update-main-data" class="profile-form" action="{{ route('context.update') }}">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">

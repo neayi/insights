@@ -11,7 +11,10 @@
 @endphp
 
 <div class="form-group">
-    <label id="label-fill-geolocation" class="label-big {{ $state }}">@lang('wiki_profile.fill_location_header')</label>
+    <label id="label-fill-geolocation" class="label-big {{ $state }}">
+        @lang('wiki_profile.fill_location_header')
+        <i id="fill-geolocation-spinner" class="fas fa-spinner fa-spin" style="font-size: 20px;vertical-align: top; display:none"></i>
+    </label>
     <p class="h6 font-italic mb-3"><small>@lang('wiki_profile.fill_location_hint')</small></p>
     <div class="row align-items-center">
         <div class="col-3">

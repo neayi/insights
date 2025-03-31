@@ -212,18 +212,6 @@ h3 {
                     font-size  : 1.4rem;
                 }
             }
-
-            &.pending {
-                &:after {
-                    font-family: 'Material Icons';
-                    content    : "pending";
-                    color      : $gray-600;
-                    top        : 2px;
-                    right      : -28px;
-                    position   : absolute;
-                    font-size  : 1.4rem;
-                }
-            }
         }
     }
 }
