@@ -16,8 +16,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PPAM">PPAM</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Rechercher des retours d’expérience">Rechercher des retours d’expérience</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Rechercher des portraits de ferme">Rechercher des portraits de ferme</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Rechercher des fermes">Rechercher des fermes</a>
 
 		</div>
 	</li>
@@ -51,7 +50,7 @@
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Thématiques">Thématiques</a></li>
 <li class="nav-item"><a class="nav-link" href="https://forum.tripleperformance.fr" title="Forum">Forum</a></li>
 <li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Formations" title="Formations">Formations</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Rechercher">Rechercher</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Rechercher">Rechercher</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

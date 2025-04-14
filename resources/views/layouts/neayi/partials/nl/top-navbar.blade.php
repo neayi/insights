@@ -16,8 +16,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Tuinieren">Tuinieren</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Zoeken naar casestudies">Zoeken naar casestudies</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Portretten zoeken">Portretten zoeken</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Zoeken naar boerderijen">Zoeken naar boerderijen</a>
 
 		</div>
 	</li>
@@ -51,7 +50,7 @@
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Thema&#039;s">Thema's</a></li>
 <li class="nav-item"><a class="nav-link" href="https://nl.forum.tripleperformance.ag" title="Forum">Forum</a></li>
 <li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Cursussen" title="Cursussen">Cursussen</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Zoeken">Zoeken</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Zoeken">Zoeken</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

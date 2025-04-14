@@ -16,8 +16,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Orticoltura">Orticoltura</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Ricerca di casi di studio">Ricerca di casi di studio</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Ricerca di ritratti">Ricerca di ritratti</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Cerca fattorie">Cerca fattorie</a>
 
 		</div>
 	</li>
@@ -51,7 +50,7 @@
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Temi">Temi</a></li>
 <li class="nav-item"><a class="nav-link" href="https://it.forum.tripleperformance.ag" title="Forum">Forum</a></li>
 <li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Corsi di formazione" title="Corsi di formazione">Corsi di formazione</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Ricerca per">Ricerca per</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Ricerca per">Ricerca per</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

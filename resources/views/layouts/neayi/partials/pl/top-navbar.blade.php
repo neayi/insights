@@ -16,8 +16,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Ogrodnictwo targowe">Ogrodnictwo targowe</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Wyszukiwanie studiów przypadku">Wyszukiwanie studiów przypadku</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Wyszukiwanie portretów">Wyszukiwanie portretów</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Wyszukaj gospodarstwa">Wyszukaj gospodarstwa</a>
 
 		</div>
 	</li>
@@ -51,7 +50,7 @@
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Motywy">Motywy</a></li>
 <li class="nav-item"><a class="nav-link" href="https://pl.forum.tripleperformance.ag" title="Forum">Forum</a></li>
 <li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Kursy szkoleniowe" title="Kursy szkoleniowe">Kursy szkoleniowe</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Wyszukiwanie">Wyszukiwanie</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Wyszukiwanie">Wyszukiwanie</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)

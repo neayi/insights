@@ -21,7 +21,7 @@
 <ul class="list-unstyled">
 <li><a rel="nofollow" class="login-links" href="{{$wikiUrl}}/wiki/Special:Login">Fiók létrehozása vagy bejelentkezés</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Help:Bienvenue" title="Hozzájárul? Itt kezdődik!">Hozzájárul? Itt kezdődik!</a></li>
-<li><a href="https://hu.forum.tripleperformance.ag">Hozzáférés a fórumhoz</a></li>
+<li><a href="https://forum.tripleperformance.fr/c/meta/articles-a-creer/38?status=open" title="&lt;i class=&quot;far fa-lightbulb&quot;&gt;&lt;/i&gt; Javasolsz egy oldalt?"><i class="far fa-lightbulb"></i> Javasolsz egy oldalt?</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
@@ -74,6 +74,19 @@
 <a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Kövess minket a Twitteren"><span class="fab fa-twitter"></span></a>
 <a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Kövess minket a LinkedIn-en"><span class="fab fa-linkedin-in"></span></a>
 </span></li>
+<li><select onchange="window.location = this.value" class="form-select tp-lang-select">
+<option value="https://fr.tripleperformance.ag/" >Français</option>
+<option value="https://en.tripleperformance.ag/" >English</option>
+<option value="https://es.tripleperformance.ag/" >Español</option>
+<option value="https://de.tripleperformance.ag/" >Deutsch</option>
+<option value="https://pt.tripleperformance.ag/" >Português</option>
+<option value="https://nl.tripleperformance.ag/" >Nederlands</option>
+<option value="https://el.tripleperformance.ag/" >Ελληνικά</option>
+<option value="https://fi.tripleperformance.ag/" >Suomi</option>
+<option value="https://hu.tripleperformance.ag/" selected>Magyar</option>
+<option value="https://it.tripleperformance.ag/" >Italiano</option>
+<option value="https://pl.tripleperformance.ag/" >Polski</option>
+</select></li>
 </ul>
 </div>
 

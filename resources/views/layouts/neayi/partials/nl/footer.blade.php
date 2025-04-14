@@ -21,7 +21,7 @@
 <ul class="list-unstyled">
 <li><a rel="nofollow" class="login-links" href="{{$wikiUrl}}/wiki/Special:Login">Maak een account aan of meld u aan</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Help:Bienvenue" title="Bijdragen? Het begint hier!">Bijdragen? Het begint hier!</a></li>
-<li><a href="https://nl.forum.tripleperformance.ag">Toegang tot het forum</a></li>
+<li><a href="https://forum.tripleperformance.fr/c/meta/articles-a-creer/38?status=open" title="&lt;i class=&quot;far fa-lightbulb&quot;&gt;&lt;/i&gt; Een pagina voorstellen?"><i class="far fa-lightbulb"></i> Een pagina voorstellen?</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">
@@ -74,6 +74,19 @@
 <a href="https://twitter.com/TriplePerforma1" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Volg ons op Twitter"><span class="fab fa-twitter"></span></a>
 <a href="https://www.linkedin.com/company/neayi" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Volg ons op LinkedIn"><span class="fab fa-linkedin-in"></span></a>
 </span></li>
+<li><select onchange="window.location = this.value" class="form-select tp-lang-select">
+<option value="https://fr.tripleperformance.ag/" >Français</option>
+<option value="https://en.tripleperformance.ag/" >English</option>
+<option value="https://es.tripleperformance.ag/" >Español</option>
+<option value="https://de.tripleperformance.ag/" >Deutsch</option>
+<option value="https://pt.tripleperformance.ag/" >Português</option>
+<option value="https://nl.tripleperformance.ag/" selected>Nederlands</option>
+<option value="https://el.tripleperformance.ag/" >Ελληνικά</option>
+<option value="https://fi.tripleperformance.ag/" >Suomi</option>
+<option value="https://hu.tripleperformance.ag/" >Magyar</option>
+<option value="https://it.tripleperformance.ag/" >Italiano</option>
+<option value="https://pl.tripleperformance.ag/" >Polski</option>
+</select></li>
 </ul>
 </div>
 

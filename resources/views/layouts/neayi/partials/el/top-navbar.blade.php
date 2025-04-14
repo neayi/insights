@@ -16,8 +16,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Εμποροκηπευτική">Εμποροκηπευτική</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Αναζήτηση για μελέτες περιπτώσεων">Αναζήτηση για μελέτες περιπτώσεων</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Portraits_de_ferme" title="Αναζήτηση για πορτραίτα">Αναζήτηση για πορτραίτα</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Αναζήτηση για αγροκτήματα">Αναζήτηση για αγροκτήματα</a>
 
 		</div>
 	</li>
@@ -27,7 +26,7 @@
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Γεωργία ακριβείας">Γεωργία ακριβείας</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Agroforesterie" title="Αγροδασοκομία">Αγροδασοκομία</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Bioaggressors">Bioaggressors</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Βιοεπιθετικοί">Βιοεπιθετικοί</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Biodiversité" title="Βιοποικιλότητα">Βιοποικιλότητα</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Καλύμματα">Καλύμματα</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Κύκλος άνθρακα και GHG">Κύκλος άνθρακα και GHG</a>
@@ -51,7 +50,7 @@
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Θέματα">Θέματα</a></li>
 <li class="nav-item"><a class="nav-link" href="https://el.forum.tripleperformance.ag" title="Φόρουμ">Φόρουμ</a></li>
 <li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Μαθήματα κατάρτισης" title="Μαθήματα κατάρτισης">Μαθήματα κατάρτισης</a></li>
-<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href=".navbar-collapse" title="Αναζήτηση">Αναζήτηση</a></li>
+<li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Αναζήτηση">Αναζήτηση</a></li>
 
         </ul>
         @if(\Illuminate\Support\Facades\Auth::user() !== null)
