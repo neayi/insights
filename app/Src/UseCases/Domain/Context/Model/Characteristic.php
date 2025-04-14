@@ -14,29 +14,18 @@ class Characteristic
     const CROPPING_SYSTEM = 'croppingSystem';
     const DEPARTMENT = 'department';
 
-    private $title;
-    private $type;
-    private $visible;
-    private $id;
-    private $pageId;
-    private $icon = null;
-    private $wiki = 'fr';
+    private ?string $icon = null;
 
     public function __construct(
-        string $id,
-        string $type,
-        string $title,
-        bool $visible,
-        int $pageId = null,
-        string $wiki = 'fr'
+        private string $id,
+        private string $type,
+        private string $title,
+        private bool $visible,
+        private ?int $pageId = null,
+        private string $wiki = 'fr',
+        private ?string $label = null
     )
     {
-        $this->id = $id;
-        $this->pageId = $pageId;
-        $this->type = $type;
-        $this->title = $title;
-        $this->visible = $visible;
-        $this->wiki = $wiki;
     }
 
     public function create(string $icon = null)
@@ -81,5 +70,10 @@ class Characteristic
     public function wiki(): string
     {
         return $this->wiki;
+    }
+
+    public function label(): ?string
+    {
+        return $this->label;
     }
 }
