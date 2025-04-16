@@ -7,34 +7,29 @@ namespace App\Src\UseCases\Infra\Forum;
 use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class CharacteristicsForumSyncer
+class DiscourseSyncer implements CharacteristicsForumSyncer
 {
-    /** array<string, ForumApiClient> */
-    private array $forumClients = [];
-
-    private const FORUM_TAG_GROUPS = [
-        Characteristic::FARMING_TYPE => [
-            'fr' => 5,
-        ],
-        Characteristic::CROPPING_SYSTEM => [
-            'fr' => 12,
-        ],
-    ];
+    /** array<string, {client: ForumApiClient}> */
+    private array $syncerConfig = [];
 
     public function __construct()
     {
         foreach (LocalesConfig::all() as $wikiLocale) {
-            $this->forumClients[$wikiLocale->code] = new ForumApiClient($wikiLocale->forum_api_url, $wikiLocale->forum_api_key);
+            $this->syncerConfig[$wikiLocale->code]['client'] = new ForumApiClient($wikiLocale->forum_api_url, $wikiLocale->forum_api_key);
+
+            $this->syncerConfig[$wikiLocale->code]['characteristics_taggroups'] = [
+                Characteristic::FARMING_TYPE => $wikiLocale->forum_taggroup_farming,
+                Characteristic::CROPPING_SYSTEM => $wikiLocale->forum_taggroup_cropping,
+            ];
         }
     }
 
     /**
-     * @param string $type
-     * @param string $locale
-     * @param Characteristic[] $characteristics
+     * @inheritdoc
      */
     public function syncCharacteristicTagGroup(string $type, string $locale, array $characteristics): void
     {
@@ -49,7 +44,9 @@ class CharacteristicsForumSyncer
 
         $tagNames = array_map(fn ($characteristic) => $this->sanitizeTagName($characteristic->label()), $characteristics);
 
-        $this->forumClients[$locale]->updateTagGroup($tagGroupId, $tagNames);
+        dump($tagGroupId, $tagNames);return;
+
+        $this->syncerConfig[$locale]['client']->updateTagGroup($tagGroupId, $tagNames);
     }
 
     /**
@@ -69,6 +66,6 @@ class CharacteristicsForumSyncer
 
     private function getTagGroupId(string $type, string $localeCode): ?int
     {
-        return self::FORUM_TAG_GROUPS[$type][$localeCode] ?? null;
+        return $this->syncerConfig[$localeCode]['characteristics_taggroups'][$type] ?? null;
     }
 }

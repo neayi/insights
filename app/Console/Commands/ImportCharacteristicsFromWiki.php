@@ -6,7 +6,7 @@ namespace App\Console\Commands;
 
 use App\LocalesConfig;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use App\Src\UseCases\Infra\Forum\CharacteristicsForumSyncer;
+use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\WikiClient;
 use GuzzleHttp\Exception\GuzzleException;
