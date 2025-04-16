@@ -103,4 +103,24 @@ class ForumApiClient
 
         return json_decode($result->getBody()->getContents(), true);
     }
+
+    public function subscribeTagNotifications(string $username, string $tagName): array
+    {
+        $result = $this->client->put(
+            'tag/' . urlencode($tagName) . '/notifications',
+            [
+                'form_params' => [
+                    'tag_notification' => [
+                        'notification_level' => '2',
+                    ],
+                ],
+                // Replaces API-Username header by user username
+                'headers' => [
+                    'Api-Username' => $username,
+                ]
+            ]
+        );
+
+        return json_decode($result->getBody()->getContents(), true);
+    }
 }
