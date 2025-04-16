@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
@@ -17,7 +16,6 @@ use App\Src\UseCases\Domain\Shared\Gateway\FileStorage;
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
 use App\Src\UseCases\Domain\Shared\Gateway\SocialiteGateway;
 use App\Src\UseCases\Domain\Shared\Provider\IdentityProviderImpl;
-use App\Src\UseCases\Infra\Forum\DiscourseSyncer;
 use App\Src\UseCases\Infra\Gateway\FsFileStorage;
 use App\Src\UseCases\Infra\Gateway\SessionAuthGateway;
 use App\Src\UseCases\Infra\Gateway\SocialiteGatewayImpl;
@@ -100,7 +98,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(PageRepository::class, PageRepositorySql::class);
         $this->app->singleton(InteractionRepository::class, InteractionPageRepositorySql::class);
         $this->app->singleton(GeoLocationByPostalCode::class, GeoOpenDataSoftService::class);
-        $this->app->singleton(CharacteristicsForumSyncer::class, DiscourseSyncer::class);
     }
 
     private function tuBinding(): void
