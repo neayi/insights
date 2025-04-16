@@ -41,7 +41,10 @@ class CharacteristicsForumSyncer
             return;
         }
 
-        $newTagNames = array_map(fn ($characteristic) => $this->sanitizeTagName($characteristic->label()), $characteristics);
+        $newTagNames = array_map(
+            fn ($characteristic) => $this->sanitizeTagName($characteristic->label() ?? $characteristic->title()),
+            $characteristics
+        );
         $existingTagNames = $this->syncerConfig[$locale]['client']->getTagGroup($tagGroupId)['tag_group']['tag_names'] ?? [];
 
         // We keep existing tags in place
