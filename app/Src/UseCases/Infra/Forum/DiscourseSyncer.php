@@ -42,11 +42,13 @@ class DiscourseSyncer implements CharacteristicsForumSyncer
             return;
         }
 
-        $tagNames = array_map(fn ($characteristic) => $this->sanitizeTagName($characteristic->label()), $characteristics);
+        $newTagNames = array_map(fn ($characteristic) => $this->sanitizeTagName($characteristic->label()), $characteristics);
+        $existingTagNames = $this->syncerConfig[$locale]['client']->getTagGroup($tagGroupId)['tag_group']['tag_names'] ?? [];
 
-        dump($tagGroupId, $tagNames);return;
+        // We keep existing tags in place
+        $tagNamesToSync = array_unique(array_merge($newTagNames, $existingTagNames));
 
-        $this->syncerConfig[$locale]['client']->updateTagGroup($tagGroupId, $tagNames);
+        $this->syncerConfig[$locale]['client']->updateTagGroup($tagGroupId, $tagNamesToSync);
     }
 
     /**
