@@ -50,7 +50,11 @@ class CharacteristicsForumSyncer
         // We keep existing tags in place
         $tagNamesToSync = array_unique(array_merge($newTagNames, $existingTagNames));
 
-        $this->syncerConfig[$locale]['client']->updateTagGroup($tagGroupId, $tagNamesToSync);
+        try {
+            $this->syncerConfig[$locale]['client']->updateTagGroup($tagGroupId, $tagNamesToSync);
+        } catch (\Throwable $e) {
+            Log::error(sprintf('Error updating tag group %s for type %s and locale %s: %s', $tagGroupId, $type, $locale, $e->getMessage()));
+        }
     }
 
     /**
