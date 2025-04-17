@@ -96,7 +96,7 @@ class ForumApiClient
         $result = $this->client->put('tag_groups/' . $tagGroupId . '.json', [
             'json' => [
                 'tag_group' => [
-                    'tag_names' => $tagNames
+                    'tag_names' => array_values($tagNames)
                 ],
             ]
         ]);
