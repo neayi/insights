@@ -117,7 +117,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(InteractionRepository::class, InMemoryInteractionRepository::class);
         $this->app->singleton(GeoLocationByPostalCode::class, InMemoryGeolocationByPostalCode::class);
     }
-    
+
     private function tiBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);

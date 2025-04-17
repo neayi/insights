@@ -6,12 +6,11 @@ namespace App\Console\Commands;
 
 use App\LocalesConfig;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\WikiClient;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
 
@@ -20,6 +19,12 @@ class ImportCharacteristicsFromWiki extends Command
     protected $signature = 'characteristics:import';
 
     protected $description = 'Import the wiki characteristics';
+
+    public function __construct(
+        private CharacteristicsForumSyncer $forumSyncer,
+    ) {
+        parent::__construct();
+    }
 
     /**
      * @throws GuzzleException
@@ -54,6 +59,8 @@ class ImportCharacteristicsFromWiki extends Command
 
         $content = $wikiClient->searchCharacteristics($opt);
         $characteristics = $content['query']['results'];
+
+        $characteristicsGroupToForum = [];
 
         foreach ($characteristics as  $characteristic){
             $page = key($characteristic);
@@ -96,9 +103,13 @@ class ImportCharacteristicsFromWiki extends Command
             }
             $model->fill($characteristicsToSave);
             $model->save();
+
+            // Creates or updates forum matching tag
+            $characteristicsGroupToForum[] = $model->toDomain();
+
             $this->info(sprintf("Saving characteristic for %s", $label));
-
         }
-    }
 
+        $this->forumSyncer->syncCharacteristicTagGroup($type, $wikiCode, $characteristicsGroupToForum);
+    }
 }

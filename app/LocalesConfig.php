@@ -20,6 +20,8 @@ class LocalesConfig extends Model
         'forum_api_url',
         'forum_api_secret',
         'forum_api_key',
+        'forum_taggroup_farming',
+        'forum_taggroup_cropping',
         'lang_name',
     ];
 

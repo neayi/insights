@@ -7,38 +7,25 @@ namespace App\Src\UseCases\Domain\Context\Model;
 
 
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
-use App\Src\UseCases\Domain\Shared\Model\HasMemento;
-use App\Src\UseCases\Domain\Shared\Model\Memento;
 
-class Characteristic implements HasMemento
+class Characteristic
 {
     const FARMING_TYPE = 'farming';
     const CROPPING_SYSTEM = 'croppingSystem';
     const DEPARTMENT = 'department';
 
-    private $title;
-    private $type;
-    private $visible;
-    private $id;
-    private $pageId;
-    private $icon = null;
-    private $wiki = 'fr';
+    private ?string $icon = null;
 
     public function __construct(
-        string $id,
-        string $type,
-        string $title,
-        bool $visible,
-        int $pageId = null,
-        string $wiki = 'fr'
+        private string $id,
+        private string $type,
+        private string $title,
+        private bool $visible,
+        private ?int $pageId = null,
+        private string $wiki = 'fr',
+        private ?string $label = null
     )
     {
-        $this->id = $id;
-        $this->pageId = $pageId;
-        $this->type = $type;
-        $this->title = $title;
-        $this->visible = $visible;
-        $this->wiki = $wiki;
     }
 
     public function create(string $icon = null)
@@ -50,18 +37,43 @@ class Characteristic implements HasMemento
         app(CharacteristicsRepository::class)->save($this);
     }
 
-    public function memento(): Memento
-    {
-        return new CharacteristicMemento($this->id, $this->type, $this->title, $this->visible, $this->icon, $this->pageId, $this->wiki);
-    }
-
     public function id(): string
     {
         return $this->id;
     }
 
+    public function type(): string
+    {
+        return $this->type;
+    }
+
+    public function title(): string
+    {
+        return $this->title;
+    }
+
+    public function visible(): bool
+    {
+        return $this->visible;
+    }
+
+    public function icon(): ?string
+    {
+        return $this->icon;
+    }
+
     public function pageId(): ?int
     {
         return $this->pageId;
+    }
+
+    public function wiki(): string
+    {
+        return $this->wiki;
+    }
+
+    public function label(): ?string
+    {
+        return $this->label;
     }
 }

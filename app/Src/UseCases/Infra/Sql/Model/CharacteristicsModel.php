@@ -46,7 +46,7 @@ class CharacteristicsModel extends Model
     public function toDto()
     {
         return new CharacteristicDto(
-            $this->uuid,
+            (string) $this->uuid,
             $this->page_label,
             $this->type,
             $this->icon,
@@ -63,7 +63,7 @@ class CharacteristicsModel extends Model
 
     public function toDomain()
     {
-        return new Characteristic($this->uuid, $this->type, $this->code, $this->attributes['visible']);
+        return new Characteristic((string) $this->uuid, $this->type, $this->code, (bool) $this->attributes['visible'], $this->page_id, $this->wiki, $this->pretty_page_label);
     }
 
     protected static function newFactory()

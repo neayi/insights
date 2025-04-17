@@ -83,4 +83,24 @@ class ForumApiClient
 
         return json_decode($result->getBody()->getContents(), true);
     }
+
+    public function getTagGroup(int $tagGroupId): array
+    {
+        $result = $this->client->get('tag_groups/' . $tagGroupId . '.json');
+
+        return json_decode($result->getBody()->getContents(), true);
+    }
+
+    public function updateTagGroup(int $tagGroupId, array $tagNames): array
+    {
+        $result = $this->client->put('tag_groups/' . $tagGroupId . '.json', [
+            'json' => [
+                'tag_group' => [
+                    'tag_names' => array_values($tagNames)
+                ],
+            ]
+        ]);
+
+        return json_decode($result->getBody()->getContents(), true);
+    }
 }
