@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
-use Http\Message\Authentication\Chain;
+use DB;
 use Illuminate\Console\Command;
 
 class UsersSubscribeCharacteristicsTags extends Command
@@ -25,31 +26,30 @@ class UsersSubscribeCharacteristicsTags extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(CharacteristicsForumSyncer $forumSyncer): void
     {
         // Get eligible users (subscribed to Discourse + having 1+ characteristics)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
-
-        $userInfosSql = <<<SQL
-            SELECT u.id, u.firstname, u.lastname, u.email, u.uuid, u.discourse_id, u.discourse_username
-            FROM users AS u
-                INNER JOIN user_characteristics AS uc ON uc.user_id = u.id
-                INNER JOIN characteristics AS c ON c.id = uc.characteristic_id AND c.type IN :characteristicTypes
-            WHERE u.discourse_id IS NOT NULL
-        SQL;
-
-        $usersInfos = \DB::table('users', 'u')
-            ->select('u.id', 'u.firstname', 'u.lastname', 'u.email', 'u.uuid', 'u.discourse_id', 'u.discourse_username')
+        $usersInfosQuery = DB::table('users', 'u')
+            ->select('u.discourse_username', 'u.wiki')
+            ->addSelect('characteristics.code AS char_title', 'characteristics.pretty_page_label AS char_label')
             ->join('user_characteristics', 'user_characteristics.user_id', '=', 'u.id')
             ->join('characteristics', 'characteristics.id', '=', 'user_characteristics.characteristic_id')
             ->whereNotNull('u.discourse_id')
+            ->where('u.discourse_username', '!=', '')
             ->whereIn('characteristics.type', [Characteristic::FARMING_TYPE, Characteristic::CROPPING_SYSTEM])
+
+            ->where('u.discourse_username', '=', 'pierre.charles.berti')
         ;
 
-        dd($usersInfos->toSql(), $usersInfos->getBindings());
+        $users = $usersInfosQuery->get();
 
-        $users = $usersQuery->get();
-
-        dd(count($users), $users[0]);
+        foreach ($users->all() as $user) {
+            $forumSyncer->subscribeCharacteristicTagNotifications(
+                $user->discourse_username,
+                $user->wiki,
+                $user->char_label ?? $user->char_title
+            );
+        }
     }
 }
