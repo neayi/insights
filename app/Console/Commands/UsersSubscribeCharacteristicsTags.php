@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Console\Command;
 
@@ -14,7 +15,7 @@ class UsersSubscribeCharacteristicsTags extends Command
      *
      * @var string
      */
-    protected $signature = 'characteristics:init-users-subscriptions';
+    protected $signature = 'characteristics:init-users-subscriptions {--since-x-days=15}';
 
     /**
      * The console command description.
@@ -28,6 +29,8 @@ class UsersSubscribeCharacteristicsTags extends Command
      */
     public function handle(CharacteristicsForumSyncer $forumSyncer): void
     {
+        $dateThreshold = Carbon::now()->sub(sprintf('%d days', $this->option('since-x-days')))->setTime(0, 0, 0);
+
         // Get eligible users (subscribed to Discourse + having 1+ characteristics)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $usersInfosQuery = DB::table('users', 'u')
@@ -38,6 +41,7 @@ class UsersSubscribeCharacteristicsTags extends Command
             ->whereNotNull('u.discourse_id')
             ->where('u.discourse_username', '!=', '')
             ->whereIn('characteristics.type', [Characteristic::FARMING_TYPE, Characteristic::CROPPING_SYSTEM])
+            ->where('user_characteristics.created_at', '>=', $dateThreshold->format('Y-m-d H:i:s'))
         ;
 
         $users = $usersInfosQuery->get();
