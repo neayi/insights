@@ -47,7 +47,6 @@ class ImportAllPagesFromWiki extends Command
 
             $pageModel->page_id = $page['pageid'];
             $pageModel->title = $page['title'];
-            $pageModel->picture = $page['thumbnail']['source'] ?? null;
             $pageModel->wiki = $wikiCode;
             $pageModel->save();
         }
