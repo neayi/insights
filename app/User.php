@@ -130,12 +130,14 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function characteristics():BelongsToMany
     {
-        return $this->belongsToMany(CharacteristicsModel::class,
+        return $this->belongsToMany(
+            CharacteristicsModel::class,
             'user_characteristics',
             'user_id',
             'characteristic_id'
         )
-            ->using(UserCharacteristicsModel::class);
+            ->using(UserCharacteristicsModel::class)
+            ->withTimestamps();
     }
 
     public function context()

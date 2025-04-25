@@ -24,11 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('characteristics:import')->dailyAt('22:00');
-        $schedule->command('pages:import-all')->dailyAt('02:00');
-        $schedule->command('pages:import-additional-page-detail')->twiceMonthly();
         $schedule->command('pages:sync-dry')->hourly();
+        $schedule->command('pages:import-all')->dailyAt('02:00');
+        $schedule->command('characteristics:import')->dailyAt('22:00');
+        $schedule->command('characteristics:init-users-subscriptions --since-x-days=3')->dailyAt('22:15');
         $schedule->command('users:sync-on-discourse')->dailyAt('22:30');
+        $schedule->command('pages:import-additional-page-detail')->twiceMonthly();
     }
 
     /**

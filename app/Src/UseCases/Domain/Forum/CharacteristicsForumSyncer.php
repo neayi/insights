@@ -34,7 +34,7 @@ class CharacteristicsForumSyncer
         }
 
         $newTagNames = array_map(
-            fn ($characteristic) => $this->sanitizeTagName($characteristic->label() ?? $characteristic->title()),
+            fn ($characteristic) => ForumTagHelper::sanitizeTagName($characteristic->label() ?? $characteristic->title()),
             $characteristics
         );
         $existingTagNames = $this->syncerConfig[$locale]['client']->getTagGroup($tagGroupId)['tag_group']['tag_names'] ?? [];
@@ -49,19 +49,17 @@ class CharacteristicsForumSyncer
         }
     }
 
-    /**
-     * Based on what we deduced from the Discourse tag names treatment :
-     * - squish extra spaces
-     * - keeps uppercase and accentuation
-     * - replaces spaces with dashes
-     */
-    private function sanitizeTagName(string $tagName): string
+    public function subscribeCharacteristicTagNotifications(string $username, string $locale, string $tagName): void
     {
-        $squishedName = Str::squish($tagName);
-        $dashedName = str_replace(' ', '-', $squishedName);
+        Log::info(sprintf('Subscribing user %s to tag %s in wiki %s', $username, $tagName, $locale));
 
-        // Merge consecutive dashes
-        return preg_replace('/-+/', '-', $dashedName);
+        $forumApiClient = $this->syncerConfig[$locale]['client'];
+
+        try {
+            $forumApiClient->subscribeTagNotifications($username, ForumTagHelper::sanitizeTagName($tagName));
+        } catch (\Throwable $e) {
+            Log::error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
+        }
     }
 
     private function getTagGroupId(string $type, string $localeCode): ?int
