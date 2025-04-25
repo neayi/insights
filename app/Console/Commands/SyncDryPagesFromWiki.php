@@ -23,11 +23,12 @@ class SyncDryPagesFromWiki extends Command
         foreach ($localesConfig as $localeConfig) {
             $client = new WikiClient($localeConfig->toArray());
             $wikiCode = $localeConfig->code;
+            $wikiUrl = $localeConfig->wiki_url;
 
             PageModel::query()
                 ->where('dry', true)
                 ->where('wiki', $wikiCode)
-                ->chunkById(50, function ($items, $count) use($client){
+                ->chunkById(50, function ($items, $count) use($client, $wikiUrl){
                     $this->info(($count*50).' Pages');
                     $pages = $items->pluck('page_id')->toArray();
                     $content = $client->searchPagesById($pages);
@@ -49,7 +50,11 @@ class SyncDryPagesFromWiki extends Command
                         $pageModel->dry = false;
                         $pageModel->title = $page['title'];
                         $pageModel->last_sync = (new \DateTime());
-                        $pageModel->picture = $page['thumbnail']['source'] ?? null;
+                        if ($page['pageimage'] ?? false) {
+                            $pageModel->picture = sprintf('%s/wiki/Special:FilePath/File:%s', $wikiUrl, urlencode($page['pageimage']));
+                        } else {
+                            $pageModel->picture = null;
+                        }
                         $pageModel->save();
                     }
                 });

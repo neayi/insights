@@ -42,12 +42,11 @@ class ImportAllPagesFromWiki extends Command
 
             if (!isset($pageModel)) {
                 $pageModel = new PageModel();
+                $pageModel->dry = true;
             }
 
             $pageModel->page_id = $page['pageid'];
-            $pageModel->dry = true;
             $pageModel->title = $page['title'];
-            $pageModel->picture = $page['thumbnail']['source'] ?? null;
             $pageModel->wiki = $wikiCode;
             $pageModel->save();
         }
