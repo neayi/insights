@@ -52,7 +52,7 @@ class WikiClient
 
     public function searchPagesById(array $pagesIds): array
     {
-        $query = "action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=";
+        $query = "action=query&redirects=true&prop=pageimages&format=json&pithumbsize=250&pageids=";
 
         $response = $this->client->get($this->baseUri.$query.implode('|', $pagesIds));
         return json_decode($response->getBody()->getContents(), true);
