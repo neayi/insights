@@ -15,23 +15,15 @@ class CharacteristicsForumSyncer
     /** array<string, {client: ForumApiClient}> */
     private array $syncerConfig = [];
 
-    public function __construct()
-    {
-        foreach (LocalesConfig::all() as $wikiLocale) {
-            $this->syncerConfig[$wikiLocale->code]['client'] = new ForumApiClient($wikiLocale->forum_api_url, $wikiLocale->forum_api_key);
-
-            $this->syncerConfig[$wikiLocale->code]['characteristics_taggroups'] = [
-                Characteristic::FARMING_TYPE => $wikiLocale->forum_taggroup_farming,
-                Characteristic::CROPPING_SYSTEM => $wikiLocale->forum_taggroup_cropping,
-            ];
-        }
-    }
-
     /**
      * @inheritdoc
      */
     public function syncCharacteristicTagGroup(string $type, string $locale, array $characteristics): void
     {
+        if (empty($this->syncerConfig)) {
+            $this->initSyncerConfig();
+        }
+
         Log::info(sprintf('Syncing characteristic tag group for type %s and locale %s to the forum', $type, $locale));
 
         $tagGroupId = $this->getTagGroupId($type, $locale);
@@ -75,5 +67,17 @@ class CharacteristicsForumSyncer
     private function getTagGroupId(string $type, string $localeCode): ?int
     {
         return $this->syncerConfig[$localeCode]['characteristics_taggroups'][$type] ?? null;
+    }
+
+    private function initSyncerConfig()
+    {
+        foreach (LocalesConfig::all() as $wikiLocale) {
+            $this->syncerConfig[$wikiLocale->code]['client'] = new ForumApiClient($wikiLocale->forum_api_url, $wikiLocale->forum_api_key);
+
+            $this->syncerConfig[$wikiLocale->code]['characteristics_taggroups'] = [
+                Characteristic::FARMING_TYPE => $wikiLocale->forum_taggroup_farming,
+                Characteristic::CROPPING_SYSTEM => $wikiLocale->forum_taggroup_cropping,
+            ];
+        }
     }
 }
