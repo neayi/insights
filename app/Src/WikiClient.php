@@ -78,28 +78,6 @@ class WikiClient
     /**
      * @throws GuzzleException
      */
-    public function getPictureInfo(string $picture): ?array
-    {
-        $queryPictures = 'action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
-
-        $picturesApiUri = $this->baseUri.$queryPictures.$picture;
-        $response = $this->client->get($picturesApiUri);
-
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function downloadPicture(string $uri): string
-    {
-        $response = $this->client->get($uri);
-        return $response->getBody()->getContents();
-    }
-
-    /**
-     * @throws GuzzleException
-     */
     public function getInfoPage(string $page): array
     {
         $queryPages = 'action=query&redirects=true&prop=info&format=json&titles=';
