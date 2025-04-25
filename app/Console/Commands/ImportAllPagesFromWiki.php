@@ -42,6 +42,7 @@ class ImportAllPagesFromWiki extends Command
 
             if (!isset($pageModel)) {
                 $pageModel = new PageModel();
+                $pageModel->dry = true;
             }
 
             $pageModel->page_id = $page['pageid'];
