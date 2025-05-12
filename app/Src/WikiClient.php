@@ -73,13 +73,14 @@ class WikiClient
     /**
      * @throws GuzzleException
      */
-    public function searchCharacteristics(array $opt): array
+    public function ask(string $query): array
     {
-        $params = array_merge([
+        $params = [
             'action' => 'ask',
             'api_version' => 3,
-            'format' => 'json'
-        ], $opt);
+            'format' => 'json',
+            'query' => $query,
+        ];
 
         $uri = $this->baseUri.http_build_query($params);
         $response = $this->client->get($uri);

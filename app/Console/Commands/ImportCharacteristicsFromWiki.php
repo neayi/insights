@@ -38,26 +38,22 @@ class ImportCharacteristicsFromWiki extends Command
         foreach ($localesConfig as $localeConfig) {
             $client = new WikiClient($localeConfig->toArray());
             $wikiCode = $localeConfig->code;
-            $optFarming = [
-                'query' => "[[Est un élément de profil::Production]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
-            ];
-            $this->importCharacteristics($optFarming, Characteristic::FARMING_TYPE, $client, $wikiCode);
+            $queryFarming = "[[Est un élément de profil::Production]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc";
+            $this->importCharacteristics($queryFarming, Characteristic::FARMING_TYPE, $client, $wikiCode);
 
-            $optCropping = [
-                'query' => "[[Est un élément de profil::Cahier des charges]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc",
-            ];
-            $this->importCharacteristics($optCropping, Characteristic::CROPPING_SYSTEM, $client, $wikiCode);
+            $queryCropping = "[[Est un élément de profil::Cahier des charges]]|?A un glyph|?Doit être affiché par défaut|?A une priorité d'affichage|?A un label|sort=A une priorité d'affichage|order=asc";
+            $this->importCharacteristics($queryCropping, Characteristic::CROPPING_SYSTEM, $client, $wikiCode);
         }
     }
 
     /**
      * @throws GuzzleException
      */
-    private function importCharacteristics(array $opt, string $type, WikiClient $wikiClient, string $wikiCode): void
+    private function importCharacteristics(string $query, string $type, WikiClient $wikiClient, string $wikiCode): void
     {
         $this->info(sprintf("Importing Characteristics for %s", $type));
 
-        $content = $wikiClient->searchCharacteristics($opt);
+        $content = $wikiClient->ask($query);
         $characteristics = $content['query']['results'];
 
         $characteristicsGroupToForum = [];
