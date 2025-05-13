@@ -51,6 +51,10 @@ class CharacteristicsForumSyncer
 
     public function subscribeCharacteristicTagNotifications(string $username, string $locale, string $tagName): void
     {
+        if (empty($this->syncerConfig)) {
+            $this->initSyncerConfig();
+        }
+
         Log::info(sprintf('Subscribing user %s to tag %s in wiki %s', $username, $tagName, $locale));
 
         $forumApiClient = $this->syncerConfig[$locale]['client'];
