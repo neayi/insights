@@ -37,10 +37,10 @@ class WikiClient
     {
         $params = array_merge([
             'action' => 'query',
-            'list' => 'allpages',
-            'apnamespace' => $namespace,
-            'aplimit' => 500,
-            'apfilterredir' => 'nonredirects',
+            'generator' => 'allpages',
+            'gapnamespace' => $namespace,
+            'gaplimit' => 500,
+            'gapfilterredir' => 'nonredirects',
             'format' => 'json',
             'prop' => 'pageimages',
         ], $opt);

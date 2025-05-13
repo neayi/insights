@@ -66,27 +66,26 @@ class ImportAllPagesFromWiki extends Command
         $wikiCode = $localeConfig->code;
         $this->info(sprintf("Importing Pages from wiki %s", $wikiCode));
 
-
         // Repeat for Main, Categories and Structures
         foreach ([0, 14, 3000] as $namespace) {
             $this->info("Importing Pages from namespace $namespace");
 
             $content = $client->searchPages($namespace);
-            $pages = $content['query']['allpages'];
+            $pages = $content['query']['pages'];
 
             $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
-            $continue = $content['continue']['apcontinue'] ?? null;
+            $continue = $content['continue']['picontinue'] ?? null;
 
             while ($continue !== null && $continue !== '') {
 
-                $opts = ['apcontinue' => $continue];
+                $opts = ['picontinue' => $continue];
                 $content = $client->searchPages($namespace, $opts);
-                $pages = $content['query']['allpages'];
+                $pages = $content['query']['pages'];
 
                 $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
-                $continue = $content['continue']['apcontinue'] ?? null;
+                $continue = $content['continue']['picontinue'] ?? null;
             }
         }
     }
