@@ -33,6 +33,11 @@ class SyncPagesToForum extends Command
         $localesConfig = LocalesConfig::all();
 
         foreach ($localesConfig as $localeConfig) {
+            if (!$localeConfig->forum_taggroup_themes) {
+                $this->info(sprintf('Skipping wiki %s, no forum taggroup', $localeConfig->code));
+                continue;
+            }
+
             try {
                 $this->setFollowedPages($localeConfig);
                 $this->handleSync($localeConfig);
