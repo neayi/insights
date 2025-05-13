@@ -5,17 +5,23 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\LocalesConfig;
-use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\Src\WikiClient;
 use DB;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
+use RuntimeException;
+use Throwable;
 
 class SyncPagesToForum extends Command
 {
     protected $signature = 'pages:sync-to-forum';
 
     protected $description = 'Create forum tags for eligible wiki pages';
+
+    private const PAGE_ID_KEY = [
+        'fr' => 'Identifiant de page',
+        'en' => 'Page ID',
+        'de' => 'Seitenkennung',
+    ];
 
     /**
      * @var array<string, int[]>
@@ -75,6 +81,68 @@ class SyncPagesToForum extends Command
 
         $content = $client->ask($query);
 
-        dd($content['query']['results'][0]);
+        foreach ($content['query']['results'] as $result) {
+
+            $pageResult = array_values($result)[0];
+
+            $wikiPageId = $pageResult['printouts'][self::PAGE_ID_KEY[$wikiCode]][0] ?? null;
+
+            // Si la page n'est pas suivie par au moins un utilisateur, on ne la traite pas
+            if (
+                null === $wikiPageId
+                || !in_array($wikiPageId, $this->followedPagesIds[$wikiCode])
+            ) {
+                continue;
+            }
+
+            $pageName = $pageResult['fulltext'];
+            $pageNs = $pageResult['namespace'];
+
+            try {
+                $pageName = $this->handlePageNamespace($wikiCode, $pageName, $pageNs);
+
+                // TODO: create forum tag
+                // TODO: inscrire utilisateurs aux notifs du tag
+            } catch (Throwable $e) {
+                $this->error(sprintf('Error handling page "%s" with namespace %d : %s', $pageName, $pageNs, $e->getMessage()));
+                continue;
+            }
+
+            dump($pageName);
+        }
+
+    }
+
+    private function handlePageNamespace(string $wikiCode, string $pageName, int $pageNs): string
+    {
+        switch ($pageNs) {
+            // Main
+            case 0:
+                return $pageName;
+            // Catégorie/Category/Kategorie
+            case 14:
+                switch ($wikiCode) {
+                    case 'fr':
+                        $prefixLength = 10;
+                        break;
+                    case 'en':
+                        $prefixLength = 9;
+                        break;
+                    case 'de':
+                        $prefixLength = 10;
+                        break;
+                    default:
+                        throw new RuntimeException(
+                            sprintf(
+                                'Unhandled wiki code %s for namespace %d and page name "%s"',
+                                $wikiCode, $pageNs, $pageName
+                            )
+                        );
+                        break;
+                }
+                return mb_substr($pageName, $prefixLength);
+            default:
+                throw new RuntimeException(sprintf('Unhandled namespace %d for page name "%s"', $pageNs, $pageName));
+        }
     }
 }
