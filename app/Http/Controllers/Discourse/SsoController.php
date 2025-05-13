@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Discourse;
 
 use App\LocalesConfig;
 use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\Http\Request;
 use \Spinen\Discourse\Controllers\SsoController as BaseSsoController;
 
 class SsoController extends BaseSsoController
@@ -28,10 +27,5 @@ class SsoController extends BaseSsoController
 
         $this->config = collect($configs);
         $this->config->put('user', collect($this->config->get('user')));
-    }
-
-    public function login(Request $request)
-    {
-        return parent::login($request);
     }
 }
