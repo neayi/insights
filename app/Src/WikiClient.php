@@ -41,7 +41,8 @@ class WikiClient
             'apnamespace' => $namespace,
             'aplimit' => 500,
             'apfilterredir' => 'nonredirects',
-            'format' => 'json'
+            'format' => 'json',
+            'prop' => 'pageimages',
         ], $opt);
 
         $pagesApiUri = $this->baseUri.http_build_query($params);

@@ -37,12 +37,6 @@ class Page
         return $this->pageId;
     }
 
-    public function setOnDryState()
-    {
-        $this->dryState = true;
-        app(PageRepository::class)->save($this);
-    }
-
     public function createCharacteristicAssociated():Characteristic
     {
         $type = $this->type === self::TYPE_CULTURE ? Characteristic::FARMING_TYPE : Characteristic::CROPPING_SYSTEM;
@@ -55,12 +49,5 @@ class Page
         );
         $characteristic->create($this->icon);
         return $characteristic;
-    }
-
-    public function toArray()
-    {
-        return [
-            'dry' => $this->dryState
-        ];
     }
 }

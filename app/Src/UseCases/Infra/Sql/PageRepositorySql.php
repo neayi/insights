@@ -17,7 +17,7 @@ class PageRepositorySql implements PageRepository
         if(!isset($pageModel)){
             return null;
         }
-        return new Page($pageModel->page_id, $pageModel->dry);
+        return new Page($pageModel->page_id);
     }
 
     public function getByIds(array $pagesIds): array
@@ -28,7 +28,6 @@ class PageRepositorySql implements PageRepository
         foreach ($pageModels as $pageModel) {
             $pages[] = new Page(
                 $pageModel->page_id,
-                $pageModel->dry,
                 $pageModel->title,
                 $pageModel->type,
                 $pageModel->icon

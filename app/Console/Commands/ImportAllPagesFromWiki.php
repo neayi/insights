@@ -30,7 +30,7 @@ class ImportAllPagesFromWiki extends Command
         }
     }
 
-    private function handlePages(array $pages, string $wikiCode): void
+    private function handlePages(array $pages, string $wikiCode, string $wikiUrl): void
     {
         $this->info(sprintf('Process wiki %s - %s Pages', $wikiCode, $count = count($pages)));
         foreach ($pages as $page) {
@@ -42,12 +42,18 @@ class ImportAllPagesFromWiki extends Command
 
             if (!isset($pageModel)) {
                 $pageModel = new PageModel();
-                $pageModel->dry = true;
             }
 
             $pageModel->page_id = $page['pageid'];
             $pageModel->title = $page['title'];
             $pageModel->wiki = $wikiCode;
+
+            if ($page['pageimage'] ?? false) {
+                $pageModel->picture = sprintf('%s/wiki/Special:FilePath/File:%s', $wikiUrl, urlencode($page['pageimage']));
+            } else {
+                $pageModel->picture = null;
+            }
+
             $pageModel->save();
         }
 
@@ -68,7 +74,7 @@ class ImportAllPagesFromWiki extends Command
             $content = $client->searchPages($namespace);
             $pages = $content['query']['allpages'];
 
-            $this->handlePages($pages, $wikiCode);
+            $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
             $continue = $content['continue']['apcontinue'] ?? null;
 
@@ -78,7 +84,7 @@ class ImportAllPagesFromWiki extends Command
                 $content = $client->searchPages($namespace, $opts);
                 $pages = $content['query']['allpages'];
 
-                $this->handlePages($pages, $wikiCode);
+                $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
                 $continue = $content['continue']['apcontinue'] ?? null;
             }
