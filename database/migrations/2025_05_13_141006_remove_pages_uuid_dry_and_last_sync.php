@@ -16,6 +16,11 @@ return new class extends Migration
             $table->dropColumn('last_sync');
             $table->dropColumn('uuid');
         });
+
+        // Remove NULL pages
+        DB::statement(<<<SQL
+            DELETE FROM pages WHERE wiki IS NULL;
+        SQL);
     }
 
     /**
