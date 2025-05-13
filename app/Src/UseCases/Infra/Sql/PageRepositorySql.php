@@ -43,7 +43,6 @@ class PageRepositorySql implements PageRepository
             $pageModel = new PageModel();
         }
         $pageModel->page_id = $page->pageId();
-        $pageModel->fill($page->toArray());
         $pageModel->save();
     }
 
