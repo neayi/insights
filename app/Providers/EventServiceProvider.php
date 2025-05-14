@@ -8,7 +8,6 @@ use App\Listeners\AddEmailToNewsletter;
 use App\Listeners\AnonymizeUserResponse;
 use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
-use App\Listeners\SetPageDryStateListener;
 use App\Listeners\SetUserToSyncOnDiscourse;
 use App\Listeners\SetWikiToRegisteredUser;
 use App\Observers\PageObserver;
@@ -26,7 +25,6 @@ class EventServiceProvider extends ServiceProvider
             SetWikiToRegisteredUser::class
         ],
         InteractionOnPage::class => [
-            SetPageDryStateListener::class,
             SetInteractionToRegisteredUserListener::class
         ],
         UserDeleted::class => [

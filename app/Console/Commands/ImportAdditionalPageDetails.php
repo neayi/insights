@@ -39,6 +39,8 @@ class ImportAdditionalPageDetails extends Command
                 $continue = $content['query-continue-offset'] ?? null;
             }
         }
+
+        // TODO: Adds is_tag flag ici
     }
 
     private function handlePages($pages)
