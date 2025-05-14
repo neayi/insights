@@ -120,10 +120,10 @@ class InteractionPageRepositorySql implements InteractionRepository
             }
             $applause = InteractionModel::query()->where('page_id', $interaction->page_id)->where('applause', true)->count();
             if ($interaction->follow) {
-                $interactions['follow'][] = ['applause' => $applause];
+                $interactions['follow'][] = array_merge($page->toArray(), ['applause' => $applause]);
             }
             if ($interaction->applause) {
-                $interactions['applause'][] = ['applause' => $applause];
+                $interactions['applause'][] = array_merge($page->toArray(), ['applause' => $applause]);
             }
         }
         return $interactions ?? [];
