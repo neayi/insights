@@ -100,18 +100,4 @@ class WikiClient
 
         return json_decode($response->getBody()->getContents(), true);
     }
-
-    public function getPagesAdditionalDetail(string|int $offset = null): array
-    {
-        $query = "action=ask&format=json&api_version=3&query=[[A un glyph::%2B]]|?A un glyph|?A un type de page";
-
-        $pagesApiUri = $this->baseUri.$query;
-
-        if (!empty($offset)) {
-            $pagesApiUri .= '|offset='.$offset;
-        }
-
-        $response = $this->client->get($pagesApiUri);
-        return json_decode($response->getBody()->getContents(), true);
-    }
 }
