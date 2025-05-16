@@ -105,6 +105,8 @@ class InteractionPageRepositorySql implements InteractionRepository
 
     public function getInteractionsByUser(string $userId): array
     {
+        $interactions = ['applause' => [], 'follow' => []];
+
         $user = User::query()->where('uuid', $userId)->first();
         $interactionsModel = InteractionModel::query()
             ->where('user_id', $user->id)

@@ -26,7 +26,9 @@ class ImportAdditionalPageDetails extends Command
             $this->info(sprintf("Importing Pages with icons and types from wiki %s", $localeConfig->code));
             $wikiClient = new WikiClient($localeConfig->toArray());
 
-            $content = $wikiClient->getPagesAdditionalDetail();
+            $baseQuery = '[[A un glyph::%2B]]|?A un glyph|?A un type de page';
+
+            $content = $wikiClient->ask($baseQuery);
             $pages = $content['query']['results'];
 
             $this->handlePages($pages, $wikiClient);
@@ -34,11 +36,13 @@ class ImportAdditionalPageDetails extends Command
 
             while ($continue !== null && $continue !== '') {
                 $this->info($continue);
-                $content = $wikiClient->getPagesAdditionalDetail($continue);
+                $content = $wikiClient->ask($baseQuery . '|offset=' . $continue);
                 $this->handlePages($pages);
                 $continue = $content['query-continue-offset'] ?? null;
             }
         }
+
+        // TODO: Adds is_tag flag ici
     }
 
     private function handlePages($pages)
@@ -59,7 +63,7 @@ class ImportAdditionalPageDetails extends Command
                 $pageModel->icon = $icon;
             }
 
-            $pageModel->type = $typePage !== false ? $typePage : '';
+            $pageModel->type = $typePage ?? null;
             $pageModel->save();
         }
     }

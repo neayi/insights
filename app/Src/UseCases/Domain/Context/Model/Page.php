@@ -9,38 +9,20 @@ use Ramsey\Uuid\Uuid;
 
 class Page
 {
-    private $pageId;
-    private $dryState;
-    private $title;
-    private $type;
-    private $icon;
-
     const TYPE_CULTURE = 'Culture';
 
     public function __construct(
-        int $pageId,
-        bool $dryState = false,
-        string $title = null,
-        string $type = null,
-        string $icon = null
+        private int $pageId,
+        private? string $title = null,
+        private? string $type = null,
+        private? string $icon = null,
     )
     {
-        $this->pageId = $pageId;
-        $this->dryState = $dryState;
-        $this->title = $title;
-        $this->type = $type;
-        $this->icon = $icon;
     }
 
     public function pageId():int
     {
         return $this->pageId;
-    }
-
-    public function setOnDryState()
-    {
-        $this->dryState = true;
-        app(PageRepository::class)->save($this);
     }
 
     public function createCharacteristicAssociated():Characteristic
@@ -55,12 +37,5 @@ class Page
         );
         $characteristic->create($this->icon);
         return $characteristic;
-    }
-
-    public function toArray()
-    {
-        return [
-            'dry' => $this->dryState
-        ];
     }
 }

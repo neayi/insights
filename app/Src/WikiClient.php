@@ -37,11 +37,12 @@ class WikiClient
     {
         $params = array_merge([
             'action' => 'query',
-            'list' => 'allpages',
-            'apnamespace' => $namespace,
-            'aplimit' => 500,
-            'apfilterredir' => 'nonredirects',
-            'format' => 'json'
+            'generator' => 'allpages',
+            'gapnamespace' => $namespace,
+            'gaplimit' => 500,
+            'gapfilterredir' => 'nonredirects',
+            'format' => 'json',
+            'prop' => 'pageimages',
         ], $opt);
 
         $pagesApiUri = $this->baseUri.http_build_query($params);
@@ -52,7 +53,7 @@ class WikiClient
 
     public function searchPagesById(array $pagesIds): array
     {
-        $query = "action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=";
+        $query = "action=query&redirects=true&prop=pageimages&format=json&pithumbsize=250&pageids=";
 
         $response = $this->client->get($this->baseUri.$query.implode('|', $pagesIds));
         return json_decode($response->getBody()->getContents(), true);
@@ -61,40 +62,19 @@ class WikiClient
     /**
      * @throws GuzzleException
      */
-    public function searchCharacteristics(array $opt): array
+    public function ask(string $query): array
     {
-        $params = array_merge([
+        $params = [
             'action' => 'ask',
             'api_version' => 3,
-            'format' => 'json'
-        ], $opt);
+            'format' => 'json',
+            'query' => $query,
+        ];
 
         $uri = $this->baseUri.http_build_query($params);
         $response = $this->client->get($uri);
 
         return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function getPictureInfo(string $picture): ?array
-    {
-        $queryPictures = 'action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
-
-        $picturesApiUri = $this->baseUri.$queryPictures.$picture;
-        $response = $this->client->get($picturesApiUri);
-
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function downloadPicture(string $uri): string
-    {
-        $response = $this->client->get($uri);
-        return $response->getBody()->getContents();
     }
 
     /**
@@ -107,20 +87,6 @@ class WikiClient
         $pagesApiUri = $this->baseUri.$queryPages.$page;
         $response = $this->client->get($pagesApiUri);
 
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    public function getPagesAdditionalDetail(string|int $offset = null): array
-    {
-        $query = "action=ask&format=json&api_version=3&query=[[A un glyph::%2B]]|?A un glyph|?A un type de page";
-
-        $pagesApiUri = $this->baseUri.$query;
-
-        if (!empty($offset)) {
-            $pagesApiUri .= '|offset='.$offset;
-        }
-
-        $response = $this->client->get($pagesApiUri);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
