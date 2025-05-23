@@ -35,16 +35,28 @@ class WikiClient
      */
     public function searchPages(int $namespace, array $opt = []): array
     {
+        /**
+         * BUG MediaWiki API ?
+         *
+         * En utilisant le genrator allpages, les paramètres sont préfixés avec gap (Generator All Pages)
+         * Mais l'utilisation de la props semble nous obliger à utiliser aussi une limitation pilimit (valeur acceptée entre 0 et 50)
+         * On utilise donc les 2 paramètres de limites (gaplimit et pilimit), avec la même valeur.
+         * @see https://stackoverflow.com/questions/35123436/how-to-get-all-wikipedia-pages-from-category-with-title-and-primary-image
+         */
+
         $params = array_merge([
             'action' => 'query',
-            'list' => 'allpages',
-            'apnamespace' => $namespace,
-            'aplimit' => 500,
-            'apfilterredir' => 'nonredirects',
-            'format' => 'json'
+            'generator' => 'allpages',
+            'gapnamespace' => $namespace,
+            'gaplimit' => 50,
+            'pilimit' => 50,
+            'gapfilterredir' => 'nonredirects',
+            'format' => 'json',
+            'prop' => 'pageimages',
         ], $opt);
 
         $pagesApiUri = $this->baseUri.http_build_query($params);
+
         $response = $this->client->get($pagesApiUri);
 
         return json_decode($response->getBody()->getContents(), true);
@@ -52,7 +64,7 @@ class WikiClient
 
     public function searchPagesById(array $pagesIds): array
     {
-        $query = "action=query&redirects=true&prop=info&format=json&prop=pageimages&pithumbsize=250&pageids=";
+        $query = "action=query&redirects=true&prop=pageimages&format=json&pithumbsize=250&pageids=";
 
         $response = $this->client->get($this->baseUri.$query.implode('|', $pagesIds));
         return json_decode($response->getBody()->getContents(), true);
@@ -73,28 +85,6 @@ class WikiClient
         $response = $this->client->get($uri);
 
         return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function getPictureInfo(string $picture): ?array
-    {
-        $queryPictures = 'action=query&redirects=true&format=json&prop=imageinfo&iiprop=url&titles=';
-
-        $picturesApiUri = $this->baseUri.$queryPictures.$picture;
-        $response = $this->client->get($picturesApiUri);
-
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function downloadPicture(string $uri): string
-    {
-        $response = $this->client->get($uri);
-        return $response->getBody()->getContents();
     }
 
     /**
