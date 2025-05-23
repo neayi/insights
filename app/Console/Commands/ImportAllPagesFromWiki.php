@@ -72,7 +72,7 @@ class ImportAllPagesFromWiki extends Command
             $this->info("Importing Pages from namespace $namespace");
 
             $content = $client->searchPages($namespace);
-            $pages = $content['query']['pages'];
+            $pages = $content['query']['pages'] ?? [];
 
             $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
@@ -83,7 +83,7 @@ class ImportAllPagesFromWiki extends Command
 
                 $opts = ['gapcontinue' => $continue];
                 $content = $client->searchPages($namespace, $opts);
-                $pages = $content['query']['pages'];
+                $pages = $content['query']['pages'] ?? [];
 
                 $this->handlePages($pages, $wikiCode, $localeConfig->wiki_url);
 
