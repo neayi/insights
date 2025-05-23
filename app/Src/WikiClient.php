@@ -35,17 +35,28 @@ class WikiClient
      */
     public function searchPages(int $namespace, array $opt = []): array
     {
+        /**
+         * BUG MediaWiki API ?
+         *
+         * En utilisant le genrator allpages, les paramètres sont préfixés avec gap (Generator All Pages)
+         * Mais l'utilisation de la props semble nous obliger à utiliser aussi une limitation pilimit (valeur acceptée entre 0 et 50)
+         * On utilise donc les 2 paramètres de limites (gaplimit et pilimit), avec la même valeur.
+         * @see https://stackoverflow.com/questions/35123436/how-to-get-all-wikipedia-pages-from-category-with-title-and-primary-image
+         */
+
         $params = array_merge([
             'action' => 'query',
             'generator' => 'allpages',
             'gapnamespace' => $namespace,
-            'gaplimit' => 500,
+            'gaplimit' => 50,
+            'pilimit' => 50,
             'gapfilterredir' => 'nonredirects',
             'format' => 'json',
             'prop' => 'pageimages',
         ], $opt);
 
         $pagesApiUri = $this->baseUri.http_build_query($params);
+
         $response = $this->client->get($pagesApiUri);
 
         return json_decode($response->getBody()->getContents(), true);
