@@ -16,6 +16,10 @@ class CommentsController extends Controller
     {
         $userId = $request->input('user_id');
         if (empty($userId)) {
+            $connectedUser = Auth::user();
+            if (empty($connectedUser)) {
+                return null;
+            }
             $userId = Auth::user()->uuid;
         }
 
