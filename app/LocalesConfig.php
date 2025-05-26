@@ -45,9 +45,14 @@ class LocalesConfig extends Model
         }
 
         // by default, we return the first locale found, but later if we find English we'll return English by default
-        $defaultLocale = reset($localesConfig);
+        $defaultLocale = null;
 
         foreach ($localesConfig as $localeConfig) {
+            if (empty($defaultLocale)) {
+                $defaultLocale = $localeConfig;
+            }
+
+            // If the preferred code matches the locale code, we return it
             if ($preferredCode == $localeConfig->code) {
                 return $localeConfig;
             }
