@@ -87,6 +87,11 @@ class ProfileController extends Controller
         ServiceConfigs $localesServiceConfigs
     )
     {
+        // Check that the $userId is a valid guid: 
+        if (!Uuid::isValid($userId)) {
+            return null;
+        }
+        
         $user = $getUser->get($userId)->toArray();
         $contextRepo = $contextQueryByUser->execute($userId);
 
