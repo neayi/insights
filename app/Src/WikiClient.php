@@ -73,13 +73,14 @@ class WikiClient
     /**
      * @throws GuzzleException
      */
-    public function searchCharacteristics(array $opt): array
+    public function ask(string $query): array
     {
-        $params = array_merge([
+        $params = [
             'action' => 'ask',
             'api_version' => 3,
-            'format' => 'json'
-        ], $opt);
+            'format' => 'json',
+            'query' => $query,
+        ];
 
         $uri = $this->baseUri.http_build_query($params);
         $response = $this->client->get($uri);
@@ -97,20 +98,6 @@ class WikiClient
         $pagesApiUri = $this->baseUri.$queryPages.$page;
         $response = $this->client->get($pagesApiUri);
 
-        return json_decode($response->getBody()->getContents(), true);
-    }
-
-    public function getPagesAdditionalDetail(string|int $offset = null): array
-    {
-        $query = "action=ask&format=json&api_version=3&query=[[A un glyph::%2B]]|?A un glyph|?A un type de page";
-
-        $pagesApiUri = $this->baseUri.$query;
-
-        if (!empty($offset)) {
-            $pagesApiUri .= '|offset='.$offset;
-        }
-
-        $response = $this->client->get($pagesApiUri);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
