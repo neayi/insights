@@ -17,12 +17,6 @@ class SyncPagesToForum extends Command
 
     protected $description = 'Create forum tags for eligible wiki pages';
 
-    private const PAGE_ID_KEY = [
-        'fr' => 'Identifiant de page',
-        'en' => 'Page ID',
-        'de' => 'Seitenkennung',
-    ];
-
     /**
      * @var array<string, int[]>
      */
@@ -80,9 +74,9 @@ class SyncPagesToForum extends Command
         $this->info(sprintf("Syncing wiki Pages to forum %s", $wikiCode));
 
         // API query to get existing pages having at least 1 keyword
-        // https://wiki.dev.tripleperformance.fr/api.php?action=ask&api_version=3&query=[[-A%20un%20mot-cl%C3%A9::%2B]][[Page%20ID::%2B]]|?Page%20ID|limit=5000&format=json
+        // https://wiki.dev.tripleperformance.fr/api.php?action=ask&api_version=3&query=[[-A%20un%20mot-cl%C3%A9::%2B]][[Page%20ID::%2B]]|?Page%20ID%20=%20pageid|limit=5000&format=json
 
-        $query = '[[-A un mot-clé::+]][[Page ID::+]]|?Page ID|limit=10000';
+        $query = '[[-A%20un%20mot-clé::+]][[Page%20ID::+]]|?Page%20ID%20=%20pageid|limit=10000';
 
         $content = $client->ask($query);
 
@@ -90,7 +84,7 @@ class SyncPagesToForum extends Command
 
             $pageResult = array_values($result)[0];
 
-            $wikiPageId = $pageResult['printouts'][self::PAGE_ID_KEY[$wikiCode]][0] ?? null;
+            $wikiPageId = $pageResult['printouts']['pageid'][0] ?? null;
 
             // Si la page n'est pas suivie par au moins un utilisateur, on ne la traite pas
             if (
