@@ -20,38 +20,102 @@ class ImportAdditionalPageDetails extends Command
     public function handle(): void
     {
         $localesConfig = LocalesConfig::all();
-        Storage::makeDirectory('public/pages');
 
         foreach ($localesConfig as $localeConfig) {
-            $this->info(sprintf("Importing Pages with icons and types from wiki %s", $localeConfig->code));
             $wikiClient = new WikiClient($localeConfig->toArray());
 
-            $content = $wikiClient->getPagesAdditionalDetail();
-            $pages = $content['query']['results'];
+            /*
+             * ############################
+             * Récupération du type de page
+             * ############################
+             */
 
-            $this->handlePages($pages, $wikiClient);
-            $continue = $content['query-continue-offset'] ?? null;
+            $pageTypeQuery = '[[A un type de page::+]]|?A un type de page=pagetype';
+            $continue = null;
 
-            while ($continue !== null && $continue !== '') {
-                $this->info($continue);
-                $content = $wikiClient->getPagesAdditionalDetail($continue);
-                $this->handlePages($pages);
-                $continue = $content['query-continue-offset'] ?? null;
-            }
+            do {
+                $this->info(sprintf('Importing page types from wiki %s with continue "%s"', $localeConfig->code, (string) $continue));
+
+                $query = $pageTypeQuery;
+                if ($continue !== null) {
+                    $query .= '|offset=' . $continue;
+                }
+
+                $this->info(sprintf('Query: %s', $query));
+
+                $content = $wikiClient->ask($query);
+
+                $this->handlePageTypes($content['query']['results'] ?? [], $localeConfig->code);
+
+                $newContinue = $content['query-continue-offset'] ?? null;
+                if ($newContinue !== null && $newContinue > $continue) {
+                    $continue = $newContinue;
+                } else {
+                    $continue = null;
+                }
+            } while ($continue !== null);
+
+            /*
+             * ###############################
+             * Récupération de l'icône de page
+             * ###############################
+             */
+
+            $pageIconQuery = '[[A un glyph::+]]|?A un glyph=pageicon';
+            $continue = null;
+
+            do {
+                $this->info(sprintf('Importing page icons from wiki %s with continue "%s"', $localeConfig->code, (string) $continue));
+
+                $query = $pageIconQuery;
+                if ($continue !== null) {
+                    $query .= '|offset=' . $continue;
+                }
+
+                $this->info(sprintf('Query: %s', $query));
+
+                $content = $wikiClient->ask($query);
+
+                $this->handlePageIcons($content['query']['results'] ?? [], $localeConfig->code);
+
+                $newContinue = $content['query-continue-offset'] ?? null;
+                if ($newContinue !== null && $newContinue > $continue) {
+                    $continue = $newContinue;
+                } else {
+                    $continue = null;
+                }
+            } while ($continue !== null);
         }
 
         // TODO: Adds is_tag flag ici
     }
 
-    private function handlePages($pages)
+    private function handlePageTypes(array $pages, string $wikiCode)
     {
-        foreach ($pages as $page) {
-            $title = key($page);
-            $page = last($page);
-            $typePage = last($page['printouts']['A un type de page']);
-            $icon = last($page['printouts']['A un glyph']);
+        foreach ($pages as $pageItem) {
+            $title = key($pageItem);
+            $page = last($pageItem);
+            $typePage = last($page['printouts']['pagetype']);
 
-            $pageModel = PageModel::query()->where('title', $title)->first();
+            $pageModel = PageModel::query()->where('title', $title)->where('wiki', $wikiCode)->first();
+            if (!isset($pageModel)) {
+                $this->info('Page not found :  '.$title);
+                continue;
+            }
+
+            $pageModel->type = $typePage ?? null;
+            $pageModel->save();
+        }
+    }
+
+    private function handlePageIcons(array $pages, string $wikiCode)
+    {
+        foreach ($pages as $pageItem) {
+            $title = key($pageItem);
+            $page = last($pageItem);
+            $icon = last($page['printouts']['pageicon']);
+
+            $pageModel = PageModel::query()->where('title', $title)->where('wiki', $wikiCode)->first();
             if (!isset($pageModel)) {
                 $this->info('Page not found :  '.$title);
                 continue;
@@ -61,7 +125,6 @@ class ImportAdditionalPageDetails extends Command
                 $pageModel->icon = $icon;
             }
 
-            $pageModel->type = $typePage !== false ? $typePage : '';
             $pageModel->save();
         }
     }
