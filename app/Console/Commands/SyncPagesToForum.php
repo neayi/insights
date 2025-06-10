@@ -17,11 +17,6 @@ class SyncPagesToForum extends Command
 
     protected $description = 'Create forum tags for eligible wiki pages';
 
-    /**
-     * @var array<string, int[]>
-     */
-    protected array $followedPagesIds = [];
-
     public function handle(): void
     {
         $localesConfig = LocalesConfig::all();
@@ -33,7 +28,6 @@ class SyncPagesToForum extends Command
             }
 
             try {
-                $this->setFollowedPages($localeConfig);
                 $this->handleSync($localeConfig);
             } catch (\Throwable $e) {
                 $this->error(get_class($e));
@@ -42,58 +36,36 @@ class SyncPagesToForum extends Command
         }
     }
 
-    private function setFollowedPages(LocalesConfig $localeConfig): void
+    private function handleSync(mixed $localeConfig): void
     {
-        $localeCode = $localeConfig->toArray()['code'];
+        $wikiCode = $localeConfig->code;
+        $this->info(sprintf("Syncing wiki Pages to forum %s", $wikiCode));
+
+        // TODO: Set higher limit for GROUP_CONCAT (default is 1024 characters)
+        // SET SESSION group_concat_max_len = 1000000;
 
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $eligiblePagesQuery = DB::table('pages', 'p')
-            ->select('p.page_id')
+            ->select('p.page_id', 'p.title', DB::raw('GROUP_CONCAT(users.discourse_username) AS usernames'))
             ->join('interactions', 'interactions.page_id', '=', 'p.page_id')
+            ->join('users', 'interactions.user_id', '=', 'users.id')
             ->where([
-                ['p.wiki', '=', ':localeCode'],
-                ['interactions.follow', '=', ':true']
+                ['p.wiki', '=', '?'],
+                ['p.is_tag', '=', '?'],
+                ['interactions.follow', '=', '?']
             ])
             ->whereNotNull('interactions.user_id')
-            ->groupBy('p.page_id')
-            ->setBindings(['localeCode' => $localeCode, 'true' => 1])
+            ->groupBy('p.page_id', 'p.title')
+            ->setBindings([$wikiCode, true, true])
         ;
 
         $pages = $eligiblePagesQuery->get();
 
-        $pagesIds = array_map(fn ($page) => (int)$page->page_id, $pages->all());
+        dump($pages->all());
 
-        $this->followedPagesIds[$localeCode] = $pagesIds;
-    }
 
-    private function handleSync(mixed $localeConfig): void
-    {
-        $client = new WikiClient($localeConfig->toArray());
-        $wikiCode = $localeConfig->code;
-        $this->info(sprintf("Syncing wiki Pages to forum %s", $wikiCode));
-
-        // API query to get existing pages having at least 1 keyword
-        // https://wiki.dev.tripleperformance.fr/api.php?action=ask&api_version=3&query=[[-A%20un%20mot-cl%C3%A9::%2B]][[Page%20ID::%2B]]|?Page%20ID%20=%20pageid|limit=5000&format=json
-
-        $query = '[[-A%20un%20mot-clé::+]][[Page%20ID::+]]|?Page%20ID%20=%20pageid|limit=10000';
-
-        $content = $client->ask($query);
-
-        foreach ($content['query']['results'] as $result) {
-
-            $pageResult = array_values($result)[0];
-
-            $wikiPageId = $pageResult['printouts']['pageid'][0] ?? null;
-
-            // Si la page n'est pas suivie par au moins un utilisateur, on ne la traite pas
-            if (
-                null === $wikiPageId
-                || !in_array($wikiPageId, $this->followedPagesIds[$wikiCode])
-            ) {
-                continue;
-            }
-
+        foreach ($pages as $page) {
             $pageName = $pageResult['fulltext'];
             $pageNs = $pageResult['namespace'];
 
