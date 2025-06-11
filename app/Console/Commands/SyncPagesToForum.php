@@ -55,14 +55,12 @@ class SyncPagesToForum extends Command
             ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.discourse_username) AS usernames'))
             ->join('interactions', 'interactions.page_id', '=', 'p.page_id')
             ->join('users', 'interactions.user_id', '=', 'users.id')
-            ->where([
-                ['p.wiki', '=', '?'],
-                ['p.is_tag', '=', '?'],
-                ['interactions.follow', '=', '?']
-            ])
+            ->where('p.wiki', '=', $wikiCode)
+            ->where('p.is_tag', '=', 1)
+            ->where('p.is_tag', '=', 1)
+            ->where('interactions.follow', '=', 1)
             ->whereNotNull('interactions.user_id')
             ->groupBy('p.page_id', 'p.title', 'p.wiki_ns')
-            ->setBindings([$wikiCode, true, true])
         ;
 
         $pages = $eligiblePagesQuery->get();
