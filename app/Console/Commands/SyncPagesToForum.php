@@ -61,7 +61,7 @@ class SyncPagesToForum extends Command
                 ['interactions.follow', '=', '?']
             ])
             ->whereNotNull('interactions.user_id')
-            ->groupBy('p.page_id', 'p.title')
+            ->groupBy('p.page_id', 'p.title', 'p.wiki_ns')
             ->setBindings([$wikiCode, true, true])
         ;
 
@@ -69,42 +69,44 @@ class SyncPagesToForum extends Command
 
         $tagsSubscriptions = [];
         foreach ($pages as $page) {
-            $pageName = $page['title'];
-            $pageNs = $page['wiki_ns'];
+            // Do not process pages without users subscribed
+            if (empty($page->usernames)) {
+                $this->info(sprintf('Skipping page "%s" with namespace %d, no users subscribed', $page->title, $page->wiki_ns));
+                continue;
+            }
 
-            dd($pageName, $pageNs);
+            $pageName = $page->title;
+            $pageNs = $page->wiki_ns;
 
             try {
                 $cleanedPageName = $this->handlePageNamespace($wikiCode, $pageName, $pageNs);
                 $sanitizedPageName = ForumTagHelper::sanitizeTagName($cleanedPageName);
-                $tagsSubscriptions[$sanitizedPageName] = explode(',', $page['usernames']);
+                $tagsSubscriptions[$sanitizedPageName] = explode(',', $page->usernames);
             } catch (Throwable $e) {
                 $this->error(sprintf('Error handling page "%s" with namespace %d : %s', $pageName, $pageNs, $e->getMessage()));
                 continue;
             }
+        }
 
-            dd($tagsSubscriptions);
+        // Update tag group in forum
+        $forumClient->updateTagGroup(
+            $localeConfig->forum_taggroup_themes,
+            array_keys($tagsSubscriptions)
+        );
+        $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tagsSubscriptions)));
 
-            // Update tag group in forum
-            $forumClient->updateTagGroup(
-                $localeConfig->forum_taggroup_themes,
-                array_keys($tagsSubscriptions)
-            );
-            $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tagsSubscriptions)));
-
-            // Inscrire les utilisateurs aux notifs du tag
-            foreach ($tagsSubscriptions as $tagName => $usernames) {
-                foreach ($usernames as $username) {
-                    try {
-                        $forumClient->subscribeTagNotifications($username, $tagName);
-                        $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
-                    } catch (Throwable $e) {
-                        $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
-                    }
+        // Inscrire les utilisateurs aux notifs du tag
+        foreach ($tagsSubscriptions as $tagName => $usernames) {
+            foreach ($usernames as $username) {
+                try {
+                    $forumClient->subscribeTagNotifications($username, $tagName);
+                    $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
+                } catch (Throwable $e) {
+                    $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
                 }
             }
-            $this->info(sprintf('Subscribed %d users to tag %s', count($tagsSubscriptions[$sanitizedPageName]), $sanitizedPageName));
         }
+        $this->info(sprintf('Subscribed %d users to tag %s', count($tagsSubscriptions[$sanitizedPageName]), $sanitizedPageName));
     }
 
     private function handlePageNamespace(string $wikiCode, string $pageName, int $pageNs): string
