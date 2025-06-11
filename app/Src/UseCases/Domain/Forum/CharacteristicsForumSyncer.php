@@ -8,7 +8,6 @@ use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class CharacteristicsForumSyncer
 {
