@@ -42,7 +42,7 @@ class OAuthController extends BaseController
 
         if(isset($user)){
             $wikiUrl = $user->locale()->wiki_url;
-            $user->wiki_token = '';
+            $user->wiki_token = null;
             $user->save();
             Auth::logout();
         }
