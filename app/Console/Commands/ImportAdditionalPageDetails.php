@@ -124,8 +124,6 @@ class ImportAdditionalPageDetails extends Command
         foreach ($pages as $pageItem) {
             $title = key($pageItem);
 
-            dump($title);
-
             $pageModel = PageModel::query()->where('title', $title)->where('wiki', $wikiCode)->first();
             if (!isset($pageModel)) {
                 $this->info('Page not found :  '.$title);

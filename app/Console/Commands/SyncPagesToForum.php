@@ -99,6 +99,9 @@ class SyncPagesToForum extends Command
                 try {
                     $forumClient->subscribeTagNotifications($username, $tagName);
                     $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
+
+                    // Avoid 429 errors (Too many requests)
+                    usleep(500000);
                 } catch (Throwable $e) {
                     $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
                 }
