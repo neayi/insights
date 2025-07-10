@@ -22,6 +22,7 @@ class LocalesConfig extends Model
         'forum_api_key',
         'forum_taggroup_farming',
         'forum_taggroup_cropping',
+        'forum_taggroup_themes',
         'lang_name',
     ];
 

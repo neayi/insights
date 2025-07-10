@@ -13,9 +13,9 @@ class Page
 
     public function __construct(
         private int $pageId,
-        private? string $title = null,
-        private? string $type = null,
-        private? string $icon = null,
+        private ?string $title = null,
+        private ?string $type = null,
+        private ?string $icon = null,
     )
     {
     }

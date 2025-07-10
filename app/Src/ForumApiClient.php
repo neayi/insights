@@ -93,13 +93,16 @@ class ForumApiClient
 
     public function updateTagGroup(int $tagGroupId, array $tagNames): array
     {
-        $result = $this->client->put('tag_groups/' . $tagGroupId . '.json', [
-            'json' => [
-                'tag_group' => [
-                    'tag_names' => array_values($tagNames)
-                ],
-            ]
-        ]);
+        asort($tagNames);
+        $tagNames = array_values(array_unique($tagNames));
+
+        $payload = [
+            'tag_group' => [
+                'tag_names' => $tagNames,
+            ],
+        ];
+
+        $result = $this->client->put('tag_groups/' . $tagGroupId . '.json', ['json' => $payload]);
 
         return json_decode($result->getBody()->getContents(), true);
     }
