@@ -38,7 +38,7 @@ class UpdateMainDataTest  extends TestCase
             'structure',
             'FR',
             '83130',
-            117,
+            34,
             43,
             '83'
         );

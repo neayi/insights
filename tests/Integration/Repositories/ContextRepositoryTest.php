@@ -44,7 +44,7 @@ class ContextRepositoryTest extends TestCase
         $user = new User('abc', 'g@gmail.com', 'f', 'l');
         $this->userRepository->add($user);
 
-        $contextExpected = new Context('abc', [$characteristic->uuid], '', 'sector', 'structure', 'FR', '83220', 117, 43, '83');
+        $contextExpected = new Context('abc', [$characteristic->uuid], '', 'sector', 'structure', 'FR', '83220', 34, 43, '83');
         $this->contextRepository->add($contextExpected, 'abc');
 
         $contextSaved = $this->contextRepository->getByUser('abc');
