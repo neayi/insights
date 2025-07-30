@@ -3,8 +3,9 @@
 
 namespace Tests\Unit\Users\Profile;
 
-
+use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use App\Src\UseCases\Domain\Context\Model\Context;
+use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
@@ -62,7 +63,14 @@ class FillUserWikiProfileTest extends TestCase
         $country = 'FR';
         $postcode = '83130';
         $email = 'e@email.com';
-        $farmingType = [$ft1 = Uuid::uuid4(), $ft2 = Uuid::uuid4()];
+
+        $ft1 = new Characteristic('7c79d79b-4016-4bf3-b0c9-0fcbf8d04987', Characteristic::FARMING_TYPE, 'Farming Type 1');
+        $ft2 = new Characteristic('e269c2d6-149c-4d26-863f-aa9c1fa6e384', Characteristic::FARMING_TYPE, 'Farming Type 2');
+        $characteristicRepository = app(CharacteristicsRepository::class);
+        $characteristicRepository->save($ft1);
+        $characteristicRepository->save($ft2);
+
+        $farmingType = [$ft1->id(), $ft2->id()];
 
         $identityProvider = app(IdentityProvider::class);
         $identityProvider->setId($exploitationId = Uuid::uuid4());

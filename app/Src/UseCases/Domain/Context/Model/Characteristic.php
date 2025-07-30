@@ -20,7 +20,7 @@ class Characteristic
         private string $id,
         private string $type,
         private string $title,
-        private bool $visible,
+        private bool $visible = true,
         private ?int $pageId = null,
         private string $wiki = 'fr',
         private ?string $label = null
