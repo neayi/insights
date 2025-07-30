@@ -74,6 +74,7 @@ class ContextModel extends Model
             $this->postal_code,
             $this->latitude !== null ? (float) $this->latitude : null,
             $this->longitude !== null ? (float) $this->longitude : null,
+            $this->department_number,
         );
     }
 }
