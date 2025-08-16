@@ -7,7 +7,6 @@ namespace App\Console\Commands;
 use App\LocalesConfig;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
 use App\Src\WikiClient;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 
 class ImportAllPagesFromWiki extends Command
@@ -28,36 +27,6 @@ class ImportAllPagesFromWiki extends Command
                 $this->error(sprintf('Error importing pages from wiki %s: %s', $localeConfig->code, $e->getMessage()));
             }
         }
-    }
-
-    private function handlePages(array $pages, string $wikiCode, string $wikiUrl): void
-    {
-        $this->info(sprintf('Process wiki %s - %s Pages', $wikiCode, $count = count($pages)));
-
-        foreach ($pages as $page) {
-            $pageModel = PageModel::query()
-                ->where('page_id', $page['pageid'])
-                ->where('wiki', $wikiCode)
-                ->first();
-
-            if (!isset($pageModel)) {
-                $pageModel = new PageModel();
-            }
-
-            $pageModel->page_id = $page['pageid'];
-            $pageModel->title = $page['title'];
-            $pageModel->wiki = $wikiCode;
-
-            if ($page['pageimage'] ?? false) {
-                $pageModel->picture = sprintf('%s/wiki/Special:FilePath/File:%s', $wikiUrl, urlencode($page['pageimage']));
-            } else {
-                $pageModel->picture = null;
-            }
-
-            $pageModel->save();
-        }
-
-        $this->info(sprintf('End process %s Pages', $count));
     }
 
     private function handleImport(mixed $localeConfig): void
@@ -90,5 +59,36 @@ class ImportAllPagesFromWiki extends Command
                 $continue = $content['continue']['gapcontinue'] ?? null;
             }
         }
+    }
+
+    private function handlePages(array $pages, string $wikiCode, string $wikiUrl): void
+    {
+        $this->info(sprintf('Process wiki %s - %s Pages', $wikiCode, $count = count($pages)));
+
+        foreach ($pages as $page) {
+            $pageModel = PageModel::query()
+                ->where('page_id', $page['pageid'])
+                ->where('wiki', $wikiCode)
+                ->first();
+
+            if (!isset($pageModel)) {
+                $pageModel = new PageModel();
+            }
+
+            $pageModel->page_id = $page['pageid'];
+            $pageModel->title = $page['title'];
+            $pageModel->wiki = $wikiCode;
+            $pageModel->wiki_ns = $page['ns'];
+
+            if ($page['pageimage'] ?? false) {
+                $pageModel->picture = sprintf('%s/wiki/Special:FilePath/File:%s', $wikiUrl, urlencode($page['pageimage']));
+            } else {
+                $pageModel->picture = null;
+            }
+
+            $pageModel->save();
+        }
+
+        $this->info(sprintf('End process %s Pages', $count));
     }
 }
