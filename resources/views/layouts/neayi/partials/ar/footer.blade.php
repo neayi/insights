@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="زراعة الكروم">زراعة الكروم</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="زراعة الأشجار">زراعة الأشجار</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="البستنة التسويقية">البستنة التسويقية</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="النباتات العطرية والطبية">النباتات العطرية والطبية</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

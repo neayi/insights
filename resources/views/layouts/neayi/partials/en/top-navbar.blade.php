@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Viticulture">Viticulture</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Market gardening">Market gardening</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="MAP">MAP</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Search for farms">Search for farms</a>
 

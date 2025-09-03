@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Uprawa winorośli">Uprawa winorośli</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Uprawa drzew">Uprawa drzew</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Ogrodnictwo targowe">Ogrodnictwo targowe</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="RLA">RLA</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

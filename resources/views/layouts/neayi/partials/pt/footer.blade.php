@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Viticultura">Viticultura</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboricultura">Arboricultura</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Horticultura de mercado">Horticultura de mercado</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="PAM">PAM</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

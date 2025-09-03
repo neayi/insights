@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Szőlőtermesztés">Szőlőtermesztés</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Faiskola">Faiskola</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Zöldségtermesztés">Zöldségtermesztés</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="Gyógy- és aromanövények">Gyógy- és aromanövények</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

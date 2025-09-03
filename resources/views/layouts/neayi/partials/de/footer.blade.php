@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Weinbau">Weinbau</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Baumzucht">Baumzucht</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Gärtnern">Gärtnern</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="ADG-Pflanzen">ADG-Pflanzen</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

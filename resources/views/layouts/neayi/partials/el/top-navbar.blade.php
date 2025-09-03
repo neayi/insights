@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Αμπελουργία">Αμπελουργία</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Δενδροκομία">Δενδροκομία</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Εμποροκηπευτική">Εμποροκηπευτική</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="ΑΦΦ">ΑΦΦ</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Αναζήτηση για αγροκτήματα">Αναζήτηση για αγροκτήματα</a>
 

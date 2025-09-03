@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Αμπελουργία">Αμπελουργία</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Δενδροκομία">Δενδροκομία</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Εμποροκηπευτική">Εμποροκηπευτική</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="ΑΦΦ">ΑΦΦ</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

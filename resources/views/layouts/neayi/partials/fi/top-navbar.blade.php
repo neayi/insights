@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Viininviljely">Viininviljely</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Puutarhaviljely">Puutarhaviljely</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Kauppapuutarhanhoito">Kauppapuutarhanhoito</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Lääkekasvit ja Aromikasvit">Lääkekasvit ja Aromikasvit</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Etsi maatiloja">Etsi maatiloja</a>
 

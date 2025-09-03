@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Uprawa winorośli">Uprawa winorośli</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Uprawa drzew">Uprawa drzew</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Ogrodnictwo targowe">Ogrodnictwo targowe</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="RLA">RLA</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Wyszukaj gospodarstwa">Wyszukaj gospodarstwa</a>
 

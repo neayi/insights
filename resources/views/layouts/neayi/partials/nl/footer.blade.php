@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Wijnbouw">Wijnbouw</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Boomkwekerij">Boomkwekerij</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Tuinieren">Tuinieren</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="GAP">GAP</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

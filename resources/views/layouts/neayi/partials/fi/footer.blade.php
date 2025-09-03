@@ -32,7 +32,7 @@
 <li><a href="{{$wikiUrl}}/wiki/Viticulture" title="Viininviljely">Viininviljely</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Arboriculture" title="Puutarhaviljely">Puutarhaviljely</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Maraîchage" title="Kauppapuutarhanhoito">Kauppapuutarhanhoito</a></li>
-<li><a href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a></li>
+<li><a href="{{$wikiUrl}}/wiki/PPAM" title="Lääkekasvit ja Aromikasvit">Lääkekasvit ja Aromikasvit</a></li>
 </ul>
 </div>
 <div class="col-xl-2 col-lg-6">

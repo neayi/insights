@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="زراعة الكروم">زراعة الكروم</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="زراعة الأشجار">زراعة الأشجار</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="البستنة التسويقية">البستنة التسويقية</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="النباتات العطرية والطبية">النباتات العطرية والطبية</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="البحث عن المزارع">البحث عن المزارع</a>
 

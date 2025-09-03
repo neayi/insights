@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Wijnbouw">Wijnbouw</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Boomkwekerij">Boomkwekerij</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Tuinieren">Tuinieren</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="GAP">GAP</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Zoeken naar boerderijen">Zoeken naar boerderijen</a>
 

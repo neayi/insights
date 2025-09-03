@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Viticoltura">Viticoltura</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboricoltura">Arboricoltura</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Orticoltura">Orticoltura</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PMAP">PMAP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="POA">POA</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Cerca fattorie">Cerca fattorie</a>
 

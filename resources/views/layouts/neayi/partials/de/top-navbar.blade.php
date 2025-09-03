@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Weinbau">Weinbau</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Baumzucht">Baumzucht</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Gärtnern">Gärtnern</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="HMP">HMP</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="ADG-Pflanzen">ADG-Pflanzen</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Suche nach Bauernhöfen">Suche nach Bauernhöfen</a>
 

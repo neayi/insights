@@ -14,7 +14,7 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Viticulture" title="Szőlőtermesztés">Szőlőtermesztés</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Faiskola">Faiskola</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Zöldségtermesztés">Zöldségtermesztés</a>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Hmp">Hmp</a>
+<a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Gyógy- és aromanövények">Gyógy- és aromanövények</a>
 <div class="dropdown-divider"></div>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Farmok keresése">Farmok keresése</a>
 
