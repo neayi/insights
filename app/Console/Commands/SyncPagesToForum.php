@@ -57,7 +57,6 @@ class SyncPagesToForum extends Command
             ->join('users', 'interactions.user_id', '=', 'users.id')
             ->where('p.wiki', '=', $wikiCode)
             ->where('p.is_tag', '=', 1)
-            ->where('p.is_tag', '=', 1)
             ->where('interactions.follow', '=', 1)
             ->whereNotNull('interactions.user_id')
             ->groupBy('p.page_id', 'p.title', 'p.wiki_ns')
