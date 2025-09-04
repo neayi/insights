@@ -145,7 +145,7 @@ class ForumApiClient
         $userData = json_decode($result->getBody()->getContents(), true);
         usleep(500000);
 
-        return $userData['user']['tracked'] ?? [];
+        return $userData['user']['tracked_tags'] ?? [];
     }
   
 }
