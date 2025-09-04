@@ -26,6 +26,7 @@ class ForumApiClient
     public function getUserByUsername(string $username): array
     {
         $response = $this->client->get('search.json?q=order:latest @'.$username);
+        usleep(500000);
 
         return json_decode($response->getBody()->getContents(), true);
     }
@@ -33,6 +34,7 @@ class ForumApiClient
     public function getUserByEmail(string $email): array
     {
         $response = $this->client->get('/admin/users/list/active.json?filter=' . $email . '&show_emails=true&order=&ascending=&page=1');
+        usleep(500000);
 
         return json_decode($response->getBody()->getContents(), true);
     }
@@ -40,6 +42,7 @@ class ForumApiClient
     public function getUserByInsightId(int $id): array
     {
         $result = $this->client->get('u/by-external/' . $id . '.json');
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -51,6 +54,7 @@ class ForumApiClient
                 'email' => $email,
             ]
         ]);
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -64,6 +68,7 @@ class ForumApiClient
                 'bio_raw' => $bio,
             ]
         ]);
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -80,6 +85,7 @@ class ForumApiClient
                 'approved'=> true
             ]
         ]);
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -87,6 +93,7 @@ class ForumApiClient
     public function getTagGroup(int $tagGroupId): array
     {
         $result = $this->client->get('tag_groups/' . $tagGroupId . '.json');
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -103,6 +110,7 @@ class ForumApiClient
         ];
 
         $result = $this->client->put('tag_groups/' . $tagGroupId . '.json', ['json' => $payload]);
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
@@ -123,7 +131,21 @@ class ForumApiClient
                 ]
             ]
         );
+        usleep(500000);
 
         return json_decode($result->getBody()->getContents(), true);
     }
+
+    public function getFollowedTagsForUser(string $username): array
+    {
+        $result = $this->client->get(
+            'u/' . urlencode($username) . '.json'
+        );
+
+        $userData = json_decode($result->getBody()->getContents(), true);
+        usleep(500000);
+
+        return $userData['user']['tracked'] ?? [];
+    }
+  
 }

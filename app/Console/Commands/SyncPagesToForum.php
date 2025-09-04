@@ -7,7 +7,7 @@ namespace App\Console\Commands;
 use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Forum\ForumTagHelper;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
 use RuntimeException;
 use Throwable;
@@ -58,13 +58,16 @@ class SyncPagesToForum extends Command
             ->where('p.wiki', '=', $wikiCode)
             ->where('p.is_tag', '=', 1)
             ->where('interactions.follow', '=', 1)
+            ->where(DB::raw('CHAR_LENGTH(p.title)'), '<', 25)
             ->whereNotNull('interactions.user_id')
             ->groupBy('p.page_id', 'p.title', 'p.wiki_ns')
         ;
 
         $pages = $eligiblePagesQuery->get();
 
-        $tagsSubscriptions = [];
+        $tagsSubscriptionsForUsers = [];
+        $tags = [];
+
         foreach ($pages as $page) {
             // Do not process pages without users subscribed
             if (empty($page->usernames)) {
@@ -76,9 +79,13 @@ class SyncPagesToForum extends Command
             $pageNs = $page->wiki_ns;
 
             try {
-                $cleanedPageName = $this->handlePageNamespace($wikiCode, $pageName, $pageNs);
+                $cleanedPageName = $this->removeNamespace($pageName, $pageNs);
                 $sanitizedPageName = ForumTagHelper::sanitizeTagName($cleanedPageName);
-                $tagsSubscriptions[$sanitizedPageName] = explode(',', $page->usernames);
+                $tags[$sanitizedPageName] = $sanitizedPageName;
+
+                foreach (explode(',', $page->usernames) as $username) {
+                    $tagsSubscriptionsForUsers[$username][] = $sanitizedPageName;
+                }
             } catch (Throwable $e) {
                 $this->error(sprintf('Error handling page "%s" with namespace %d : %s', $pageName, $pageNs, $e->getMessage()));
                 continue;
@@ -86,59 +93,51 @@ class SyncPagesToForum extends Command
         }
 
         // Update tag group in forum
-        $forumClient->updateTagGroup(
-            $localeConfig->forum_taggroup_themes,
-            array_keys($tagsSubscriptions)
-        );
-        $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tagsSubscriptions)));
+        $forumClient->updateTagGroup($localeConfig->forum_taggroup_themes, $tags);
+
+        $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tags)));
 
         // Inscrire les utilisateurs aux notifs du tag
-        foreach ($tagsSubscriptions as $tagName => $usernames) {
-            foreach ($usernames as $username) {
+        $subscriptionsDone = 0;
+        foreach ($tagsSubscriptionsForUsers as $username => $tags) {
+            try {
+                $currentlyFollowedTags = $forumClient->getFollowedTagsForUser($username);
+            } catch (Throwable $e) {
+                $this->error(sprintf('Error fetching followed tags for user %s: %s', $username, $e->getMessage()));
+                continue;
+            }
+
+            foreach ($tags as $tagName) {
+                if (in_array($tagName, $currentlyFollowedTags, true)) {
+                    $this->info(sprintf('User %s is already subscribed to tag %s, skipping', $username, $tagName));
+                    continue;
+                }
+
                 try {
                     $forumClient->subscribeTagNotifications($username, $tagName);
+                    $subscriptionsDone++;
                     $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
-
-                    // Avoid 429 errors (Too many requests)
-                    usleep(500000);
                 } catch (Throwable $e) {
                     $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
                 }
             }
         }
-        $this->info(sprintf('Subscribed %d users to tag %s', count($tagsSubscriptions[$sanitizedPageName]), $sanitizedPageName));
+
+        $this->info(sprintf('Made %d subscriptions', $subscriptionsDone));
     }
 
-    private function handlePageNamespace(string $wikiCode, string $pageName, int $pageNs): string
+    /**
+     * Remove the namespace from the page name based on the namespace ID.
+     */
+    private function removeNamespace(string $pageName, int $pageNs): string
     {
         switch ($pageNs) {
-            // Main
-            case 0:
+            case 0: // No namespace
                 return $pageName;
-            // Catégorie/Category/Kategorie
-            case 14:
-                switch ($wikiCode) {
-                    case 'fr':
-                        $prefixLength = 10;
-                        break;
-                    case 'en':
-                        $prefixLength = 9;
-                        break;
-                    case 'de':
-                        $prefixLength = 10;
-                        break;
-                    default:
-                        throw new RuntimeException(
-                            sprintf(
-                                'Unhandled wiki code %s for namespace %d and page name "%s"',
-                                $wikiCode, $pageNs, $pageName
-                            )
-                        );
-                        break;
-                }
-                return mb_substr($pageName, $prefixLength);
+
             default:
-                throw new RuntimeException(sprintf('Unhandled namespace %d for page name "%s"', $pageNs, $pageName));
+                $indexOfColon = strpos($pageName, ':');
+                return $indexOfColon !== false ? mb_substr($pageName, $indexOfColon) : $pageName;
         }
     }
 }

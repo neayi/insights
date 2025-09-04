@@ -50,7 +50,8 @@ class SyncUsersDiscourse extends Command
     private function processOneUser(array $clients, User $user)
     {
         try {
-            $this->forumApiClient = $clients[$user->wiki];
+            $this->forumApiClient = $clients['fr']; // Only create users on the French forum
+
             Log::info('Discourse Syncing user : '.$user->uuid);
             if (!isset($user->discourse_id)) {
                 $this->createUserOnDiscourse($user);
@@ -84,7 +85,15 @@ class SyncUsersDiscourse extends Command
         $result = $this->forumApiClient->createUser($username, $user);
         if($result['success'] === false){
             if (!empty($result['errors']['email'])) {
-                return $this->updateUsernameFromDiscourse($user);
+                $discourseUser = $this->findUserByIdOrEmail($user);
+                if ($discourseUser) {
+                    // The user already exists, we can update it:
+                    return $this->updateUsernameFromDiscourse($discourseUser, $user);
+                }
+                else {
+                    $increment++;
+                    return $this->createUserOnDiscourse($user, $increment);
+                } 
             }
 
             if (!empty($result['errors']['username'][0]) &&
@@ -109,53 +118,74 @@ class SyncUsersDiscourse extends Command
      *
      * Return the user_id on success, throw an exception otherwise
      */
-    private function updateUsernameFromDiscourse(User $user)
+    private function updateUsernameFromDiscourse(Array $discourseUser, User $user)
     {
-        try {
-            $result = $this->forumApiClient->getUserByInsightId($user->id);
-        } catch (\Throwable $th) {
-            if ($th->getCode() == 404) {
-                return $this->updateUsernameFromDiscourseWithEmail($user);
-            }
-
-            throw $th;
-        }
-
-        if(empty($result['user'])){
-            throw new \Exception('Duplicate email not corresponding to existing user');
-        }
-        $user->discourse_id = $result['user']['id'];
-        $user->discourse_username = $result['user']['username'];
+        $user->discourse_id = $discourseUser['id'];
+        $user->discourse_username = $discourseUser['username'];
         $user->save();
 
         $this->info('User was already created on discourse with id : '.$user->discourse_id);
 
-        return $result['user']['id'];
+        return $discourseUser['id'];
     }
 
     /**
-     * Let's assume the user already exists on Discourse, lets ask for the username and discourse id
-     * If found, we store it in our DB
-     *
-     * Not as robust than updateUsernameFromDiscourse but works pretty well anyhow
-     *
-     * Return the user_id on success, throw an exception otherwise
+     * Try to find a discourse user using the Insights ID or the email
      */
-    private function updateUsernameFromDiscourseWithEmail(User $user)
-    {
-        $result = $this->forumApiClient->getUserByEmail($user->email);
-
-        if(empty($result[0]['email']) || strtolower($result[0]['email']) != strtolower($user->email)){
-            throw new \Exception('Duplicate email not corresponding to existing user');
+    private function findUserByIdOrEmail(User $user) {
+        try {
+            $result = $this->forumApiClient->getUserByInsightId($user->id);
+            if (!empty($result[0])) {
+                return $result[0];
+            }
+        } 
+        catch (\Throwable $e){
+            if ($e->getCode() === 404) {
+                // do nothing
+            } else {
+                $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                $this->error($message);
+                \Sentry\captureException($e);
+            }
         }
 
-        $user->discourse_id = $result[0]['id'];
-        $user->discourse_username = $result[0]['username'];
-        $user->save();
+        $userEmail = $user->email;
+        try {
+            $result = $this->forumApiClient->getUserByEmail($userEmail);
+            if (!empty($result[0])) {
+                return $result[0];
+            }
+        } 
+        catch (\Throwable $e){
+            if ($e->getCode() === 404) {
+                // do nothing
+            } else {
+                $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                $this->error($message);
+                \Sentry\captureException($e);
+            }
+        }
 
-        $this->info('User was already created on discourse with id : '.$user->discourse_id);
+        // Replace @ with %@ in order to get also people with non normalized emails
+        // See https://meta.discourse.org/t/enabling-e-mail-normalization-by-default/338641?tl=fr
+        $userEmail = str_replace('@', '+%@', $userEmail);
+        try {
+            $result = $this->forumApiClient->getUserByEmail($userEmail);
+            if (!empty($result[0])) {
+                return $result[0];
+            }
+        } 
+        catch (\Throwable $e){
+            if ($e->getCode() === 404) {
+                // do nothing
+            } else {
+                $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
+                $this->error($message);
+                \Sentry\captureException($e);
+            }
+        }
 
-        return $result[0]['id'];
+        return false;
     }
 
     private function updateUserEmailOnDiscourse(User $user)
