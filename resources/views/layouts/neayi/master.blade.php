@@ -24,7 +24,7 @@
 
             if (!empty($currentUser)) {
                 $wikiUrl = $currentUser->locale()->wiki_url;
-                $lang = $currentUser->wiki;
+                $lang = $currentUser->default_locale;
             }
             else
             {
