@@ -13,43 +13,20 @@ use App\Src\UseCases\Domain\Users\UserDto;
 
 class User
 {
-    private $id;
-    private $email;
-    private $lastname;
-    private $firstname;
-    private $organizationId;
-    private $pathPicture;
-    private $roles;
-    private $providers;
-    private $discourse_id;
-    private $discourse_username;
-    private $wiki;
-
-    public function __construct(
-        string $id,
-        string $email,
-        string $firstname,
-        string $lastname,
-        string $organizationId = null,
-        string $pathPicture = null,
-        array $roles = [],
-        array $providers = [],
-        ?string $discourse_id = '',
-        ?string $discourse_username = '',
-        string $wiki = 'fr',
+    public function __construct (
+        private string $id,
+        private string $email,
+        private string $firstname,
+        private string $lastname,
+        private ?string $organizationId = null,
+        private ?string $pathPicture = null,
+        private array $roles = [],
+        private array $providers = [],
+        private ?string $discourse_id = null,
+        private ?string $discourse_username = null,
+        private string $default_locale = 'fr',
     )
     {
-        $this->id = $id;
-        $this->email = $email;
-        $this->lastname = $lastname;
-        $this->firstname = $firstname;
-        $this->organizationId = $organizationId;
-        $this->pathPicture = $pathPicture;
-        $this->roles = $roles;
-        $this->providers = $providers;
-        $this->discourse_id = $discourse_id;
-        $this->discourse_username = $discourse_username;
-        $this->wiki = $wiki;
     }
 
     public function email():string
@@ -72,9 +49,9 @@ class User
         return $this->organizationId;
     }
 
-    public function wiki(): string
+    public function defaultLocale(): string
     {
-        return $this->wiki;
+        return $this->default_locale;
     }
 
     public function provider(string $provider, string $providerId):bool

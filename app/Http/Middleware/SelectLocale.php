@@ -17,7 +17,7 @@ class SelectLocale
         app()->setLocale($locale->code);
         $user = Auth::user();
         if (!empty($user)) {
-            $locale = $user->wiki;
+            $locale = $user->default_locale;
             app()->setLocale($locale);
         }
 

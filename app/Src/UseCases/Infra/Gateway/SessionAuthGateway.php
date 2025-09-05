@@ -31,7 +31,7 @@ class SessionAuthGateway implements AuthGateway
             $userModel->providers,
             $userModel->discourse_id,
             $userModel->discourse_username,
-            $userModel->wiki
+            $userModel->default_locale
         );
     }
 

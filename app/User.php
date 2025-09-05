@@ -6,7 +6,6 @@ use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -178,18 +177,6 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         );
     }
 
-    public function askDiscourseSync()
-    {
-        $sync = UserSyncDiscourseModel::query()->where('user_id', $this->id)->first();
-        if(!isset($sync)){
-            $sync = new UserSyncDiscourseModel();
-            $sync->user_id = $this->id;
-            $sync->uuid = $this->uuid;
-        }
-        $sync->sync = false;
-        $sync->save();
-    }
-
     /** Deprecated - please use locale()->wiki_url */
     public function wikiUrl():string
     {
@@ -198,7 +185,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function locale():LocalesConfig
     {
-        return LocalesConfig::query()->where('code', $this->wiki)->first();
+        return LocalesConfig::query()->where('code', $this->default_locale)->first();
     }
 
     public function profileUrl():string
