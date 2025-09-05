@@ -185,7 +185,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function locale():LocalesConfig
     {
-        return LocalesConfig::query()->where('code', $this->wiki)->first();
+        return LocalesConfig::query()->where('code', $this->default_locale)->first();
     }
 
     public function profileUrl():string
