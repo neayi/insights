@@ -5,6 +5,7 @@ namespace App;
 use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
+use App\Src\UseCases\Infra\Sql\Model\DiscourseProfileModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -144,6 +145,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->hasOne(ContextModel::class, 'id', 'context_id');
     }
 
+    public function discourseProfiles()
+    {
+        return $this->hasMany(DiscourseProfileModel::class, 'user_id', 'id');
+    }
+
     public function addCharacteristics(array $characteristics)
     {
         foreach($characteristics as $characteristicUuid){
@@ -172,7 +178,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             $this->uuid,
             $this->firstname,
             $this->lastname,
-            $this->discourse_username,
+            // $this->discourse_username,
             $this->path_picture === null
         );
     }

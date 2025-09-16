@@ -22,8 +22,8 @@ class User
         private ?string $pathPicture = null,
         private array $roles = [],
         private array $providers = [],
-        private ?string $discourse_id = null,
-        private ?string $discourse_username = null,
+        // private ?string $discourse_id = null,
+        // private ?string $discourse_username = null,
         private string $default_locale = 'fr',
     )
     {
@@ -62,10 +62,10 @@ class User
         return false;
     }
 
-    public function discourse_username():string
-    {
-        return $this->discourse_username;
-    }
+    // public function discourse_username():string
+    // {
+    //     return $this->discourse_username;
+    // }
 
     public function addProvider(string $provider, string $providerId)
     {
