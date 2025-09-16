@@ -40,7 +40,7 @@ class ProfileController extends Controller
         GetAllCharacteristics $getAllCharacteristics
     )
     {
-        $wikiCode = Auth::user()->wiki;
+        $wikiCode = Auth::user()->default_locale;
         $allCharacteristics = $getAllCharacteristics->get($wikiCode);
 
         try {
@@ -87,11 +87,11 @@ class ProfileController extends Controller
         ServiceConfigs $localesServiceConfigs
     )
     {
-        // Check that the $userId is a valid guid: 
+        // Check that the $userId is a valid guid:
         if (!Uuid::isValid($userId)) {
             return null;
         }
-        
+
         $user = $getUser->get($userId)->toArray();
         $contextRepo = $contextQueryByUser->execute($userId);
 
