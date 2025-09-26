@@ -59,9 +59,9 @@ class ForumApiClient
         return json_decode($result->getBody()->getContents(), true);
     }
 
-    public function updateUser(User $user, string $bio): array
+    public function updateUser(string $discourseUsername, User $user, string $bio): array
     {
-        $result = $this->client->put('u/' . $user->discourse_username . '.json', [
+        $result = $this->client->put('u/' . $discourseUsername . '.json', [
             'json' => [
                 'name' => $user->fullname,
                 'title' => $user->title,
@@ -147,5 +147,5 @@ class ForumApiClient
 
         return $userData['user']['tracked_tags'] ?? [];
     }
-  
+
 }

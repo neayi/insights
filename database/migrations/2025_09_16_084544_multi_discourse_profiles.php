@@ -13,13 +13,17 @@ return new class extends Migration
         // Creates table for Discourse profiles
         DB::statement(<<<SQL
             CREATE TABLE `discourse_profiles` (
+                `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
                 `user_id` bigint(20) UNSIGNED NOT NULL,
                 `locale` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
                 `ext_id` int(10) UNSIGNED NOT NULL,
                 `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                 `synced_at` timestamp NULL DEFAULT NULL,
                 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+                `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `unique_user_locale` (`user_id`, `locale`),
+                UNIQUE KEY `unique_ext_locale` (`ext_id`, `locale`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         SQL);
 
