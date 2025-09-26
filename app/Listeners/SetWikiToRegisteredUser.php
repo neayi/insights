@@ -12,9 +12,9 @@ class SetWikiToRegisteredUser
     public function handle(Registered $event)
     {
         $user = $event->user;
-        if (empty($user->wiki)) {
+        if (empty($user->default_locale)) {
             $locale = LocalesConfig::getPreferredLocale();
-            $user->wiki = $locale->code;
+            $user->default_locale = $locale->code;
             $user->save();
         }
     }
