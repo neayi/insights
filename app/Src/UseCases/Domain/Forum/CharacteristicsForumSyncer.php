@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Log;
 
 class CharacteristicsForumSyncer
 {
-    /** array<string, {client: ForumApiClient}> */
+    /**
+     * @var array<string, {client: ForumApiClient, characteristics_taggroups: array<string, int>}>
+     */
     private array $syncerConfig = [];
 
     /**
