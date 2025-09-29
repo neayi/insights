@@ -5,8 +5,8 @@ namespace App;
 use App\Src\UseCases\Domain\Context\Dto\UserDto;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\Src\UseCases\Infra\Sql\Model\ContextModel;
+use App\Src\UseCases\Infra\Sql\Model\DiscourseProfileModel;
 use App\Src\UseCases\Infra\Sql\Model\UserCharacteristicsModel;
-use App\Src\UseCases\Infra\Sql\Model\UserSyncDiscourseModel;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,7 +22,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens, HasFactory;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"
+        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', 'path_picture', 'providers'
     ];
 
     protected $hidden = [
@@ -145,6 +145,11 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         return $this->hasOne(ContextModel::class, 'id', 'context_id');
     }
 
+    public function discourseProfiles()
+    {
+        return $this->hasMany(DiscourseProfileModel::class, 'user_id', 'id');
+    }
+
     public function addCharacteristics(array $characteristics)
     {
         foreach($characteristics as $characteristicUuid){
@@ -173,21 +178,9 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             $this->uuid,
             $this->firstname,
             $this->lastname,
-            $this->discourse_username,
+            // $this->discourse_username,
             $this->path_picture === null
         );
-    }
-
-    public function askDiscourseSync()
-    {
-        $sync = UserSyncDiscourseModel::query()->where('user_id', $this->id)->first();
-        if(!isset($sync)){
-            $sync = new UserSyncDiscourseModel();
-            $sync->user_id = $this->id;
-            $sync->uuid = $this->uuid;
-        }
-        $sync->sync = false;
-        $sync->save();
     }
 
     /** Deprecated - please use locale()->wiki_url */
@@ -198,7 +191,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function locale():LocalesConfig
     {
-        return LocalesConfig::query()->where('code', $this->wiki)->first();
+        return LocalesConfig::query()->where('code', $this->default_locale)->first();
     }
 
     public function profileUrl():string
