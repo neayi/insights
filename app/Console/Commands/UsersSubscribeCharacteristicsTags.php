@@ -34,12 +34,14 @@ class UsersSubscribeCharacteristicsTags extends Command
         // Get eligible users (subscribed to Discourse + having 1+ characteristics)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $usersInfosQuery = DB::table('users', 'u')
-            ->select('u.discourse_username', 'u.default_locale')
+            ->select('u.default_locale')
+            ->addSelect('discourse_profiles.username AS discourse_username', 'discourse_profiles.locale AS discourse_locale')
             ->addSelect('characteristics.code AS char_title', 'characteristics.pretty_page_label AS char_label')
             ->join('user_characteristics', 'user_characteristics.user_id', '=', 'u.id')
             ->join('characteristics', 'characteristics.id', '=', 'user_characteristics.characteristic_id')
-            ->whereNotNull('u.discourse_id')
-            ->where('u.discourse_username', '!=', '')
+            ->join('discourse_profiles', 'discourse_profiles.user_id', '=', 'u.id')
+            ->whereNotNull('discourse_profiles.ext_id')
+            ->where('discourse_profiles.username', '!=', '')
             ->whereIn('characteristics.type', [Characteristic::FARMING_TYPE, Characteristic::CROPPING_SYSTEM])
             ->where('user_characteristics.created_at', '>=', $dateThreshold->format('Y-m-d H:i:s'))
         ;
@@ -49,7 +51,7 @@ class UsersSubscribeCharacteristicsTags extends Command
         foreach ($users->all() as $user) {
             $forumSyncer->subscribeCharacteristicTagNotifications(
                 $user->discourse_username,
-                $user->default_locale,
+                $user->discourse_locale,
                 $user->char_label ?? $user->char_title
             );
         }

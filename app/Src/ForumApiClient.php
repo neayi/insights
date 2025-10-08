@@ -47,8 +47,13 @@ class ForumApiClient
         return json_decode($result->getBody()->getContents(), true);
     }
 
+    /**
+     * Using API to change email is not possible when SSO DiscourseConnect is enabled.
+     */
     public function updateEmail(string $username, string $email): array
     {
+        throw new \RuntimeException('Updating email via API is not possible when SSO DiscourseConnect is enabled.');
+
         $result = $this->client->put('u/' . $username . '/preferences/email.json', [
             'json' => [
                 'email' => $email,

@@ -61,7 +61,7 @@ class SyncUsersDiscourse extends Command
 
         foreach ($user->discourseProfiles()->get() as $discourseProfile) {
             try {
-                $this->updateUserEmailOnDiscourse($discourseProfile->locale, $discourseProfile->username, $user);
+                $this->updateUserEmailOnDiscourse($discourseProfile->locale, $discourseProfile->username, $user->email);
                 $this->updateUserDetailsOnDiscourse($discourseProfile->locale, $discourseProfile->username, $user);
                 $discourseProfile->synced_at = (new \DateTime())->format('Y-m-d H:i:s');
 
@@ -74,21 +74,27 @@ class SyncUsersDiscourse extends Command
                 } else {
                     $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
                     $this->error($message);
+                    echo $e->getTraceAsString().PHP_EOL;
                     \Sentry\captureException($e);
                 }
             }
         }
     }
 
-    private function updateUserEmailOnDiscourse(string $locale, string $discourseUsername, User $user)
+    private function updateUserEmailOnDiscourse(string $locale, string $discourseUsername, string $userEmail)
     {
         try {
-            $this->forumApiClients[$locale]->updateEmail($discourseUsername, $user->email);
-        }catch (\Throwable $e){
-            $this->error('User email not updated on discourse with id : '.$discourseUsername);
-        }
+            $result = $this->forumApiClients[$locale]->updateEmail($discourseUsername, $userEmail);
 
-        $this->info('User email updated on discourse with id : '.$discourseUsername);
+            if($result['success'] === false) {
+                $this->error('Not Updated email : '.$result['message']);
+                throw new \Exception($result['message']);
+            }
+
+            $this->info('Updated email with id : '.$discourseUsername);
+        } catch (\RuntimeException $e) {
+            $this->info('Updating user is temporary disabled');
+        }
     }
 
     private function updateUserDetailsOnDiscourse(string $locale, string $discourseUsername, User $user)
@@ -101,10 +107,10 @@ class SyncUsersDiscourse extends Command
         $result = $this->forumApiClients[$locale]->updateUser($discourseUsername, $user, $newBio);
 
         if($result['success'] === false){
-            $this->error('Not Updating bio : '.$result['message']);
+            $this->error('Not Updated bio : '.$result['message']);
             throw new \Exception($result['message']);
         }
 
-        $this->info('Updating bio with id : '.$discourseUsername);
+        $this->info('Updated bio with id : '.$discourseUsername);
     }
 }
