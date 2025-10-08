@@ -14,7 +14,6 @@
 **/node_modules/
 /vendor/
 
-/storage/framework/public/organizations/*
 /storage/framework/public/users/*
 /storage/framework/cache/data/*
 /storage/framework/sessions/*

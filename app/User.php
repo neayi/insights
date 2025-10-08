@@ -22,7 +22,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     use Notifiable, HasRoles, MustVerifyEmail, HasApiTokens, HasFactory;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'uuid', 'organization_id', "path_picture", "providers"
+        'firstname', 'lastname', 'email', 'password', 'uuid', "path_picture", "providers"
     ];
 
     protected $hidden = [
