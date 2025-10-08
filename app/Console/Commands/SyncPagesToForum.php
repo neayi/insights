@@ -7,9 +7,9 @@ namespace App\Console\Commands;
 use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Forum\ForumTagHelper;
+use App\Src\UseCases\Domain\Forum\ForumUserProvisioner;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
-use RuntimeException;
 use Throwable;
 
 class SyncPagesToForum extends Command
@@ -18,9 +18,17 @@ class SyncPagesToForum extends Command
 
     protected $description = 'Create forum tags for eligible wiki pages';
 
-    public function handle(): void
+    private ForumUserProvisioner $forumUserProvisioner;
+
+    private int $doneSubscriptions = 0;
+
+    public function handle(ForumUserProvisioner $forumUserProvisioner): void
     {
+        $this->forumUserProvisioner = $forumUserProvisioner;
+
         $localesConfig = LocalesConfig::all();
+
+        $this->doneSubscriptions = 0;
 
         foreach ($localesConfig as $localeConfig) {
             if (!$localeConfig->forum_taggroup_themes) {
@@ -52,7 +60,7 @@ class SyncPagesToForum extends Command
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $eligiblePagesQuery = DB::table('pages', 'p')
-            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.discourse_username) AS usernames'))
+            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.uuid) AS user_ids'))
             ->join('interactions', 'interactions.page_id', '=', 'p.page_id')
             ->join('users', 'interactions.user_id', '=', 'users.id')
             ->where('p.wiki', '=', $wikiCode)
@@ -70,7 +78,7 @@ class SyncPagesToForum extends Command
 
         foreach ($pages as $page) {
             // Do not process pages without users subscribed
-            if (empty($page->usernames)) {
+            if (empty($page->user_ids)) {
                 $this->info(sprintf('Skipping page "%s" with namespace %d, no users subscribed', $page->title, $page->wiki_ns));
                 continue;
             }
@@ -83,8 +91,8 @@ class SyncPagesToForum extends Command
                 $sanitizedPageName = ForumTagHelper::sanitizeTagName($cleanedPageName);
                 $tags[$sanitizedPageName] = $sanitizedPageName;
 
-                foreach (explode(',', $page->usernames) as $username) {
-                    $tagsSubscriptionsForUsers[$username][] = $sanitizedPageName;
+                foreach (explode(',', $page->user_ids) as $userId) {
+                    $tagsSubscriptionsForUsers[$userId][] = $sanitizedPageName;
                 }
             } catch (Throwable $e) {
                 $this->error(sprintf('Error handling page "%s" with namespace %d : %s', $pageName, $pageNs, $e->getMessage()));
@@ -98,32 +106,44 @@ class SyncPagesToForum extends Command
         $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tags)));
 
         // Inscrire les utilisateurs aux notifs du tag
-        $subscriptionsDone = 0;
-        foreach ($tagsSubscriptionsForUsers as $username => $tags) {
-            try {
-                $currentlyFollowedTags = $forumClient->getFollowedTagsForUser($username);
-            } catch (Throwable $e) {
-                $this->error(sprintf('Error fetching followed tags for user %s: %s', $username, $e->getMessage()));
+        foreach ($tagsSubscriptionsForUsers as $userId => $tags) {
+            $this->subscribeUserToTags($forumClient, $localeConfig->code, $userId, $tags);
+        }
+
+        $this->info(sprintf('Made %d subscriptions', $this->doneSubscriptions));
+    }
+
+    private function subscribeUserToTags(ForumApiClient $forumClient, string $locale, int $userId, array $tags): void
+    {
+        $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsername($userId, $locale);
+        if (null === $discourseUsername) {
+            $this->info(sprintf('No discourse username found for user ID %d and locale %s, skipping', $userId, $locale));
+
+            return;
+        }
+
+        try {
+            $currentlyFollowedTags = $forumClient->getFollowedTagsForUser($discourseUsername);
+        } catch (Throwable $e) {
+            $this->error(sprintf('Error fetching followed tags for user %s: %s', $discourseUsername, $e->getMessage()));
+
+            return;
+        }
+
+        foreach ($tags as $tagName) {
+            if (in_array($tagName, $currentlyFollowedTags, true)) {
+                $this->info(sprintf('User %s is already subscribed to tag %s, skipping', $discourseUsername, $tagName));
                 continue;
             }
 
-            foreach ($tags as $tagName) {
-                if (in_array($tagName, $currentlyFollowedTags, true)) {
-                    $this->info(sprintf('User %s is already subscribed to tag %s, skipping', $username, $tagName));
-                    continue;
-                }
-
-                try {
-                    $forumClient->subscribeTagNotifications($username, $tagName);
-                    $subscriptionsDone++;
-                    $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
-                } catch (Throwable $e) {
-                    $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
-                }
+            try {
+                $forumClient->subscribeTagNotifications($discourseUsername, $tagName);
+                $this->doneSubscriptions++;
+                $this->info(sprintf('Subscribed user %s to tag %s', $discourseUsername, $tagName));
+            } catch (Throwable $e) {
+                $this->error(sprintf('Error subscribing user %s to tag %s: %s', $discourseUsername, $tagName, $e->getMessage()));
             }
         }
-
-        $this->info(sprintf('Made %d subscriptions', $subscriptionsDone));
     }
 
     /**

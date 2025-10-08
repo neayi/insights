@@ -70,35 +70,6 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
     }
 
     /**
-     * Return the title followed by the structure in parenthesis
-     */
-    public function getTitleAttribute()
-    {
-        if (empty($this->context) || empty($this->context->sector))
-            return '';
-
-        $title = $this->context->sector;
-        if (!empty($this->context->structure))
-            $title .= ' (' . $this->context->structure . ')';
-
-        return $title;
-    }
-
-    /**
-     * Get the discourse_username for discourse
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getDiscourseUsernameAttribute($value)
-    {
-        if (empty($value))
-            return trim(substr(Str::of($this->fullname)->slug('.'), 0, 20), '.');
-
-        return $value;
-    }
-
-    /**
      * Get the user's full name.
      *
      * @return string
@@ -110,7 +81,7 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
 
     public function fullname()
     {
-        return $this->getFullNameAttribute();
+        return $this->getFullnameAttribute();
     }
 
     public function sendEmailVerificationNotification()
@@ -178,7 +149,6 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
             $this->uuid,
             $this->firstname,
             $this->lastname,
-            // $this->discourse_username,
             $this->path_picture === null
         );
     }

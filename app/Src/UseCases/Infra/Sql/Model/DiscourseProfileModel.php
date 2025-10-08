@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Sql\Model;
 
-use App\User;
+// use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class DiscourseProfileModel extends Model

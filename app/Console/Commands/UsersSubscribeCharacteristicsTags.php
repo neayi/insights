@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Src\UseCases\Domain\Forum\CharacteristicsForumSyncer;
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class UsersSubscribeCharacteristicsTags extends Command
 {
@@ -34,25 +34,30 @@ class UsersSubscribeCharacteristicsTags extends Command
         // Get eligible users (subscribed to Discourse + having 1+ characteristics)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $usersInfosQuery = DB::table('users', 'u')
-            ->select('u.default_locale')
-            ->addSelect('discourse_profiles.username AS discourse_username', 'discourse_profiles.locale AS discourse_locale')
+            ->select('u.id AD user_id', 'u.default_locale')
             ->addSelect('characteristics.code AS char_title', 'characteristics.pretty_page_label AS char_label')
             ->join('user_characteristics', 'user_characteristics.user_id', '=', 'u.id')
             ->join('characteristics', 'characteristics.id', '=', 'user_characteristics.characteristic_id')
-            ->join('discourse_profiles', 'discourse_profiles.user_id', '=', 'u.id')
-            ->whereNotNull('discourse_profiles.ext_id')
-            ->where('discourse_profiles.username', '!=', '')
+            ->join(
+                'discourse_profiles',
+                function(\Illuminate\Database\Query\JoinClause $join) {
+                    $join
+                        ->on('discourse_profiles.user_id', '=', 'u.id')
+                        ->on('discourse_profiles.locale', '=', 'u.default_locale')
+                    ;
+                }
+            )
             ->whereIn('characteristics.type', [Characteristic::FARMING_TYPE, Characteristic::CROPPING_SYSTEM])
             ->where('user_characteristics.created_at', '>=', $dateThreshold->format('Y-m-d H:i:s'))
         ;
 
         $users = $usersInfosQuery->get();
 
-        foreach ($users->all() as $user) {
+        foreach ($users->all() as $userRow) {
             $forumSyncer->subscribeCharacteristicTagNotifications(
-                $user->discourse_username,
-                $user->discourse_locale,
-                $user->char_label ?? $user->char_title
+                $userRow->user_id,
+                $userRow->default_locale,
+                $userRow->char_label ?? $userRow->char_title
             );
         }
     }

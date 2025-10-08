@@ -27,8 +27,6 @@ class SessionAuthGateway implements AuthGateway
             $userModel->path_picture,
             $roles,
             $userModel->providers,
-            // $userModel->discourse_id,
-            // $userModel->discourse_username,
             $userModel->default_locale
         );
     }

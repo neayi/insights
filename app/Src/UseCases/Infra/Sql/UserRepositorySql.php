@@ -119,8 +119,6 @@ class UserRepositorySql implements UserRepository
             $record->path_picture,
             $roles,
             $record->providers ?? [],
-            // $record->discourse_id ?? null,
-            // $record->discourse_username ?? null,
             $record->default_locale ?? 'fr',
         );
     }
