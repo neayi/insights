@@ -25,7 +25,6 @@ class SessionAuthGateway implements AuthGateway
             $userModel->email,
             $userModel->firstname,
             $userModel->lastname,
-            $userModel->organization_id,
             $userModel->path_picture,
             $roles,
             $userModel->providers,

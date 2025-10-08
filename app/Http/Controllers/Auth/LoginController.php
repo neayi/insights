@@ -52,12 +52,6 @@ class LoginController extends Controller
     protected function loggedOut(Request $request)
     {
         $request->session()->reflash();
-        if($request->session()->has('should_attach_to_organization')){
-            $linkToRedirect = $request->session()->get('should_attach_to_organization_redirect');
-            return $request->wantsJson()
-                ? new Response('', 204)
-                : redirect($linkToRedirect);
-        }
     }
 
     protected function authenticated(Request $request, $user)

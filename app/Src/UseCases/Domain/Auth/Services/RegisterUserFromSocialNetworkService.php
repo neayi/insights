@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Src\UseCases\Domain\Auth\Services;
-
 
 use App\Src\UseCases\Domain\Auth\SocialiteUser;
 use App\Src\UseCases\Domain\Ports\UserRepository;
@@ -20,8 +18,7 @@ class RegisterUserFromSocialNetworkService
     public function __construct(
         UserRepository $userRepository,
         FileStorage $fileStorage
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->fileStorage = $fileStorage;
     }
@@ -83,7 +80,7 @@ class RegisterUserFromSocialNetworkService
      */
     private function createUser(SocialiteUser $socialiteUser, string $provider): array
     {
-        $user = new User($id = Uuid::uuid4(), $socialiteUser->email(), $socialiteUser->firstname(), $socialiteUser->lastname(), null, '', [], [$provider => $socialiteUser->providerId()]);
+        $user = new User($id = Uuid::uuid4(), $socialiteUser->email(), $socialiteUser->firstname(), $socialiteUser->lastname(), null, [], [$provider => $socialiteUser->providerId()]);
         $picture = $this->handlePicture($socialiteUser);
         $user->create(null, $picture);
 

@@ -24,7 +24,7 @@ class LogUserFromSocialNetworkTest extends TestCase
         $userSocialite = new SocialiteUser($pid = uniqid(), $email = 'anemmail@gmail.com', $first = 'first', $last = 'last');
         $this->socialiteGateway->add($userSocialite, 'facebook');
 
-        $user = new User($id = Uuid::uuid4(), $email, $first, $last, null, '', [], ['facebook' => $pid]);
+        $user = new User($id = Uuid::uuid4(), $email, $first, $last, null, [], ['facebook' => $pid]);
         $this->userRepository->add($user);
 
         app(LogUserFromSocialNetwork::class)->log($provider = 'facebook');
