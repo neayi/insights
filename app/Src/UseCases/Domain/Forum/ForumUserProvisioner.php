@@ -22,20 +22,9 @@ class ForumUserProvisioner
         }
     }
 
-    public function createOrUpdateUserOnDiscourse(User $user)
+    public function createUserOnDiscourse(User $user, string $locale, int $increment = 0)
     {
-        if (empty($this->syncerConfig)) {
-            $this->initSyncerConfig();
-        }
-
-        $existingDiscourseUser = $this->findUserByIdOrEmail($user);
-
-        // TODO
-    }
-
-    private function createUserOnDiscourse(User $user, string $locale, int $increment = 0)
-    {
-        Log::info(sprintf('Creating Discourse user for insight account "%s" and locale "%s"', $user->uuid, $user->locale));
+        Log::info(sprintf('Creating Discourse user for insight account "%s" and locale "%s"', $user->uuid, $locale));
 
         if (empty($user->email_verified_at)) {
             throw new \Exception("Email not verified", 54);
@@ -46,12 +35,11 @@ class ForumUserProvisioner
         $result = $this->syncerConfig[$locale]['client']->createUser($username, $user);
         if($result['success'] === false){
             if (!empty($result['errors']['email'])) {
-                $discourseUser = $this->findUserByIdOrEmail($user);
+                $discourseUser = $this->findUserByIdOrEmail($user, $locale);
                 if ($discourseUser) {
                     // The user already exists, we can update it:
                     return $this->updateUsernameFromDiscourse($discourseUser, $user);
-                }
-                else {
+                } else {
                     $increment++;
                     return $this->createUserOnDiscourse($user, $locale, $increment);
                 }
@@ -60,11 +48,12 @@ class ForumUserProvisioner
             if (!empty($result['errors']['username'][0]) &&
                 strpos($result['errors']['username'][0], 'unique') !== false) {
                 $increment++;
-                return $this->createUserOnDiscourse($user, $increment);
+                return $this->createUserOnDiscourse($user, $locale, $increment);
             }
 
             throw new \Exception($result['message']);
         }
+
         $user->discourse_id = $result['user_id'];
         $user->discourse_username = $username;
         $user->save();
@@ -73,12 +62,6 @@ class ForumUserProvisioner
         return $result['user_id'];
     }
 
-    /**
-     * @param User $user
-     * @param int $increment
-     * @return string
-     * @throws \Exception
-     */
     public function formatUsername(User $user, int $increment): string
     {
         $username = trim(substr((string)Str::of($user->fullname)->slug('.'), 0, 20), '.');
@@ -109,9 +92,10 @@ class ForumUserProvisioner
     /**
      * Try to find a discourse user using the Insights ID or the email
      */
-    private function findUserByIdOrEmail(User $user) {
+    private function findUserByIdOrEmail(User $user, string $locale)
+    {
         try {
-            $result = $this->forumApiClient->getUserByInsightId($user->id);
+            $result = $this->syncerConfig[$locale]['client']->getUserByInsightId($user->id);
             if (!empty($result[0])) {
                 return $result[0];
             }
@@ -121,14 +105,14 @@ class ForumUserProvisioner
                 // do nothing
             } else {
                 $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
-                $this->error($message);
+                Log::error($message);
                 \Sentry\captureException($e);
             }
         }
 
         $userEmail = $user->email;
         try {
-            $result = $this->forumApiClient->getUserByEmail($userEmail);
+            $result = $this->syncerConfig[$locale]['client']->getUserByEmail($userEmail);
             if (!empty($result[0])) {
                 return $result[0];
             }
@@ -138,7 +122,7 @@ class ForumUserProvisioner
                 // do nothing
             } else {
                 $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
-                $this->error($message);
+                Log::error($message);
                 \Sentry\captureException($e);
             }
         }
@@ -147,7 +131,7 @@ class ForumUserProvisioner
         // See https://meta.discourse.org/t/enabling-e-mail-normalization-by-default/338641?tl=fr
         $userEmail = str_replace('@', '+%@', $userEmail);
         try {
-            $result = $this->forumApiClient->getUserByEmail($userEmail);
+            $result = $this->syncerConfig[$locale]['client']->getUserByEmail($userEmail);
             if (!empty($result[0])) {
                 return $result[0];
             }
@@ -157,7 +141,7 @@ class ForumUserProvisioner
                 // do nothing
             } else {
                 $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
-                $this->error($message);
+                Log::error($message);
                 \Sentry\captureException($e);
             }
         }

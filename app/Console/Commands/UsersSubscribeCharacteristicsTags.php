@@ -48,11 +48,11 @@ class UsersSubscribeCharacteristicsTags extends Command
 
         $users = $usersInfosQuery->get();
 
-        foreach ($users->all() as $user) {
+        foreach ($users->all() as $userRow) {
             $forumSyncer->subscribeCharacteristicTagNotifications(
-                $user->discourse_username,
-                $user->discourse_locale,
-                $user->char_label ?? $user->char_title
+                $userRow->discourse_userRowname,
+                $userRow->discourse_locale,
+                $userRow->char_label ?? $userRow->char_title
             );
         }
     }
