@@ -12,7 +12,6 @@
                             <img class="profile-user-img img-fluid img-circle" src="{{$user['url_picture'] !== null ? $user['url_picture'] : url('').'/'.config('adminlte.logo_img')}}">
                         </div>
                         <h3 class="profile-username text-center">{{ $user['firstname'].' '.$user['lastname'] }}</h3>
-                        <p class="text-muted text-center">{{ isset($organization['name']) ? $organization['name'] : '' }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             @if(in_array('admin', $user['roles']))
                                 <li class="list-group-item">
@@ -33,9 +32,6 @@
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab" style="">@lang('users.action.edit.profile')</a></li>
-                            @if(isset($organization))
-                                <li class="nav-item"><a class="nav-link" href="#rights" data-toggle="tab" style="">@lang('users.rights')</a></li>
-                            @endif
                             <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab" style="">@lang('users.action.delete.account')</a></li>
                         </ul>
                     </div>
@@ -98,43 +94,6 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="tab-pane" id="rights">
-                                @if(!in_array('admin', $user['roles']) && isset($organization))
-                                    <form role="form" class="form-horizontal" method="post"
-                                          action="{{ route('user.grant-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
-                                          @csrf
-                                        <div class="callout callout-info">
-                                            <h5>@lang('users.action.set_admin')</h5>
-
-                                            <p>@lang('users.message.will_be_admin')</p>
-                                        </div>
-                                          <input type="submit" value="@lang('common.btn_confirm')" class="btn btn-danger"/>
-                                    </form>
-                                @endif
-                                @if(in_array('admin', $user['roles']) && isset($organization))
-                                    <form role="form" class="form-horizontal" method="post"
-                                          action="{{ route('user.revoke-admin.organization', ['id' => $user['uuid'], 'organization' => $user['organization_id']]) }}">
-                                          @csrf
-                                        <div class="callout callout-info">
-                                            <h5>@lang('users.action.revoke_admin')</h5>
-
-                                            <p>@lang('users.message.will_not_be_admin')</p>
-                                        </div>
-                                        <input type="submit" value="@lang('common.btn_confirm')" class="btn btn-danger"/>
-                                    </form>
-                                @endif
-                                @if(isset($organization))
-                                        <hr/>
-                                        <form role="form" class="form-horizontal" method="post"
-                                              action="{{ route('user.leave.organization', ['id' => $user['uuid']]) }}">
-                                            @csrf
-                                            <div class="callout callout-info">
-                                                <h5>@lang('users.action.delete_from_organization')</h5>
-                                            </div>
-                                            <input type="submit" value="@lang('users.action.delete_from_organization')" class="btn btn-danger"/>
-                                        </form>
-                                @endif
                             </div>
                             <div class="tab-pane" id="delete">
                                 <form role="form" class="form-horizontal" method="post"

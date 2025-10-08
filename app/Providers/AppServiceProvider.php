@@ -7,7 +7,6 @@ use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\GeoLocationByPostalCode;
 use App\Src\UseCases\Domain\Ports\IdentityProvider;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Ports\UserRoleRepository;
@@ -23,7 +22,6 @@ use App\Src\UseCases\Infra\Gateway\StoragePictureHandler;
 use App\Src\UseCases\Infra\GeoOpenDataSoftService;
 use App\Src\UseCases\Infra\Sql\ContextRepositorySql;
 use App\Src\UseCases\Infra\Sql\InteractionPageRepositorySql;
-use App\Src\UseCases\Infra\Sql\InvitationRepositorySql;
 use App\Src\UseCases\Infra\Sql\CharacteristicsRepositorySql;
 use App\Src\UseCases\Infra\Sql\PageRepositorySql;
 use App\Src\UseCases\Infra\Sql\UserRepositorySql;
@@ -42,7 +40,6 @@ use Tests\Adapters\InMemoryGeolocationByPostalCode;
 use Tests\Adapters\Repositories\InMemoryCharacteristicRepository;
 use Tests\Adapters\Repositories\InMemoryContextRepository;
 use Tests\Adapters\Repositories\InMemoryInteractionRepository;
-use Tests\Adapters\Repositories\InMemoryInvitationRepository;
 use Tests\Adapters\Repositories\InMemoryPageRepository;
 use Tests\Adapters\Repositories\InMemoryUserRepository;
 use Tests\Adapters\Repositories\InMemoryUserRoleRepository;
@@ -85,7 +82,6 @@ class AppServiceProvider extends ServiceProvider
     private function prodBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
-        $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, StoragePictureHandler::class);
         $this->app->singleton(UserRepository::class, UserRepositorySql::class);
         $this->app->singleton(AuthGateway::class, SessionAuthGateway::class);
@@ -109,7 +105,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);
         $this->app->singleton(SocialiteGateway::class, InMemorySocialiteGateway::class);
         $this->app->singleton(HashGen::class, InMemoryHashGen::class);
-        $this->app->singleton(InvitationRepository::class, InMemoryInvitationRepository::class);
         $this->app->singleton(UserRoleRepository::class, InMemoryUserRoleRepository::class);
         $this->app->singleton(ContextRepository::class, InMemoryContextRepository::class);
         $this->app->singleton(CharacteristicsRepository::class, InMemoryCharacteristicRepository::class);
@@ -121,7 +116,6 @@ class AppServiceProvider extends ServiceProvider
     private function tiBinding(): void
     {
         $this->app->singleton(IdentityProvider::class, IdentityProviderImpl::class);
-        $this->app->singleton(InvitationRepository::class, InvitationRepositorySql::class);
         $this->app->singleton(PictureHandler::class, InMemoryPictureHandler::class);
         $this->app->singleton(UserRepository::class, UserRepositorySql::class);
         $this->app->singleton(AuthGateway::class, InMemoryAuthGateway::class);

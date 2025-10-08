@@ -14,7 +14,7 @@ class UpdateMainDataTest  extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $currentUser = new User('abc', 'email@gmail.com', 'f', 'l',null, null, ['student']);
+        $currentUser = new User('abc', 'email@gmail.com', 'f', 'l',null, ['student']);
         $this->authGateway->log($currentUser);
 
         $this->userRepository->add($currentUser);
@@ -45,7 +45,7 @@ class UpdateMainDataTest  extends TestCase
         $contextSaved = $this->contextRepository->getByUser('abc');
         self::assertEquals($contextExpected, $contextSaved);
 
-        $userExpected = new User('abc', 'newemail@gmail.com', 'newf', 'newl', null, null, ['farmer']);
+        $userExpected = new User('abc', 'newemail@gmail.com', 'newf', 'newl', null, ['farmer']);
         $userSaved = $this->userRepository->getById('abc');
         self::assertEquals($userExpected, $userSaved);
     }

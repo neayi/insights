@@ -5,7 +5,6 @@ namespace Tests;
 use App\Src\UseCases\Domain\Ports\CharacteristicsRepository;
 use App\Src\UseCases\Domain\Ports\ContextRepository;
 use App\Src\UseCases\Domain\Ports\InteractionRepository;
-use App\Src\UseCases\Domain\Ports\InvitationRepository;
 use App\Src\UseCases\Domain\Ports\PageRepository;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
@@ -22,7 +21,6 @@ abstract class TestCase extends BaseTestCase
 
     protected $contextRepository;
     protected $userRepository;
-    protected $invitationRepository;
     protected $authGateway;
     protected $socialiteGateway;
     protected $fileStorage;
@@ -35,7 +33,6 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->contextRepository = $this->contextRepository();
         $this->userRepository = $this->userRepository();
-        $this->invitationRepository = $this->invitationRepository();
         $this->characteristicRepository = $this->characteristicRepository();
         $this->authGateway = $this->authGateway();
         $this->socialiteGateway = $this->socialiteGateway();
@@ -55,11 +52,6 @@ abstract class TestCase extends BaseTestCase
     private function contextRepository():ContextRepository
     {
         return app(ContextRepository::class);
-    }
-
-    private function invitationRepository():InvitationRepository
-    {
-        return app(InvitationRepository::class);
     }
 
     private function authGateway():AuthGateway

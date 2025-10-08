@@ -51,7 +51,7 @@
             }
         });
 
-        var route = '{{route('users.list.datatable', ['id' => $organization_id])}}';
+        var route = '{{route('users.list.datatable')}}';
         $('.data-table').DataTable({
             processing: true,
             responsive: true,

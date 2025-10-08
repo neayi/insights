@@ -26,13 +26,13 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         $socialiteUser = new SocialiteUser($fid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
         $this->socialiteGateway->add($socialiteUser, $provider = 'facebook');
 
-        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, null, [], ['google' => $gid = Uuid::uuid4()]);
+        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, [], ['google' => $gid = Uuid::uuid4()]);
         $this->userRepository->add($user);
 
         app(RegisterUserFromSocialNetwork::class)->register($provider);
 
         $userMerged = $this->userRepository->getByProvider($provider, $fid);
-        $userExpected = new User($uid, $email, $firstname, $lastname, null, null, [], [
+        $userExpected = new User($uid, $email, $firstname, $lastname, null, [], [
             'google' => $gid,
             'facebook' => $fid,
         ]);
@@ -48,7 +48,7 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         $this->socialiteGateway->add($socialiteUser, 'facebook');
 
         $ids = app(RegisterUserFromSocialNetwork::class)->register($provider = 'facebook');
-        $userExpected = new User($ids['user_id'], $email, $firstname, $lastname, null, 'app/public/users/'.$ids['user_id'].'.jpg', [], [$provider => $ids['provider_id']]);
+        $userExpected = new User($ids['user_id'], $email, $firstname, $lastname, 'app/public/users/'.$ids['user_id'].'.jpg', [], [$provider => $ids['provider_id']]);
         $userSaved = $this->userRepository->getByProvider($provider, $ids['provider_id']);
         self::assertEquals($userExpected, $userSaved);
     }
@@ -60,7 +60,7 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         $socialiteUser = new SocialiteUser($gid = Uuid::uuid4(), $email, $firstname = 'first', $lastname = 'last');
         $this->socialiteGateway->add($socialiteUser, $provider = 'google');
 
-        $user = new User($uid = Uuid::uuid4(), $email, $firstname, $lastname, null, null, [], ['google' => $gid]);
+        $user = new User(Uuid::uuid4(), $email, $firstname, $lastname, null, [], ['google' => $gid]);
         $this->userRepository->add($user);
 
         $result = app(RegisterUserFromSocialNetwork::class)->register($provider);
@@ -73,12 +73,12 @@ class RegisterUserFromSocialNetworkTest extends TestCase
         $socialiteUser = new SocialiteUser($gid = Uuid::uuid4(), '', $firstname = 'first', $lastname = 'last');
         $this->socialiteGateway->add($socialiteUser, $provider = 'google');
 
-        $user = new User($uid = Uuid::uuid4(), '', $firstname, $lastname, null, null, [], ['google' => $gid]);
+        $user = new User(Uuid::uuid4(), '', $firstname, $lastname, null, [], ['google' => $gid]);
         $this->userRepository->add($user);
 
         $ids = app(RegisterUserFromSocialNetwork::class)->register($provider);
 
-        $userExpected = new User($ids['user_id'], '', $firstname, $lastname, null, null, [], [$provider => $ids['provider_id']]);
+        $userExpected = new User($ids['user_id'], '', $firstname, $lastname, null, [], [$provider => $ids['provider_id']]);
         $userSaved = $this->userRepository->getByProvider($provider, $ids['provider_id']);
         self::assertEquals($userExpected, $userSaved);
     }
