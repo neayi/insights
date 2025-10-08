@@ -26,7 +26,7 @@ class GetLastUserComments
 
         $user = $this->userRepository->getById($userId);
 
-        $localeConfig = LocalesConfig::query()->where('code', $user->wiki())->first();
+        $localeConfig = LocalesConfig::query()->where('code', $user->defaultLocale())->first();
         $forumURL = $localeConfig->forum_api_url;
 
         $client = new ForumApiClient($forumURL, $localeConfig->forum_api_key);

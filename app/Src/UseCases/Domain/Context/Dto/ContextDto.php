@@ -24,7 +24,7 @@ class ContextDto extends Dto
         public ?string $structure,
         public ?string $userUuid,
         public ?string $department = null,
-        public string $wiki = 'fr'
+        public string $defaultLocale = 'fr'
     )
     {
         $this->fullname = $this->fullname();
