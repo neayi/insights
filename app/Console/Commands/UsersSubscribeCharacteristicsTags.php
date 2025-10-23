@@ -34,19 +34,10 @@ class UsersSubscribeCharacteristicsTags extends Command
         // Get eligible users (subscribed to Discourse + having 1+ characteristics)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $usersInfosQuery = DB::table('users', 'u')
-            ->select('u.id AD user_id', 'u.default_locale')
+            ->select('u.id AS user_id', 'u.default_locale')
             ->addSelect('characteristics.code AS char_title', 'characteristics.pretty_page_label AS char_label')
             ->join('user_characteristics', 'user_characteristics.user_id', '=', 'u.id')
             ->join('characteristics', 'characteristics.id', '=', 'user_characteristics.characteristic_id')
-            ->join(
-                'discourse_profiles',
-                function(\Illuminate\Database\Query\JoinClause $join) {
-                    $join
-                        ->on('discourse_profiles.user_id', '=', 'u.id')
-                        ->on('discourse_profiles.locale', '=', 'u.default_locale')
-                    ;
-                }
-            )
             ->whereIn('characteristics.type', [Characteristic::FARMING_TYPE, Characteristic::CROPPING_SYSTEM])
             ->where('user_characteristics.created_at', '>=', $dateThreshold->format('Y-m-d H:i:s'))
         ;

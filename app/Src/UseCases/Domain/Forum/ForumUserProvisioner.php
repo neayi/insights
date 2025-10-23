@@ -53,25 +53,19 @@ class ForumUserProvisioner
             }
 
             $discourseUsername = $this->createUserOnDiscourse($user, $locale);
-
-            Log::notice(
-                sprintf(
-                    'Discourse profile created for user with ID %s and locale %s (Discourse username: %s)',
-                    $userId,
-                    $locale,
-                    $discourseUsername)
-                );
         }
 
         return $discourseUsername;
     }
 
-    private function createUserOnDiscourse(User $user, string $locale, int $increment = 0): string
+    private function createUserOnDiscourse(User $user, string $locale, int $increment = 0): ?string
     {
         Log::info(sprintf('Creating Discourse user for insight account "%s" and locale "%s"', $user->uuid, $locale));
 
         if (empty($user->email_verified_at)) {
-            throw new \Exception("Email not verified", 54);
+            Log::warning(sprintf('Cannot create Discourse user for insight account "%s" because email is not verified', $user->uuid));
+
+            return null;
         }
 
         $username = $this->formatUsername($user, $increment);
@@ -82,7 +76,16 @@ class ForumUserProvisioner
                 $discourseUser = $this->findUserByIdOrEmail($user, $locale);
                 if ($discourseUser) {
                     // The user already exists, we can update it:
-                    $this->saveDiscourseProfile($user, $locale, $discourseUser['user_id'], $discourseUser['username']);
+                    $this->saveDiscourseProfile($user, $locale, $discourseUser['id'], $discourseUser['username']);
+
+                    Log::notice(
+                        sprintf(
+                            'Discourse profile updated for user with ID %s and locale %s (Discourse username: %s)',
+                            $user->id,
+                            $locale,
+                            $discourseUser['username']
+                        )
+                    );
 
                     return $discourseUser['username'];
                 } else {
@@ -101,6 +104,15 @@ class ForumUserProvisioner
         }
 
         $this->saveDiscourseProfile($user, $locale, $result['user_id'], $username);
+
+        Log::notice(
+            sprintf(
+                'Discourse profile created for user with ID %s and locale %s (Discourse username: %s)',
+                $user->id,
+                $locale,
+                $username
+            )
+        );
 
         return $username;
     }
