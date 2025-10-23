@@ -148,8 +148,8 @@ class SyncUsersDiscourse extends Command
                 \Sentry\captureException($e);
             }
         }
-
-        $userEmail = $user->email;
+        
+        $userEmail = preg_replace('/\+.*?@/', '@', $user->email);
         try {
             $result = $this->forumApiClient->getUserByEmail($userEmail);
             if (!empty($result[0])) {
