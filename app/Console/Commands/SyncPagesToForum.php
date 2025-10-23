@@ -60,7 +60,7 @@ class SyncPagesToForum extends Command
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $eligiblePagesQuery = DB::table('pages', 'p')
-            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.uuid) AS user_ids'))
+            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.id) AS user_ids'))
             ->join('interactions', 'interactions.page_id', '=', 'p.page_id')
             ->join('users', 'interactions.user_id', '=', 'users.id')
             ->where('p.wiki', '=', $wikiCode)
@@ -107,7 +107,7 @@ class SyncPagesToForum extends Command
 
         // Inscrire les utilisateurs aux notifs du tag
         foreach ($tagsSubscriptionsForUsers as $userId => $tags) {
-            $this->subscribeUserToTags($forumClient, $localeConfig->code, $userId, $tags);
+            $this->subscribeUserToTags($forumClient, $localeConfig->code, (int) $userId, $tags);
         }
 
         $this->info(sprintf('Made %d subscriptions', $this->doneSubscriptions));

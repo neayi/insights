@@ -120,9 +120,15 @@ class ForumUserProvisioner
      *
      * @return string Discourse username
      */
-    private function saveDiscourseProfile(User $user, string $locale, int $discourseId, string $discourseUsername): string
+    private function saveDiscourseProfile(User $user, string $locale, int $discourseId, string $discourseUsername): void
     {
-        $discourseProfile = DiscourseProfileModel::where('user_id', $user->id)->where('locale', $locale)->first();
+        DiscourseProfileModel::upsert(
+            ['user_id' => $user->id, 'locale' => $locale, 'ext_id' => $discourseId, 'username' => $discourseUsername, 'synced_at' => date('Y-m-d H:i:s')],
+            ['user_id' => $user->id, 'locale' => $locale],
+            ['ext_id', 'username', 'synced_at']
+        );
+
+        /*$discourseProfile = DiscourseProfileModel::where('user_id', $user->id)->where('locale', $locale)->first();
 
         if (null === $discourseProfile) {
             $discourseProfile = new DiscourseProfileModel();
@@ -140,7 +146,7 @@ class ForumUserProvisioner
 
         $discourseProfile->save();
 
-        return $discourseUsername;
+        return $discourseUsername;*/
     }
 
     /**
