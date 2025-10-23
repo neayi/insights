@@ -24,7 +24,7 @@ class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
 
         $ids = app(RegisterUserAfterErrorWithSocialNetwork::class)->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
 
-        $userExpected = new User($ids['user_id'], $email, $firstname, $lastname, null, 'app/public/users/'.$ids['user_id'].'.jpg', [], [$provider => $providerId]);
+        $userExpected = new User($ids['user_id'], $email, $firstname, $lastname, 'app/public/users/'.$ids['user_id'].'.jpg', [], [$provider => $providerId]);
         $userSaved = $this->userRepository->getByProvider($provider, $providerId);
         self::assertEquals($userExpected, $userSaved);
 
@@ -73,7 +73,7 @@ class RegisterUserAfterErrorWithSocialNetworkTest extends TestCase
         app(RegisterUserAfterErrorWithSocialNetwork::class)->register($firstname, $lastname, $email, $provider, $providerId, $pictureUrl);
 
         $userMerged = $this->userRepository->getByProvider($provider, $providerId);
-        $userExpected = new User($uid, $email, $firstname, $lastname, null, null, [], [
+        $userExpected = new User($uid, $email, $firstname, $lastname, null, [], [
             'facebook' => $providerId,
         ]);
         self::assertEquals($userExpected, $userMerged);

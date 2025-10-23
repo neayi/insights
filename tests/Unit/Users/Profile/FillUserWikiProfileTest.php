@@ -20,7 +20,7 @@ class FillUserWikiProfileTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $user = new User($this->userId = Uuid::uuid4(), 'email@gmail.com', 'firstname', 'lastname', null, null, []);
+        $user = new User($this->userId = Uuid::uuid4(), 'email@gmail.com', 'firstname', 'lastname', null, []);
         $this->userRepository->add($user);
     }
 
@@ -32,7 +32,7 @@ class FillUserWikiProfileTest extends TestCase
         $email = 'e@email.com';
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, 'FR', '83130');
 
-        $userExpected = new User($this->userId, $email, $newFirstname, $newLastname, null, null, ['farmer']);
+        $userExpected = new User($this->userId, $email, $newFirstname, $newLastname, null, ['farmer']);
         $userSaved = $this->userRepository->getById($this->userId);
         self::assertEquals($userExpected, $userSaved);
     }

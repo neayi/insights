@@ -8,15 +8,11 @@ return [
     'table.state' => 'State',
     'table.last_login' => 'Last login',
     'table.last_login_occ' => 'Last login on: ',
-    'table.invitation_send' => 'Invitation sent',
     'table.state_active' => 'Active',
 
     'action.edit' => 'Edit User',
     'action.edit.profile' => 'Edit',
     'action.delete.account' => 'Delete Account',
-    'action.set_admin' => 'Set Organization Admin',
-    'action.revoke_admin' => 'Revoke admin right',
-    'action.delete_from_organization' => 'Remove from organization',
 
     'message.will_be_admin' => 'Once administrator the user will have the possibility to...',
     'message.will_not_be_admin' => 'Once revoked the user will no longer be able to...',
@@ -25,8 +21,6 @@ return [
     'message.user.updated' => 'User updated successfully',
     'message.profile.updated' => 'Updated your profile successfully',
 
-
-    'rights' => 'User rights',
     'role.admin' => 'Admin',
     'role' => 'Role',
 

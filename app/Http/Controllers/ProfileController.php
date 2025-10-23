@@ -20,14 +20,10 @@ class ProfileController extends Controller
     public function showEditProfile(GetUser $getUser, GetOrganization $getOrganization, GetUserStats $getUserStats)
     {
         $user = $getUser->get(Auth::user()->uuid);
-        if($user->organizationId() !== null) {
-            $organization = $getOrganization->get($user->organizationId());
-        }
         $stats = $getUserStats->get(Auth::user()->uuid);
         return view('users/edit_form', [
             'user' => $user->toArray(),
             'stats' => $stats->toArray(),
-            'organization' => isset($organization) ? $organization->toArray() : null,
             'action' => route('user.edit.profile')
         ]);
     }

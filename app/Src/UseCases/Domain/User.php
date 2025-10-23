@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Src\UseCases\Domain;
 
-
-use App\Events\UserDeleted;
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\Shared\Model\Picture;
 use App\Src\UseCases\Domain\Users\Identity;
-use App\Src\UseCases\Domain\Users\State;
 use App\Src\UseCases\Domain\Users\UserDto;
 
 class User
@@ -17,7 +13,6 @@ class User
     private $email;
     private $lastname;
     private $firstname;
-    private $organizationId;
     private $pathPicture;
     private $roles;
     private $providers;
@@ -30,7 +25,6 @@ class User
         string $email,
         string $firstname,
         string $lastname,
-        string $organizationId = null,
         string $pathPicture = null,
         array $roles = [],
         array $providers = [],
@@ -43,7 +37,6 @@ class User
         $this->email = $email;
         $this->lastname = $lastname;
         $this->firstname = $firstname;
-        $this->organizationId = $organizationId;
         $this->pathPicture = $pathPicture;
         $this->roles = $roles;
         $this->providers = $providers;
@@ -65,11 +58,6 @@ class User
     public function fullname():string
     {
         return $this->firstname.' '.$this->lastname;
-    }
-
-    public function organizationId():?string
-    {
-        return $this->organizationId;
     }
 
     public function wiki(): string
@@ -105,17 +93,6 @@ class User
         app(UserRepository::class)->add($this, $passwordHashed);
     }
 
-    public function grantAsAdmin()
-    {
-        $this->roles = array_merge($this->roles, ['admin']);
-        app(UserRepository::class)->update($this);
-    }
-
-    public function isAdmin():bool
-    {
-        return in_array('admin', $this->roles);
-    }
-
     public function update(string $email, string $firstname, string $lastname, string $pathPicture = "", string $ext = 'jpg')
     {
         $this->email = $email;
@@ -143,14 +120,13 @@ class User
     public function delete()
     {
         app(UserRepository::class)->delete($this->id);
-        event(new UserDeleted($this->id, $this->organizationId));
     }
 
     public function toDto():UserDto
     {
         $identity = new Identity($this->id, $this->email, $this->firstname, $this->lastname, $this->pathPicture);
-        $state = new State($this->organizationId, null, true);
-        return new UserDto($identity, $state);
+
+        return new UserDto($identity);
     }
 
     public function addRole(string $role)
@@ -173,7 +149,6 @@ class User
             'email' => $this->email,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
-            'organization_id' => $this->organizationId,
             'path_picture' => $this->pathPicture,
             'url_picture' => $urlPicture,
             'roles' => $this->roles,
