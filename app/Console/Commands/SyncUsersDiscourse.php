@@ -93,7 +93,7 @@ class SyncUsersDiscourse extends Command
 
             $this->info('Updated email with id : '.$discourseUsername);
         } catch (\RuntimeException $e) {
-            $this->info('Updating user is temporary disabled');
+            $this->info('Updating user email is temporary disabled');
         }
     }
 
