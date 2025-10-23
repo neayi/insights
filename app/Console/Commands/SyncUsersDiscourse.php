@@ -71,6 +71,8 @@ class SyncUsersDiscourse extends Command
                     // Too many requests - just sleeping
                     $this->error('Too many requests - restarting in a minute....');
                     sleep(60);
+                } else if ($e->getCode() === 404) {
+                    $this->error('User not found on Discourse: ' . $discourseProfile->username);
                 } else {
                     $message = 'Discourse sync failed for user : ' . $user->uuid . ' [' . $e->getCode() . '] ' . $e->getMessage();
                     $this->error($message);
@@ -93,7 +95,7 @@ class SyncUsersDiscourse extends Command
 
             $this->info('Updated email with id : '.$discourseUsername);
         } catch (\RuntimeException $e) {
-            $this->info('Updating user email is temporary disabled');
+         //   $this->info('Updating user email is temporary disabled');
         }
     }
 

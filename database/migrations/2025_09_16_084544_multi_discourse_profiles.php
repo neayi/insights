@@ -23,7 +23,7 @@ return new class extends Migration
                 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (`id`),
                 UNIQUE KEY `unique_user_locale` (`user_id`, `locale`),
-                UNIQUE KEY `unique_ext_locale` (`ext_id`, `locale`)
+                INDEX `unique_ext_locale` (`ext_id`, `locale`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         SQL);
 
