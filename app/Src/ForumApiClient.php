@@ -33,7 +33,7 @@ class ForumApiClient
 
     public function getUserByEmail(string $email): array
     {
-        $response = $this->client->get('/admin/users/list/active.json?filter=' . $email . '&show_emails=true&order=&ascending=&page=1');
+        $response = $this->client->get('/admin/users/list/active.json?filter=' . urlencode($email) . '&show_emails=true&order=&ascending=&page=1');
         usleep(500000);
 
         return json_decode($response->getBody()->getContents(), true);

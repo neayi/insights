@@ -48,6 +48,9 @@ class SyncPagesToForum extends Command
     private function handleSync(LocalesConfig $localeConfig): void
     {
         $wikiCode = $localeConfig->code;
+
+        $usersDiscourseIds = $this->createUsersOnDiscourse($localeConfig);
+
         $forumClient = new ForumApiClient($localeConfig->forum_api_url, $localeConfig->forum_api_key);
 
         $this->info(sprintf("Syncing wiki Pages to forum %s", $wikiCode));
@@ -107,15 +110,14 @@ class SyncPagesToForum extends Command
 
         // Inscrire les utilisateurs aux notifs du tag
         foreach ($tagsSubscriptionsForUsers as $userId => $tags) {
-            $this->subscribeUserToTags($forumClient, $localeConfig->code, (int) $userId, $tags);
+            $this->subscribeUserToTags($forumClient, $localeConfig->code, (int) $userId, $usersDiscourseIds[$userId] ?? null, $tags);
         }
 
         $this->info(sprintf('Made %d subscriptions', $this->doneSubscriptions));
     }
 
-    private function subscribeUserToTags(ForumApiClient $forumClient, string $locale, int $userId, array $tags): void
+    private function subscribeUserToTags(ForumApiClient $forumClient, string $locale, int $userId, ?string $discourseUsername, array $tags): void
     {
-        $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsername($userId, $locale);
         if (null === $discourseUsername) {
             $this->info(sprintf('No discourse username found for user ID %d and locale %s, skipping', $userId, $locale));
 
@@ -159,5 +161,48 @@ class SyncPagesToForum extends Command
                 $indexOfColon = strpos($pageName, ':');
                 return $indexOfColon !== false ? mb_substr($pageName, $indexOfColon) : $pageName;
         }
+    }
+
+    /**
+     * Find all the users that follow at least one page, and make sure they have a forum account (so that they can be contacted by private message or that the can get notifications).
+     */
+    private function createUsersOnDiscourse(LocalesConfig $localeConfig): array
+    {
+        $wikiCode = $localeConfig->code;
+        $forumClient = new ForumApiClient($localeConfig->forum_api_url, $localeConfig->forum_api_key);
+
+        $this->info(sprintf("Syncing followers to forum %s", $wikiCode));
+
+        // Set higher limit for GROUP_CONCAT (default is 1024 characters)
+        // 4GB max length is the maximum value for 32-bit systems
+        // Maximum value for 64-bit systems is 18446744073709551615
+        DB::statement('SET SESSION group_concat_max_len = 4294967295');
+
+        // Get eligible pages (followed by at least one user)
+        // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
+        $users = DB::table('users')
+            ->join('interactions', function($join) {
+                $join->on('interactions.user_id', '=', 'users.id')
+                    ->where('interactions.follow', '=', 1);
+            })
+            ->whereNotNull('users.email_verified_at')
+            ->distinct()
+            ->select('users.*')->get();
+
+        $usersDiscourseIds = [];
+        foreach ($users as $user) {
+            $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsername($user->id, $localeConfig->code);
+
+            if ($discourseUsername !== null) {
+                $usersDiscourseIds[$user->id] = $discourseUsername;
+            }
+            else {
+                $this->info(sprintf('User NOT synced on discourse: ID %d (%s)', $user->id, $user->email));
+            }
+        }
+
+        $this->info(sprintf("Synched %d followers (people which follow at least one page and have verified their email)", count($usersDiscourseIds)));
+
+        return $usersDiscourseIds;
     }
 }

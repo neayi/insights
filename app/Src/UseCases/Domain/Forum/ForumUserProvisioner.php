@@ -58,6 +58,42 @@ class ForumUserProvisioner
         return $discourseUsername;
     }
 
+    public function getUserDiscourseUsernameFromUUID(string $userUUID, string $locale): ?string
+    {
+        if (empty($this->syncerConfig)) {
+            $this->initSyncerConfig();
+        }
+
+        try {
+            $discourseUsername = DB::table('discourse_profiles')
+                ->join('users', 'discourse_profiles.user_id', '=', 'users.id')
+                ->where('users.uuid', $userUUID)
+                ->where('discourse_profiles.locale', $locale)
+                ->value('discourse_profiles.username');
+        } catch (Throwable $e) {
+            Log::error(
+                sprintf('Error fetching Discourse username for user UUID %s and locale %s: %s', $userUUID, $locale, $e->getMessage())
+            );
+
+            return null;
+        }
+
+        // Creation of the Discourse profile if it does not exist yet
+        if (!$discourseUsername) {
+            $user = User::where('uuid', $userUUID)->first();
+
+            if (!$user) {
+                Log::info(sprintf('User with UUID %s not found, skipping', $userUUID));
+
+                return null;
+            }
+
+            $discourseUsername = $this->createUserOnDiscourse($user, $locale);
+        }
+
+        return $discourseUsername;
+    }
+
     private function createUserOnDiscourse(User $user, string $locale, int $increment = 0): ?string
     {
         Log::info(sprintf('Creating Discourse user for insight account "%s" and locale "%s"', $user->uuid, $locale));
