@@ -30,9 +30,14 @@ return new class extends Migration
         // Insert existing data into the new table
         DB::statement(<<<SQL
             INSERT INTO `discourse_profiles` (`user_id`, `locale`, `ext_id`, `username`, `synced_at`)
-            SELECT u.id, u.default_locale, u.discourse_id, u.discourse_username, u.sync_at_discourse
+            SELECT
+              u.id,
+              COALESCE(u.default_locale, 'fr') AS locale,
+              u.discourse_id AS ext_id,
+              u.discourse_username,
+              u.sync_at_discourse
             FROM users u
-            WHERE u.discourse_id IS NOT NULL
+            WHERE u.discourse_id IS NOT NULL            
         SQL);
 
         // Drop former columns

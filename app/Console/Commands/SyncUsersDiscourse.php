@@ -59,7 +59,7 @@ class SyncUsersDiscourse extends Command
     {
         Log::info('Discourse Syncing user : '.$user->uuid);
 
-        foreach ($user->discourseProfiles()->get() as $discourseProfile) {
+        foreach ($user->discourseProfiles as $discourseProfile) {
             try {
                 $this->updateUserEmailOnDiscourse($discourseProfile->locale, $discourseProfile->username, $user->email);
                 $this->updateUserDetailsOnDiscourse($discourseProfile->locale, $discourseProfile->username, $user);
@@ -83,20 +83,10 @@ class SyncUsersDiscourse extends Command
         }
     }
 
-    private function updateUserEmailOnDiscourse(string $locale, string $discourseUsername, string $userEmail)
+    private function updateUserEmailOnDiscourse(string $locale, string $discourseUsername, string $userEmail): void
     {
-        try {
-            $result = $this->forumApiClients[$locale]->updateEmail($discourseUsername, $userEmail);
-
-            if($result['success'] === false) {
-                $this->error('Not Updated email : '.$result['message']);
-                throw new \Exception($result['message']);
-            }
-
-            $this->info('Updated email with id : '.$discourseUsername);
-        } catch (\RuntimeException $e) {
-         //   $this->info('Updating user email is temporary disabled');
-        }
+        // Disabled: DiscourseConnect SSO forbids API email updates.
+        // Intentionally no‑op to avoid try/catch overhead and dead branches.
     }
 
     private function updateUserDetailsOnDiscourse(string $locale, string $discourseUsername, User $user)
