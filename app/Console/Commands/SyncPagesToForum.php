@@ -169,7 +169,6 @@ class SyncPagesToForum extends Command
     private function createUsersOnDiscourse(LocalesConfig $localeConfig): array
     {
         $wikiCode = $localeConfig->code;
-        $forumClient = new ForumApiClient($localeConfig->forum_api_url, $localeConfig->forum_api_key);
 
         $this->info(sprintf("Syncing followers to forum %s", $wikiCode));
 
@@ -181,11 +180,12 @@ class SyncPagesToForum extends Command
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $users = DB::table('users')
-            ->join('interactions', function($join) {
+            ->join('interactions', function($join) use ($wikiCode) {
                 $join->on('interactions.user_id', '=', 'users.id')
-                    ->where('interactions.follow', '=', 1);
+                    ->where('interactions.follow', '=', 1)
+                    ->where('interactions.wiki', '=', $wikiCode);
             })
-            ->whereNotNull('users.email_verified_at')
+            ->whereNotNull('users.email_verified_at')            
             ->distinct()
             ->select('users.*')->get();
 
