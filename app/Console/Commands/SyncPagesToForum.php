@@ -118,6 +118,9 @@ class SyncPagesToForum extends Command
 
     private function subscribeUserToTags(ForumApiClient $forumClient, string $locale, int $userId, ?string $discourseUsername, array $tags): void
     {
+        // De‑dup incoming tags for this user
+        $tags = array_values(array_unique($tags));
+
         if (null === $discourseUsername) {
             $this->info(sprintf('No discourse username found for user ID %d and locale %s, skipping', $userId, $locale));
 
