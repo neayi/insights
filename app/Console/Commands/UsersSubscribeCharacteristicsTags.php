@@ -31,7 +31,7 @@ class UsersSubscribeCharacteristicsTags extends Command
     {
         $dateThreshold = Carbon::now()->sub(sprintf('%d days', $this->option('since-x-days')))->setTime(0, 0, 0);
 
-        // Get eligible users (subscribed to Discourse + having 1+ characteristics)
+        // Get eligible users (having 1+ characteristics; Discourse subscription checked downstream)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $usersInfosQuery = DB::table('users', 'u')
             ->select('u.id AS user_id')
