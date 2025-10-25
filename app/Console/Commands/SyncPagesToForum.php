@@ -175,11 +175,6 @@ class SyncPagesToForum extends Command
 
         $this->info(sprintf("Syncing followers to forum %s", $wikiCode));
 
-        // Set higher limit for GROUP_CONCAT (default is 1024 characters)
-        // 4GB max length is the maximum value for 32-bit systems
-        // Maximum value for 64-bit systems is 18446744073709551615
-        DB::statement('SET SESSION group_concat_max_len = 4294967295');
-
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $users = DB::table('users')
@@ -188,7 +183,7 @@ class SyncPagesToForum extends Command
                     ->where('interactions.follow', '=', 1)
                     ->where('interactions.wiki', '=', $wikiCode);
             })
-            ->whereNotNull('users.email_verified_at')            
+            ->whereNotNull('users.email_verified_at')
             ->distinct()
             ->select('users.*')->get();
 
