@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="secteur font-weight-semibold">@lang('wiki_profile.'.$role)
                                      {{ !empty($context['sector']) ? '- '.$context['sector'] : '' }}
-                                     {!! !empty($context['structure']) ? ' (<a href="' . $localesConfig[$context['wiki']]['wiki_url'] . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
+                                     {!! !empty($context['structure']) ? ' (<a href="' . $localesConfig[$context['defaultLocale']]['wiki_url'] . '/wiki/Structure:'.$context['structure'].'">'.$context['structure'] .'</a>)' : '' !!}
                                 </div>
                                 @if(!$edit && isset($more['discourse_username']) && $more['discourse_username'] !== null)
                                     <div>
@@ -224,7 +224,7 @@
                             {!! $description !!}
                         </p>
                     </div>
-                    
+
                 </div>
 
                 <!-- mon activité -->

@@ -8,6 +8,7 @@ namespace App\Src\UseCases\Domain\Context\Queries;
 use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Ports\UserRepository;
+use App\Src\UseCases\Domain\Forum\ForumUserProvisioner;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
 
@@ -15,6 +16,7 @@ class GetLastUserComments
 {
     public function __construct(
         private UserRepository $userRepository,
+        private ForumUserProvisioner $forumUserProvisioner,
     ){}
 
     public function get(string $userId)
@@ -26,11 +28,12 @@ class GetLastUserComments
 
         $user = $this->userRepository->getById($userId);
 
-        $localeConfig = LocalesConfig::query()->where('code', $user->wiki())->first();
+        $localeConfig = LocalesConfig::query()->where('code', $user->defaultLocale())->first();
         $forumURL = $localeConfig->forum_api_url;
 
+        $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsernameFromUUID($userId, $localeConfig->code);
         $client = new ForumApiClient($forumURL, $localeConfig->forum_api_key);
-        $content = $client->getUserByUsername($user->discourse_username());
+        $content = $client->getUserByUsername($discourseUsername);
         $commentsToRetrieved = [];
 
         if (!empty($content['posts'])) {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Infra\Gateway;
 
-
 use App\Src\UseCases\Domain\Shared\Gateway\AuthGateway;
 use App\Src\UseCases\Domain\User;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +27,7 @@ class SessionAuthGateway implements AuthGateway
             $userModel->path_picture,
             $roles,
             $userModel->providers,
-            $userModel->discourse_id,
-            $userModel->discourse_username,
-            $userModel->wiki
+            $userModel->default_locale
         );
     }
 

@@ -7,9 +7,9 @@ namespace App\Console\Commands;
 use App\LocalesConfig;
 use App\Src\ForumApiClient;
 use App\Src\UseCases\Domain\Forum\ForumTagHelper;
+use App\Src\UseCases\Domain\Forum\ForumUserProvisioner;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
-use RuntimeException;
 use Throwable;
 
 class SyncPagesToForum extends Command
@@ -18,9 +18,17 @@ class SyncPagesToForum extends Command
 
     protected $description = 'Create forum tags for eligible wiki pages';
 
-    public function handle(): void
+    private ForumUserProvisioner $forumUserProvisioner;
+
+    private int $doneSubscriptions = 0;
+
+    public function handle(ForumUserProvisioner $forumUserProvisioner): void
     {
+        $this->forumUserProvisioner = $forumUserProvisioner;
+
         $localesConfig = LocalesConfig::all();
+
+        $this->doneSubscriptions = 0;
 
         foreach ($localesConfig as $localeConfig) {
             if (!$localeConfig->forum_taggroup_themes) {
@@ -40,6 +48,9 @@ class SyncPagesToForum extends Command
     private function handleSync(LocalesConfig $localeConfig): void
     {
         $wikiCode = $localeConfig->code;
+
+        $usersDiscourseIds = $this->createUsersOnDiscourse($localeConfig);
+
         $forumClient = new ForumApiClient($localeConfig->forum_api_url, $localeConfig->forum_api_key);
 
         $this->info(sprintf("Syncing wiki Pages to forum %s", $wikiCode));
@@ -52,7 +63,7 @@ class SyncPagesToForum extends Command
         // Get eligible pages (followed by at least one user)
         // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
         $eligiblePagesQuery = DB::table('pages', 'p')
-            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(users.discourse_username) AS usernames'))
+            ->select('p.page_id', 'p.title', 'p.wiki_ns', DB::raw('GROUP_CONCAT(DISTINCT users.id) AS user_ids'))
             ->join('interactions', 'interactions.page_id', '=', 'p.page_id')
             ->join('users', 'interactions.user_id', '=', 'users.id')
             ->where('p.wiki', '=', $wikiCode)
@@ -70,7 +81,7 @@ class SyncPagesToForum extends Command
 
         foreach ($pages as $page) {
             // Do not process pages without users subscribed
-            if (empty($page->usernames)) {
+            if (empty($page->user_ids)) {
                 $this->info(sprintf('Skipping page "%s" with namespace %d, no users subscribed', $page->title, $page->wiki_ns));
                 continue;
             }
@@ -83,8 +94,8 @@ class SyncPagesToForum extends Command
                 $sanitizedPageName = ForumTagHelper::sanitizeTagName($cleanedPageName);
                 $tags[$sanitizedPageName] = $sanitizedPageName;
 
-                foreach (explode(',', $page->usernames) as $username) {
-                    $tagsSubscriptionsForUsers[$username][] = $sanitizedPageName;
+                foreach (explode(',', $page->user_ids) as $userId) {
+                    $tagsSubscriptionsForUsers[$userId][] = $sanitizedPageName;
                 }
             } catch (Throwable $e) {
                 $this->error(sprintf('Error handling page "%s" with namespace %d : %s', $pageName, $pageNs, $e->getMessage()));
@@ -98,32 +109,46 @@ class SyncPagesToForum extends Command
         $this->info(sprintf('Updated tag group for wiki %s with %d tags', $wikiCode, count($tags)));
 
         // Inscrire les utilisateurs aux notifs du tag
-        $subscriptionsDone = 0;
-        foreach ($tagsSubscriptionsForUsers as $username => $tags) {
-            try {
-                $currentlyFollowedTags = $forumClient->getFollowedTagsForUser($username);
-            } catch (Throwable $e) {
-                $this->error(sprintf('Error fetching followed tags for user %s: %s', $username, $e->getMessage()));
+        foreach ($tagsSubscriptionsForUsers as $userId => $tags) {
+            $this->subscribeUserToTags($forumClient, $localeConfig->code, (int) $userId, $usersDiscourseIds[$userId] ?? null, $tags);
+        }
+
+        $this->info(sprintf('Made %d subscriptions', $this->doneSubscriptions));
+    }
+
+    private function subscribeUserToTags(ForumApiClient $forumClient, string $locale, int $userId, ?string $discourseUsername, array $tags): void
+    {
+        // De‑dup incoming tags for this user
+        $tags = array_values(array_unique($tags));
+
+        if (null === $discourseUsername) {
+            $this->info(sprintf('No discourse username found for user ID %d and locale %s, skipping', $userId, $locale));
+
+            return;
+        }
+
+        try {
+            $currentlyFollowedTags = $forumClient->getFollowedTagsForUser($discourseUsername);
+        } catch (Throwable $e) {
+            $this->error(sprintf('Error fetching followed tags for user %s: %s', $discourseUsername, $e->getMessage()));
+
+            return;
+        }
+
+        foreach ($tags as $tagName) {
+            if (in_array($tagName, $currentlyFollowedTags, true)) {
+                $this->info(sprintf('User %s is already subscribed to tag %s, skipping', $discourseUsername, $tagName));
                 continue;
             }
 
-            foreach ($tags as $tagName) {
-                if (in_array($tagName, $currentlyFollowedTags, true)) {
-                    $this->info(sprintf('User %s is already subscribed to tag %s, skipping', $username, $tagName));
-                    continue;
-                }
-
-                try {
-                    $forumClient->subscribeTagNotifications($username, $tagName);
-                    $subscriptionsDone++;
-                    $this->info(sprintf('Subscribed user %s to tag %s', $username, $tagName));
-                } catch (Throwable $e) {
-                    $this->error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
-                }
+            try {
+                $forumClient->subscribeTagNotifications($discourseUsername, $tagName);
+                $this->doneSubscriptions++;
+                $this->info(sprintf('Subscribed user %s to tag %s', $discourseUsername, $tagName));
+            } catch (Throwable $e) {
+                $this->error(sprintf('Error subscribing user %s to tag %s: %s', $discourseUsername, $tagName, $e->getMessage()));
             }
         }
-
-        $this->info(sprintf('Made %d subscriptions', $subscriptionsDone));
     }
 
     /**
@@ -139,5 +164,43 @@ class SyncPagesToForum extends Command
                 $indexOfColon = strpos($pageName, ':');
                 return $indexOfColon !== false ? mb_substr($pageName, $indexOfColon) : $pageName;
         }
+    }
+
+    /**
+     * Find all the users that follow at least one page, and make sure they have a forum account (so that they can be contacted by private message or that the can get notifications).
+     */
+    private function createUsersOnDiscourse(LocalesConfig $localeConfig): array
+    {
+        $wikiCode = $localeConfig->code;
+
+        $this->info(sprintf("Syncing followers to forum %s", $wikiCode));
+
+        // Get eligible pages (followed by at least one user)
+        // Eloquent seems not to be optimized to user INNER JOIN in order to filter, using SQL
+        $users = DB::table('users')
+            ->join('interactions', function($join) use ($wikiCode) {
+                $join->on('interactions.user_id', '=', 'users.id')
+                    ->where('interactions.follow', '=', 1)
+                    ->where('interactions.wiki', '=', $wikiCode);
+            })
+            ->whereNotNull('users.email_verified_at')
+            ->distinct()
+            ->select('users.*')->get();
+
+        $usersDiscourseIds = [];
+        foreach ($users as $user) {
+            $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsername($user->id, $localeConfig->code);
+
+            if ($discourseUsername !== null) {
+                $usersDiscourseIds[$user->id] = $discourseUsername;
+            }
+            else {
+                $this->info(sprintf('User NOT synced on discourse: ID %d (%s)', $user->id, $user->email));
+            }
+        }
+
+        $this->info(sprintf("Synched %d followers (people which follow at least one page and have verified their email)", count($usersDiscourseIds)));
+
+        return $usersDiscourseIds;
     }
 }

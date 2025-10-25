@@ -11,12 +11,18 @@ use Illuminate\Support\Facades\Log;
 
 class CharacteristicsForumSyncer
 {
-    /** array<string, {client: ForumApiClient}> */
-    private array $syncerConfig = [];
+    private ForumUserProvisioner $forumUserProvisioner;
 
     /**
-     * @inheritdoc
+     * @var array<string, {client: ForumApiClient, characteristics_taggroups: array<string, int>}>
      */
+    private array $syncerConfig = [];
+
+    public function __construct(ForumUserProvisioner $forumUserProvisioner)
+    {
+        $this->forumUserProvisioner = $forumUserProvisioner;
+    }
+
     public function syncCharacteristicTagGroup(string $type, string $locale, array $characteristics): void
     {
         if (empty($this->syncerConfig)) {
@@ -48,20 +54,25 @@ class CharacteristicsForumSyncer
         }
     }
 
-    public function subscribeCharacteristicTagNotifications(string $username, string $locale, string $tagName): void
+    public function subscribeCharacteristicTagNotifications(int $userId, string $locale, string $tagName): void
     {
         if (empty($this->syncerConfig)) {
             $this->initSyncerConfig();
         }
 
-        Log::info(sprintf('Subscribing user %s to tag %s in wiki %s', $username, $tagName, $locale));
+        Log::info(sprintf('Subscribing user with ID %d to tag %s in wiki %s', $userId, $tagName, $locale));
 
-        $forumApiClient = $this->syncerConfig[$locale]['client'];
+        $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsername($userId, $locale);
+        if (null === $discourseUsername) {
+            Log::info(sprintf('No discourse username found for user ID %d and locale %s, skipping', $userId, $locale));
+
+            return;
+        }
 
         try {
-            $forumApiClient->subscribeTagNotifications($username, ForumTagHelper::sanitizeTagName($tagName));
+            $this->syncerConfig[$locale]['client']->subscribeTagNotifications($discourseUsername, ForumTagHelper::sanitizeTagName($tagName));
         } catch (\Throwable $e) {
-            Log::error(sprintf('Error subscribing user %s to tag %s: %s', $username, $tagName, $e->getMessage()));
+            Log::error(sprintf('Error subscribing user %s to tag %s: %s', $discourseUsername, $tagName, $e->getMessage()));
         }
     }
 
