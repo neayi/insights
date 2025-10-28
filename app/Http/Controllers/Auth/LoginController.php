@@ -56,9 +56,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if (empty($user->wiki)) {
+        if (empty($user->default_locale)) {
             $locale = \App\LocalesConfig::getPreferredLocale();
-            $user->wiki = $locale->code;
+            $user->default_locale = $locale->code;
             $user->save();
         }
 

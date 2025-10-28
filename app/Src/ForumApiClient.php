@@ -33,7 +33,7 @@ class ForumApiClient
 
     public function getUserByEmail(string $email): array
     {
-        $response = $this->client->get('/admin/users/list/active.json?filter=' . $email . '&show_emails=true&order=&ascending=&page=1');
+        $response = $this->client->get('/admin/users/list/active.json?filter=' . urlencode($email) . '&show_emails=true&order=&ascending=&page=1');
         usleep(500000);
 
         return json_decode($response->getBody()->getContents(), true);
@@ -47,8 +47,13 @@ class ForumApiClient
         return json_decode($result->getBody()->getContents(), true);
     }
 
+    /**
+     * Using API to change email is not possible when SSO DiscourseConnect is enabled.
+     */
     public function updateEmail(string $username, string $email): array
     {
+        throw new \RuntimeException('Updating email via API is not possible when SSO DiscourseConnect is enabled.');
+
         $result = $this->client->put('u/' . $username . '/preferences/email.json', [
             'json' => [
                 'email' => $email,
@@ -59,9 +64,9 @@ class ForumApiClient
         return json_decode($result->getBody()->getContents(), true);
     }
 
-    public function updateUser(User $user, string $bio): array
+    public function updateUser(string $discourseUsername, User $user, string $bio): array
     {
-        $result = $this->client->put('u/' . $user->discourse_username . '.json', [
+        $result = $this->client->put('u/' . $discourseUsername . '.json', [
             'json' => [
                 'name' => $user->fullname,
                 'title' => $user->title,
@@ -147,5 +152,5 @@ class ForumApiClient
 
         return $userData['user']['tracked_tags'] ?? [];
     }
-  
+
 }

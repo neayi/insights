@@ -24,7 +24,7 @@ class CreateCharacteristic
         $user = $this->authGateway->current();
         $characteristic = $this->characteristicRepository->getBy(['title' => $title, 'type' => $type]);
         if(!isset($characteristic)){
-            $characteristic = new Characteristic($id, $type, $title, false, null, $user->wiki());
+            $characteristic = new Characteristic($id, $type, $title, false, null, $user->defaultLocale());
             $characteristic->create();
         }
 

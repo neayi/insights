@@ -74,7 +74,7 @@ class RegisterController extends Controller
 
         $user = User::where('uuid', $userId)->first();
         $locale = \App\LocalesConfig::getPreferredLocale();
-        $user->wiki = $locale->code;
+        $user->default_locale = $locale->code;
         $user->save();
         return $user;
     }
@@ -126,7 +126,7 @@ class RegisterController extends Controller
             $userId = $result['user_id'];
             $user = User::where('uuid', $userId)->first();
             $locale = \App\LocalesConfig::getPreferredLocale();
-            $user->wiki = $locale->code;
+            $user->default_locale = $locale->code;
             $user->save();
             $this->guard()->login($user);
 
@@ -168,7 +168,7 @@ class RegisterController extends Controller
         $userId = $result['user_id'];
         $user = User::where('uuid', $userId)->first();
         $locale = \App\LocalesConfig::getPreferredLocale();
-        $user->wiki = $locale->code;
+        $user->default_locale = $locale->code;
         $user->save();
         return redirect()->route('home');
     }
