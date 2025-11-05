@@ -6,7 +6,6 @@ use App\Events\InteractionOnPage;
 use App\Listeners\AddEmailToNewsletter;
 use App\Listeners\SendCustomEmailVerificationNotification;
 use App\Listeners\SetInteractionToRegisteredUserListener;
-use App\Listeners\SetUserToSyncOnDiscourse;
 use App\Listeners\SetWikiToRegisteredUser;
 use App\Observers\PageObserver;
 use App\Src\UseCases\Infra\Sql\Model\PageModel;
@@ -26,7 +25,6 @@ class EventServiceProvider extends ServiceProvider
             SetInteractionToRegisteredUserListener::class
         ],
         Verified::class => [
-            SetUserToSyncOnDiscourse::class,
             AddEmailToNewsletter::class
         ]
     ];
