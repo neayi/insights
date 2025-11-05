@@ -28,4 +28,20 @@ class SsoController extends BaseSsoController
         $this->config = collect($configs);
         $this->config->put('user', collect($this->config->get('user')));
     }
+
+    /**
+     * Build out the extra parameters to send to Discourse
+     * 
+     * Override to handle null values from user properties
+     */
+    protected function buildExtraParameters(): array
+    {
+        return $this->config->get('user')
+                            ->except(['access', 'email', 'external_id'])
+                            ->reject([$this, 'nullProperty'])
+                            ->map([$this, 'parseUserValue'])
+                            ->reject([$this, 'nullProperty']) // Filter out null values again after parsing
+                            ->map([$this, 'castBooleansToString'])
+                            ->toArray();
+    }
 }
