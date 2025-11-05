@@ -92,9 +92,10 @@ class LoginController extends Controller
 
     public function redirectToProvider(string $provider)
     {
-        if($provider === 'twitter'){
-            config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
-            return Socialite::driver($provider)->redirect();
+        // Only allow specific providers (Twitter is disabled)
+        $allowedProviders = ['facebook', 'google'];
+        if (!in_array($provider, $allowedProviders)) {
+            abort(404);
         }
 
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
@@ -103,6 +104,12 @@ class LoginController extends Controller
 
     public function handleProviderCallback(string $provider, LogUserFromSocialNetwork $logUserFromSocialNetwork)
     {
+        // Only allow specific providers (Twitter is disabled)
+        $allowedProviders = ['facebook', 'google'];
+        if (!in_array($provider, $allowedProviders)) {
+            abort(404);
+        }
+
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK_LOGIN')]);
         $logUserFromSocialNetwork->log($provider);
         return $this->authenticated(request(), Auth::user());

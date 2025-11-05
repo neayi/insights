@@ -109,18 +109,27 @@ class RegisterController extends Controller
 
     public function redirectToProvider(string $provider)
     {
+        // Only allow specific providers (Twitter is disabled)
+        $allowedProviders = ['facebook', 'google'];
+        if (!in_array($provider, $allowedProviders)) {
+            abort(404);
+        }
+
         if(request()->session()->has('wiki_token')) {
             session()->reflash();
         }
         config(['services.'.$provider.'.redirect' => env(strtoupper($provider).'_CALLBACK')]);
-        if($provider === 'twitter'){
-            return Socialite::driver($provider)->redirect();
-        }
         return Socialite::driver($provider)->redirectUrl(config('services.'.$provider.'.redirect'))->redirect();
     }
 
     public function handleProviderCallback(string $provider, Request $request, RegisterUserFromSocialNetwork $register)
     {
+        // Only allow specific providers (Twitter is disabled)
+        $allowedProviders = ['facebook', 'google'];
+        if (!in_array($provider, $allowedProviders)) {
+            abort(404);
+        }
+
         try {
             $result = $register->register($provider);
             $userId = $result['user_id'];
