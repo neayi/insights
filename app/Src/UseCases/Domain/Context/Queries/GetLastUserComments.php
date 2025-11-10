@@ -26,15 +26,21 @@ class GetLastUserComments
             return json_decode($comments, true);
         }
 
+        $commentsToRetrieved = [];
+
         $user = $this->userRepository->getById($userId);
 
         $localeConfig = LocalesConfig::query()->where('code', $user->defaultLocale())->first();
         $forumURL = $localeConfig->forum_api_url;
 
         $discourseUsername = $this->forumUserProvisioner->getUserDiscourseUsernameFromUUID($userId, $localeConfig->code);
+
+        if (!$discourseUsername) {
+            return [];
+        }
+        
         $client = new ForumApiClient($forumURL, $localeConfig->forum_api_key);
         $content = $client->getUserByUsername($discourseUsername);
-        $commentsToRetrieved = [];
 
         if (!empty($content['posts'])) {
             $comments = $content['posts'];
