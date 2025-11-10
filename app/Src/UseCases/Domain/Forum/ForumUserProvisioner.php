@@ -172,29 +172,9 @@ class ForumUserProvisioner
     {
         DiscourseProfileModel::upsert(
             ['user_id' => $user->id, 'locale' => $locale, 'ext_id' => $discourseId, 'username' => $discourseUsername, 'synced_at' => date('Y-m-d H:i:s')],
-            ['user_id' => $user->id, 'locale' => $locale],
+            ['user_id', 'locale'],
             ['ext_id', 'username', 'synced_at']
         );
-
-        /*$discourseProfile = DiscourseProfileModel::where('user_id', $user->id)->where('locale', $locale)->first();
-
-        if (null === $discourseProfile) {
-            $discourseProfile = new DiscourseProfileModel();
-            $discourseProfile->user_id = $user->id;
-            $discourseProfile->locale = $locale;
-
-            Log::info('Discourse profile created on discourse with ext_id : '.$discourseId);
-        } else {
-            Log::info('Discourse profile was already created on discourse with ext_id : '.$discourseProfile->ext_id);
-        }
-
-        $discourseProfile->ext_id = $discourseId;
-        $discourseProfile->username = $discourseUsername;
-        $discourseProfile->synced_at = date('Y-m-d H:i:s');
-
-        $discourseProfile->save();
-
-        return $discourseUsername;*/
     }
 
     /**
