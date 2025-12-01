@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Src;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Cookie\CookieJar;
+
+use RuntimeException;
 
 /**
  * Client to interact with the Wiki Semantic API
@@ -17,32 +19,86 @@ use GuzzleHttp\Exception\GuzzleException;
 class WikiSemanticApiClient
 {
     private Client $client;
-    private string $baseUri;
+    private string $baseApiUri;
+    private string $baseRestUri;
+    private CookieJar $cookieJar;
+
+    private const WIKI_SESSION_COOKIE_NAME = 'wiki_session';
+    private const WIKI_PROPERTY_LIKES = 'Number of likes';
 
     public function __construct(array $configs)
     {
-        $this->baseUri = $configs['wiki_url'].'?';
-        $this->client = new Client();
-
-        // TODO: Uses API token to authenticate
+        $this->baseApiUri = $configs['wiki_api_url'];
+        $this->baseRestUri = $configs['wiki_restapi_url'];
+        $this->client = new Client(['cookie' => true]);
+        $this->cookieJar = new CookieJar();
     }
 
-    public function postPageLikesAmount(int $pageId, int $likesAmount): array
+    public function postPageLikesAmount(string $pageTitle, int $likesAmount): bool
     {
-        // TODO: Login or make sure it's logged in
+        // Login or make sure it's logged in
+        if (
+            0 === $this->cookieJar->count() ||
+            null === $this->cookieJar->getCookieByName(self::WIKI_SESSION_COOKIE_NAME) ||
+            $this->cookieJar->getCookieByName(self::WIKI_SESSION_COOKIE_NAME)->isExpired()
+        ) {
+            $this->authenticate();
+        }
 
-        // TODO: Request the POST endpoint
-        $query = sprintf(
-            'action=semanticapi&format=json&method=editEntity&entity=%s&property=Likes&value=%d',
-            $pageId,
-            $likesAmount
+        // Replaces spaces in page title with underscores
+        $pageTitle = str_replace(' ', '_', $pageTitle);
+
+        $uri = sprintf('%s/semanticproperty/%s', $this->baseRestUri, urlencode($pageTitle));
+
+        $response = $this->client->put($uri, [
+            'cookies' => $this->cookieJar,
+            'json' => [
+                'property' => self::WIKI_PROPERTY_LIKES,
+                'value' => $likesAmount,
+            ],
+        ]);
+
+        $responseContent = json_decode($response->getBody()->getContents(), true);
+
+        if (!isset($responseContent['result'])) {
+            throw new RuntimeException('Invalid response from Wiki Semantic API: ' . $response->getBody()->getContents());
+        }
+
+        return 'success' === $responseContent['result'] ?? false;
+    }
+
+    private function authenticate(): void
+    {
+        $loginTokenResponse = $this->client->get(
+            $this->baseApiUri.'?action=query&meta=tokens&type=login&format=json',
+            ['cookies' => $this->cookieJar]
         );
-        $uri = $this->baseUri.$query;
-        try {
-            $response = $this->client->post($uri);
-            return json_decode($response->getBody()->getContents(), true);
-        } catch (\Throwable $e){
-            return ['success' => false, 'error' => $e->getMessage()];
+        $loginTokenData = json_decode($loginTokenResponse->getBody()->getContents(), true);
+        $loginToken = $loginTokenData['query']['tokens']['logintoken'] ?? null;
+
+        if (!$loginToken) {
+            throw new RuntimeException("Failed to get login token");
+        }
+
+        $loginResponse = $this->client->post(
+            $this->baseApiUri,
+            [
+                'form_params' => [
+                    'action' => 'login',
+                    'lgname' => env('WIKI_BOT_USERNAME'),
+                    'lgpassword' => env('WIKI_BOT_PASSWORD'),
+                    'lgtoken' => $loginToken,
+                    'format' => 'json'
+                ],
+                'cookies' => $this->cookieJar,
+            ]
+        );
+        $loginData = json_decode($loginResponse->getBody()->getContents(), true);
+        $loginSuccess = $loginData['login']['result'] ?? null;
+
+        if ('Success' !== $loginSuccess) {
+            $reason = $loginData['login']['reason'] ?? 'Unknown reason';
+            throw new RuntimeException("Login failed: " . $reason);
         }
     }
 }
