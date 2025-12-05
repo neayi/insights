@@ -56,7 +56,8 @@ class UsersSubscribeCharacteristicsTags extends Command
             if (null !== $userRow->characteristic_page_id) {
                 $this->ensureUserFollowsCharacteristicPage(
                     $userRow->user_id,
-                    $userRow->characteristic_page_id
+                    $userRow->characteristic_page_id,
+                    $userRow->locale
                 );
             }
 
@@ -68,10 +69,10 @@ class UsersSubscribeCharacteristicsTags extends Command
         }
     }
 
-    private function ensureUserFollowsCharacteristicPage(int $userId, int $pageId): void
+    private function ensureUserFollowsCharacteristicPage(int $userId, int $pageId, string $wiki): void
     {
         InteractionModel::upsert(
-            ['user_id' => $userId, 'page_id' => $pageId, 'follow' => true],
+            ['user_id' => $userId, 'page_id' => $pageId, 'follow' => true, 'wiki' => $wiki],
             ['user_id', 'page_id'],
             ['follow']
         );

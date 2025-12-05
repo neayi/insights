@@ -13,7 +13,7 @@ return new class extends Migration
         // Merge les interactions dupliquées (user_id + page_id)
         DB::statement(<<<SQL
             UPDATE interactions i1
-                INNER JOIN interactions i2 ON i1.id < i2.id AND i1.user_id = i2.user_id AND i1.page_id = i2.page_id
+                INNER JOIN interactions i2 ON i1.id < i2.id AND i1.user_id = i2.user_id AND i1.page_id = i2.page_id AND i1.wiki = i2.wiki
             SET i1.applause = GREATEST(i1.applause, i2.applause),
                 i1.follow = GREATEST(i1.follow, i2.follow),
                 i1.done = GREATEST(i1.done, i2.done),
@@ -25,12 +25,12 @@ return new class extends Migration
         DB::statement(<<<SQL
             DELETE i2
             FROM interactions i1
-                INNER JOIN interactions i2 ON i1.id < i2.id AND i1.user_id = i2.user_id AND i1.page_id = i2.page_id
+                INNER JOIN interactions i2 ON i1.id < i2.id AND i1.user_id = i2.user_id AND i1.page_id = i2.page_id AND i1.wiki = i2.wiki
             WHERE i1.user_id IS NOT NULL;
         SQL);
         // Pose un index UNIQUE sur les interactions (user_id + page_id)
         DB::statement(<<<SQL
-            CREATE UNIQUE INDEX unique_user_page ON interactions (user_id, page_id);
+            CREATE UNIQUE INDEX unique_user_page ON interactions (user_id, page_id, wiki);
         SQL);
     }
 
