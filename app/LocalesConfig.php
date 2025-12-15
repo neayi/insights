@@ -16,6 +16,7 @@ class LocalesConfig extends Model
         'code',
         'wiki_url',
         'wiki_api_url',
+        'wiki_restapi_url',
         'forum_url',
         'forum_api_url',
         'forum_api_secret',
