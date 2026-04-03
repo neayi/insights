@@ -25,15 +25,19 @@ class AddEmailToNewsletter
 
     public function handle(Verified $verified)
     {
+        if (app()->environment('local', 'testing')) {
+            return;
+        }
+
         try {
             $this->sendingBlueService->addEmailToList($verified->user->email, $verified->user->lastname, $verified->user->firstname);
         } catch (\Throwable $e) {
-            Log::critical('Error when adding email to sending blue : ' . $verified->user->email);
+            Log::warning('Error when adding email to sending blue : ' . $verified->user->email . ' - ' . $e->getMessage());
         }
         try {
             $this->mailerLiteService->addEmailToList($verified->user->email);
         } catch (\Exception $e) {
-            Log::critical('Error when adding email to mailerlite : ' . $verified->user->email);
+            Log::warning('Error when adding email to mailerlite : ' . $verified->user->email . ' - ' . $e->getMessage());
         }
     }
 }

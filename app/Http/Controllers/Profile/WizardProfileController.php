@@ -48,6 +48,27 @@ class WizardProfileController extends Controller
 
         $fillWikiUserProfile->fill(Auth::user()->uuid, $role, $firstname, $lastname, $email, $country, $postalCode, $farmingType);
 
+        $user = Auth::user();
+
+        if ($user->hasVerifiedEmail()) {
+            if ($request->session()->has('sso')) {
+                $sso = $request->session()->get('sso');
+                $sig = $request->session()->get('sig');
+                $wikiCode = $request->session()->get('wikiCode');
+                \Illuminate\Support\Facades\Log::info('WizardProfile SSO redirect', ['wikiCode' => $wikiCode, 'sso' => $sso, 'sig' => $sig]);
+                return redirect($wikiCode . '/neayi/discourse/sso?sso=' . urlencode($sso) . '&sig=' . urlencode($sig));
+            }
+
+            if ($request->session()->has('wiki_callback')) {
+                $user->wiki_token = $request->session()->get('wiki_token');
+                $user->save();
+                $callback = urldecode($request->session()->get('wiki_callback'));
+                return redirect($callback);
+            }
+
+            return redirect()->route('show.profile');
+        }
+
         return redirect()->route('verification.notice');
     }
 }

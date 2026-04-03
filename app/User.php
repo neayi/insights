@@ -94,7 +94,9 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         if(session()->has('sso')){
             $sso = session()->get('sso');
             $sig = session()->get('sig');
-            $callback = base64_encode(url('neayi/discourse/sso?sso='.$sso.'&sig='.$sig));
+            $wikiCode = session()->get('wikiCode', '');
+            $prefix = $wikiCode ? $wikiCode . '/' : '';
+            $callback = base64_encode(url($prefix . 'neayi/discourse/sso?sso=' . $sso . '&sig=' . $sig));
         }
         Mail::to($this->email)->send(new \App\Mail\Auth\VerifyEmail($this, $callback));
     }
