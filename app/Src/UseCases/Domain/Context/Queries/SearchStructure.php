@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Src\UseCases\Domain\Context\Queries;
 
-
+use App\LocalesConfig;
 use App\Src\WikiClient;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +15,9 @@ class SearchStructure
 {
     public function execute(string $search):array
     {
-        $client = new WikiClient(Auth::user()->default_locale);
+        $localeConfig = LocalesConfig::whereCode(Auth::user()->default_locale)->first();
+        $client = new WikiClient($localeConfig->toArray());
+
         $content = $client->searchStructures($search);
         if(isset($content['query']['search'])){
             $results = array_column($content['query']['search'], 'title');
