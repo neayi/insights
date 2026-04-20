@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('characteristics:import')->dailyAt('22:00');
         $schedule->command('characteristics:init-users-subscriptions --since-x-days=3')->dailyAt('22:15');
         $schedule->command('users:sync-on-discourse')->dailyAt('22:30');
+        $schedule->command('pages:export-details-to-wiki --since-x-days=3')->dailyAt('22:45');
         $schedule->command('pages:sync-to-forum')->dailyAt('23:30');
         $schedule->command('pages:import-additional-page-detail')->twiceMonthly();
     }
