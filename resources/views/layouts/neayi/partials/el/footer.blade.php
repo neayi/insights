@@ -40,7 +40,7 @@
 <ul class="list-unstyled">
 <li><a href="{{$wikiUrl}}/wiki/Agriculture de précision" title="Γεωργία ακριβείας">Γεωργία ακριβείας</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Agroforesterie" title="Αγροδασοκομία">Αγροδασοκομία</a></li>
-<li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Βιοεπιθετικοί">Βιοεπιθετικοί</a></li>
+<li><a href="{{$wikiUrl}}/wiki/Bioagresseurs" title="Βιοεπιθετικοί παράγοντες">Βιοεπιθετικοί παράγοντες</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Biodiversité" title="Βιοποικιλότητα">Βιοποικιλότητα</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Couverts végétaux" title="Καλύμματα">Καλύμματα</a></li>
 <li><a href="{{$wikiUrl}}/wiki/Cycle du carbone et GES" title="Κύκλος άνθρακα και GHG">Κύκλος άνθρακα και GHG</a></li>

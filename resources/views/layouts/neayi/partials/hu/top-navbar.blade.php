@@ -15,8 +15,6 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Faiskola">Faiskola</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Zöldségtermesztés">Zöldségtermesztés</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Gyógy- és aromanövények">Gyógy- és aromanövények</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Farmok keresése">Farmok keresése</a>
 
 		</div>
 	</li>
@@ -49,7 +47,7 @@
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Produkciók">Produkciók</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Témák">Témák</a></li>
 <li class="nav-item"><a class="nav-link" href="https://hu.forum.tripleperformance.ag" title="Fórum">Fórum</a></li>
-<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Képzések" title="Képzések">Képzések</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Térkép">Térkép</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Keresés">Keresés</a></li>
 
         </ul>

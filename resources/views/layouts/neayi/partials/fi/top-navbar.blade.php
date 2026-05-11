@@ -15,8 +15,6 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Puutarhaviljely">Puutarhaviljely</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Kauppapuutarhanhoito">Kauppapuutarhanhoito</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="Lääkekasvit ja Aromikasvit">Lääkekasvit ja Aromikasvit</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Etsi maatiloja">Etsi maatiloja</a>
 
 		</div>
 	</li>
@@ -49,7 +47,7 @@
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Tuotokset">Tuotokset</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Teemat">Teemat</a></li>
 <li class="nav-item"><a class="nav-link" href="https://fi.forum.tripleperformance.ag" title="Foorumi">Foorumi</a></li>
-<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Koulutuskurssit" title="Koulutuskurssit">Koulutuskurssit</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Kartta">Kartta</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Etsi">Etsi</a></li>
 
         </ul>

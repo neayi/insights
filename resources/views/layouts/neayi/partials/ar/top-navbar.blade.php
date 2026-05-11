@@ -15,8 +15,6 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="زراعة الأشجار">زراعة الأشجار</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="البستنة التسويقية">البستنة التسويقية</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="النباتات العطرية والطبية">النباتات العطرية والطبية</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="البحث عن المزارع">البحث عن المزارع</a>
 
 		</div>
 	</li>
@@ -49,7 +47,7 @@
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="الإنتاج">الإنتاج</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="الموضوعات">الموضوعات</a></li>
 <li class="nav-item"><a class="nav-link" href="https://ar.forum.tripleperformance.ag" title="المنتدى">المنتدى</a></li>
-<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/الدورات التدريبية" title="الدورات التدريبية">الدورات التدريبية</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="خريطة">خريطة</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="البحث">البحث</a></li>
 
         </ul>

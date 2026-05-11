@@ -15,8 +15,6 @@
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Arboriculture" title="Arboriculture">Arboriculture</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/Maraîchage" title="Maraîchage">Maraîchage</a>
 <a class="dropdown-item" href="{{$wikiUrl}}/wiki/PPAM" title="PPAM">PPAM</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Rechercher des fermes">Rechercher des fermes</a>
 
 		</div>
 	</li>
@@ -49,7 +47,7 @@
             <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Productions" title="Productions">Productions</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" href="{{$wikiUrl}}/wiki/Thématiques" title="Thématiques">Thématiques</a></li>
 <li class="nav-item"><a class="nav-link" href="https://forum.tripleperformance.fr" title="Forum">Forum</a></li>
-<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Formations" title="Formations">Formations</a></li>
+<li class="nav-item"><a class="nav-link" href="{{$wikiUrl}}/wiki/Retours_d%27expérience" title="Carto">Carto</a></li>
 <li class="nav-item neayi-additional-mobile-menus"><a class="nav-link" onclick="window.scrollTo(0, 0); $('#searchInput').focus(); return true" data-toggle="collapse" href="#" title="Rechercher">Rechercher</a></li>
 
         </ul>
