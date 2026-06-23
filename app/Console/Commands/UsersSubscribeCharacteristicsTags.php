@@ -73,7 +73,7 @@ class UsersSubscribeCharacteristicsTags extends Command
     {
         InteractionModel::upsert(
             ['user_id' => $userId, 'page_id' => $pageId, 'follow' => true, 'wiki' => $wiki],
-            ['user_id', 'page_id'],
+            ['user_id', 'page_id', 'wiki'],
             ['follow']
         );
     }
