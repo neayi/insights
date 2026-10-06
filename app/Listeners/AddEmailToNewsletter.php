@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace App\Listeners;
 
 use App\MailerLiteService;
-use App\SendinBlueService;
+use App\BrevoService;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Log;
 
 class AddEmailToNewsletter
 {
     private $mailerLiteService;
-    private $sendingBlueService;
+    private $brevoService;
 
     public function __construct(
         MailerLiteService $mailerLiteService,
-        SendinBlueService $sendingBlueService
+        BrevoService $brevoService
     )
     {
         $this->mailerLiteService = $mailerLiteService;
-        $this->sendingBlueService = $sendingBlueService;
+        $this->brevoService = $brevoService;
     }
 
     public function handle(Verified $verified)
@@ -30,9 +30,9 @@ class AddEmailToNewsletter
         }
 
         try {
-            $this->sendingBlueService->addEmailToList($verified->user->email, $verified->user->lastname, $verified->user->firstname);
+            $this->brevoService->addEmailToList($verified->user->email, $verified->user->lastname, $verified->user->firstname);
         } catch (\Throwable $e) {
-            Log::warning('Error when adding email to sending blue : ' . $verified->user->email . ' - ' . $e->getMessage());
+            Log::warning('Error when adding email to brevo : ' . $verified->user->email . ' - ' . $e->getMessage());
         }
         try {
             $this->mailerLiteService->addEmailToList($verified->user->email);

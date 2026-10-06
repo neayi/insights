@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Debug;
 
-use App\SendinBlueService;
+use App\BrevoService;
 use App\MailerLiteService;
 use Illuminate\Console\Command;
 
@@ -12,12 +12,12 @@ class TestMailers extends Command
 
     protected $description = 'Add email to newsletter';
 
-    public function handle(SendinBlueService $sendinBlueService,
+    public function handle(BrevoService $brevoService,
                            MailerLiteService $mailerLiteService)
     {
         $email = $this->argument('email');
 
-        $sendinBlueService->addEmailToList($email, 'jean', 'dupont');
+        $brevoService->addEmailToList($email, 'jean', 'dupont');
         $mailerLiteService->addEmailToList($email);
     }
 }

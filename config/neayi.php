@@ -2,7 +2,7 @@
 
 return [
     'default_avatar' => 'images/user-solid.png',
-    'sendinblue_api_key' => env('SENDINBLUE_API_KEY'),
+    'brevo_api_key' => env('BREVO_API_KEY', env('SENDINBLUE_API_KEY')),
     'mailerlite_api_key' => env('MAILERLITE_API_KEY'),
 
     // Cloudflare Turnstile captcha on the registration form (disabled when the keys are empty)
