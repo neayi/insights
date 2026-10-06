@@ -3,6 +3,9 @@
 @section('title', __('pages.register'))
 
 @section('content')
+@if ($turnstileSiteKey)
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+@endif
 <div class="pt-3">
     <div class="modal fade modal-bg show d-block " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
         <div class="modal-dialog modal-lg mx-0 mx-sm-auto" role="document">
@@ -92,6 +95,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- Anti-bot: honeypot field hidden to humans, and form display time --}}
+                                    <div style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true">
+                                        <label for="homepage_url">Ne pas remplir</label>
+                                        <input type="text" name="homepage_url" id="homepage_url" value="" tabindex="-1" autocomplete="off">
+                                    </div>
+                                    <input type="hidden" name="form_started_at" value="{{ $formStartedAt }}">
+                                    @if ($turnstileSiteKey)
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="cf-turnstile" data-sitekey="{{ $turnstileSiteKey }}" data-action="register" data-language="{{ app()->getLocale() }}"></div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @foreach (['cf-turnstile-response', 'form_started_at', 'homepage_url', 'ip'] as $antiBotField)
+                                        @if ($errors->has($antiBotField))
+                                            <div class="invalid-feedback" style="display: block !important;">
+                                                {{ $errors->first($antiBotField) }}
+                                            </div>
+                                            @break
+                                        @endif
+                                    @endforeach
                                     <div class="row text-right mt-4">
                                         <div class="col-12">
                                             <a href="{{ route('login') }}" class="btn btn-link text-dark-green mr-4">@lang('auth.already_account')</a>

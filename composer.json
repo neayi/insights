@@ -24,6 +24,7 @@
         "mailerlite/mailerlite-php": "^1.0",
         "nickurt/laravel-stopforumspam": "^1.8",
         "nunomaduro/collision": "^6.1",
+        "propaganistas/laravel-disposable-email": "^2.5",
         "sendinblue/api-v3-sdk": "^8.4",
         "sentry/sentry-laravel": "^3.3.2",
         "spatie/laravel-ignition": "^2.0",

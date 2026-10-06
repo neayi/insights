@@ -30,6 +30,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('users:sync-on-discourse')->dailyAt('22:30');
         $schedule->command('pages:sync-to-forum')->dailyAt('23:30');
         $schedule->command('pages:import-additional-page-detail')->twiceMonthly();
+        $schedule->command('users:purge-unverified')->dailyAt('03:30');
+        $schedule->command('disposable:update')->weekly();
     }
 
     /**

@@ -45,5 +45,8 @@ return [
     'mail_reset_password_line1' => 'You receive this email because we have received a request to reset the password for your account.',
     'mail_reset_password_line2' => 'Reset your password',
     'mail_reset_password_line3' => 'The password modification link will expire in :minutes minutes.',
-    'mail_go_to_the_platform' => 'Go to<br>Triple&nbsp;Performance'
+    'mail_go_to_the_platform' => 'Go to<br>Triple&nbsp;Performance',
+    'captcha_failed' => "The anti-robot check failed, please try again.",
+    'form_rejected' => "The form could not be validated, please try again.",
+    'disposable_email' => "Disposable email addresses are not allowed.",
 ];

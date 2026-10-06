@@ -47,6 +47,8 @@ return [
     'mail_reset_password_line1' => 'Vous recevez cet email car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
     'mail_reset_password_line2' => 'Réinitialisez votre mot de passe',
     'mail_reset_password_line3' => 'Le lien de modification du mot de passe expirera dans :minutes minutes.',
-    'mail_go_to_the_platform' => 'Aller à la plateforme<br>Triple&nbsp;Performance'
-
+    'mail_go_to_the_platform' => 'Aller à la plateforme<br>Triple&nbsp;Performance',
+    'captcha_failed' => "La vérification anti-robot a échoué, merci de réessayer.",
+    'form_rejected' => "Le formulaire n'a pas pu être validé, merci de réessayer.",
+    'disposable_email' => "Les adresses email jetables ne sont pas acceptées.",
 ];

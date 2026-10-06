@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\MinimumFillTime;
+use App\Rules\Turnstile;
 use App\Src\UseCases\Domain\Auth\Register;
 use App\Src\UseCases\Domain\Auth\RegisterUserAfterErrorWithSocialNetwork;
 use App\Src\UseCases\Domain\Auth\RegisterUserFromSocialNetwork;
@@ -12,6 +14,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -24,6 +27,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        // Max 10 registration attempts per hour per IP
+        $this->middleware('throttle:10,60')->only('register');
     }
 
     public function showRegistrationForm(Request $request)
@@ -45,21 +50,37 @@ class RegisterController extends Controller
         return view('public.auth.register', [
             'email' => $email,
             'firstname' => $firstname,
-            'lastname' => $lastname
+            'lastname' => $lastname,
+            'formStartedAt' => MinimumFillTime::token(),
+            'turnstileSiteKey' => Turnstile::enabled() ? config('neayi.turnstile.site_key') : null,
         ]);
     }
 
     protected function validator(array $data)
     {
+        $ip = request()->ip();
+        $data['ip'] = $ip;
+
         return Validator::make($data, [
             'email' => ['required',
                         'email',
                         'max:255',
                         'unique:users',
-                        new \nickurt\StopForumSpam\Rules\IsSpamEmail(20)],
-            'password' => 'required|min:8|max:255|confirmed'
+                        'indisposable',
+                        new \nickurt\StopForumSpam\Rules\IsSpamEmail(3)],
+            'password' => 'required|min:8|max:255|confirmed',
+            // Anti-bot checks: hidden honeypot field must stay empty, form must not be posted instantly,
+            // the IP must not be a known spammer, and the Turnstile captcha must pass
+            'homepage_url' => 'prohibited',
+            'form_started_at' => ['required', new MinimumFillTime(3)],
+            'ip' => [new \nickurt\StopForumSpam\Rules\IsSpamIp(10)],
+            'cf-turnstile-response' => [Rule::requiredIf(Turnstile::enabled()), new Turnstile('register', $ip, request()->getHost())],
         ], [
-            'password.confirmed' => 'Veuillez confirmer votre mot de passe ci-dessous'
+            'password.confirmed' => 'Veuillez confirmer votre mot de passe ci-dessous',
+            'email.indisposable' => __('auth.disposable_email'),
+            'homepage_url.prohibited' => __('auth.form_rejected'),
+            'form_started_at.required' => __('auth.form_rejected'),
+            'cf-turnstile-response.required' => __('auth.captcha_failed'),
         ]);
     }
 
