@@ -11,14 +11,13 @@ use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\Context\Queries\GetInteractionsByPageAndUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class GetInteractionsByUserAndPageTest extends TestCase
 {
     private $wikiCode = 'fr';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetNothing()
     {
         $userId = 'abc';
@@ -28,9 +27,7 @@ class GetInteractionsByUserAndPageTest extends TestCase
         self::assertEmpty(app(GetInteractionsByPageAndUser::class)->execute(1, $this->wikiCode));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetInteractionForRegisteredUser()
     {
         $userId = 'abc';
@@ -46,9 +43,7 @@ class GetInteractionsByUserAndPageTest extends TestCase
         self::assertEquals($interactionExpected, $interactionRetrieved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetInteractionForAnonymousUser()
     {
         $this->pageRepository->save(new Page($pageId = 1));

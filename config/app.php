@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Intervention\Image\ImageServiceProvider::class,
         Tariq86\CountryList\CountryListServiceProvider::class,
 
         /*
@@ -231,7 +230,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Countries' => Tariq86\CountryList\CountryListFacade::class,
-        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

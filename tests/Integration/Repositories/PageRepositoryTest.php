@@ -6,12 +6,11 @@ namespace Tests\Integration\Repositories;
 
 use App\Src\UseCases\Domain\Context\Model\Page;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class PageRepositoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldSavePage()
     {
         $page = new Page(1);
@@ -20,9 +19,7 @@ class PageRepositoryTest extends TestCase
         self::assertDatabaseHas('pages', ['page_id' => 1]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetPage()
     {
         $page = new Page(1, true);
@@ -33,9 +30,7 @@ class PageRepositoryTest extends TestCase
         self::assertEquals($expected, $pageRetrieved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldUpdatePage()
     {
         $page = new Page(1, true);

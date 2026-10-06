@@ -6,7 +6,8 @@ namespace App\Src\UseCases\Domain\Users;
 
 use App\Src\UseCases\Domain\Ports\UserRepository;
 use App\Src\UseCases\Domain\User;
-use Intervention\Image\Facades\Image;
+use App\Src\Utils\Image\ScaledImageResponse;
+use Intervention\Image\Format;
 use Laravolt\Avatar\Facade as Avatar;
 
 class GetAvatar
@@ -34,30 +35,14 @@ class GetAvatar
             if (empty($firstLetter) && !empty($user))
                 $firstLetter = $user->fullname;
 
+            $avatar = Avatar::create($firstLetter);
             if (!empty($color))
-                return Avatar::create($firstLetter)->setBackground('#' . $color)->getImageObject()->response();
-            else
-                return Avatar::create($firstLetter)->getImageObject()->response();
+                $avatar->setBackground('#' . $color);
+
+            return response()->image($avatar->getImageObject(), Format::PNG);
         }
 
-        $img = Image::make($pathPicture);
-        $h = $img->height();
-        $w = $img->width();
-
-        $img = Image::cache(function($image) use($pathPicture, $dim, $w, $h){
-            if($w <= $h) {
-                $image->make($pathPicture)->widen($dim, function ($constraint) {
-                    $constraint->upsize();
-                });
-            }else{
-                $image->make($pathPicture)->heighten($dim, function ($constraint) {
-                    $constraint->upsize();
-                });
-            }
-        }, 3600, true);
-
-        return $img->response();
-
+        return ScaledImageResponse::make($pathPicture, $dim, 3600);
     }
 
 

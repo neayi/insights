@@ -12,14 +12,13 @@ use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\Src\UseCases\Domain\System\SetInteractionToRegisteredUser;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SetInteractionToRegisteredUserTest extends TestCase
 {
     private $wikiCode = 'fr';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldSetInteractionToRegisteredUser()
     {
         $userId = 'abc';
@@ -46,9 +45,7 @@ class SetInteractionToRegisteredUserTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldDoNothingWhenUserIsNotLogged()
     {
         $this->pageRepository->save(new Page(1));

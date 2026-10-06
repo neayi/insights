@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateDescription;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateDescriptionTest  extends TestCase
 {
@@ -18,9 +19,7 @@ class UpdateDescriptionTest  extends TestCase
         $this->authGateway->log($currentUser);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updateDescriptionContext()
     {
         $description = 'la description du context';

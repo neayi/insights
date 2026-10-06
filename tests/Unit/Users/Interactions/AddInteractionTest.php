@@ -14,6 +14,8 @@ use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Domain\Users\Interactions\HandleInteractions;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class AddInteractionTest extends TestCase
 {
@@ -25,9 +27,7 @@ class AddInteractionTest extends TestCase
         $this->authGateway->setWikiSessionId('session_id');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldNotAddNotAllowedInteractions()
     {
         $pageId = 1;
@@ -40,10 +40,8 @@ class AddInteractionTest extends TestCase
     }
 
 
-    /**
-     * @test
-     * @dataProvider dataProvider
-     */
+    #[Test]
+    #[DataProvider('dataProvider')]
     public function shouldAddInteractionToUser(array $interaction, Interaction $expected)
     {
         $pageId = 1;
@@ -61,23 +59,21 @@ class AddInteractionTest extends TestCase
         Event::assertDispatched(InteractionOnPage::class);
     }
 
-    public function dataProvider()
+    public static function dataProvider()
     {
         return [
-            [['follow'], new Interaction(1, true, false, false, [], $this->wikiCode)],
-            [['follow', 'done'], new Interaction(1,true, false, true, [], $this->wikiCode)],
-            [['unfollow'], new Interaction(1,false, false, false, [], $this->wikiCode)],
-            [['done'], new Interaction(1,false, false, true, [], $this->wikiCode)],
-            [['undone'], new Interaction(1,false, false, false, [], $this->wikiCode)],
-            [['applause'], new Interaction(1,false, true, false, [], $this->wikiCode)],
-            [['unapplause'], new Interaction(1,false, false, false, [], $this->wikiCode)],
+            [['follow'], new Interaction(1, true, false, false, [], 'fr')],
+            [['follow', 'done'], new Interaction(1,true, false, true, [], 'fr')],
+            [['unfollow'], new Interaction(1,false, false, false, [], 'fr')],
+            [['done'], new Interaction(1,false, false, true, [], 'fr')],
+            [['undone'], new Interaction(1,false, false, false, [], 'fr')],
+            [['applause'], new Interaction(1,false, true, false, [], 'fr')],
+            [['unapplause'], new Interaction(1,false, false, false, [], 'fr')],
         ];
     }
 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldUpdateInteraction()
     {
         $pageId = 1;
@@ -99,9 +95,7 @@ class AddInteractionTest extends TestCase
         Event::assertDispatched(InteractionOnPage::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldAddInteractionWithValue()
     {
         $pageId = 1;
@@ -120,9 +114,7 @@ class AddInteractionTest extends TestCase
         self::assertEquals($expected, $interactionSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldAddInteractionToAnonymousUser()
     {
         $pageId = 1;
@@ -138,9 +130,7 @@ class AddInteractionTest extends TestCase
         Event::assertDispatched(InteractionOnPage::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldUpdateInteractionToAnonymousUser()
     {
         $pageId = 1;

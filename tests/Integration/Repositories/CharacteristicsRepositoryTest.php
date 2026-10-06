@@ -6,12 +6,11 @@ namespace Tests\Integration\Repositories;
 
 use App\Src\UseCases\Domain\Context\Model\Characteristic;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class CharacteristicsRepositoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function saveCharacteristics()
     {
         $char = new Characteristic('abc', 'type', 'title', false);
@@ -23,9 +22,7 @@ class CharacteristicsRepositoryTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetCharacteristic()
     {
         $char = new Characteristic('abc', 'type', 'title', false);
@@ -35,9 +32,7 @@ class CharacteristicsRepositoryTest extends TestCase
         self::assertEquals($char, $characteristicFromDb);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldNotGetCharacteristic()
     {
         $characteristicFromDb = $this->characteristicRepository->getBy(['type' => 'type', 'title' => 'title']);

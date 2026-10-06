@@ -9,12 +9,11 @@ use App\Src\UseCases\Domain\Context\Model\Interaction;
 use App\Src\UseCases\Domain\Context\Model\RegisteredUser;
 use App\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class InteractionRepositoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldSaveInteractions()
     {
         $pageId = 1;
@@ -27,9 +26,7 @@ class InteractionRepositoryTest extends TestCase
         self::assertDatabaseHas('interactions', ['page_id' => 1, 'user_id' => $user->id, 'start_done_at' => '2020-03-23']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldUpdateInteractions()
     {
         $pageId = 1;
@@ -60,9 +57,7 @@ class InteractionRepositoryTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetInteractions()
     {
         $pageId = 1;
@@ -75,9 +70,7 @@ class InteractionRepositoryTest extends TestCase
         self::assertEquals($interaction, $interactionSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldTransferInteractions()
     {
         $pageId = 1;
@@ -96,9 +89,7 @@ class InteractionRepositoryTest extends TestCase
     }
 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetCountInteractions()
     {
         $pageId = 1;

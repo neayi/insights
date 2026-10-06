@@ -5,19 +5,19 @@ namespace Tests\Unit\Forum;
 
 use App\Src\UseCases\Domain\Forum\ForumTagHelper;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class ForumTagHelperTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider tagNameProvider
-     */
+    #[Test]
+    #[DataProvider('tagNameProvider')]
     public function shouldSanitizeTagNames(string $rawTagName, string $expectedTagName)
     {
         self::assertEquals($expectedTagName, ForumTagHelper::sanitizeTagName($rawTagName));
     }
 
-    private function tagNameProvider(): array
+    public static function tagNameProvider(): array
     {
         return [
             ['Aviculture (oeufs)', 'Aviculture-oeufs'],

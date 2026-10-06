@@ -12,6 +12,7 @@ use App\Src\UseCases\Domain\Users\Profile\FillWikiUserProfile;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class FillUserWikiProfileTest extends TestCase
 {
@@ -82,9 +83,7 @@ class FillUserWikiProfileTest extends TestCase
         self::assertEquals($exploitationExpected, $exploitationSaved);
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function test_ShouldNotUpdateUserProfile($role, $newFirstname, $newLastname, $email, $country, $postalCode)
     {
         $user = new User(Uuid::uuid4(), 'useremail@gmail.com', 'first', 'last');
@@ -94,7 +93,7 @@ class FillUserWikiProfileTest extends TestCase
         app(FillWikiUserProfile::class)->fill($this->userId, $role, $newFirstname, $newLastname, $email, $country, $postalCode);
     }
 
-    public function dataProvider()
+    public static function dataProvider()
     {
         return [
             ['', '', '', '', '', ''],

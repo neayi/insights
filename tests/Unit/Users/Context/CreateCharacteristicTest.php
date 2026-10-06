@@ -9,6 +9,7 @@ use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\UseCases\CreateCharacteristic;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class CreateCharacteristicTest extends TestCase
 {
@@ -22,9 +23,7 @@ class CreateCharacteristicTest extends TestCase
         $this->contextRepository->add($context, 'abc');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldCreateCharacteristic()
     {
         $title = 'charact';
@@ -37,9 +36,7 @@ class CreateCharacteristicTest extends TestCase
         self::assertEquals($expectedCharacteristic, $characteristicSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldCreateCharacteristicAndAddItToUser()
     {
         $title = 'charact';
@@ -52,9 +49,7 @@ class CreateCharacteristicTest extends TestCase
         self::assertEquals($contextExpected, $contextSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldNotCreateCharacteristicTwice()
     {
         $title = 'charact';

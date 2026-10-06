@@ -13,12 +13,11 @@ use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ContextQueryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function getUserContext()
     {
         $userId1 = Uuid::uuid4()->toString();
@@ -31,9 +30,7 @@ class ContextQueryTest extends TestCase
         self::assertEquals($contextExpected, $context);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUserContextDom()
     {
         $userId1 = Uuid::uuid4()->toString();
@@ -47,9 +44,7 @@ class ContextQueryTest extends TestCase
     }
 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUserContextCharacteristics()
     {
         $userId1 = Uuid::uuid4()->toString();

@@ -27,6 +27,11 @@ Route::get('{wikiCode}/neayi/discourse/sso', 'Discourse\SsoController@login')
     ->middleware('auth')
     ->name('neayi.discourse.sso');
 
+// Legacy route (formerly registered by spinen/laravel-discourse-sso), falls back to the 'fr' forum
+Route::get(config('services.discourse.route'), 'Discourse\SsoController@login')
+    ->middleware(['auth', 'check.email.verified'])
+    ->name('sso.login');
+
 Route::get('tp/{username}/{uuid}', 'Profile\ProfileController@show')->name('show.profile.logged-visitor');
 Route::get('comments', 'Profile\CommentsController@showComments')->name('profile.comments.show');
 

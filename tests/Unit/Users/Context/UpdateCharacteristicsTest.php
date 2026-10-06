@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateCharacteristics;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateCharacteristicsTest  extends TestCase
 {
@@ -18,9 +19,7 @@ class UpdateCharacteristicsTest  extends TestCase
         $this->authGateway->log($currentUser);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updateCharacteristics()
     {
         $context = new Context('abc', ['abc', 'bcd', 'cdf'], '');

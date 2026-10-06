@@ -8,12 +8,11 @@ use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\User;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ContextRepositoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function updateContext()
     {
         $characteristic1 = CharacteristicsModel::factory()->create();
@@ -34,9 +33,7 @@ class ContextRepositoryTest extends TestCase
         self::assertEquals($newContext, $contextSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetContextWithEmptyDescription()
     {
         $characteristic = CharacteristicsModel::factory()->create();
@@ -51,9 +48,7 @@ class ContextRepositoryTest extends TestCase
         self::assertEquals($contextExpected, $contextSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldAddContext()
     {
         $characteristic1 = CharacteristicsModel::factory()->create();
@@ -70,9 +65,7 @@ class ContextRepositoryTest extends TestCase
         self::assertEquals($contextExpected, $contextSaved);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldReturnEmptyContext()
     {
         $user = new User('abc', 'g@gmail.com', 'f', 'l');

@@ -5,40 +5,40 @@ namespace App\Src\UseCases\Infra\Gateway;
 
 
 use App\Src\UseCases\Domain\Shared\Gateway\PictureHandler;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class StoragePictureHandler implements PictureHandler
 {
     public function add(string $path, float $width, float $height)
     {
-        Image::make(public_path('test/640*360.png'))->resize($width, $height)->save($path);
+        Image::read(public_path('test/640*360.png'))->resize((int) $width, (int) $height)->save($path);
     }
 
     public function widen(string $source, string $dest, float $width)
     {
-        $img = Image::make($source)->widen($width);
+        $img = Image::read($source)->scale(width: (int) $width);
         $img->save($dest);
     }
 
     public function heighten(string $source, string $dest, float $height)
     {
-        $img = Image::make($source)->heighten($height);
+        $img = Image::read($source)->scale(height: (int) $height);
         $img->save($dest);
     }
 
     public function width(string $path)
     {
-        return Image::make($path)->width();
+        return Image::read($path)->width();
     }
 
     public function height(string $path)
     {
-        return Image::make($path)->height();
+        return Image::read($path)->height();
     }
 
     public function write(string $source, string $dest)
     {
-        $img = Image::make($source);
+        $img = Image::read($source);
         $img->save($dest);
     }
 

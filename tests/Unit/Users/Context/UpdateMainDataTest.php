@@ -8,6 +8,7 @@ use App\Src\UseCases\Domain\Context\Model\Context;
 use App\Src\UseCases\Domain\Context\UseCases\UpdateMainData;
 use App\Src\UseCases\Domain\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateMainDataTest  extends TestCase
 {
@@ -20,9 +21,7 @@ class UpdateMainDataTest  extends TestCase
         $this->userRepository->add($currentUser);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function updateMainDataContext()
     {
         $context = new Context('abc', [], 'test', null, null, 'FR', '83220');

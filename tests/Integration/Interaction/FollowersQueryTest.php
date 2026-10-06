@@ -16,21 +16,18 @@ use App\Src\UseCases\Domain\Context\Queries\GetFollowersOfPage;
 use App\Src\UseCases\Infra\Sql\Model\CharacteristicsModel;
 use App\User;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class FollowersQueryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetEmptyFollowers()
     {
         $followers = app(GetFollowersOfPage::class)->execute(1);
         self::assertEmpty($followers);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetFollowers()
     {
         $user = User::factory()->create();
@@ -54,9 +51,7 @@ class FollowersQueryTest extends TestCase
         self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetDoers()
     {
         $user = User::factory()->create();
@@ -87,9 +82,7 @@ class FollowersQueryTest extends TestCase
         self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetWithDepartment()
     {
         $user = User::factory()->create();
@@ -120,9 +113,7 @@ class FollowersQueryTest extends TestCase
         self::assertEquals($followerDtoExpected, $followers[0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldGetWithFarmingType()
     {
         $user = User::factory()->create();
