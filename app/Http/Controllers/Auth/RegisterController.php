@@ -187,7 +187,7 @@ class RegisterController extends Controller
 
     public function showErrorRegisterFormSocialNetwork()
     {
-        return view('auth.register-social-network');
+        return view('public.auth.register-social-network');
     }
 
     public function registerAfterError(Request $request, RegisterUserAfterErrorWithSocialNetwork $registerUserAfterErrorWithSocialNetwork)
@@ -200,7 +200,7 @@ class RegisterController extends Controller
         $locale = \App\LocalesConfig::getPreferredLocale();
         $user->default_locale = $locale->code;
         $user->save();
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     private function initData(Request $request): array

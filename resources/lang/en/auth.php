@@ -49,4 +49,9 @@ return [
     'captcha_failed' => "The anti-robot check failed, please try again.",
     'form_rejected' => "The form could not be validated, please try again.",
     'disposable_email' => "Disposable email addresses are not allowed.",
+
+    'verify_email_sent' => "A fresh verification link has been sent to your email address.",
+    'verify_check_your_email' => "Before proceeding, please check your email for a verification link.",
+    'verify_if_not_recieved' => "If you did not receive the email",
+    'verify_request_another' => "click here to request another",
 ];

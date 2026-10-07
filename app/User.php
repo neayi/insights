@@ -35,25 +35,12 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         'wiki_stats' => 'json',
     ];
 
-    public function adminlte_image()
+    public function avatarUrl(): string
     {
-        $urlPicture = $this->path_picture != "" ? asset('storage/'.str_replace('app/public/', '', $this->path_picture)) : null;
-        if(!isset($urlPicture) || $urlPicture === ""){
-            $urlPicture = url('').'/'.config('adminlte.logo_img');
-        }
-        return $urlPicture;
-    }
+        if (!empty($this->path_picture))
+            return asset('storage/'.str_replace('app/public/', '', $this->path_picture));
 
-    public function adminlte_desc()
-    {
-        $desc = $this->firstname.' '.$this->lastname;
-
-        return $desc;
-    }
-
-    public function adminlte_profile_url()
-    {
-        return 'user/edit/profile';
+        return asset(config('neayi.default_avatar'));
     }
 
     /**

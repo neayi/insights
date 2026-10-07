@@ -31,7 +31,7 @@ class OAuthController extends BaseController
             'name' => $user->firstname.' '.$user->lastname,
             'realname' => $user->firstname.' '.$user->lastname,
             'email' => $user->email,
-            'avatar' => $user->adminlte_image(),
+            'avatar' => $user->avatarUrl(),
             'token' => $token->plainTextToken
         ];
     }

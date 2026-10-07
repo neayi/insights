@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckEmailVerified;
-use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\FlashWikiCallback;
 use App\Http\Middleware\IsWizardProfileAvailable;
 use App\Http\Middleware\SelectLocale;
@@ -73,7 +72,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'auth.check.role' => CheckRole::class,
         'flash.wiki' => FlashWikiCallback::class,
         'is.wizard.profile.available' => IsWizardProfileAvailable::class,
         'wiki.session.id' => SetWikiSessionId::class,

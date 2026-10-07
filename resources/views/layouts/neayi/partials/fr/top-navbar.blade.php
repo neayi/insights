@@ -54,7 +54,7 @@
         @if(\Illuminate\Support\Facades\Auth::user() !== null)
             <div class="create-profile">
                 <div class="row align-items-center" style="height: 100%; margin: 0">
-                    <div class="col-auto"><img class="neayi-avatar" src="{{\Illuminate\Support\Facades\Auth::user()->adminlte_image()}}"></div>
+                    <div class="col-auto"><img class="neayi-avatar" src="{{\Illuminate\Support\Facades\Auth::user()->avatarUrl()}}"></div>
                     <div class="col">
                         <div class="navbar-tool dropdown position-static show" id="neayi-navbar-menu">
                             <a href="#" class="neayi-username dropdown-toggle" data-toggle="dropdown" data-boundary="viewport">{{\Illuminate\Support\Facades\Auth::user()->fullname()}}</a>
