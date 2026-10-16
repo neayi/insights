@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth', 'is.wizard.profile.available']], function
 });
 
 Route::get('{wikiCode}/neayi/discourse/sso', 'Discourse\SsoController@login')
-    ->middleware('auth')
+    ->middleware(['auth', 'check.email.verified'])
     ->name('neayi.discourse.sso');
 
 // Legacy route (formerly registered by spinen/laravel-discourse-sso), falls back to the 'fr' forum
