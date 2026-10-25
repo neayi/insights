@@ -35,6 +35,15 @@ class User extends Authenticatable implements \Illuminate\Contracts\Auth\MustVer
         'wiki_stats' => 'json',
     ];
 
+    /**
+     * Users created through a social login have no password. Laravel 12 compares the password hash
+     * stored in the "remember me" cookie with hash_equals(), which throws a TypeError on null.
+     */
+    public function getAuthPassword()
+    {
+        return (string) parent::getAuthPassword();
+    }
+
     public function avatarUrl(): string
     {
         if (!empty($this->path_picture))
