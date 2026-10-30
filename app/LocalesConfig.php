@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exceptions\TechnicalException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
@@ -25,6 +26,14 @@ class LocalesConfig extends Model
         'forum_taggroup_themes',
         'lang_name',
     ];
+
+    /**
+     * Some locales have no wiki behind them (e.g. the Itinera ones), they must be left out of the wiki API calls
+     */
+    public function scopeWithWikiApi(Builder $query): Builder
+    {
+        return $query->where('wiki_api_url', '<>', '');
+    }
 
     /**
      * Returns the locale config for the wiki that best matches the code passed in parameters,

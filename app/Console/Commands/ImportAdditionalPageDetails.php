@@ -19,7 +19,7 @@ class ImportAdditionalPageDetails extends Command
 
     public function handle(): void
     {
-        $localesConfig = LocalesConfig::all();
+        $localesConfig = LocalesConfig::withWikiApi()->get();
 
         foreach ($localesConfig as $localeConfig) {
             $this->processDetail(

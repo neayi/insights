@@ -33,7 +33,7 @@ class ImportCharacteristicsFromWiki extends Command
     {
         // @see https://wiki.tripleperformance.fr/wiki/Aide:Requettes_Insights
 
-        $localesConfig = LocalesConfig::all();
+        $localesConfig = LocalesConfig::withWikiApi()->get();
 
         foreach ($localesConfig as $localeConfig) {
             $client = new WikiClient($localeConfig->toArray());
