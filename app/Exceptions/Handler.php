@@ -15,7 +15,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        TechnicalException::class
+        TechnicalException::class,
+        NotFound::class,
     ];
 
     /**
